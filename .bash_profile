@@ -1,0 +1,1 @@
+/home/jp/.bash_profile

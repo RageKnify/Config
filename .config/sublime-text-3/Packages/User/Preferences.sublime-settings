@@ -1,0 +1,15 @@
+{
+	"color_scheme": "Packages/Color Scheme - Default/Monokai.sublime-color-scheme",
+	"font_face": "Fira Code",
+	"font_size": 12,
+	"ignored_packages":
+	[
+		"Vintage"
+	],
+	"rulers":
+	[
+		80
+	],
+	"theme": "Adaptive.sublime-theme",
+	"translate_tabs_to_spaces": true
+}

@@ -28,7 +28,7 @@ set colorcolumn=81,82,83
 
 match ErrorMsg '\%>80v.\+'
 
-set columns=87
+"set columns=87
 
 if filereadable(expand("~/.vimrc_background"))
   let base16colorspace=256

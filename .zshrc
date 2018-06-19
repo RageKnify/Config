@@ -41,14 +41,14 @@ BASE16_SHELL=$HOME/.base16-manager/chriskempson/base16-shell/
     [ -s $BASE16_SHELL/profile_helper.sh ] && \
         eval "$($BASE16_SHELL/profile_helper.sh)"
 
-export BASE00=\#fdf6e3 #background
-export BASE01=\#eee8d5 #lighter background
-export BASE02=\#93a1a1 #selection background
-export BASE03=\#839496 #comments, invisibles, line highlighting
-export BASE04=\#657b83 #dark foreground
-export BASE05=\#586e75 #default foreground
-export BASE06=\#973642 #light foreground
-export BASE07=\#002b36 #light background
+export BASE00=\#002b36 #background
+export BASE01=\#073642 #lighter background
+export BASE02=\#586e75 #selection background
+export BASE03=\#657b83 #comments, invisibles, line highlighting
+export BASE04=\#839496 #dark foreground
+export BASE05=\#93a1a1 #default foreground
+export BASE06=\#eee8d5 #light foreground
+export BASE07=\#fdf6e3 #light background
 export BASE08=\#dc322f #red       variables
 
 export BASE09=\#cb4b16 #orange    integers, booleans, constants

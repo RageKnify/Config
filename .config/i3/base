@@ -186,4 +186,4 @@ exec_always --no-startup-id /home/jp/.fehbg
 exec_always --no-startup-id redshift
 exec_always --no-startup-id xautolock -time 10 -locker i3lock
 exec_always --no-startup-id powerline-daemon -q
-exec_always --no-startup-id $HOME/.config/polybar/launch.sh
+exec_always --no-startup-id /home/jp/.config/polybar/launch.sh

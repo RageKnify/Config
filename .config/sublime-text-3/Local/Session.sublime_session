@@ -1273,11 +1273,18 @@
 			"buffers":
 			[
 				{
-					"file": "/home/jp/.zshrc",
+					"file": "/home/jp/Documents/LEIC/1Ano/2Sem/IAED/2Project/source/main.c",
 					"settings":
 					{
-						"buffer_size": 1972,
-						"encoding": "UTF-8",
+						"buffer_size": 1354,
+						"line_ending": "Unix"
+					}
+				},
+				{
+					"file": "/home/jp/Documents/LEIC/1Ano/2Sem/IAED/2Project/source/prog.c",
+					"settings":
+					{
+						"buffer_size": 9394,
 						"line_ending": "Unix"
 					}
 				}
@@ -1326,6 +1333,8 @@
 			],
 			"file_history":
 			[
+				"/home/jp/Documents/LEIC/1Ano/2Sem/IAED/1Project/proj1.c",
+				"/home/jp/.zshrc",
 				"/home/jp/.zsh_hist",
 				"/home/jp/ap.py",
 				"/home/jp/Documents/LEIC/1Ano/2Sem/IAED/2Project/source/read.c",
@@ -1334,7 +1343,6 @@
 				"/home/jp/Documents/LEIC/1Ano/2Sem/IAED/2Project/source/task.h",
 				"/home/jp/Documents/LEIC/1Ano/2Sem/IAED/2Project/source/dll.c",
 				"/home/jp/Documents/LEIC/1Ano/2Sem/IAED/2Project/source/prog.c",
-				"/home/jp/Documents/LEIC/1Ano/2Sem/IAED/1Project/proj1.c",
 				"/home/jp/Documents/LEIC/1Ano/2Sem/IAED/2Project/source/dll.h",
 				"/home/jp/.bashrc",
 				"/home/jp/.config/i3/config",
@@ -1397,6 +1405,7 @@
 				"case_sensitive": true,
 				"find_history":
 				[
+					"NA",
 					"PAT",
 					"Path",
 					"dmen",
@@ -1459,33 +1468,64 @@
 			"groups":
 			[
 				{
-					"selected": 0,
+					"selected": 1,
 					"sheets":
 					[
 						{
 							"buffer": 0,
-							"file": "/home/jp/.zshrc",
+							"file": "/home/jp/Documents/LEIC/1Ano/2Sem/IAED/2Project/source/main.c",
 							"semi_transient": false,
 							"settings":
 							{
-								"buffer_size": 1972,
+								"buffer_size": 1354,
 								"regions":
 								{
 								},
 								"selection":
 								[
 									[
-										1873,
-										1873
+										0,
+										0
 									]
 								],
 								"settings":
 								{
-									"syntax": "Packages/Text/Plain text.tmLanguage",
-									"word_wrap": false
+									"syntax": "Packages/C++/C.sublime-syntax",
+									"tab_size": 4,
+									"translate_tabs_to_spaces": true
 								},
 								"translation.x": 0.0,
-								"translation.y": 837.487537388,
+								"translation.y": 0.0,
+								"zoom_level": 1.0
+							},
+							"stack_index": 1,
+							"type": "text"
+						},
+						{
+							"buffer": 1,
+							"file": "/home/jp/Documents/LEIC/1Ano/2Sem/IAED/2Project/source/prog.c",
+							"semi_transient": false,
+							"settings":
+							{
+								"buffer_size": 9394,
+								"regions":
+								{
+								},
+								"selection":
+								[
+									[
+										8780,
+										8780
+									]
+								],
+								"settings":
+								{
+									"syntax": "Packages/C++/C.sublime-syntax",
+									"tab_size": 4,
+									"translate_tabs_to_spaces": true
+								},
+								"translation.x": 0.0,
+								"translation.y": 4599.20239282,
 								"zoom_level": 1.0
 							},
 							"stack_index": 0,
@@ -1530,7 +1570,7 @@
 				"height": 0.0
 			},
 			"pinned_build_system": "",
-			"position": "0,0,0,0,0,960,22,1916,1046,1920,1080",
+			"position": "0,0,0,0,0,0,0,1920,1048,1920,1080",
 			"project": "",
 			"replace":
 			{

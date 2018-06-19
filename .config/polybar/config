@@ -41,45 +41,16 @@ font-3 = "Font Awesome 5 Brands,Font Awesome 5 Brands Regular:style=Regular;2"
 
 modules-left = i3 xkeyboard
 ;modules-center = mpd
-modules-right = filesystem cpu temperature memory battery date
+modules-right = filesystem0 filesystem1 cpu temperature memory wlan battery date
 
 tray-position = right
 tray-padding = 2
 padding-right = 1
 ;tray-transparent = true
-;tray-background = #0063ff
 
 ;wm-restack = i3
 
 bottom = true
-
-[module/xkeyboard]
-type = internal/xkeyboard
-;blacklist-0 = num lock
-
-format-prefix = "  "
-format-prefix-foreground = ${colors.foreground-alt}
-format-prefix-underline = ${colors.secondary}
-
-label-layout = %layout%
-label-layout-underline = ${colors.secondary}
-
-label-indicator=%name%
-label-indicator-padding = 2
-label-indicator-margin = 1
-label-indicator-background = ${colors.secondary}
-label-indicator-underline = ${colors.secondary}
-
-[module/filesystem]
-type = internal/fs
-interval = 25
-
-mount-0 = /
-mount-1 = /home
-
-label-mounted = %{F#81a2be}%mountpoint%%{F-}: %percentage_used%%
-label-unmounted = %mountpoint% not mounted
-label-unmounted-foreground = ${colors.foreground-alt}
 
 [module/i3]
 type = internal/i3
@@ -115,6 +86,24 @@ label-urgent = %index%
 label-urgent-background = ${colors.alert}
 label-urgent-padding = 2
 
+[module/xkeyboard]
+type = internal/xkeyboard
+;blacklist-0 = num lock
+
+format-prefix = "  "
+format-prefix-foreground = ${colors.foreground-alt}
+format-prefix-underline = ${colors.secondary}
+
+label-layout = %layout%
+label-layout-underline = ${colors.secondary}
+
+label-indicator=%name%
+label-indicator-padding = 2
+label-indicator-margin = 1
+label-indicator-foreground = ${colors.background}
+label-indicator-background = ${colors.secondary}
+label-indicator-underline = ${colors.secondary}
+
 ;[module/mpd]
 ;type = internal/mpd
 ;host = 127.0.0.1
@@ -131,18 +120,61 @@ label-urgent-padding = 2
 ;label-song-maxlen = 25
 ;label-song-ellipsis = true
 
-[module/pulseaudio]
-type = internal/pulseaudio
+;[module/pulseaudio]
+;type = internal/pulseaudio
 
-sink = alsa_output.pci-0000_00_1f.3.analog-stereo
+;sink = alsa_output.pci-0000_00_1f.3.analog-stereo
+
+[module/filesystem0]
+type = internal/fs
+interval = 30
+
+mount-0 = /
+
+; #eee8d5 is base06-light foreground / foreground-alt
+label-mounted = %{F#eee8d5}%mountpoint%%{F-}: %percentage_used%%
+format-mounted = <label-mounted>
+format-mounted-underline = ${env:BASE0F}
+
+[module/filesystem1]
+type = internal/fs
+interval = 30
+
+mount-0 = /home
+
+; #eee8d5 is base06-light foreground / foreground-alt
+label-mounted = %{F#eee8d5}%mountpoint%%{F-}: %percentage_used%%
+format-mounted = <label-mounted>
+format-mounted-underline = ${env:BASE0F}
 
 [module/cpu]
 type = internal/cpu
 interval = 2
 format-prefix = " "
 format-prefix-foreground = ${colors.foreground-alt}
-format-underline = ${env:BASE08}
+format-underline = ${env:BASE0E}
 label = %percentage%%
+
+[module/temperature]
+type = internal/temperature
+thermal-zone = 4
+warn-temperature = 60
+
+format = <ramp> <label>
+format-underline = ${env:BASE0E}
+format-warn = <ramp> <label-warn>
+format-warn-underline = ${self.format-underline}
+
+label = %temperature%
+label-warn = %temperature%
+label-warn-foreground = ${env:BASE08}
+
+ramp-0 = 
+ramp-1 = 
+ramp-2 = 
+ramp-3 = 
+ramp-4 = 
+ramp-foreground = ${colors.foreground-alt}
 
 [module/memory]
 type = internal/memory
@@ -154,7 +186,7 @@ label = %gb_used%/%gb_total%
 
 [module/wlan]
 type = internal/network
-interface = wlp63s0
+interface = wlp2s0
 interval = 3.0
 
 format-connected-prefix = " "
@@ -163,7 +195,7 @@ format-connected-prefix-foreground = ${colors.foreground-alt}
 format-disconnected-prefix-foreground = ${colors.foreground-alt}
 
 format-connected = <ramp-signal> <label-connected>
-format-connected-underline = #9f78e1
+format-connected-underline = ${env:BASE0B}
 label-connected = %essid%
 
 format-disconnected = <label-disconnected> 
@@ -180,7 +212,7 @@ ramp-signal-foreground = ${colors.foreground-alt}
 
 [module/eth]
 type = internal/network
-interface = enp62s0u1
+interface = enp0s31f6
 interval = 3.0
 
 format-connected-prefix = "ETHERNET "
@@ -195,22 +227,6 @@ label-disconnected = ETH_DISCONNECTED_ICON
 format-disconnected-underline = ${self.format-connected-underline}
 label-disconnected-foreground = ${colors.secondary}
 
-[module/date]
-type = internal/date
-interval = 5
-
-date = "%d/%b"
-date-alt = "%a %Y-%m-%d"
-
-time = %H:%M
-time-alt = %H:%M:%S
-
-format-prefix = " "
-format-prefix-foreground = ${colors.foreground-alt}
-format-underline = ${env:BASE0D}
-
-label = %date% %time%
-
 [module/battery]
 type = internal/battery
 battery = BAT0
@@ -220,12 +236,13 @@ time-format = %H:%M
 
 format-charging = <animation-charging> <label-charging>
 label-charging = %percentage%%
-format-charging-underline = ${colors.secondary}
+format-charging-underline =  ${env:BASE0A}
 
 format-discharging = <ramp-capacity> <label-discharging>
 label-discharging = %percentage%%
 format-discharging-underline = ${self.format-charging-underline}
 
+ramp-capacity-foreground = ${colors.foreground-alt}
 ramp-capacity-0 = 
 ramp-capacity-1 = 
 ramp-capacity-2 = 
@@ -244,26 +261,21 @@ animation-charging-4 = 
 animation-charging-foreground = ${colors.foreground-alt}
 animation-charging-framerate = 750
 
-[module/temperature]
-type = internal/temperature
-thermal-zone = 4
-warn-temperature = 60
+[module/date]
+type = internal/date
+interval = 5
 
-format = <ramp> <label>
+date = "%d %b"
+date-alt = "%a %Y-%m-%d"
+
+time = %H:%M
+time-alt = %H:%M:%S
+
+format-prefix = " "
+format-prefix-foreground = ${colors.foreground-alt}
 format-underline = ${env:BASE08}
-format-warn = <ramp> <label-warn>
-format-warn-underline = ${self.format-underline}
 
-label = %temperature%
-label-warn = %temperature%
-label-warn-foreground = ${env:BASE08}
-
-ramp-0 = 
-ramp-1 = 
-ramp-2 = 
-ramp-3 = 
-ramp-4 = 
-ramp-foreground = ${colors.foreground-alt}
+label = %date% %time%
 
 [settings]
 screenchange-reload = true

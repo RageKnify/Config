@@ -4,6 +4,8 @@ syntax on
 
 let g:airline_powerline_fonts = 1
 
+let g:airline_theme='base16'
+
 set laststatus=2
 
 let g:bufferline_echo = 0
@@ -48,6 +50,10 @@ call plug#begin('~/.vim/plugged')
 Plug 'scrooloose/nerdtree'
 
 Plug 'vim-airline/vim-airline'
+
+Plug 'vim-airline/vim-airline-themes'
+
+Plug 'tpope/vim-fugitive'
 
 call plug#end()
 

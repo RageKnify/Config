@@ -10,6 +10,10 @@ set laststatus=2
 
 let g:bufferline_echo = 0
 
+let g:ycm_global_ycm_extra_conf = '~/.vim/.ycm_extra_conf.py'
+
+let g:ycm_server_python_interpreter = '/bin/python2'
+
 set nowrap
 
 set so=5
@@ -25,6 +29,14 @@ set expandtab
 set shiftwidth=4
 
 set softtabstop=4
+
+autocmd BufReadPost *
+    \ if line("'\"") > 1 && line("'\"") <= line("$") |
+    \   execute "normal! g`\"" |
+    \ endif
+
+nnoremap <expr> n  'Nn'[v:searchforward]
+nnoremap <expr> N  'nN'[v:searchforward]
 
 set colorcolumn=81,82,83
 
@@ -54,6 +66,8 @@ Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 
 Plug 'tpope/vim-fugitive'
+
+Plug 'townk/vim-autoclose'
 
 call plug#end()
 

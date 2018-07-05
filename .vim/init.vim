@@ -38,6 +38,11 @@ autocmd BufReadPost *
 nnoremap <expr> n  'Nn'[v:searchforward]
 nnoremap <expr> N  'nN'[v:searchforward]
 
+inoremap jj <Esc>
+inoremap kj <Esc>
+inoremap jk <Esc>
+inoremap kk <Esc>
+
 set colorcolumn=81,82,83
 
 match ErrorMsg '\%>80v.\+'

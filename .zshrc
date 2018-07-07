@@ -24,8 +24,8 @@ compinit
 zstyle ':completion:*' menu select
 
 if [[ -z $DISPLAY ]] && [[ $(tty) = /dev/tty1 ]]; then
-	startx &> /dev/null
-	exit
+        startx &> /dev/null
+        exit
 fi
 
 bindkey "\e[3~" delete-char
@@ -62,9 +62,7 @@ export BASE0F=\#d33682 #          deprecated, opening/closing embedded language 
 export EDITOR=nvim
 
 alias i3lock='i3lock -u -i $HOME/Pictures/X-Wings.png'
-alias ':quit'='exit'
 alias ':q'='exit'
-alias po='poweroff'
 
 PROMPT_DIRTRIM=2
 # PS1="\A-\u@\h \w \$ "

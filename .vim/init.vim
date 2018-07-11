@@ -1,18 +1,8 @@
 syntax on
 
-" let g:powerline_pycmd="py3"
-
-let g:airline_powerline_fonts = 1
-
-let g:airline_theme='base16'
-
 set laststatus=2
 
 let g:bufferline_echo = 0
-
-let g:ycm_global_ycm_extra_conf = '~/.vim/.ycm_extra_conf.py'
-
-let g:ycm_server_python_interpreter = '/bin/python2'
 
 set nowrap
 
@@ -47,7 +37,7 @@ set colorcolumn=81,82,83
 
 match ErrorMsg '\%>80v.\+'
 
-"set columns=87
+let g:NERDTreeWinSize=25
 
 if filereadable(expand("~/.vimrc_background"))
   let base16colorspace=256
@@ -62,6 +52,36 @@ if empty(glob('~/.vim/autoload/plug.vim'))
   autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
 endif
 
+let g:airline_powerline_fonts = 1
+
+let g:airline_theme='base16'
+
+let g:airline#extensions#ale#enabled = 1
+
+let g:ale_completion_enabled = 1
+
+set signcolumn=yes
+
+set hidden
+
+let g:LanguageClient_serverCommands = {
+    \ 'rust': ['rustup', 'run', 'nightly', 'rls'],
+    \ 'javascript': ['javascript-typescript-stdio'],
+    \ 'python': ['pyls'],
+    \ }
+
+nnoremap <silent> K :call LanguageClient#textDocument_hover()<CR>
+nnoremap <silent> gd :call LanguageClient#textDocument_definition()<CR>
+nnoremap <silent> <F2> :call LanguageClient#textDocument_rename()<CR>
+
+" ncm2
+autocmd bufEnter * call ncm2#enable_for_buffer()
+
+set completeopt=noinsert,menuone,noselect
+
+inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
+inoremap <expr> <S-Tab> pumvisible() ? "\<C-n>" : "<S-Tab>"
+
 call plug#begin('~/.vim/plugged')
 
 Plug 'scrooloose/nerdtree'
@@ -73,6 +93,17 @@ Plug 'vim-airline/vim-airline-themes'
 Plug 'tpope/vim-fugitive'
 
 Plug 'Raimondi/delimitMate'
+
+Plug 'w0rp/ale'
+
+Plug 'roxma/nvim-yarp'
+
+Plug 'ncm2/ncm2'
+
+Plug 'autozimu/LanguageClient-neovim', {
+    \ 'branch': 'next',
+    \ 'do': 'bash install.sh',
+    \ }
 
 call plug#end()
 

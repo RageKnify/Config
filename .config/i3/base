@@ -36,6 +36,12 @@ bindsym $mod+Return exec kitty
 # kill focused window
 bindsym $mod+Shift+q kill
 
+#systemd
+set $shutdown poweroff #shutdown -h now
+set $reboot reboot
+set $netrefresh --no-startup-id sudo systemctl restart NetworkManager
+set $hibernate systemctl suspend
+
 # start dmenu (a program launcher)
 # bindsym $mod+d exec dmenu_run
 bindsym $mod+d exec "dmenu_run -nf '$base05' -nb '$base00' -sb '$base08' -sf '$base00' -fn 'FiraCode-Regular-12'"
@@ -51,10 +57,10 @@ bindsym $mod+k focus up
 bindsym $mod+l focus right
 
 # alternatively, you can use the cursor keys:
-bindsym $mod+Left focus left
-bindsym $mod+Down focus down
-bindsym $mod+Up focus up
-bindsym $mod+Right focus right
+bindsym $mod+Left   focus left
+bindsym $mod+Down   focus down
+bindsym $mod+Up     focus up
+bindsym $mod+Right  focus right
 
 # move focused window
 bindsym $mod+Shift+h move left
@@ -63,9 +69,9 @@ bindsym $mod+Shift+k move up
 bindsym $mod+Shift+l move right
 
 # alternatively, you can use the cursor keys:
-bindsym $mod+Shift+Left move left
-bindsym $mod+Shift+Down move down
-bindsym $mod+Shift+Up move up
+bindsym $mod+Shift+Left  move left
+bindsym $mod+Shift+Down  move down
+bindsym $mod+Shift+Up    move up
 bindsym $mod+Shift+Right move right
 
 # split in horizontal orientation
@@ -136,7 +142,9 @@ bindsym $mod+Shift+c exec "cat .config/i3/colors .config/i3/base > .config/i3/co
 # restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
 bindsym $mod+Shift+r restart
 # exit i3 (logs you out of your X session)
-bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -b 'Yes, exit i3' 'i3-msg exit'"
+bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'Exit i3? This will end your X session.' -b 'Yes, exit i3' 'i3-msg exit'"
+
+bindsym $mod+Shift+x exec /home/jp/Documents/Code/prompt "Shutdown?" $shutdown
 
 # resize window (you can also use the mouse for that)
 mode "resize" {
@@ -176,7 +184,7 @@ client.background       $base07
 
 hide_edge_borders both
 
-gaps inner 10
+gaps inner 20
 gaps outer 0
 smart_gaps on
 new_window 1pixel

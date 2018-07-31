@@ -165,8 +165,8 @@ format-underline = ${env:BASE0E}
 format-warn = <ramp> <label-warn>
 format-warn-underline = ${self.format-underline}
 
-label = %temperature%
-label-warn = %temperature%
+label = %temperature-c%
+label-warn = %temperature-c%
 label-warn-foreground = ${env:BASE08}
 
 ramp-0 = 

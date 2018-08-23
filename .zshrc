@@ -12,7 +12,7 @@ zstyle :compinstall filename '/home/jp/.zshrc'
 export PATH="/usr/bin:$PATH"
 
 # powerline-daemmon -q
-. /usr/lib/python3.6/site-packages/powerline/bindings/zsh/powerline.zsh
+. /usr/lib/python3.7/site-packages/powerline/bindings/zsh/powerline.zsh
 
 autoload -Uz promptinit
 promptinit

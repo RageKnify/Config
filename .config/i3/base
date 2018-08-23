@@ -184,7 +184,7 @@ client.background       $base07
 
 hide_edge_borders both
 
-gaps inner 20
+gaps inner 10
 gaps outer 0
 smart_gaps on
 new_window 1pixel

@@ -61,6 +61,7 @@ export BASE0F=\#d33682 #          deprecated, opening/closing embedded language 
 
 export EDITOR=nvim
 
+alias nv=nvim
 alias i3lock='i3lock -u -i $HOME/Pictures/X-Wings.png'
 alias ':q'='exit'
 

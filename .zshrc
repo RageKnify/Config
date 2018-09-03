@@ -61,8 +61,11 @@ export BASE0F=\#d33682 #          deprecated, opening/closing embedded language 
 
 export EDITOR=nvim
 
+export LOCKER='/home/jp/Documents/Code/glitchlock/glitchlock'
+alias lock='$LOCKER'
+
 alias nv=nvim
-alias i3lock='i3lock -u -i $HOME/Pictures/X-Wings.png'
+#alias i3lock='i3lock -u -i $HOME/Pictures/X-Wings.png'
 alias ':q'='exit'
 
 PROMPT_DIRTRIM=2

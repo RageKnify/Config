@@ -164,8 +164,10 @@ bindsym $mod+Shift+c exec "cat .config/i3/colors .config/i3/base > .config/i3/co
 bindsym $mod+Shift+r restart
 # exit i3 (logs you out of your X session)
 bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'Exit i3? This will end your X session.' -b 'Yes, exit i3' 'i3-msg exit'"
-
+# shutdown
 bindsym $mod+Shift+x exec /home/jp/Documents/Code/prompt "Shutdown?" $shutdown
+# lock the screen
+bindsym $mod+x exec /home/jp/Documents/Code/prompt "Lock?" '/home/jp/Documents/Code/glitchlock/glitchlock'
 
 # resize window (you can also use the mouse for that)
 mode "resize" {

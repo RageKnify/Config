@@ -63,7 +63,7 @@ inoremap <expr> <S-Tab> pumvisible() ? "\<C-n>" : "<S-Tab>"
 
 nnoremap <Up>       :resize +2<CR>
 nnoremap <Down>     :resize -2<CR>
-nnoremap <Left>     :verticcal resize +2<CR>
+nnoremap <Left>     :vertical resize +2<CR>
 nnoremap <Right>    :vertical resize -2<CR>
 
 
@@ -89,8 +89,6 @@ let g:Illuminate_delay = 100
 Plug 'w0rp/ale'
 let g:ale_completion_enabled = 1
 
-Plug 'roxma/nvim-yarp'
-
 Plug 'ncm2/ncm2'
 " ncm2
 autocmd bufEnter * call ncm2#enable_for_buffer()
@@ -108,6 +106,8 @@ let g:LanguageClient_serverCommands = {
 nnoremap <silent> K :call LanguageClient#textDocument_hover()<CR>
 nnoremap <silent> gd :call LanguageClient#textDocument_definition()<CR>
 nnoremap <silent> <F2> :call LanguageClient#textDocument_rename()<CR>
+
+Plug 'roxma/nvim-yarp'
 
 Plug 'ying17zi/vim-live-latex-preview'
 

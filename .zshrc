@@ -67,6 +67,7 @@ alias lock='$LOCKER'
 alias nv=nvim
 #alias i3lock='i3lock -u -i $HOME/Pictures/X-Wings.png'
 alias ':q'='exit'
+alias 'TODO'='grep -rn . -e TODO'
 
 PROMPT_DIRTRIM=2
 # PS1="\A-\u@\h \w \$ "

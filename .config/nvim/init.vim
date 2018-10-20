@@ -15,11 +15,13 @@ set numberwidth=3
 set splitbelow
 set splitright
 
-set expandtab
-
 set shiftwidth=4
 
 set softtabstop=4
+
+set tabstop=4
+
+set fdm=syntax
 
 " Saves cursor position to be used next time the file is edited
 autocmd BufReadPost *
@@ -58,9 +60,6 @@ set hidden
 
 set completeopt=noinsert,menuone,noselect
 
-inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
-inoremap <expr> <S-Tab> pumvisible() ? "\<C-n>" : "<S-Tab>"
-
 nnoremap <Up>       :resize +2<CR>
 nnoremap <Down>     :resize -2<CR>
 nnoremap <Left>     :vertical resize +2<CR>
@@ -68,6 +67,10 @@ nnoremap <Right>    :vertical resize -2<CR>
 
 
 call plug#begin('~/.vim/plugged')
+
+" Changes the working directory to the project root
+Plug 'airblade/vim-rooter'
+let g:rooter_patterns = ['Rakefile', '.git/', 'CVS']
 
 Plug 'scrooloose/nerdtree'
 let g:NERDTreeWinSize=25
@@ -89,9 +92,12 @@ let g:Illuminate_delay = 100
 Plug 'w0rp/ale'
 let g:ale_completion_enabled = 1
 
-Plug 'ncm2/ncm2'
-" ncm2
-autocmd bufEnter * call ncm2#enable_for_buffer()
+Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+let g:deoplete#enable_at_startup = 1
+
+Plug 'SirVer/ultisnips'
+
+Plug 'honza/vim-snippets'
 
 Plug 'autozimu/LanguageClient-neovim', {
     \ 'branch': 'next',
@@ -99,7 +105,9 @@ Plug 'autozimu/LanguageClient-neovim', {
     \ }
 let g:LanguageClient_serverCommands = {
     \ 'c': ['cquery'],
-    \ 'cpp': ['cquery'],
+    \ 'cpp': ['/usr/bin/cquery',
+    \ '--log-file=/tmp/cp.log',
+    \ '--init={"cacheDirectory":"/var/cquery/"}'],
     \ 'python': ['pyls'],
     \ 'rust': ['rls'],
     \ }

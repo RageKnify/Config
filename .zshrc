@@ -69,6 +69,8 @@ alias nv=nvim
 alias ':q'='exit'
 alias 'FIND'='grep -rn . -e'
 
+export JAVA_HOME=/usr/lib/jvm/java-8-openjdk
+
 export CVS_RSH=ssh
 export CVSROOT=:ext:ist189482@sigma.ist.utl.pt:/afs/ist.utl.pt/groups/leic-po/po18/cvs/010
 

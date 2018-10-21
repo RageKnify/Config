@@ -1,5 +1,7 @@
 syntax on
 
+filetype plugin on
+
 set laststatus=2
 
 let g:bufferline_echo = 0
@@ -91,6 +93,15 @@ let g:Illuminate_delay = 100
 
 Plug 'w0rp/ale'
 let g:ale_completion_enabled = 1
+let g:ale_fixers = {
+\	'java': [
+\		'google_java_format',
+\	],
+\}
+let g:ale_linters = {
+\	'cpp': ['ccls', 'clangcheck', 'clangd', 'clang', 'clazy', 'cppcheck',
+\	'cpplint', 'cquery', 'flawfinder', 'gcc']
+\}
 
 Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 let g:deoplete#enable_at_startup = 1
@@ -98,22 +109,6 @@ let g:deoplete#enable_at_startup = 1
 Plug 'SirVer/ultisnips'
 
 Plug 'honza/vim-snippets'
-
-Plug 'autozimu/LanguageClient-neovim', {
-    \ 'branch': 'next',
-    \ 'do': 'bash install.sh',
-    \ }
-let g:LanguageClient_serverCommands = {
-    \ 'c': ['cquery'],
-    \ 'cpp': ['/usr/bin/cquery',
-    \ '--log-file=/tmp/cp.log',
-    \ '--init={"cacheDirectory":"/var/cquery/"}'],
-    \ 'python': ['pyls'],
-    \ 'rust': ['rls'],
-    \ }
-nnoremap <silent> K :call LanguageClient#textDocument_hover()<CR>
-nnoremap <silent> gd :call LanguageClient#textDocument_definition()<CR>
-nnoremap <silent> <F2> :call LanguageClient#textDocument_rename()<CR>
 
 Plug 'roxma/nvim-yarp'
 

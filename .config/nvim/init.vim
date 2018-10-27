@@ -1,6 +1,6 @@
 syntax on
 
-filetype plugin on
+filetype plugin indent on
 
 set laststatus=2
 
@@ -10,9 +10,9 @@ set nowrap
 
 set so=5
 
-set number
-set relativenumber
-set numberwidth=3
+"set number
+"set relativenumber
+"set numberwidth=3
 
 set splitbelow
 set splitright
@@ -105,6 +105,10 @@ let g:ale_linters = {
 
 Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 let g:deoplete#enable_at_startup = 1
+
+Plug 'Shougo/neoinclude.vim'
+
+Plug 'Shougo/deoplete-clangx'
 
 Plug 'SirVer/ultisnips'
 

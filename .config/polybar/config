@@ -191,14 +191,14 @@ interval = 3.0
 
 format-connected-prefix = " "
 format-disconnected-prefix = ${self.format-connected-prefix}
-format-connected-prefix-foreground = ${colors.foreground-alt} 
+format-connected-prefix-foreground = ${colors.foreground-alt}
 format-disconnected-prefix-foreground = ${colors.foreground-alt}
 
 format-connected = <ramp-signal> <label-connected>
 format-connected-underline = ${env:BASE0B}
 label-connected = %essid%
 
-format-disconnected = <label-disconnected> 
+format-disconnected = <label-disconnected>
 format-disconnected-underline = ${self.format-connected-underline}
 label-disconnected = WIFI_DISC_ICON
 label-disconnected-foreground = ${colors.secondary}
@@ -231,7 +231,7 @@ label-disconnected-foreground = ${colors.secondary}
 type = internal/battery
 battery = BAT0
 adapter = ACAD
-full-at = 100 
+full-at = 100
 time-format = %H:%M
 
 format-charging = <animation-charging> <label-charging>

@@ -7,6 +7,7 @@ killall -q polybar
 while pgrep -u $UID -x polybar >/dev/null; do sleep 1; done
 
 # Launch bar
-polybar -r barBottom &
+source /home/jp/.zsh_colors
+polybar --config=/home/jp/.config/polybar/config -r barBottom &
 
 echo "Bars launched..."

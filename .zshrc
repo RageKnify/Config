@@ -41,23 +41,7 @@ BASE16_SHELL=$HOME/.base16-manager/chriskempson/base16-shell/
     [ -s $BASE16_SHELL/profile_helper.sh ] && \
         eval "$($BASE16_SHELL/profile_helper.sh)"
 
-export BASE00=\#002b36 #background
-export BASE01=\#073642 #lighter background
-export BASE02=\#586e75 #selection background
-export BASE03=\#657b83 #comments, invisibles, line highlighting
-export BASE04=\#839496 #dark foreground
-export BASE05=\#93a1a1 #default foreground
-export BASE06=\#eee8d5 #light foreground
-export BASE07=\#fdf6e3 #light background
-export BASE08=\#dc322f #red       variables
-
-export BASE09=\#cb4b16 #orange    integers, booleans, constants
-export BASE0A=\#b58900 #yellow    classes
-export BASE0B=\#859900 #green     strings
-export BASE0C=\#2aa198 #aqua      support, regular expressions
-export BASE0D=\#268bd2 #blue      functions, methods
-export BASE0E=\#6c71c4 #purple    keywords, storage, selector
-export BASE0F=\#d33682 #          deprecated, opening/closing embedded language tags
+source .zsh_colors
 
 export EDITOR=nvim
 

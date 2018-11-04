@@ -72,7 +72,7 @@ call plug#begin('~/.vim/plugged')
 
 " Changes the working directory to the project root
 Plug 'airblade/vim-rooter'
-let g:rooter_patterns = ['Rakefile', '.git/', 'CVS']
+let g:rooter_patterns = ['Rakefile', '.git', '.git/']
 
 Plug 'scrooloose/nerdtree'
 let g:NERDTreeWinSize=25

@@ -41,7 +41,7 @@ BASE16_SHELL=$HOME/.base16-manager/chriskempson/base16-shell/
     [ -s $BASE16_SHELL/profile_helper.sh ] && \
         eval "$($BASE16_SHELL/profile_helper.sh)"
 
-source .zsh_colors
+source $HOME/.zsh_colors
 
 export EDITOR=nvim
 
@@ -56,7 +56,7 @@ alias 'FIND'='grep -rn . -e'
 export JAVA_HOME=/usr/lib/jvm/java-8-openjdk
 
 export CVS_RSH=ssh
-export CVSROOT=:ext:ist189482@sigma.ist.utl.pt:/afs/ist.utl.pt/groups/leic-po/po18/cvs/010
+export CVSROOT=:ext:ist189482@ss01:/afs/ist.utl.pt/groups/leic-po/po18/cvs/010
 
 PROMPT_DIRTRIM=2
 # PS1="\A-\u@\h \w \$ "

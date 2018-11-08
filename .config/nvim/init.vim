@@ -42,6 +42,10 @@ inoremap jk <Esc>
 " Easy bind to leave terminal mode
 tnoremap <Esc> <C-\><C-n>
 
+" uses insessitive search unless a Capital letter is used
+set ignorecase
+set smartcase
+
 " Limit myself to 80 characters
 set colorcolumn=81,82,83
 "match ErrorMsg '\%>80v.\+'

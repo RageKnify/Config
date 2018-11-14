@@ -21,6 +21,9 @@ autoload -Uz compinit
 compinit
 # End of lines added by compinstall
 
+# Completion for kitty
+kitty + complete setup zsh | source /dev/stdin
+
 zstyle ':completion:*' menu select
 
 if [[ -z $DISPLAY ]] && [[ $(tty) = /dev/tty1 ]]; then
@@ -57,6 +60,7 @@ export JAVA_HOME=/usr/lib/jvm/java-8-openjdk
 
 export CVS_RSH=ssh
 export CVSROOT=:ext:ist189482@ss01:/afs/ist.utl.pt/groups/leic-po/po18/cvs/010
+export CLASSPATH=/usr/share/java/po-uuilib.jar:~/po/project/sth-core/sth-core.jar
 
 PROMPT_DIRTRIM=2
 # PS1="\A-\u@\h \w \$ "

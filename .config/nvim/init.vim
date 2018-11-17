@@ -2,6 +2,8 @@ syntax on
 
 filetype plugin indent on
 
+set path+=**
+
 set laststatus=2
 
 let g:bufferline_echo = 0

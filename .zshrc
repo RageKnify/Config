@@ -60,7 +60,7 @@ export JAVA_HOME=/usr/lib/jvm/java-8-openjdk
 
 export CVS_RSH=ssh
 export CVSROOT=:ext:ist189482@ss01:/afs/ist.utl.pt/groups/leic-po/po18/cvs/010
-export CLASSPATH=/usr/share/java/po-uuilib.jar:~/po/project/sth-core/sth-core.jar
+export CLASSPATH=/usr/share/java/po-uuilib.jar:~/po/project/sth-core/sth-core.jar:~/po/project/sth-app/sth-app.jar
 
 PROMPT_DIRTRIM=2
 # PS1="\A-\u@\h \w \$ "

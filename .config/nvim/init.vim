@@ -73,15 +73,15 @@ nnoremap <Down>     :resize -2<CR>
 nnoremap <Left>     :vertical resize +2<CR>
 nnoremap <Right>    :vertical resize -2<CR>
 
+set wildignore=*.o,*.pyc,*.class
+let NERDTreeIgnore = ['\.o$', '\.class$', '\.jar$', 'CVS']
 
 call plug#begin('~/.vim/plugged')
 
-" Changes the working directory to the project root
-Plug 'airblade/vim-rooter'
-let g:rooter_patterns = ['Rakefile', '.git', '.git/']
-
 Plug 'scrooloose/nerdtree'
 let g:NERDTreeWinSize=25
+autocmd StdinReadPre * let s:std_in=1
+autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
 
 Plug 'vim-airline/vim-airline'
 

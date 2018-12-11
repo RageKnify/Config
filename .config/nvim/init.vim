@@ -12,10 +12,6 @@ set nowrap
 
 set so=5
 
-"set number
-"set relativenumber
-"set numberwidth=3
-
 set splitbelow
 set splitright
 
@@ -44,13 +40,17 @@ inoremap jk <Esc>
 " Easy bind to leave terminal mode
 tnoremap <Esc> <C-\><C-n>
 
-" uses insessitive search unless a Capital letter is used
+" uses insensitive search unless a Capital letter is used
 set ignorecase
 set smartcase
 
 " Limit myself to 80 characters
-set colorcolumn=81,82,83
-"match ErrorMsg '\%>80v.\+'
+set colorcolumn=81,82
+"Highlight merge markers
+match ErrorMsg '^\(<\|=\|>\)\{7\}\([^=].\+\)\?$'
+
+set autoread
+
 
 let base16colorspace=256
 

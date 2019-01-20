@@ -79,9 +79,7 @@ let NERDTreeIgnore = ['\.o$', '\.class$', '\.jar$', 'CVS']
 call plug#begin('~/.vim/plugged')
 
 Plug 'scrooloose/nerdtree'
-let g:NERDTreeWinSize=25
-autocmd StdinReadPre * let s:std_in=1
-autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
+let g:NERDTreeWinSize=20
 
 Plug 'vim-airline/vim-airline'
 

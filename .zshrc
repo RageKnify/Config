@@ -10,6 +10,7 @@ bindkey '^R' history-incremental-search-backward
 zstyle :compinstall filename '/home/jp/.zshrc'
 
 export PATH="/usr/bin:$PATH"
+export PATH="$HOME/bin:$PATH"
 
 # powerline-daemmon -q
 . /usr/lib/python3.7/site-packages/powerline/bindings/zsh/powerline.zsh

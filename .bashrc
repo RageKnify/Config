@@ -7,6 +7,10 @@ if [[ -z $DISPLAY ]] && [[ $(tty) = /dev/tty1 ]]; then
 	exit
 fi
 
+source /usr/share/bash-completion/bash_completion
+
+set -o vi
+
 # If not running interactively, don't do anything
 [[ $- != *i* ]] && return
 
@@ -28,16 +32,24 @@ export BASE0D=\#66b0ff #blue      functions, methods
 export BASE0E=\#f10596 #purple    keywords, storage, selector
 export BASE0F=\#f003ef #          deprecated, opening/closing embedded language tags
 
-export EDITOR=vim
+export EDITOR=nvim
 
-BASE16_SHELL=$HOME/.config/base16-shell/
+BASE16_SHELL=$HOME/.base16-manager/chriskempson/base16-shell/
 [ -n "$PS1" ] && \
     [ -s $BASE16_SHELL/profile_helper.sh ] && \
         eval "$($BASE16_SHELL/profile_helper.sh)"
 
-alias i3lock='i3lock -u -c $BASE01'
+export PATH="/usr/bin:$PATH"
+export PATH="$HOME/bin:$PATH"
+
+source $HOME/.colors
+
+alias nv=nvim
+alias ':q'=exit
+
+export JAVA_HOME=/usr/lib/jvm/java-8-openjdk
 
 shopt -s autocd
 
 PROMPT_DIRTRIM=2
-PS1="\A-\u@\h \w \$ "
+export PS1="\[$(tput bold)\]\[$(tput setaf 1)\][\[$(tput setaf 3)\]\u\[$(tput setaf 2)\]@\[$(tput setaf 4)\]\h \[$(tput setaf 5)\]\W\[$(tput setaf 1)\]]\[$(tput setaf 7)\]\\$ \[$(tput sgr0)\]"

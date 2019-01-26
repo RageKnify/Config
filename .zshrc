@@ -12,8 +12,6 @@ zstyle :compinstall filename '/home/jp/.zshrc'
 export PATH="/usr/bin:$PATH"
 export PATH="$HOME/bin:$PATH"
 
-# powerline-daemmon -q
-. /usr/lib/python3.7/site-packages/powerline/bindings/zsh/powerline.zsh
 
 autoload -Uz promptinit
 promptinit
@@ -45,7 +43,7 @@ BASE16_SHELL=$HOME/.base16-manager/chriskempson/base16-shell/
     [ -s $BASE16_SHELL/profile_helper.sh ] && \
         eval "$($BASE16_SHELL/profile_helper.sh)"
 
-source $HOME/.zsh_colors
+source $HOME/.colors
 
 export EDITOR=nvim
 
@@ -53,7 +51,6 @@ export LOCKER='/home/jp/Documents/Code/glitchlock/glitchlock'
 alias lock='$LOCKER'
 
 alias nv=nvim
-#alias i3lock='i3lock -u -i $HOME/Pictures/X-Wings.png'
 alias ':q'='exit'
 alias 'FIND'='grep -rn . -e'
 

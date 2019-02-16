@@ -197,6 +197,8 @@ bindsym $mod+Shift+s	gaps inner current minus 5
 
 
 exec_always --no-startup-id compton -CGb
+exec_always --no-startup-id gebaard -b
+exec_always --no-startup-id alternating_layouts.py
 exec_always --no-startup-id /home/jp/.fehbg
 exec_always --no-startup-id redshift
 exec_always --no-startup-id xautolock -time 10 -locker '/home/jp/Documents/Code/glitchlock/glitchlock'

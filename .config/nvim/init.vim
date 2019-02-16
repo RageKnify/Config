@@ -122,6 +122,9 @@ Plug 'roxma/nvim-yarp'
 
 Plug 'ying17zi/vim-live-latex-preview'
 
+Plug '/usr/local/opt/fzf'
+Plug 'junegunn/fzf.vim'
+
 call plug#end()
 
 hi! Normal ctermbg=NONE guibg=NONE

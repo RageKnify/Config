@@ -7,12 +7,15 @@ if [[ -z $DISPLAY ]] && [[ $(tty) = /dev/tty1 ]]; then
 	exit
 fi
 
+# If not running interactively, don't do anything
+[[ $- != *i* ]] && return
+
+HISTFILESIZE=10000
+HISTSIZE=10000
+
 source /usr/share/bash-completion/bash_completion
 
 set -o vi
-
-# If not running interactively, don't do anything
-[[ $- != *i* ]] && return
 
 export BASE00=\#00002a #background
 export BASE01=\#2e2f30 #lighter background
@@ -39,8 +42,8 @@ BASE16_SHELL=$HOME/.base16-manager/chriskempson/base16-shell/
     [ -s $BASE16_SHELL/profile_helper.sh ] && \
         eval "$($BASE16_SHELL/profile_helper.sh)"
 
-export PATH="/usr/bin:$PATH"
-export PATH="$HOME/bin:$PATH"
+export PATH="$PATH:$HOME/bin"
+export PATH="$PATH:$HOME/.local/bin"
 
 source $HOME/.colors
 
@@ -57,3 +60,8 @@ parse_git_branch() {
 
 PROMPT_DIRTRIM=2
 PS1='\[$(tput bold)\]\[$(tput setaf 1)\][\[$(tput setaf 3)\]\u\[$(tput setaf 2)\]@\[$(tput setaf 4)\]\h \[$(tput setaf 5)\]\w\[$(tput setaf 1)\]]\[$(tput setaf 2)\]$(parse_git_branch)\[$(tput setaf 7)\]\\$ \[$(tput sgr0)\]'
+
+# Android stuf
+export USE_CCACHE=1
+export CCACHE_COMPRESS=1
+export ANDROID_JACK_VM_ARGS="-Dfile.encoding=UTF-8 -XX:+TieredCompilation -Xmx4G"

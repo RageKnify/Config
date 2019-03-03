@@ -84,7 +84,7 @@ bindsym $mod+v split v
 bindsym $mod+f fullscreen toggle
 
 # change container layout (stacked, tabbed, toggle split)
-bindsym $mod+w layout stacking
+bindsym $mod+w layout tabbed
 bindsym $mod+e layout toggle split
 
 # toggle tiling / floating
@@ -147,8 +147,8 @@ bindsym $mod+Shift+x exec --no-startup-id /home/jp/Documents/Code/prompt "Shutdo
 # lock the screen
 bindsym $mod+x exec --no-startup-id /home/jp/Documents/Code/prompt "Lock?" '/home/jp/Documents/Code/glitchlock/glitchlock'
 
-# enable / disable autolock
-bindsym $mod+Shift+a exec --no-startup-id /home/jp/Documents/Code/autolock "Autolock:"
+# enable / disable xautolock
+bindsym $mod+Shift+a exec --no-startup-id /home/jp/Documents/Code/xautolock "xautolock:"
 
 # resize window (you can also use the mouse for that)
 mode "resize" {
@@ -196,11 +196,10 @@ bindsym $mod+s			gaps inner current plus 5
 bindsym $mod+Shift+s	gaps inner current minus 5
 
 
-exec_always --no-startup-id compton -CGb
-exec_always --no-startup-id gebaard -b
-exec_always --no-startup-id alternating_layouts.py
-exec_always --no-startup-id /home/jp/.fehbg
-exec_always --no-startup-id redshift
-exec_always --no-startup-id xautolock -time 10 -locker '/home/jp/Documents/Code/glitchlock/glitchlock'
-exec_always --no-startup-id powerline-daemon -q
+exec --no-startup-id compton -CGb
+exec --no-startup-id gebaard -b
+#exec_always --no-startup-id alternating_layouts.py
+exec --no-startup-id /home/jp/.fehbg
+exec --no-startup-id redshift
+exec --no-startup-id xautolock -time 10 -locker '/home/jp/Documents/Code/glitchlock/glitchlock'
 exec_always --no-startup-id /home/jp/.config/polybar/launch.sh

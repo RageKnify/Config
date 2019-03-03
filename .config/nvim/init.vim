@@ -73,6 +73,9 @@ nnoremap <Down>     :resize -2<CR>
 nnoremap <Left>     :vertical resize +2<CR>
 nnoremap <Right>    :vertical resize -2<CR>
 
+" Filter command
+command! -nargs=? Filter let @a='' | execute 'g/<args>/y A' | new | setlocal bt=nofile | put! a
+
 set wildignore=*.o,*.pyc,*.class
 let NERDTreeIgnore = ['\.o$', '\.class$', '\.jar$', 'CVS']
 

@@ -1,8 +1,8 @@
 [commands.swipe.three]
 up = "i3-msg layout toggle stacking tabbed"
 down = "i3-msg layout toggle split"
-left = "i3-msg workspace prev"
-right = "i3-msg workspace next"
+left = "i3-msg workspace next"
+right = "i3-msg workspace prev"
 
 [commands.swipe.four]
 up = ""

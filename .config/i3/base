@@ -136,12 +136,16 @@ bindsym $mod+Shift+8 move container to workspace $ws8
 bindsym $mod+Shift+9 move container to workspace $ws9
 bindsym $mod+Shift+0 move container to workspace $ws10
 
+# Assign Workspaces:
+assign [class="chrome"] $ws1
+assign [class="discord"] $ws5
+
 # reload the configuration file
 bindsym $mod+Shift+c exec --no-startup-id "cat .config/i3/colors .config/i3/base > .config/i3/config && i3-msg reload"
 # restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
 bindsym $mod+Shift+r restart
 # exit i3 (logs you out of your X session)
-bindsym $mod+Shift+e exec --no-startup-id "i3-nagbar -t warning -m 'Exit i3? This will end your X session.' -b 'Yes, exit i3' 'i3-msg exit'"
+bindsym $mod+Shift+e exec --no-startup-id /home/jp/Documents/Code/prompt "Exit i3?" 'i3-msg exit'
 # shutdown
 bindsym $mod+Shift+x exec --no-startup-id /home/jp/Documents/Code/prompt "Shutdown?" $shutdown
 # lock the screen

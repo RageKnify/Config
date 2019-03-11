@@ -90,6 +90,7 @@ Plug 'vim-airline/vim-airline-themes'
 let g:airline_powerline_fonts = 1
 let g:airline_theme='base16'
 let g:airline#extensions#ale#enabled = 1
+let g:airline#extensions#whitespace#mixed_indent_algo=1
 
 Plug 'tpope/vim-fugitive'
 

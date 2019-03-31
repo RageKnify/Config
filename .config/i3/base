@@ -124,6 +124,10 @@ bindsym $mod+8 workspace $ws8
 bindsym $mod+9 workspace $ws9
 bindsym $mod+0 workspace $ws10
 
+# switch to next or previous workspace
+bindsym $mod+Tab workspace next
+bindsym $mod+Shift+Tab workspace prev
+
 # move focused container to workspace
 bindsym $mod+Shift+1 move container to workspace $ws1
 bindsym $mod+Shift+2 move container to workspace $ws2
@@ -149,7 +153,7 @@ bindsym $mod+Shift+e exec --no-startup-id /home/jp/Documents/Code/prompt "Exit i
 # shutdown
 bindsym $mod+Shift+x exec --no-startup-id /home/jp/Documents/Code/prompt "Shutdown?" $shutdown
 # lock the screen
-bindsym $mod+x exec --no-startup-id /home/jp/Documents/Code/prompt "Lock?" '/home/jp/Documents/Code/glitchlock/glitchlock'
+bindsym $mod+x exec --no-startup-id /home/jp/Documents/Code/prompt "Lock?" /home/jp/Documents/Code/lock
 
 # enable / disable xautolock
 bindsym $mod+Shift+a exec --no-startup-id /home/jp/Documents/Code/xautolock "xautolock:"

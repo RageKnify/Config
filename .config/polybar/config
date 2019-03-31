@@ -39,8 +39,8 @@ font-1 = "Font Awesome 5 Free:style=regular;4"
 font-2 = "Font Awesome 5 Free:style=solid;4"
 font-3 = "Font Awesome 5 Brands,Font Awesome 5 Brands Regular:style=Regular;4"
 
-modules-left = i3 xkeyboard mpd
-modules-right = filesystem0 filesystem1 cpu temperature memory wlan battery date
+modules-left = i3 xkeyboard mpd pulseaudio
+modules-right = filesystem0 filesystem1 cpu temperature memory wlan battery date updates-arch
 
 tray-position = right
 tray-padding = 1
@@ -127,10 +127,10 @@ format-offline = 🎜 mpd is offline
 label-song-maxlen = 40
 label-song-ellipsis = true
 
-;[module/pulseaudio]
-;type = internal/pulseaudio
+[module/pulseaudio]
+type = internal/pulseaudio
 
-;sink = alsa_output.pci-0000_00_1f.3.analog-stereo
+sink = alsa_output.pci-0000_00_1f.3.analog-stereo
 
 [module/filesystem0]
 type = internal/fs
@@ -283,6 +283,13 @@ format-prefix-foreground = ${colors.foreground-alt}
 format-overline = ${env:BASE08}
 
 label = %date% %time%
+
+[module/updates-arch]
+type = custom/script
+exec = ~/bin/updates-arch-combined.sh
+interval = 300
+format-prefix = 
+format-overline = ${env:BASE08}
 
 [settings]
 screenchange-reload = true

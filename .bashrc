@@ -3,8 +3,8 @@
 #
 
 if [[ -z $DISPLAY ]] && [[ $(tty) = /dev/tty1 ]]; then
-	startx &> /dev/null
-	exit
+    startx &> /dev/null
+    exit
 fi
 
 # If not running interactively, don't do anything
@@ -58,8 +58,13 @@ parse_git_branch() {
      git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/(\1)/'
 }
 
+PROMPT_SYMBOL=⋉
+
 PROMPT_DIRTRIM=2
-PS1='\[$(tput bold)\]\[$(tput setaf 1)\][\[$(tput setaf 3)\]\u\[$(tput setaf 2)\]@\[$(tput setaf 4)\]\h \[$(tput setaf 5)\]\w\[$(tput setaf 1)\]]\[$(tput setaf 2)\]$(parse_git_branch)\[$(tput setaf 7)\]\\$ \[$(tput sgr0)\]'
+PS1='\[$(tput bold)\]\[$(tput setaf 1)\][\[$(tput setaf 3)\]\u\[$(tput setaf 2)\]@\
+\[$(tput setaf 4)\]\h \[$(tput setaf 5)\]\w\[$(tput setaf 1)\]]\
+\[$(tput setaf 2)\]$(parse_git_branch)\[$(tput setaf 7)\]$PROMPT_SYMBOL \
+\[$(tput sgr0)\]'
 
 # Android stuf
 export USE_CCACHE=1

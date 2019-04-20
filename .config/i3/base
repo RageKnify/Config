@@ -209,5 +209,5 @@ exec --no-startup-id gebaard -b
 #exec_always --no-startup-id alternating_layouts.py
 exec --no-startup-id /home/jp/.fehbg
 exec --no-startup-id redshift
-exec --no-startup-id xautolock -time 10 -locker '/home/jp/Documents/Code/glitchlock/glitchlock'
+exec --no-startup-id xautolock -time 10 -locker '/home/jp/Documents/Code/lock'
 exec_always --no-startup-id /home/jp/.config/polybar/launch.sh

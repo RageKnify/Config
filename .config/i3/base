@@ -50,6 +50,10 @@ bindsym $mod+d exec --no-startup-id "dmenu_run -nf '$base05' -nb '$base00' -sb '
 # installed.
 # bindsym $mod+d i3-dmenu-desktop
 
+bindsym $mod+m exec --no-startup-id "/home/jp/bin/dmenumount"
+
+bindsym $mod+u exec --no-startup-id "/home/jp/bin/dmenuumount"
+
 # change focus
 bindsym $mod+h focus left
 bindsym $mod+j focus down

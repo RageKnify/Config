@@ -40,6 +40,9 @@ inoremap jk <Esc>
 " Easy bind to leave terminal mode
 tnoremap <Esc> <C-\><C-n>
 
+" Change leader key to space bar
+let mapleader = " "
+
 " uses insensitive search unless a Capital letter is used
 set ignorecase
 set smartcase
@@ -128,6 +131,16 @@ Plug 'ying17zi/vim-live-latex-preview'
 
 Plug '/usr/local/opt/fzf'
 Plug 'junegunn/fzf.vim'
+" fuzzy find files in the working directory (where you launched Vim from)
+nmap <leader>f :Files<cr>
+" fuzzy find lines in the current file
+nmap <leader>/ :BLines<cr>
+" fuzzy find an open buffer
+nmap <leader>b :Buffers<cr>
+" fuzzy find text in the working directory
+nmap <leader>r :Rg<cr>
+" fuzzy find Vim commands (like Ctrl-Shift-P in Sublime/Atom/VSC)
+nmap <leader>c :Commands<cr>
 
 call plug#end()
 

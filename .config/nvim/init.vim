@@ -16,10 +16,10 @@ set splitbelow
 set splitright
 
 set shiftwidth=4
-
 set softtabstop=4
-
 set tabstop=4
+
+autocmd Filetype html setlocal ts=2 sts=2 sw=2 expandtab
 
 set fdm=syntax
 
@@ -56,6 +56,7 @@ set autoread
 
 
 let base16colorspace=256
+set termguicolors
 
 source ~/.config/nvim/colorscheme.vim
 
@@ -128,6 +129,11 @@ Plug 'honza/vim-snippets'
 Plug 'roxma/nvim-yarp'
 
 Plug 'ying17zi/vim-live-latex-preview'
+
+Plug 'RRethy/vim-hexokinase'
+let g:Hexokinase_virtualText = '■■■'
+let g:Hexokinase_refreshEvents = ['BufWritePost']
+let g:Hexokinase_ftAutoload = ['css', 'xml']
 
 Plug '/usr/local/opt/fzf'
 Plug 'junegunn/fzf.vim'

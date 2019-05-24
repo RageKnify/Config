@@ -55,17 +55,13 @@ export JAVA_HOME=/usr/lib/jvm/java-8-openjdk
 
 shopt -s autocd
 
-parse_git_branch() {
-     git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/(\1)/'
+function prompt_command {
+    RET=$?
+    export PS1=$(~/.bash_prompt_command $RET $COLUMNS)
 }
 
-PROMPT_SYMBOL=⋉
-
 PROMPT_DIRTRIM=2
-PS1='\[$(tput bold)\]\[$(tput setaf 1)\][\[$(tput setaf 3)\]\u\[$(tput setaf 2)\]@\
-\[$(tput setaf 4)\]\h \[$(tput setaf 5)\]\w\[$(tput setaf 1)\]]\
-\[$(tput setaf 2)\]$(parse_git_branch)\[$(tput setaf 7)\]$PROMPT_SYMBOL \
-\[$(tput sgr0)\]'
+PROMPT_COMMAND=prompt_command
 
 # Android stuf
 export USE_CCACHE=1

@@ -4,8 +4,6 @@ filetype plugin indent on
 
 set path+=**
 
-set laststatus=2
-
 let g:bufferline_echo = 0
 
 set nowrap
@@ -57,6 +55,7 @@ set autoread
 
 let base16colorspace=256
 set termguicolors
+set background=light
 
 source ~/.config/nvim/colorscheme.vim
 
@@ -80,6 +79,8 @@ nnoremap <Right>    :vertical resize -2<CR>
 " Filter command
 command! -nargs=? Filter let @a='' | execute 'g/<args>/y A' | new | setlocal bt=nofile | put! a
 
+set spelllang=pt
+
 set wildignore=*.o,*.pyc,*.class
 let NERDTreeIgnore = ['\.o$', '\.class$', '\.jar$', 'CVS']
 
@@ -88,13 +89,27 @@ call plug#begin('~/.vim/plugged')
 Plug 'scrooloose/nerdtree'
 let g:NERDTreeWinSize=20
 
-Plug 'vim-airline/vim-airline'
+function! StatusLine(current)
+  return (a:current ? crystalline#mode() . '%#Crystalline#' : '%#CrystallineInactive#')
+        \ . ' %f%h%w%m%r '
+        \ . (a:current ? '%#CrystallineFill# %{fugitive#head()} ' : '')
+        \ . '%=' . (a:current ? '%#Crystalline# %{&paste?"PASTE ":""}%{&spell?"SPELL ":""}' . crystalline#mode_color() : '')
+        \ . ' %{&ft}[%{&enc}][%{&ffs}] %l/%L %2(%v%) '
+endfunction
 
-Plug 'vim-airline/vim-airline-themes'
-let g:airline_powerline_fonts = 1
-let g:airline_theme='base16'
-let g:airline#extensions#ale#enabled = 1
-let g:airline#extensions#whitespace#mixed_indent_algo=1
+function! TabLine()
+  let l:vimlabel = has("nvim") ?  " NVIM " : " VIM "
+  return crystalline#bufferline(2, len(l:vimlabel), 1) . '%=%#CrystallineTab# ' . l:vimlabel
+endfunction
+
+let g:crystalline_statusline_fn = 'StatusLine'
+let g:crystalline_tabline_fn = 'TabLine'
+let g:crystalline_theme = 'gruvbox'
+
+set showtabline=2
+set laststatus=2
+Plug 'rbong/vim-crystalline'
+
 
 Plug 'tpope/vim-fugitive'
 

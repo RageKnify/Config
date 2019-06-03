@@ -154,14 +154,14 @@ bindsym $mod+Shift+c exec --no-startup-id "cat .config/i3/colors .config/i3/base
 # restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
 bindsym $mod+Shift+r restart
 # exit i3 (logs you out of your X session)
-bindsym $mod+Shift+e exec --no-startup-id /home/jp/Documents/Code/prompt "Exit i3?" 'i3-msg exit'
+bindsym $mod+Shift+e exec --no-startup-id /home/jp/bin/prompt.sh "Exit i3?" 'i3-msg exit'
 # shutdown
-bindsym $mod+Shift+x exec --no-startup-id /home/jp/Documents/Code/prompt "Shutdown?" $shutdown
+bindsym $mod+Shift+x exec --no-startup-id /home/jp/bin/prompt.sh "Shutdown?" $shutdown
 # lock the screen
-bindsym $mod+x exec --no-startup-id /home/jp/Documents/Code/prompt "Lock?" /home/jp/Documents/Code/lock
+bindsym $mod+x exec --no-startup-id /home/jp/bin/prompt.sh "Lock?" /home/jp/bin/lock.sh
 
 # enable / disable xautolock
-bindsym $mod+Shift+a exec --no-startup-id /home/jp/Documents/Code/xautolock "xautolock:"
+bindsym $mod+Shift+a exec --no-startup-id /home/jp/bin/xautolock_toggle.sh "xautolock:"
 
 # screenshot and open in gimp
 bindsym $mod+Shift+p exec --no-startup-id /home/jp/bin/screenshot.sh

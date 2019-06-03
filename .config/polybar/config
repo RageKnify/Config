@@ -286,8 +286,8 @@ label = %date% %time%
 
 [module/updates-arch]
 type = custom/script
-exec = ~/bin/updates-arch-combined.sh
-interval = 300
+exec = cat /tmp/updates_total
+interval = 60
 format-prefix = 
 format-overline = ${env:BASE08}
 

@@ -104,10 +104,11 @@ endfunction
 
 let g:crystalline_statusline_fn = 'StatusLine'
 let g:crystalline_tabline_fn = 'TabLine'
-let g:crystalline_theme = 'gruvbox'
+let g:crystalline_theme = 'solarized'
 
 set showtabline=2
 set laststatus=2
+set noshowmode
 Plug 'rbong/vim-crystalline'
 
 

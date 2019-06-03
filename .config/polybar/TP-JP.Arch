@@ -1,0 +1,70 @@
+; polybar config for Thinkpad
+[bar/barBottom]
+monitor = ${env:MONITOR:eDP-1}
+
+modules-left = i3 xkeyboard mpd pulseaudio
+modules-right = filesystem0 filesystem1 cpu temperature memory wlan battery date updates-arch
+
+[module/i3]
+label-mode-padding = 2
+label-mode-foreground = #000
+label-mode-background = ${colors.primary}
+
+; focused = Active workspace on focused monitor
+label-focused = %icon%
+label-focused-background = ${colors.background-alt}
+label-focused-overline = ${colors.primary}
+label-focused-padding = 2
+
+; unfocused = Inactive workspace on any monitor
+label-unfocused = %icon%
+label-unfocused-padding = 2
+
+; visible = Active workspace on unfocused monitor
+label-visible = %icon%
+label-visible-background = ${self.label-focused-background}
+label-visible-overline = ${self.label-focused-overline}
+label-visible-padding = ${self.label-focused-padding}
+
+; urgent = Workspace with urgency hint set
+label-urgent = %icon%
+label-urgent-background = ${colors.alert}
+label-urgent-padding = 2
+
+ws-icon-0 = 1;
+ws-icon-1 = 2;
+ws-icon-2 = 3;
+ws-icon-3 = 4;
+ws-icon-4 = 5;
+ws-icon-default = 
+
+[module/mpd]
+type = internal/mpd
+host = 127.0.0.1
+port = 6600
+
+format-online = <icon-prev> <icon-stop> <toggle> <icon-next> <label-song>
+icon-active-font = 1
+icon-prev = " "
+icon-stop = ""
+icon-play = ""
+icon-pause = ""
+icon-next = " "
+format-offline = 🎜 mpd is offline
+
+label-song-maxlen = 40
+label-song-ellipsis = true
+
+[module/updates-arch]
+type = custom/script
+exec = cat /tmp/updates_total
+interval = 60
+format-prefix = 
+format-overline = ${env:BASE08}
+
+[module/pulseaudio]
+type = internal/pulseaudio
+
+sink = alsa_output.pci-0000_00_1f.3.analog-stereo
+
+; vim:ft=dosini

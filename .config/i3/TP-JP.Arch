@@ -1,0 +1,22 @@
+# i3 config for Thinkpad
+
+# mount and umount script
+bindsym $mod+m exec --no-startup-id "/home/jp/bin/dmenumount"
+
+bindsym $mod+u exec --no-startup-id "/home/jp/bin/dmenuumount"
+
+# Assign Workspaces:
+assign [class="chrome"] $ws1
+assign [class="discord"] $ws5
+assign [class="gimp"] $ws6
+
+# enable / disable xautolock
+bindsym $mod+Shift+a exec --no-startup-id /home/jp/bin/xautolock_toggle.sh "xautolock:"
+
+# screenshot and open in gimp
+bindsym $mod+Shift+p exec --no-startup-id /home/jp/bin/screenshot.sh
+
+exec --no-startup-id compton -CGb
+exec --no-startup-id /home/jp/.fehbg
+exec --no-startup-id redshift
+exec --no-startup-id xautolock -time 10 -locker '/home/jp/Documents/Code/lock'

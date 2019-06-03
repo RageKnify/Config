@@ -50,10 +50,6 @@ bindsym $mod+d exec --no-startup-id "dmenu_run"
 # installed.
 # bindsym $mod+d i3-dmenu-desktop
 
-bindsym $mod+m exec --no-startup-id "/home/jp/bin/dmenumount"
-
-bindsym $mod+u exec --no-startup-id "/home/jp/bin/dmenuumount"
-
 # change focus
 bindsym $mod+h focus left
 bindsym $mod+j focus down
@@ -144,13 +140,8 @@ bindsym $mod+Shift+8 move container to workspace $ws8
 bindsym $mod+Shift+9 move container to workspace $ws9
 bindsym $mod+Shift+0 move container to workspace $ws10
 
-# Assign Workspaces:
-assign [class="chrome"] $ws1
-assign [class="discord"] $ws5
-assign [class="gimp"] $ws6
-
 # reload the configuration file
-bindsym $mod+Shift+c exec --no-startup-id "cat .config/i3/colors .config/i3/base > .config/i3/config && i3-msg reload"
+bindsym $mod+Shift+c exec --no-startup-id "cat /home/jp/.config/i3/colors /home/jp/.config/i3/base /home/jp/.config/i3/$(hostname) > .config/i3/config && i3-msg reload"
 # restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
 bindsym $mod+Shift+r restart
 # exit i3 (logs you out of your X session)
@@ -159,12 +150,6 @@ bindsym $mod+Shift+e exec --no-startup-id /home/jp/bin/prompt.sh "Exit i3?" 'i3-
 bindsym $mod+Shift+x exec --no-startup-id /home/jp/bin/prompt.sh "Shutdown?" $shutdown
 # lock the screen
 bindsym $mod+x exec --no-startup-id /home/jp/bin/prompt.sh "Lock?" /home/jp/bin/lock.sh
-
-# enable / disable xautolock
-bindsym $mod+Shift+a exec --no-startup-id /home/jp/bin/xautolock_toggle.sh "xautolock:"
-
-# screenshot and open in gimp
-bindsym $mod+Shift+p exec --no-startup-id /home/jp/bin/screenshot.sh
 
 # resize window (you can also use the mouse for that)
 mode "resize" {
@@ -211,9 +196,4 @@ new_window 1pixel
 bindsym $mod+s			gaps inner current plus 5
 bindsym $mod+Shift+s	gaps inner current minus 5
 
-
-exec --no-startup-id compton -CGb
-exec --no-startup-id /home/jp/.fehbg
-exec --no-startup-id redshift
-exec --no-startup-id xautolock -time 10 -locker '/home/jp/Documents/Code/lock'
 exec_always --no-startup-id /home/jp/.config/polybar/launch.sh

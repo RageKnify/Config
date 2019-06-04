@@ -2,6 +2,10 @@
 # ~/.bashrc
 #
 
+export EDITOR=nvim
+
+export TERMINAL=st
+
 if [[ -z $DISPLAY ]] && [[ $(tty) = /dev/tty1 ]]; then
     startx &> /dev/null
     exit
@@ -34,8 +38,6 @@ export BASE0C=\#0ef0f0 #aqua      support, regular expressions
 export BASE0D=\#66b0ff #blue      functions, methods
 export BASE0E=\#f10596 #purple    keywords, storage, selector
 export BASE0F=\#f003ef #          deprecated, opening/closing embedded language tags
-
-export EDITOR=nvim
 
 BASE16_SHELL=$HOME/.base16-manager/chriskempson/base16-shell/
 [ -n "$PS1" ] && \

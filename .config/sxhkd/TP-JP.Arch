@@ -1,0 +1,20 @@
+# sxhkd config for Thinkpad
+
+# mount and umount scripts
+mod4 + m
+	bin/dmenumount
+mod4 + u
+	bin/dmenuumount
+
+# enable / disable xautolock
+mod4 + shift + a
+	bin/xautolock_toggle.sh
+
+# screenshot and open in gimp
+mod4 + shift + p
+	bin/screenshot.sh
+
+# lock the screen
+mod4 + x
+	bin/prompt.sh "Lock?" bin/lock.sh
+

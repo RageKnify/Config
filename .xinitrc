@@ -39,6 +39,5 @@ xcape -e 'Control_L=Escape'
 xset r rate 200 30
 nm-applet &
 gebaard &
-source $HOME/.bashrc
-# MPD daemon start (if no other user instance exists)
+sxhkd &
 exec i3 --shmlog-size=26214400

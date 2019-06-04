@@ -30,9 +30,6 @@ font pango:FiraCode-Regular 8
 # Use Mouse+$mod to drag floating windows to their wanted position
 floating_modifier $mod
 
-# start a terminal
-bindsym $mod+Return exec --no-startup-id st
-
 # kill focused window
 bindsym $mod+Shift+q kill
 
@@ -41,14 +38,6 @@ set $shutdown poweroff #shutdown -h now
 set $reboot reboot
 set $netrefresh --no-startup-id sudo systemctl restart NetworkManager
 set $hibernate systemctl suspend
-
-# start dmenu (a program launcher)
-# bindsym $mod+d exec dmenu_run
-bindsym $mod+d exec --no-startup-id "dmenu_run"
-# There also is the (new) i3-dmenu-desktop which only displays applications
-# shipping a .desktop file. It is a wrapper around dmenu, so you need that
-# installed.
-# bindsym $mod+d i3-dmenu-desktop
 
 # change focus
 bindsym $mod+h focus left
@@ -140,16 +129,8 @@ bindsym $mod+Shift+8 move container to workspace $ws8
 bindsym $mod+Shift+9 move container to workspace $ws9
 bindsym $mod+Shift+0 move container to workspace $ws10
 
-# reload the configuration file
-bindsym $mod+Shift+c exec --no-startup-id "cat /home/jp/.config/polybar/base /home/jp/.config/polybar/$(hostname) > /home/jp/.config/polybar/config && cat /home/jp/.config/i3/colors /home/jp/.config/i3/base /home/jp/.config/i3/$(hostname) > .config/i3/config && i3-msg reload"
 # restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
 bindsym $mod+Shift+r restart
-# exit i3 (logs you out of your X session)
-bindsym $mod+Shift+e exec --no-startup-id /home/jp/bin/prompt.sh "Exit i3?" 'i3-msg exit'
-# shutdown
-bindsym $mod+Shift+x exec --no-startup-id /home/jp/bin/prompt.sh "Shutdown?" $shutdown
-# lock the screen
-bindsym $mod+x exec --no-startup-id /home/jp/bin/prompt.sh "Lock?" /home/jp/bin/lock.sh
 
 # resize window (you can also use the mouse for that)
 mode "resize" {

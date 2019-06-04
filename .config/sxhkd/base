@@ -1,0 +1,22 @@
+# sxhkdrc
+
+# launch terminal
+mod4 + Return
+	st
+
+# launch dmenu_run
+mod4 + d
+	dmenu_run
+
+# exit i3 (logs out of X session)
+mod4 + shift + e
+	bin/prompt.sh "Exit i3?" 'i3-msg exit'
+
+# shutdown
+mod4 + shift + x
+	bin/prompt.sh "Shutdown?" 'shutdown now'
+
+# update config files
+mod4 + shift + c
+	bin/update_configs.sh
+

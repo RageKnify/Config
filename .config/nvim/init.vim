@@ -82,7 +82,6 @@ command! -nargs=? Filter let @a='' | execute 'g/<args>/y A' | new | setlocal bt=
 set spelllang=pt
 
 set wildignore=*.o,*.pyc,*.class
-let NERDTreeIgnore = ['\.o$', '\.class$', '\.jar$', 'CVS']
 
 "move to the split in the direction shown, or create a new split
 nnoremap <silent> <C-h> :call WinMove('h')<cr>
@@ -104,9 +103,6 @@ function! WinMove(key)
 endfunction
 
 call plug#begin('~/.vim/plugged')
-
-Plug 'scrooloose/nerdtree'
-let g:NERDTreeWinSize=20
 
 function! StatusLine(current)
   return (a:current ? crystalline#mode() . '%#Crystalline#' : '%#CrystallineInactive#')

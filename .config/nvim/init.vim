@@ -52,6 +52,9 @@ match ErrorMsg '^\(<\|=\|>\)\{7\}\([^=].\+\)\?$'
 
 set autoread
 
+" Keeps undo history over different sessions
+set undofile
+set undodir=~/.cache/nvim/undodir
 
 let base16colorspace=256
 set termguicolors

@@ -164,6 +164,17 @@ Plug 'roxma/nvim-yarp'
 
 Plug 'ying17zi/vim-live-latex-preview'
 
+Plug 'thiagoalessio/rainbow_levels.vim'
+hi! RainbowLevel0 ctermbg=240 guibg=#fdf6e3
+hi! RainbowLevel1 ctermbg=239 guibg=#f5eedb
+hi! RainbowLevel2 ctermbg=238 guibg=#ede6d3
+hi! RainbowLevel3 ctermbg=237 guibg=#e5decb
+hi! RainbowLevel4 ctermbg=236 guibg=#ddd6cb
+hi! RainbowLevel5 ctermbg=235 guibg=#d5cebb
+hi! RainbowLevel6 ctermbg=234 guibg=#cdc6b3
+hi! RainbowLevel7 ctermbg=233 guibg=#c5beab
+hi! RainbowLevel8 ctermbg=232 guibg=#bdb6a3
+
 Plug 'RRethy/vim-hexokinase'
 let g:Hexokinase_virtualText = '■■■'
 let g:Hexokinase_refreshEvents = ['BufWritePost']

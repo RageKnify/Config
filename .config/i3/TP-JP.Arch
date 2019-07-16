@@ -3,7 +3,7 @@
 # Assign Workspaces:
 assign [class="chrome"] $ws1
 assign [class="discord"] $ws5
-assign [class="gimp"] $ws6
+assign [class="Gimp"] $ws6
 
 exec --no-startup-id compton -CGb
 exec --no-startup-id /home/jp/.fehbg

@@ -167,7 +167,7 @@ Plug 'ying17zi/vim-live-latex-preview'
 Plug 'RRethy/vim-hexokinase'
 let g:Hexokinase_virtualText = '■■■'
 let g:Hexokinase_refreshEvents = ['BufWritePost']
-let g:Hexokinase_ftAutoload = ['css', 'xml']
+let g:Hexokinase_ftAutoload = ['css', 'xml', 'vim']
 
 Plug '/usr/local/opt/fzf'
 Plug 'junegunn/fzf.vim'

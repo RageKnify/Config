@@ -6,6 +6,9 @@ export EDITOR=nvim
 
 export TERMINAL=st
 
+export PATH="$PATH:$HOME/bin"
+export PATH="$PATH:$HOME/.local/bin"
+
 if [[ -z $DISPLAY ]] && [[ $(tty) = /dev/tty1 ]]; then
     startx &> /dev/null
     exit
@@ -43,9 +46,6 @@ BASE16_SHELL=$HOME/.base16-manager/chriskempson/base16-shell/
 [ -n "$PS1" ] && \
     [ -s $BASE16_SHELL/profile_helper.sh ] && \
         eval "$($BASE16_SHELL/profile_helper.sh)"
-
-export PATH="$PATH:$HOME/bin"
-export PATH="$PATH:$HOME/.local/bin"
 
 source $HOME/.colors
 

@@ -52,6 +52,8 @@ source $HOME/.colors
 alias nv=nvim
 alias ':q'=exit
 alias 'norandom'="echo 0 | sudo tee /proc/sys/kernel/randomize_va_space"
+alias my_ip="curl checkip.amazonaws.com"
+alias sst="st &> /dev/null &"
 
 export JAVA_HOME=/usr/lib/jvm/java-8-openjdk
 

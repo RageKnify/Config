@@ -1,4 +1,4 @@
 */5 * * * * eval "export DBUS_SESSION_BUS_ADDRESS=unix:path=/run/user/1000/bus"; /home/jp/bin/check_battery.sh
 #@reboot eval "export DBUS_SESSION_BUS_ADDRESS=unix:path=/run/user/1000/bus"; /home/jp/bin/updated_crontab.sh
 */5 * * * * /home/jp/bin/updates-arch-combined.sh
-0 * * * * env DISPLAY:0; /home/jp/bin/cycle_CP2077_wallpaper.sh
+*/10 * * * * env DISPLAY=:0 /home/jp/bin/cycle_CP2077_wallpaper.sh

@@ -137,7 +137,7 @@ Plug 'Raimondi/delimitMate'
 Plug 'RRethy/vim-illuminate'
 let g:Illuminate_delay = 100
 
-Plug 'w0rp/ale'
+Plug 'dense-analysis/ale'
 let g:ale_completion_enabled = 1
 let g:ale_fixers = {
 \	'java': [

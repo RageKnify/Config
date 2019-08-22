@@ -18,3 +18,7 @@ mod4 + shift + p
 mod4 + x
 	bin/prompt.sh "Lock?" bin/lock.sh
 
+# open a DnD book pdf
+mod4 + z
+	bin/DnD_book.sh
+

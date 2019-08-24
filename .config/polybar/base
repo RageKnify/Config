@@ -150,8 +150,8 @@ label-connected = %essid%
 
 format-disconnected = <label-disconnected>
 format-disconnected-overline = ${self.format-connected-overline}
-label-disconnected = WIFI_DISC_ICON
-label-disconnected-foreground = ${colors.secondary}
+label-disconnected = Disconnected
+#label-disconnected-foreground = ${colors.secondary}
 
 ramp-signal-0 = 0
 ramp-signal-1 = 1

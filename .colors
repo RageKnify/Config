@@ -17,3 +17,21 @@ export BASE0D=\#268bd2 #blue      functions, methods
 export BASE0E=\#6c71c4 #purple    keywords, storage, selector
 export BASE0F=\#d33682 #          deprecated, opening/closing embedded language tags
 
+export BASE00a=002b36ff #background
+export BASE01a=073642ff #lighter background
+export BASE02a=586e75ff #selection background
+export BASE03a=657b83ff #comments, invisibles, line highlighting
+export BASE04a=839496ff #dark foreground
+export BASE05a=93a1a1ff #default foreground
+export BASE06a=eee8d5ff #light foreground
+export BASE07a=fdf6e3ff #light background
+export BASE08a=dc322fff #red       variables
+
+export BASE09a=cb4b16ff #orange    integers, booleans, constants
+export BASE0Aa=b58900ff #yellow    classes
+export BASE0Ba=859900ff #green     strings
+export BASE0Ca=2aa198ff #aqua      support, regular expressions
+export BASE0Da=268bd2ff #blue      functions, methods
+export BASE0Ea=6c71c4ff #purple    keywords, storage, selector
+export BASE0Fa=d33682ff #          deprecated, opening/closing embedded language tags
+

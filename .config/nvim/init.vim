@@ -182,6 +182,8 @@ let g:Hexokinase_ftAutoload = ['css', 'xml', 'vim']
 
 Plug 'kkoomen/vim-doge'
 
+Plug 'kshenoy/vim-signature'
+
 Plug '/usr/local/opt/fzf'
 Plug 'junegunn/fzf.vim'
 " fuzzy find files in the working directory (where you launched Vim from)

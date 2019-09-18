@@ -53,6 +53,8 @@ source $HOME/.colors
 alias nv=nvim
 alias ':q'=exit
 alias 'norandom'="echo 0 | sudo tee /proc/sys/kernel/randomize_va_space"
+alias 'vpnup'="nmcli c up tecnico"
+alias 'vpndown'="nmcli c down tecnico"
 alias my_ip="curl checkip.amazonaws.com"
 alias sst="st &> /dev/null &"
 

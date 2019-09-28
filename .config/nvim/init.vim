@@ -133,6 +133,8 @@ Plug 'rbong/vim-crystalline'
 Plug 'tpope/vim-fugitive'
 
 Plug 'Raimondi/delimitMate'
+let delimitMate_expand_cr=2
+let delimitMate_expand_space=1
 
 Plug 'RRethy/vim-illuminate'
 let g:Illuminate_delay = 100

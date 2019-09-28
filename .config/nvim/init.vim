@@ -24,7 +24,7 @@ autocmd BufRead,BufNewFile *.h set filetype=c
 
 let javaScript_fold=1
 
-set fdm=syntax
+set foldmethod=syntax
 
 " Saves cursor position to be used next time the file is edited
 autocmd BufReadPost *

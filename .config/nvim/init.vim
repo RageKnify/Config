@@ -22,6 +22,8 @@ autocmd BufNewFile *.html 0r ~/.config/nvim/templates/html.skel
 
 autocmd BufRead,BufNewFile *.h set filetype=c
 
+let javaScript_fold=1
+
 set fdm=syntax
 
 " Saves cursor position to be used next time the file is edited

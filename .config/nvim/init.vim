@@ -149,10 +149,6 @@ let g:ale_fixers = {
 \		'google_java_format',
 \	],
 \}
-let g:ale_linters = {
-\	'cpp': ['ccls', 'clangcheck', 'clangd', 'clang', 'clazy', 'cppcheck',
-\	'cpplint', 'cquery', 'flawfinder', 'gcc']
-\}
 
 Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 let g:deoplete#enable_at_startup = 1

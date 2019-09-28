@@ -22,3 +22,27 @@ mod4 + x
 mod4 + z
 	bin/DnD_book.sh
 
+# sound toggle
+XF86AudioMute
+	pactl set-sink-mute @DEFAULT_SINK@ toggle
+
+# volume up
+XF86AudioRaiseVolume
+	pactl set-sink-volume @DEFAULT_SINK@ +5%
+
+# volume down
+XF86AudioLowerVolume
+	pactl set-sink-volume @DEFAULT_SINK@ -5%
+
+# mic toggle
+XF86AudioMicMute
+	pactl set-sink-volume @DEFAULT_SINK@ +5%
+
+# brightness up
+XF86MonBrightnessUp
+	light -A 5
+
+# brightness down
+XF86MonBrightnessDown
+	light -U 5
+

@@ -61,11 +61,9 @@ set autoread
 set undofile
 set undodir=~/.cache/nvim/undodir
 
-let base16colorspace=256
-set termguicolors
-set background=light
+" let base16colorspace=256
 
-source ~/.config/nvim/colorscheme.vim
+" source ~/.config/nvim/colorscheme.vim
 
 if empty(glob('~/.vim/autoload/plug.vim'))
   silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
@@ -204,6 +202,12 @@ nmap <leader>r :Rg<cr>
 " fuzzy find Vim commands (like Ctrl-Shift-P in Sublime/Atom/VSC)
 nmap <leader>c :Commands<cr>
 
-call plug#end()
+Plug 'lifepillar/vim-solarized8'
 
-hi! Normal ctermbg=NONE guibg=NONE
+call plug#end()
+set background=light
+set termguicolors
+colorscheme solarized8_high
+let g:solarized_old_cursor_style=1
+
+" hi! Normal ctermbg=NONE guibg=NONE

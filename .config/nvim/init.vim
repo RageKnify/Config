@@ -20,6 +20,8 @@ set tabstop=4
 autocmd Filetype html setlocal ts=2 sts=2 sw=2 expandtab
 autocmd BufNewFile *.html 0r ~/.config/nvim/templates/html.skel
 
+autocmd BufRead,BufNewFile *.h set filetype=c
+
 set fdm=syntax
 
 " Saves cursor position to be used next time the file is edited

@@ -18,6 +18,7 @@ set softtabstop=4
 set tabstop=4
 
 autocmd Filetype html setlocal ts=2 sts=2 sw=2 expandtab
+autocmd BufNewFile *.html 0r ~/.config/nvim/templates/html.skel
 
 set fdm=syntax
 

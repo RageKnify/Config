@@ -68,12 +68,12 @@ format-prefix-overline = ${colors.secondary}
 label-layout = %layout%
 label-layout-overline = ${colors.secondary}
 
-label-indicator=%name%
-label-indicator-padding = 2
-label-indicator-margin = 1
-label-indicator-foreground = ${colors.background}
-label-indicator-background = ${colors.secondary}
-label-indicator-overline = ${colors.secondary}
+label-indicator-on=%name%
+label-indicator-on-padding = 2
+label-indicator-on-margin = 1
+label-indicator-on-foreground = ${colors.background}
+label-indicator-on-background = ${colors.secondary}
+label-indicator-on-overline = ${colors.secondary}
 
 [module/filesystem0]
 type = internal/fs

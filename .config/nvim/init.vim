@@ -155,15 +155,7 @@ let g:ale_fix_on_save = 1
 Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 let g:deoplete#enable_at_startup = 1
 
-Plug 'Shougo/neoinclude.vim'
-
 Plug 'Shougo/deoplete-clangx'
-
-Plug 'SirVer/ultisnips'
-
-Plug 'honza/vim-snippets'
-
-Plug 'roxma/nvim-yarp'
 
 Plug 'ying17zi/vim-live-latex-preview'
 

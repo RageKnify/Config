@@ -145,10 +145,12 @@ let g:Illuminate_delay = 100
 Plug 'dense-analysis/ale'
 let g:ale_completion_enabled = 1
 let g:ale_fixers = {
+\	'*': ['trim_whitespace'],
 \	'java': [
 \		'google_java_format',
 \	],
 \}
+let g:ale_fix_on_save = 1
 
 Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 let g:deoplete#enable_at_startup = 1

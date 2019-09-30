@@ -225,9 +225,13 @@ nmap <leader>r :Rg<cr>
 " fuzzy find Vim commands (like Ctrl-Shift-P in Sublime/Atom/VSC)
 nmap <leader>c :Commands<cr>
 
+Plug 'tpope/vim-commentary'
+
 Plug 'lifepillar/vim-solarized8'
 
 call plug#end()
+
+" colorscheme settings
 set background=light
 set termguicolors
 colorscheme solarized8_high

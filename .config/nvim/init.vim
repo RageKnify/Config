@@ -120,6 +120,8 @@ endfunction
 
 set selection=exclusive
 
+set mouse=a
+
 call plug#begin('~/.vim/plugged')
 
 function! StatusLine(current)

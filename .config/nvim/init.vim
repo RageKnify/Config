@@ -26,6 +26,16 @@ let javaScript_fold=1
 
 set foldmethod=syntax
 
+autocmd! vimenter * call SetupEnv()
+
+function! SetupEnv()
+	let l:proj_vim = './.proj.vim'
+	if filereadable(l:proj_vim)
+		echo "Sourcing " .l:proj_vim
+		exec "source " . l:proj_vim
+	endif
+endfunction
+
 " Saves cursor position to be used next time the file is edited
 autocmd BufReadPost *
     \ if line("'\"") > 1 && line("'\"") <= line("$") |

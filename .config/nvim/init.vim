@@ -108,6 +108,8 @@ function! WinMove(key)
   endif
 endfunction
 
+set selection=exclusive
+
 call plug#begin('~/.vim/plugged')
 
 function! StatusLine(current)

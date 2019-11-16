@@ -52,11 +52,11 @@ source $HOME/.colors
 
 alias nv=nvim
 alias ':q'=exit
-alias 'norandom'="echo 0 | sudo tee /proc/sys/kernel/randomize_va_space"
-alias 'vpnup'="nmcli c up tecnico"
-alias 'vpndown'="nmcli c down tecnico"
-alias my_ip="curl checkip.amazonaws.com"
-alias sst="st &> /dev/null &"
+alias 'norandom'='echo 0 | sudo tee /proc/sys/kernel/randomize_va_space'
+alias 'vpnup'='nmcli c up tecnico'
+alias 'vpndown'='nmcli c down tecnico'
+alias 'my_ip'='curl checkip.amazonaws.com'
+alias 'sst'='st &> /dev/null &'
 
 export JAVA_HOME=/usr/lib/jvm/java-8-openjdk
 
@@ -70,7 +70,7 @@ function prompt_command {
 PROMPT_DIRTRIM=2
 PROMPT_COMMAND=prompt_command
 
-# Android stuf
+# Android stuff
 export USE_CCACHE=1
 export CCACHE_COMPRESS=1
-export ANDROID_JACK_VM_ARGS="-Dfile.encoding=UTF-8 -XX:+TieredCompilation -Xmx4G"
+export ANDROID_JACK_VM_ARGS='-Dfile.encoding=UTF-8 -XX:+TieredCompilation -Xmx4G'

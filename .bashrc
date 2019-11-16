@@ -79,3 +79,7 @@ export ANDROID_JACK_VM_ARGS='-Dfile.encoding=UTF-8 -XX:+TieredCompilation -Xmx4G
 export CTF=$(ls -td1 /home/jp/Documents/STT/*/ | head -1)
 alias 'ctf'='cd $CTF'
 
+# TODO stuff
+alias 'todo'='TODO.sh'
+todo
+

@@ -2,6 +2,7 @@
 
 # Assign Workspaces:
 assign [class="chrome"] $ws1
+assign [class="Ghidra"] $ws3
 assign [class="discord"] $ws5
 assign [class="Gimp"] $ws6
 

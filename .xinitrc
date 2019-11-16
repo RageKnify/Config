@@ -34,6 +34,7 @@ fi
 
 setxkbmap -layout pt,us
 setxkbmap -option ctrl:nocaps
+setxkbmap -option grp:alt_space_toggle
 xcape -e 'Control_L=Escape'
 
 xset r rate 200 30

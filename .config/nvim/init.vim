@@ -20,7 +20,7 @@ set tabstop=4
 autocmd Filetype html setlocal ts=2 sts=2 sw=2 expandtab
 autocmd BufNewFile *.html 0r ~/.config/nvim/templates/html.skel
 
-autocmd BufRead,BufNewFile *.h set filetype=c
+let g:c_syntax_for_h=1
 
 let javaScript_fold=1
 

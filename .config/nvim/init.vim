@@ -148,16 +148,19 @@ set laststatus=2
 set noshowmode
 Plug 'rbong/vim-crystalline'
 
-
+" git wrapper
 Plug 'tpope/vim-fugitive'
 
+" Auto match pairs: () [] {} '' ""
 Plug 'Raimondi/delimitMate'
 let delimitMate_expand_cr=2
 let delimitMate_expand_space=1
 
+" Highlights other uses of the word currently under the cursor
 Plug 'RRethy/vim-illuminate'
 let g:Illuminate_delay = 100
 
+" Asynchronous Lint Engine
 Plug 'dense-analysis/ale'
 let g:ale_completion_enabled = 1
 let g:ale_fixers = {
@@ -173,17 +176,22 @@ let g:deoplete#enable_at_startup = 1
 
 Plug 'Shougo/deoplete-clangx'
 
+" Generates LaTeX PDF
 Plug 'ying17zi/vim-live-latex-preview'
 
+" Shows color at EOL
 Plug 'RRethy/vim-hexokinase'
 let g:Hexokinase_virtualText = '■■■'
 let g:Hexokinase_refreshEvents = ['BufWritePost']
 let g:Hexokinase_ftAutoload = ['css', 'xml', 'vim']
 
+" <leader>d to create docstring above function header
 Plug 'kkoomen/vim-doge'
 
+" Shows marks at left
 Plug 'kshenoy/vim-signature'
 
+" Fuzzy find things
 Plug '/usr/local/opt/fzf'
 Plug 'junegunn/fzf.vim'
 " Reverse the layout to make the FZF list top-down
@@ -230,6 +238,7 @@ nmap <leader>r :Rg<cr>
 " fuzzy find Vim commands (like Ctrl-Shift-P in Sublime/Atom/VSC)
 nmap <leader>c :Commands<cr>
 
+" gc<operator> to toggle comment respective lines
 Plug 'tpope/vim-commentary'
 
 Plug 'lifepillar/vim-solarized8'

@@ -170,6 +170,8 @@ let g:ale_fixers = {
 \	],
 \}
 let g:ale_fix_on_save = 1
+nmap <leader>n :ALENext<cr>
+nmap <leader>p :ALEPrevious<cr>
 
 Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 let g:deoplete#enable_at_startup = 1

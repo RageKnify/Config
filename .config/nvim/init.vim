@@ -173,10 +173,19 @@ let g:ale_fix_on_save = 1
 nmap <leader>n :ALENext<cr>
 nmap <leader>p :ALEPrevious<cr>
 
-Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-let g:deoplete#enable_at_startup = 1
-
-Plug 'Shougo/deoplete-clangx'
+Plug 'natebosch/vim-lsc'
+let g:lsc_server_commands = {
+\	'c': 'cquery',
+\	'python': 'pyls',
+\}
+let g:lsc_auto_map = {
+ \  'GoToDefinition': 'gd',
+ \  'FindReferences': 'gr',
+ \  'Rename': 'gR',
+ \  'ShowHover': 'K',
+ \  'Completion': 'omnifunc',
+ \}
+let g:lsc_enable_autocomplete  = v:true
 
 " Generates LaTeX PDF
 Plug 'ying17zi/vim-live-latex-preview'

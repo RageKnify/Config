@@ -69,7 +69,7 @@ set autoread
 
 " Keeps undo history over different sessions
 set undofile
-set undodir=~/.cache/nvim/undodir
+set undodir=/tmp//
 
 " let base16colorspace=256
 
@@ -191,7 +191,7 @@ let g:lsc_enable_autocomplete  = v:true
 Plug 'ying17zi/vim-live-latex-preview'
 
 " Shows color at EOL
-Plug 'RRethy/vim-hexokinase'
+Plug 'RRethy/vim-hexokinase', { 'do': 'make hexokinase' }
 let g:Hexokinase_virtualText = '■■■'
 let g:Hexokinase_refreshEvents = ['BufWritePost']
 let g:Hexokinase_ftAutoload = ['css', 'xml', 'vim']

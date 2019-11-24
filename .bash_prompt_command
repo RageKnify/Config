@@ -12,7 +12,15 @@ if [[ $RET != '0' ]]; then
 	ERRMSG=' $RET'
 fi
 
-PROMPT_SYMBOL=⋉
+if [ $HOSTNAME = "TP-VM.Arch" ]; then
+	PROMPT_SYMBOL="$(tput setab 1)⋉"
+else
+	if [ "$(pgrep VirtualBoxVM)" = "" ]; then
+		PROMPT_SYMBOL=⋉
+	else
+		PROMPT_SYMBOL="$(tput setab 2)⋉"
+	fi
+fi
 
 echo "\[$(tput bold)\]\[$(tput setaf 1)\][\[$(tput setaf 3)\]\u\[$(tput setaf 2)\]@\
 \[$(tput setaf 4)\]\h \[$(tput setaf 5)\]\w\[$(tput setaf 1)\]]\

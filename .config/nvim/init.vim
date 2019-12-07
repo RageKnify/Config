@@ -8,7 +8,7 @@ let g:bufferline_echo = 0
 
 set nowrap
 
-set so=5
+set scrolloff=5
 
 set splitbelow
 set splitright

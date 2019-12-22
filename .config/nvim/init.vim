@@ -181,8 +181,9 @@ let g:ale_fixers = {
 \	],
 \}
 let g:ale_fix_on_save = 1
-nmap <leader>n :ALENext<cr>
-nmap <leader>p :ALEPrevious<cr>
+nnoremap <leader>n :ALENext<cr>
+nnoremap <leader>p :ALEPrevious<cr>
+nnoremap <leader>d :ALEGoToDefinition<cr>
 
 Plug 'natebosch/vim-lsc'
 let g:lsc_server_commands = {
@@ -207,8 +208,9 @@ let g:Hexokinase_virtualText = '■■■'
 let g:Hexokinase_refreshEvents = ['BufWritePost']
 let g:Hexokinase_ftAutoload = ['css', 'xml', 'vim']
 
-" <leader>d to create docstring above function header
+" <leader>D to create docstring above function header
 Plug 'kkoomen/vim-doge'
+let g:doge_mapping = '<leader>D'
 
 " Shows marks at left
 Plug 'kshenoy/vim-signature'

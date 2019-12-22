@@ -161,6 +161,17 @@ Plug 'RRethy/vim-illuminate'
 let g:Illuminate_delay = 100
 
 " Asynchronous Lint Engine
+let g:ale_set_signs = 0
+au VimEnter,BufEnter,ColorScheme *
+  \ exec "hi! ALEInfoLine
+    \ guifg=".(&background=='light'?'#002b36':'#ffff00')."
+    \ guibg=".(&background=='light'?'#859900':'#555500') |
+  \ exec "hi! ALEWarningLine
+    \ guifg=".(&background=='light'?'#002b36':'#ffff00')."
+    \ guibg=".(&background=='light'?'#b58900':'#555500') |
+  \ exec "hi! ALEErrorLine
+    \ guifg=".(&background=='light'?'#002b36':'#ff0000')."
+    \ guibg=".(&background=='light'?'#dc322f':'#550000')
 Plug 'dense-analysis/ale'
 let g:ale_completion_enabled = 1
 let g:ale_fixers = {

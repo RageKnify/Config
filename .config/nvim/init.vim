@@ -239,7 +239,7 @@ function! FloatingFZF()
 endfunction
 
 " fuzzy find files in the working directory (where you launched Vim from)
-nmap <leader>f :Files<cr>
+nmap <expr> <leader>f fugitive#head() != '' ? ':GFiles --cached --others --exclude-standard<CR>' : ':Files<CR>'
 " fuzzy find lines in the current file
 nmap <leader>/ :BLines<cr>
 " fuzzy find an open buffer

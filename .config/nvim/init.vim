@@ -174,8 +174,14 @@ au VimEnter,BufEnter,ColorScheme *
     \ guibg=".(&background=='light'?'#dc322f':'#550000')
 Plug 'dense-analysis/ale'
 let g:ale_completion_enabled = 1
+let g:ale_linters = {
+\	'rust': ['cargo', 'rls', 'rustc'],
+\}
 let g:ale_fixers = {
 \	'*': ['trim_whitespace'],
+\	'rust': [
+\		'rustfmt',
+\	],
 \	'java': [
 \		'google_java_format',
 \	],
@@ -189,6 +195,7 @@ Plug 'natebosch/vim-lsc'
 let g:lsc_server_commands = {
 \	'c': 'cquery',
 \	'python': 'pyls',
+\	'rust': 'rls',
 \}
 let g:lsc_auto_map = {
  \  'GoToDefinition': 'gd',

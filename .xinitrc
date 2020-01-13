@@ -41,4 +41,5 @@ xset r rate 200 30
 nm-applet &
 gebaard &
 sxhkd &
+xss-lock /home/jp/bin/lock.sh &
 exec i3 --shmlog-size=26214400

@@ -190,6 +190,7 @@ let g:ale_fix_on_save = 1
 nnoremap <leader>n :ALENext<cr>
 nnoremap <leader>p :ALEPrevious<cr>
 nnoremap <leader>d :ALEGoToDefinition<cr>
+nnoremap <leader><cr> :ALEDetail<cr>
 
 Plug 'natebosch/vim-lsc'
 let g:lsc_server_commands = {

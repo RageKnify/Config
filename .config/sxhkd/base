@@ -2,7 +2,7 @@
 
 # launch terminal
 mod4 + Return
-	st
+	kitty
 
 # launch dmenu_run
 mod4 + d

@@ -4,7 +4,7 @@
 
 export EDITOR=nvim
 
-export TERMINAL=st
+export TERMINAL=kitty
 
 export PATH="$PATH:$HOME/bin"
 export PATH="$PATH:$HOME/.local/bin"

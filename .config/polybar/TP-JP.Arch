@@ -57,7 +57,7 @@ label-song-ellipsis = true
 
 [module/updates-arch]
 type = custom/script
-exec = if [ -f /tmp/updates_total ]; then cat /tmp/updates_total; fi
+exec = if [ -f "/tmp/updates_total" ] && [ $(wc -l < /tmp/updates_total) -ne "0" ]; then echo -n " "; wc -l < /tmp/updates_total; fi
 interval = 60
 format-prefix = 
 format-overline = ${env:BASE08}

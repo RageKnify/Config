@@ -1,3 +1,4 @@
+#!/bin/fish
 function greeting
 	echo
 	echo -e (uname -ro | awk '{print " \\\\e[1mOS: \\\\e[0;32m"$0"\\\\e[0m"}')
@@ -42,5 +43,29 @@ function greeting
 			sed 's/$/\\\e[0m/' | \
 			sed 's/^/\t/' \
 		)
+	if [ -f "/tmp/updates_total" ]
+		set updates (cat /tmp/updates_total)
+		if [ "$updates" != "" ]
+			echo -e "\n \\e[1mUpdates:\\e[0m"
+			for pkg in $updates
+				echo -e (\
+					printf '%s' $pkg | \
+						awk '{print $1;}' | \
+						# sed \
+						   # -e 's/^[[:digit:]]\+: //' \
+						   # -e 's/: <.*//' \
+						   # -e 's/.*inet[[:digit:]]* //' \
+						   # -e 's/\/.*//'| \
+						# awk 'BEGIN {i=""} /\.|:/ {print i" "$0"\\\n"; next} // {i = $0}' | \
+						column -t -R1 | \
+						sed 's/$/\\\e[0m/' | \
+						# updates are cyan
+						sed 's/^/\t\\\e[36m/' | \
+						# awk '{print $1;}' | \
+						cat
+					)
+			end
+		end
+	end
 	echo
 end

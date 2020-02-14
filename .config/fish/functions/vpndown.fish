@@ -1,3 +1,3 @@
-function vpndown --description 'Disable tecncico's vpn'
+function vpndown --description 'Disable tecncico\'s vpn'
 	nmcli c down tecnico
 end

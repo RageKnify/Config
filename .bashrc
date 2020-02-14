@@ -6,9 +6,15 @@ export EDITOR=nvim
 
 export TERMINAL=kitty
 
-export PATH="$PATH:$HOME/bin"
-export PATH="$PATH:$HOME/.local/bin"
-export PATH="$PATH:$HOME/.gem/ruby/2.7.0/bin"
+export CVS_RSH=ssh
+export CVSROOT=:ext:ist189482@sig:/afs/ist.utl.pt/groups/leic-co/co20/cvs/010
+
+export JAVA_HOME=/usr/lib/jvm/java-11-openjdk
+
+export PATH="$HOME/bin:$PATH"
+export PATH="$HOME/.local/bin:$PATH"
+export PATH="$HOME/.gem/ruby/2.7.0/bin:$PATH"
+export PATH="$JAVA_HOME/bin:$PATH"
 
 if [[ -z $DISPLAY ]] && [[ $(tty) = /dev/tty1 ]]; then
     startx &> /dev/null

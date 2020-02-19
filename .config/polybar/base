@@ -129,7 +129,7 @@ ramp-foreground = ${colors.foreground-alt}
 [module/memory]
 type = internal/memory
 interval = 2
-format-prefix = " "
+format-prefix = " "
 format-prefix-foreground = ${colors.foreground-alt}
 format-overline = ${env:BASE0C}
 label = %gb_used%/%gb_total%

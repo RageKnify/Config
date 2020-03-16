@@ -1,11 +1,33 @@
-[commands.swipe.three]
-up = "i3-msg layout toggle stacking tabbed"
-down = "i3-msg layout toggle split"
-left = "i3-msg workspace next"
-right = "i3-msg workspace prev"
+[swipe.settings]
+threshold = 0.6
+one_shot = false
+trigger_on_release = false
 
-[commands.swipe.four]
+[swipe.commands.three]
+up = "i3-msg layout toggle stacking tabbed"
+right_up = ""
+left_down = ""
+down = "i3-msg layout toggle split"
+right_down = ""
+right = "i3-msg workspace prev"
+left = "i3-msg workspace next"
+left_up = ""
+
+[swipe.commands.four]
+left_up = ""
+right_up = ""
 up = ""
+left_down = ""
+right_down = ""
 down = ""
 left = ""
 right = ""
+
+[pinch.settings]
+threshold = 0.25
+one_shot = false
+
+[pinch.commands]
+in = ""
+out = ""
+

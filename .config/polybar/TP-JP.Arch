@@ -3,7 +3,8 @@
 monitor = ${env:MONITOR:eDP-1}
 
 modules-left = i3 xkeyboard mpd pulseaudio
-modules-right = filesystem0 filesystem1 cpu temperature memory wlan battery date updates-arch
+modules-right = filesystem0 filesystem1 cpu temperature memory wlan battery date
+; modules-right = filesystem0 filesystem1 cpu temperature memory wlan battery date updates-arch
 
 [module/i3]
 label-mode-padding = 2
@@ -55,12 +56,12 @@ format-offline = 🎜 mpd is offline
 label-song-maxlen = 40
 label-song-ellipsis = true
 
-[module/updates-arch]
-type = custom/script
-exec = if [ -f "/tmp/updates_total" ] && [ $(wc -l < /tmp/updates_total) -ne "0" ]; then echo -n " "; wc -l < /tmp/updates_total; fi
-interval = 60
-format-prefix = 
-format-overline = ${env:BASE08}
+; [module/updates-arch]
+; type = custom/script
+; exec = if [ -f "/tmp/updates_total" ] && [ $(wc -l < /tmp/updates_total) -ne "0" ]; then echo -n " "; wc -l < /tmp/updates_total; fi
+; interval = 60
+; format-prefix = 
+; format-overline = ${env:BASE08}
 
 [module/pulseaudio]
 type = internal/pulseaudio

@@ -36,7 +36,7 @@ XF86AudioLowerVolume
 
 # mic toggle
 XF86AudioMicMute
-	pactl set-sink-volume @DEFAULT_SINK@ +5%
+	pactl set-source-mute 1 toggle
 
 # brightness up
 XF86MonBrightnessUp

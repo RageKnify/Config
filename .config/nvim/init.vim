@@ -193,21 +193,6 @@ nnoremap <leader>p :ALEPrevious<cr>
 nnoremap <leader>d :ALEGoToDefinition<cr>
 nnoremap <leader><cr> :ALEDetail<cr>
 
-Plug 'natebosch/vim-lsc'
-let g:lsc_server_commands = {
-\	'c': 'cquery',
-\	'python': 'pyls',
-\	'rust': 'rls',
-\}
-let g:lsc_auto_map = {
- \  'GoToDefinition': 'gd',
- \  'FindReferences': 'gr',
- \  'Rename': 'gR',
- \  'ShowHover': 'K',
- \  'Completion': 'omnifunc',
- \}
-let g:lsc_enable_autocomplete  = v:true
-
 " Generates LaTeX PDF
 Plug 'ying17zi/vim-live-latex-preview'
 

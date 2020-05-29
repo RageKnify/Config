@@ -174,8 +174,9 @@ au VimEnter,BufEnter,ColorScheme *
     \ guibg=".(&background=='light'?'#dc322f':'#550000')
 Plug 'dense-analysis/ale'
 let g:ale_completion_enabled = 1
+let g:ale_rust_cargo_use_clippy = 1
 let g:ale_linters = {
-\	'rust': ['cargo', 'rls', 'rustc'],
+\	'rust': ['analyzer'],
 \}
 let g:ale_fixers = {
 \	'*': ['trim_whitespace'],

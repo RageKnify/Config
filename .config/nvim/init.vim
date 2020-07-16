@@ -124,6 +124,9 @@ set selection=exclusive
 
 set mouse=a
 
+" Shows the effects of a command incrementally, as you type.
+set inccommand=nosplit
+
 call plug#begin('~/.vim/plugged')
 
 function! StatusLine(current)

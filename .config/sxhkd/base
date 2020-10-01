@@ -2,7 +2,7 @@
 
 # launch terminal
 mod4 + Return
-	kitty
+	alacritty
 
 # launch dmenu_run
 mod4 + d

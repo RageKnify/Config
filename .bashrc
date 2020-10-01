@@ -4,7 +4,7 @@
 
 export EDITOR=nvim
 
-export TERMINAL=kitty
+export TERMINAL=alacritty
 
 export CVS_RSH=ssh
 export CVSROOT=:ext:ist189482@sig:/afs/ist.utl.pt/groups/leic-co/co20/cvs/010

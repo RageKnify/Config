@@ -8,6 +8,5 @@ assign [class="Ghidra"] $ws3
 assign [class="discord"] $ws5
 assign [class="Gimp"] $ws6
 
-exec --no-startup-id picom -CGb
 exec --no-startup-id /home/jp/.fehbg
 exec --no-startup-id redshift

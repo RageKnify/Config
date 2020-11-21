@@ -1,0 +1,47 @@
+scan_timeout = 1
+
+add_newline = false
+
+# modules are in print order rather than alfabetically
+
+[username]
+format = "[$user]($style)[@](bold green)"
+
+[hostname]
+format = "[$hostname]($style) "
+style = "bold blue"
+
+[directory]
+style = "bold purple"
+truncation_length = 2
+truncation_symbol = "../"
+
+[git_branch]
+format = "[$branch]($style) "
+style = "bold green"
+
+[git_commit]
+format = "[$tag]($style)"
+
+[git_state]
+format = '[$state( $progress_current/$progress_total)]($style)'
+
+[git_status]
+style = "yellow"
+format = '([\[$all_status$ahead_behind\]]($style) )'
+
+[package]
+disabled = true
+
+[perl]
+disabled = true
+
+[line_break]
+disabled = true
+
+[status]
+format = "[$status]($style)"
+disabled = false
+
+[character]
+format = "[⋉ ](white)"

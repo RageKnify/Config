@@ -47,25 +47,24 @@ function greeting
 		set updates (cat /tmp/updates_total)
 		if [ "$updates" != "" ]
 			echo -e "\n \\e[1mUpdates:\\e[0m"
-			for pkg in $updates
-				echo -e (\
-					printf '%s' $pkg | \
-						awk '{print $1;}' | \
-						# sed \
-						   # -e 's/^[[:digit:]]\+: //' \
-						   # -e 's/: <.*//' \
-						   # -e 's/.*inet[[:digit:]]* //' \
-						   # -e 's/\/.*//'| \
-						# awk 'BEGIN {i=""} /\.|:/ {print i" "$0"\\\n"; next} // {i = $0}' | \
-						column -t -R1 | \
-						sed 's/$/\\\e[0m/' | \
-						# updates are cyan
-						sed 's/^/\t\\\e[36m/' | \
-						# awk '{print $1;}' | \
-						cat
-					)
-			end
+
+			echo -en "\e[36m"
+			cat /tmp/updates_total | \
+			# updates are cyan
+			column -t -R2 | \
+			sed 's/^/\t/' | \
+			# xargs echo -I % -e "\t\e[36m" | \
+			cat
+
 		end
 	end
-	echo
+	set TODO (cat ~/TODO.txt)
+	if [ "$TODO" != "" ]
+		set_color normal
+		echo -e "\n \\e[1mTODO:\\e[0m"
+		for LINE in $TODO
+			set_color green
+			echo -e "\t$LINE"
+		end
+	end
 end

@@ -118,7 +118,7 @@ function! WinMove(key)
   endif
 endfunction
 
-nnoremap <leader><leader> :nohlsearch<cr>
+nnoremap <silent> <leader><leader> :nohlsearch<cr>
 
 set selection=exclusive
 

@@ -20,6 +20,8 @@ export PATH="$HOME/.config/nvim/plugged/vim-live-latex-preview/bin/:$PATH"
 
 export FZF_DEFAULT_COMMAND='rg'
 
+export MANPAGER='nvim +Man!'
+
 if [[ -z $DISPLAY ]] && [[ $(tty) = /dev/tty1 ]]; then
     startx &> /dev/null
     exit

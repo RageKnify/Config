@@ -127,7 +127,7 @@ set mouse=a
 " Shows the effects of a command incrementally, as you type.
 set inccommand=nosplit
 
-call plug#begin('~/.vim/plugged')
+call plug#begin('~/.config/nvim/plugged')
 
 function! StatusLine(current)
   return (a:current ? crystalline#mode() . '%#Crystalline#' : '%#CrystallineInactive#')

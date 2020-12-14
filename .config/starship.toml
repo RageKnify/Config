@@ -14,7 +14,6 @@ style = "bold blue"
 [directory]
 style = "bold purple"
 truncation_length = 2
-truncation_symbol = "../"
 
 [git_branch]
 format = "[$branch]($style) "
@@ -40,7 +39,7 @@ disabled = true
 disabled = true
 
 [status]
-format = "[$status]($style)"
+format = "[$status ]($style)"
 disabled = false
 
 [character]

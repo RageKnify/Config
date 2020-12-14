@@ -15,6 +15,9 @@ export PATH="$HOME/bin:$PATH"
 export PATH="$HOME/.local/bin:$PATH"
 export PATH="$HOME/.gem/ruby/2.7.0/bin:$PATH"
 export PATH="$JAVA_HOME/bin:$PATH"
+export PATH="$HOME/.config/nvim/plugged/vim-live-latex-preview/bin/:$PATH"
+
+export FZF_DEFAULT_COMMAND='rg'
 
 if [[ -z $DISPLAY ]] && [[ $(tty) = /dev/tty1 ]]; then
     startx &> /dev/null

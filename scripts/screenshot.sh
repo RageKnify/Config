@@ -1,7 +1,8 @@
 #! /bin/sh
 
-test -f /tmp/sc.png && rm /tmp/sc.png
+DATE=$(date +"%Y-%m-%d_%H:%M:%S")
+FILE_NAME="/tmp/screenshot_${DATE}.png"
 
 
-scrot /tmp/sc.png
-exec gimp /tmp/sc.png
+scrot $FILE_NAME
+exec gimp $FILE_NAME

@@ -8,7 +8,7 @@ fi
 
 WP_PATH="$USED_WP_DIR/*"
 
-MIN_MOD_10=$(( $(date +"%M") / 10 ))
+MIN_MOD_10=$(( $(date +"%-M") / 10 ))
 
 I=0
 

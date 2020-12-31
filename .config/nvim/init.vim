@@ -206,7 +206,7 @@ let g:livepreview_cursorhold_recompile = 0
 Plug 'kshenoy/vim-signature'
 
 " Fuzzy find things
-Plug '/usr/local/opt/fzf'
+source /usr/share/vim/vimfiles/plugin/fzf.vim
 Plug 'junegunn/fzf.vim'
 " Reverse the layout to make the FZF list top-down
 let $FZF_DEFAULT_OPTS='--layout=reverse'

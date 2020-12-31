@@ -200,12 +200,6 @@ let g:ale_fix_on_save_ignore = {'gitcommit': ['trim_whitespace']}
 " Generates LaTeX PDF
 Plug 'ying17zi/vim-live-latex-preview'
 
-" Shows color at EOL
-Plug 'RRethy/vim-hexokinase', { 'do': 'make hexokinase' }
-let g:Hexokinase_virtualText = '■■■'
-let g:Hexokinase_refreshEvents = ['BufWritePost']
-let g:Hexokinase_ftAutoload = ['css', 'xml', 'vim']
-
 
 " Shows marks at left
 Plug 'kshenoy/vim-signature'

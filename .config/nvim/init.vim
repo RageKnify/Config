@@ -198,8 +198,9 @@ nnoremap <leader><cr> :ALEDetail<cr>
 let g:ale_fix_on_save_ignore = {'gitcommit': ['trim_whitespace']}
 
 " Generates LaTeX PDF
-Plug 'ying17zi/vim-live-latex-preview'
-
+Plug 'ying17zi/vim-live-latex-preview', {'for': 'tex'}
+let g:livepreview_previewer = 'zathura'
+let g:livepreview_cursorhold_recompile = 0
 
 " Shows marks at left
 Plug 'kshenoy/vim-signature'

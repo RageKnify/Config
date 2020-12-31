@@ -214,6 +214,9 @@ let $FZF_DEFAULT_OPTS='--layout=reverse'
 " Using the custom window creation function
 let g:fzf_layout = { 'window': { 'height': 0.75, 'width': 0.75 } }
 
+" Avoiding W
+cabbrev W w
+
 " fuzzy find files in the working directory (where you launched Vim from)
 nmap <expr> <leader>f fugitive#head() != '' ? ':GFiles --cached --others --exclude-standard<CR>' : ':Files<CR>'
 " fuzzy find lines in the current file

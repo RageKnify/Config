@@ -206,9 +206,6 @@ let g:Hexokinase_virtualText = '■■■'
 let g:Hexokinase_refreshEvents = ['BufWritePost']
 let g:Hexokinase_ftAutoload = ['css', 'xml', 'vim']
 
-" <leader>D to create docstring above function header
-Plug 'kkoomen/vim-doge'
-let g:doge_mapping = '<leader>D'
 
 " Shows marks at left
 Plug 'kshenoy/vim-signature'

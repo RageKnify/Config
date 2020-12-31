@@ -195,6 +195,7 @@ nnoremap <leader>n :ALENext<cr>
 nnoremap <leader>p :ALEPrevious<cr>
 nnoremap <leader>d :ALEGoToDefinition<cr>
 nnoremap <leader><cr> :ALEDetail<cr>
+let g:ale_fix_on_save_ignore = {'gitcommit': ['trim_whitespace']}
 
 " Generates LaTeX PDF
 Plug 'ying17zi/vim-live-latex-preview'

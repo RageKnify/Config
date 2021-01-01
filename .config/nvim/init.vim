@@ -267,6 +267,7 @@ nnoremap <silent> <leader>n <cmd>lua vim.lsp.diagnostic.goto_next { wrap = false
 nnoremap <silent> <leader>p <cmd>lua vim.lsp.diagnostic.goto_prev { wrap = false }<CR>
 nnoremap <silent> <leader>d <cmd>lua vim.lsp.buf.definition()<CR>
 nnoremap <silent> <leader>gr <cmd>lua vim.lsp.buf.references()<CR>
+nnoremap <silent> <leader>a <cmd>lua vim.lsp.buf.code_action()<CR>
 nnoremap <silent> <leader><cr> <cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<cr>
 
 command LspDisable lua vim.lsp.stop_client(vim.lsp.get_active_clients())

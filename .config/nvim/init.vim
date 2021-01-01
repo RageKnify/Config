@@ -130,7 +130,17 @@ set inccommand=nosplit
 call plug#begin('~/.config/nvim/plugged')
 
 function! StatusLine(current)
+  let l:errors = luaeval('vim.lsp.diagnostic.get_count(vim.fn.bufnr("%"), [[Error]])')
+  let l:warnings = luaeval('vim.lsp.diagnostic.get_count(vim.fn.bufnr("%"), [[Warning]])')
+  let l:pre = ''
+  if l:errors
+    let l:pre = l:pre . ' E' . l:errors
+  endif
+  if l:warnings
+    let l:pre = l:pre . ' W' . l:warnings
+  endif
   return (a:current ? crystalline#mode() . '%#Crystalline#' : '%#CrystallineInactive#')
+        \ . ((l:errors + l:warnings) ? l:pre . ' |' : '')
         \ . ' %f%h%w%m%r '
         \ . (a:current ? '%#CrystallineFill# %{fugitive#head()} ' : '')
         \ . '%=' . (a:current ? '%#Crystalline# %{&paste?"PASTE ":""}%{&spell?"SPELL ":""}' . crystalline#mode_color() : '')
@@ -162,6 +172,16 @@ let delimitMate_expand_space=1
 " Highlights other uses of the word currently under the cursor
 Plug 'RRethy/vim-illuminate'
 let g:Illuminate_delay = 100
+hi def link LspReferenceText CursorLine
+hi def link LspReferenceRead CursorLine
+hi def link LspReferenceWrite CursorLine
+
+" neovim's LSP implementation configs
+Plug 'neovim/nvim-lspconfig'
+
+Plug 'nvim-lua/completion-nvim'
+
+Plug 'nvim-lua/lsp_extensions.nvim', {'for': 'rust'}
 
 " Asynchronous Lint Engine
 let g:ale_set_signs = 0
@@ -176,10 +196,8 @@ au VimEnter,BufEnter,ColorScheme *
     \ guifg=".(&background=='light'?'#002b36':'#ff0000')."
     \ guibg=".(&background=='light'?'#dc322f':'#550000')
 Plug 'dense-analysis/ale'
-let g:ale_completion_enabled = 1
-let g:ale_rust_cargo_use_clippy = 1
 let g:ale_linters = {
-\	'rust': ['analyzer'],
+\	'rust': [],
 \}
 let g:ale_fixers = {
 \	'*': ['trim_whitespace'],
@@ -191,10 +209,6 @@ let g:ale_fixers = {
 \	],
 \}
 let g:ale_fix_on_save = 1
-nnoremap <leader>n :ALENext<cr>
-nnoremap <leader>p :ALEPrevious<cr>
-nnoremap <leader>d :ALEGoToDefinition<cr>
-nnoremap <leader><cr> :ALEDetail<cr>
 let g:ale_fix_on_save_ignore = {'gitcommit': ['trim_whitespace']}
 
 " Generates LaTeX PDF
@@ -228,6 +242,8 @@ nmap <leader>r :Rg<cr>
 " fuzzy find Vim commands (like Ctrl-Shift-P in Sublime/Atom/VSC)
 nmap <leader>c :Commands<cr>
 
+Plug 'ojroques/nvim-lspfuzzy'
+
 " gc<operator> to toggle comment respective lines
 Plug 'tpope/vim-commentary'
 
@@ -242,3 +258,43 @@ colorscheme solarized8_high
 let g:solarized_old_cursor_style=1
 
 " hi! Normal ctermbg=NONE guibg=NONE
+
+" nvim-lsp setup
+lua require'lspconfig'.rust_analyzer.setup{ on_attach = require'generic_lsp' }
+lua require'lspconfig'.pyls.setup{ on_attach = require'generic_lsp' }
+
+nnoremap <silent> <leader>n <cmd>lua vim.lsp.diagnostic.goto_next { wrap = false }<CR>
+nnoremap <silent> <leader>p <cmd>lua vim.lsp.diagnostic.goto_prev { wrap = false }<CR>
+nnoremap <silent> <leader>d <cmd>lua vim.lsp.buf.definition()<CR>
+nnoremap <silent> <leader>gr <cmd>lua vim.lsp.buf.references()<CR>
+nnoremap <silent> <leader><cr> <cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<cr>
+
+command LspDisable lua vim.lsp.stop_client(vim.lsp.get_active_clients())
+command LspEnable edit
+
+autocmd BufEnter * lua require'completion'.on_attach()
+lua << EOF
+vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
+  vim.lsp.diagnostic.on_publish_diagnostics, {
+    underline = false,
+
+    virtual_text = {
+	  spacing = 1,
+	  prefix = ' ',
+	},
+
+    signs = true,
+
+    -- This is similar to:
+    -- "let g:diagnostic_insert_delay = 1"
+    update_in_insert = false,
+  }
+)
+EOF
+
+call sign_define("LspDiagnosticsSignError", {"text" : "", "texthl" : "LspDiagnosticsVirtualTextError"})
+call sign_define("LspDiagnosticsSignWarning", {"text" : "", "texthl" : "LspDiagnosticsVirtualTextWarning"})
+call sign_define("LspDiagnosticsSignInformation", {"text" : "", "texthl" : "LspDiagnosticsVirtualTextInformation"})
+call sign_define("LspDiagnosticsSignHint", {"text" : "", "texthl" : "LspDiagnosticsVirtualTextHint"})
+
+lua require('lspfuzzy').setup {}

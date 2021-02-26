@@ -3,7 +3,7 @@
 # Assign Workspaces:
 assign [class="chrome"] $ws1
 assign [class="Brave"] $ws1
-assign [class="jetbrains-idea"] $ws2
+assign [class="Thunderbird"] $ws2
 assign [class="Ghidra"] $ws3
 assign [class="discord"] $ws5
 assign [class="Gimp"] $ws6

@@ -1,8 +1,7 @@
 # i3 config for Thinkpad
 
 # Assign Workspaces:
-assign [class="chrome"] $ws1
-assign [class="Brave"] $ws1
+assign [class="firefox"] $ws1
 assign [class="Thunderbird"] $ws2
 assign [class="Ghidra"] $ws3
 assign [class="discord"] $ws5

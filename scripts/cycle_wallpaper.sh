@@ -13,8 +13,9 @@ MIN_MOD_10=$(( $(date +"%-M") / 10 ))
 I=0
 
 set_wp() {
+	HORSEMAN=$2
 	convert -scale 1920x1080 $1 /tmp/wallpaper.png
-	composite -gravity center /home/jp/Pictures/$(hostname).png /tmp/wallpaper.png /tmp/wallpaper.png
+	composite -gravity center /home/jp/Pictures/$HORSEMAN.png /tmp/wallpaper.png /tmp/wallpaper.png
 	# /home/jp/Documents/Code/arch-pape-maker/mepapemaker.sh /tmp/wallpaper.png /tmp/wallpaper.png
 	convert -spread 15 /tmp/wallpaper.png /tmp/lockscreen.png
 	# $HOME/Documents/Code/corrupter/corrupter \
@@ -37,7 +38,7 @@ for wp in $WP_PATH;
 do
 	if [ $MIN_MOD_10 -eq $I ]
 	then
-		set_wp $wp
+		set_wp $wp $(hostname)
 		return
 	else
 		I=$(( I + 1))

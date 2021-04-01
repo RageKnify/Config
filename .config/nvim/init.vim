@@ -60,8 +60,6 @@ let mapleader = " "
 set ignorecase
 set smartcase
 
-" Limit myself to 80 characters
-set colorcolumn=81,82
 "Highlight merge markers
 match ErrorMsg '^\(<\|=\|>\)\{7\}\([^=].\+\)\?$'
 
@@ -70,10 +68,6 @@ set autoread
 " Keeps undo history over different sessions
 set undofile
 set undodir=/tmp//
-
-" let base16colorspace=256
-
-" source ~/.config/nvim/colorscheme.vim
 
 if empty(glob('~/.config/nvim/autoload/plug.vim'))
   silent !curl -fLo ~/.config/nvim/autoload/plug.vim --create-dirs
@@ -129,37 +123,9 @@ set inccommand=nosplit
 
 call plug#begin('~/.config/nvim/plugged')
 
-function! StatusLine(current)
-  let l:errors = luaeval('vim.lsp.diagnostic.get_count(vim.fn.bufnr("%"), [[Error]])')
-  let l:warnings = luaeval('vim.lsp.diagnostic.get_count(vim.fn.bufnr("%"), [[Warning]])')
-  let l:pre = ''
-  if l:errors
-    let l:pre = l:pre . ' E' . l:errors
-  endif
-  if l:warnings
-    let l:pre = l:pre . ' W' . l:warnings
-  endif
-  return (a:current ? crystalline#mode() . '%#Crystalline#' : '%#CrystallineInactive#')
-        \ . ((l:errors + l:warnings) ? l:pre . ' |' : '')
-        \ . ' %f%h%w%m%r '
-        \ . (a:current ? '%#CrystallineFill# %{fugitive#head()} ' : '')
-        \ . '%=' . (a:current ? '%#Crystalline# %{&paste?"PASTE ":""}%{&spell?"SPELL ":""}' . crystalline#mode_color() : '')
-        \ . ' %{&ft}[%{&enc}][%{&ffs}] %l/%L %2(%v%) '
-endfunction
-
-function! TabLine()
-  let l:vimlabel = has("nvim") ?  " NVIM " : " VIM "
-  return crystalline#bufferline(2, len(l:vimlabel), 1) . '%=%#CrystallineTab# ' . l:vimlabel
-endfunction
-
-let g:crystalline_statusline_fn = 'StatusLine'
-let g:crystalline_tabline_fn = 'TabLine'
-let g:crystalline_theme = 'gruvbox'
-
-set showtabline=2
+Plug 'hoob3rt/lualine.nvim'
 set laststatus=2
 set noshowmode
-Plug 'rbong/vim-crystalline'
 
 " git wrapper
 Plug 'tpope/vim-fugitive'
@@ -176,12 +142,50 @@ hi def link LspReferenceText CursorLine
 hi def link LspReferenceRead CursorLine
 hi def link LspReferenceWrite CursorLine
 
+" neovim completion
+Plug 'hrsh7th/nvim-compe'
+set completeopt=menuone,noselect
+let g:compe = {}
+let g:compe.enabled = v:true
+let g:compe.autocomplete = v:true
+let g:compe.debug = v:false
+let g:compe.min_length = 1
+let g:compe.preselect = 'enable'
+let g:compe.throttle_time = 80
+let g:compe.source_timeout = 200
+let g:compe.incomplete_delay = 400
+let g:compe.max_abbr_width = 100
+let g:compe.max_kind_width = 100
+let g:compe.max_menu_width = 100
+let g:compe.documentation = v:true
+
+let g:compe.source = {}
+let g:compe.source.path = v:true
+let g:compe.source.buffer = v:true
+let g:compe.source.calc = v:true
+let g:compe.source.vsnip = v:true
+let g:compe.source.nvim_lsp = v:true
+let g:compe.source.nvim_lua = v:true
+let g:compe.source.spell = v:true
+let g:compe.source.tags = v:true
+let g:compe.source.snippets_nvim = v:true
+let g:compe.source.treesitter = v:true
+let g:compe.source.omni = v:true
+
+" Snippets
+Plug 'hrsh7th/vim-vsnip'
+
+Plug 'hrsh7th/vim-vsnip-integ'
+
 " neovim's LSP implementation configs
 Plug 'neovim/nvim-lspconfig'
 
 Plug 'nvim-lua/completion-nvim'
 
 Plug 'nvim-lua/lsp_extensions.nvim', {'for': 'rust'}
+
+" neovim's treesitter
+Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 
 " Asynchronous Lint Engine
 let g:ale_set_signs = 0
@@ -216,6 +220,16 @@ Plug 'ying17zi/vim-live-latex-preview', {'for': 'tex'}
 let g:livepreview_previewer = 'zathura'
 let g:livepreview_cursorhold_recompile = 0
 
+" Julia goodies
+Plug 'JuliaEditorSupport/julia-vim'
+
+" Coq goodies
+Plug 'whonore/Coqtail'
+
+" Ansible goodies
+Plug 'pearofducks/ansible-vim'
+let g:ansible_unindent_after_newline = 1
+
 " Shows marks at left
 Plug 'kshenoy/vim-signature'
 
@@ -247,21 +261,55 @@ Plug 'ojroques/nvim-lspfuzzy'
 " gc<operator> to toggle comment respective lines
 Plug 'tpope/vim-commentary'
 
-Plug 'lifepillar/vim-solarized8'
+Plug 'nekonako/xresources-nvim'
+
+Plug 'andweeb/presence.nvim'
+
+let g:presence_auto_update       = 1
+let g:presence_editing_text      = "Editing %s"
+let g:presence_workspace_text    = "Working on %s"
+let g:presence_neovim_image_text = "vim but better"
+let g:presence_main_image        = "neovim"
 
 call plug#end()
 
 " colorscheme settings
-set background=light
-set termguicolors
-colorscheme solarized8_high
-let g:solarized_old_cursor_style=1
+set background=dark
+lua require('xresources')
+lua <<EOF
+require'nvim-treesitter.configs'.setup {
+  highlight = {
+    enable = true,
+  },
+}
+EOF
 
-" hi! Normal ctermbg=NONE guibg=NONE
 
 " nvim-lsp setup
-lua require'lspconfig'.rust_analyzer.setup{ on_attach = require'generic_lsp' }
-lua require'lspconfig'.pyls.setup{ on_attach = require'generic_lsp' }
+lua << EOF
+local capabilities = vim.lsp.protocol.make_client_capabilities()
+capabilities.textDocument.completion.completionItem.snippetSupport = true
+capabilities.textDocument.completion.completionItem.resolveSupport = {
+	properties = {
+		'documentation',
+		'detail',
+		'additionalTextEdits',
+	}
+}
+
+require'lspconfig'.rust_analyzer.setup{
+	capabilities = capabilities,
+	on_attach = require'generic_lsp'
+}
+require'lspconfig'.pyls.setup{
+	capabilities = capabilities,
+	on_attach = require'generic_lsp'
+}
+require'lspconfig'.julials.setup{
+	capabilities = capabilities,
+	on_attach = require'generic_lsp'
+}
+EOF
 
 nnoremap <silent> <leader>n <cmd>lua vim.lsp.diagnostic.goto_next { wrap = false }<CR>
 nnoremap <silent> <leader>p <cmd>lua vim.lsp.diagnostic.goto_prev { wrap = false }<CR>
@@ -299,3 +347,19 @@ call sign_define("LspDiagnosticsSignInformation", {"text" : "", "texthl" : "L
 call sign_define("LspDiagnosticsSignHint", {"text" : "", "texthl" : "LspDiagnosticsVirtualTextHint"})
 
 lua require('lspfuzzy').setup {}
+
+let g:lualine = {
+    \'options' : {
+    \  'theme' : 'solarized_light',
+    \  'section_separators' : ['', ''],
+    \  'component_separators' : ['', ''],
+    \  'icons_enabled' : v:true,
+    \},
+    \'sections' : {
+    \  'lualine_c' : [ ['diagnostics', {
+	\   'sources': ['nvim_lsp', 'ale'], 'symbols': {'error': ':', 'warn':':', 'info': ':'}
+	\   }], ['filename', {'file_status': v:true,},], ],
+    \},
+    \'extensions' : [ 'fzf', 'fugitive' ],
+    \}
+lua require('lualine').setup {}

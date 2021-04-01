@@ -9,8 +9,6 @@ export TERMINAL=alacritty
 export CVS_RSH=ssh
 export CVSROOT=:ext:ist189482@sig:/afs/ist.utl.pt/groups/leic-co/co20/cvs/010
 
-export JAVA_HOME=/usr/lib/jvm/java-11-openjdk
-
 export PATH="$HOME/bin:$PATH"
 export PATH="$HOME/.local/bin:$PATH"
 export PATH="$HOME/.cargo/bin:$PATH"

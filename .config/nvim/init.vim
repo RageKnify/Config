@@ -274,16 +274,9 @@ let g:presence_main_image        = "neovim"
 call plug#end()
 
 " colorscheme settings
-set background=dark
+set background=light
 lua require('xresources')
-lua <<EOF
-require'nvim-treesitter.configs'.setup {
-  highlight = {
-    enable = true,
-  },
-}
-EOF
-
+lua require'nvim-treesitter.configs'.setup { highlight = { enable = true } }
 
 " nvim-lsp setup
 lua << EOF

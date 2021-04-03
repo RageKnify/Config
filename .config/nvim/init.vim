@@ -125,6 +125,7 @@ call plug#begin('~/.config/nvim/plugged')
 
 Plug 'hoob3rt/lualine.nvim'
 set laststatus=2
+set showtabline=2
 set noshowmode
 
 " git wrapper
@@ -190,15 +191,15 @@ Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 " Asynchronous Lint Engine
 let g:ale_set_signs = 0
 au VimEnter,BufEnter,ColorScheme *
-  \ exec "hi! ALEInfoLine
-    \ guifg=".(&background=='light'?'#002b36':'#ffff00')."
-    \ guibg=".(&background=='light'?'#859900':'#555500') |
-  \ exec "hi! ALEWarningLine
-    \ guifg=".(&background=='light'?'#002b36':'#ffff00')."
-    \ guibg=".(&background=='light'?'#b58900':'#555500') |
-  \ exec "hi! ALEErrorLine
-    \ guifg=".(&background=='light'?'#002b36':'#ff0000')."
-    \ guibg=".(&background=='light'?'#dc322f':'#550000')
+	\ exec "hi! ALEInfoLine
+	\ guifg=".(&background=='light'?'#002b36':'#ffff00')."
+	\ guibg=".(&background=='light'?'#859900':'#555500') |
+	\ exec "hi! ALEWarningLine
+	\ guifg=".(&background=='light'?'#002b36':'#ffff00')."
+	\ guibg=".(&background=='light'?'#b58900':'#555500') |
+	\ exec "hi! ALEErrorLine
+	\ guifg=".(&background=='light'?'#002b36':'#ff0000')."
+	\ guibg=".(&background=='light'?'#dc322f':'#550000')
 Plug 'dense-analysis/ale'
 let g:ale_linters = {
 \	'rust': [],
@@ -317,20 +318,20 @@ command LspEnable edit
 autocmd BufEnter * lua require'completion'.on_attach()
 lua << EOF
 vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
-  vim.lsp.diagnostic.on_publish_diagnostics, {
-    underline = false,
+	vim.lsp.diagnostic.on_publish_diagnostics, {
+		underline = false,
 
-    virtual_text = {
-	  spacing = 1,
-	  prefix = ' ',
-	},
+		virtual_text = {
+			spacing = 1,
+			prefix = ' ',
+		},
 
-    signs = true,
+		signs = true,
 
-    -- This is similar to:
-    -- "let g:diagnostic_insert_delay = 1"
-    update_in_insert = false,
-  }
+		-- This is similar to:
+		-- "let g:diagnostic_insert_delay = 1"
+		update_in_insert = false,
+	}
 )
 EOF
 
@@ -342,17 +343,27 @@ call sign_define("LspDiagnosticsSignHint", {"text" : "", "texthl" : "LspDiagn
 lua require('lspfuzzy').setup {}
 
 let g:lualine = {
-    \'options' : {
-    \  'theme' : 'solarized_light',
-    \  'section_separators' : ['', ''],
-    \  'component_separators' : ['', ''],
-    \  'icons_enabled' : v:true,
-    \},
-    \'sections' : {
-    \  'lualine_c' : [ ['diagnostics', {
-	\   'sources': ['nvim_lsp', 'ale'], 'symbols': {'error': ':', 'warn':':', 'info': ':'}
-	\   }], ['filename', {'file_status': v:true,},], ],
-    \},
-    \'extensions' : [ 'fzf', 'fugitive' ],
-    \}
+	\'options' : {
+		\'theme' : 'auto',
+		\'section_separators' : ['', ''],
+		\'component_separators' : ['', ''],
+		\'icons_enabled' : v:true,
+	\},
+	\'sections' : {
+		\'lualine_b' : [ 'diff' ],
+		\'lualine_c' : [
+			\['diagnostics', {
+				\'sources': ['nvim_lsp', 'ale'],
+				\'symbols': {'error': ':', 'warn':':', 'info': ':'}}],
+			\['filename', {'file_status': v:true,},],
+		\],
+		\'lualine_x' : [ 'encoding', 'filetype' ],
+	\},
+	\'tabline' : {
+		\'lualine_a': [ 'hostname' ],
+		\'lualine_b' : [ 'branch' ],
+		\'lualine_c': [ ['filename', {'file_status': v:true, 'shorten': v:false, 'full_path': v:true}] ],
+	\},
+	\'extensions' : [ 'fzf', 'fugitive' ],
+\}
 lua require('lualine').setup {}

@@ -2,25 +2,25 @@
 
 # mount and umount scripts
 mod4 + m
-	bin/dmenumount
+	dmenumount
 mod4 + u
-	bin/dmenuumount
+	dmenuumount
 
 # enable / disable xautolock
 mod4 + shift + a
-	bin/xautolock_toggle.sh
+	xautolock_toggle.sh
 
 # screenshot and open in gimp
 mod4 + shift + p
-	bin/screenshot.sh
+	screenshot.sh
 
 # lock the screen
 mod4 + x
-	bin/prompt.sh "Lock?" bin/lock.sh
+	prompt.sh "Lock?" "xscreensaver-command -lock"
 
 # open a DnD book pdf
 mod4 + z
-	bin/DnD_book.sh
+	DnD_book.sh
 
 # sound toggle
 XF86AudioMute

@@ -1,0 +1,10 @@
+# i3 config for Workstation at RNL Admin
+
+# Assign Workspaces:
+assign [class="firefox"] $ws1
+assign [class="discord"] $ws5
+assign [class="Thunderbird"] $ws6
+assign [class="Gimp"] $ws7
+
+exec --no-startup-id sxhkd &
+exec --no-startup-id /home/jp/.fehbg

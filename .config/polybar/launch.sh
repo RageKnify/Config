@@ -8,6 +8,12 @@ while pgrep -u "$(id -ru)" -x polybar >/dev/null; do sleep 1; done
 
 # Launch bar
 . /home/jp/.colors
-polybar --config=/home/jp/.config/polybar/config -r barBottom &
+if type "xrandr"; then
+  for m in $(xrandr --query | grep " connected" | cut -d" " -f1); do
+    MONITOR=$m polybar --reload barBottom &
+  done
+else
+  polybar --reload barBottom &
+fi
 
 echo "Bars launched..."

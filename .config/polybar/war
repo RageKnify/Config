@@ -1,6 +1,6 @@
 ; polybar config for Thinkpad
 [bar/barBottom]
-monitor = ${env:MONITOR:eDP1}
+monitor = ${env:MONITOR:}
 
 modules-left = i3 xkeyboard mpd pulseaudio
 modules-right = filesystem0 filesystem1 cpu temperature memory wlan battery date

@@ -1,5 +1,7 @@
 " Use LSP omni-completion in Rust files.
 setlocal omnifunc=v:lua.vim.lsp.omnifunc
+set foldexpr=nvim_treesitter#foldexpr()
+set foldmethod=expr
 
 lua << EOF
 local inlay_hints = require('lsp_extensions.inlay_hints')

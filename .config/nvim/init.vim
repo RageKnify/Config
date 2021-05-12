@@ -29,10 +29,10 @@ set foldmethod=syntax
 autocmd! vimenter * call SetupEnv()
 
 function! SetupEnv()
-	let l:proj_nvim = './.proj.nvim'
-	if filereadable(l:proj_nvim)
-		echo "Sourcing " .l:proj_nvim
-		exec "source " . l:proj_nvim
+	let l:proj_vim = './.proj.vim'
+	if filereadable(l:proj_vim)
+		echo "Sourcing " .l:proj_vim
+		exec "source " . l:proj_vim
 	endif
 endfunction
 

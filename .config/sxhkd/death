@@ -1,0 +1,15 @@
+# sxhkd config for Workstation at RNL Admin
+
+# mount and umount scripts
+mod4 + m
+	dmenumount
+mod4 + u
+	dmenuumount
+
+# screenshot and open in gimp
+mod4 + shift + p
+	screenshot.sh
+
+# lock the screen
+mod4 + x
+	prompt.sh "Lock?" "xscreensaver-command -lock"

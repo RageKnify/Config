@@ -211,6 +211,7 @@ let g:ale_fixers = {
 \	],
 \	'java': [
 \		'google_java_format',
+\		'trim_whitespace',
 \	],
 \}
 let g:ale_fix_on_save = 1

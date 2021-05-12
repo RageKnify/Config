@@ -69,4 +69,64 @@ type = internal/pulseaudio
 
 sink = alsa_output.pci-0000_00_1f.3.analog-stereo
 
+[module/battery]
+type = internal/battery
+battery = BAT0
+adapter = ACAD
+full-at = 100
+time-format = %H:%M
+
+format-charging = <animation-charging> <label-charging>
+label-charging = %percentage%%
+format-charging-overline =  ${env:BASE0A}
+
+format-discharging = <ramp-capacity> <label-discharging>
+label-discharging = %percentage%%
+format-discharging-overline = ${self.format-charging-overline}
+
+ramp-capacity-foreground = ${colors.foreground-alt}
+ramp-capacity-0 = 
+ramp-capacity-1 = 
+ramp-capacity-2 = 
+ramp-capacity-3 = 
+ramp-capacity-4 = 
+
+format-full = <label-full>
+label-full =  %percentage%%
+format-full-overline = ${self.format-charging-overline}
+
+animation-charging-0 = 
+animation-charging-1 = 
+animation-charging-2 = 
+animation-charging-3 = 
+animation-charging-4 = 
+animation-charging-foreground = ${colors.foreground-alt}
+animation-charging-framerate = 750
+
+[module/wlan]
+type = internal/network
+interface = wlp2s0
+interval = 3.0
+
+format-connected-prefix = " "
+format-disconnected-prefix = ${self.format-connected-prefix}
+format-connected-prefix-foreground = ${colors.foreground-alt}
+format-disconnected-prefix-foreground = ${colors.foreground-alt}
+
+format-connected = <ramp-signal> <label-connected>
+format-connected-overline = ${env:BASE0B}
+label-connected = %essid%
+
+format-disconnected = <label-disconnected>
+format-disconnected-overline = ${self.format-connected-overline}
+label-disconnected = Disconnected
+#label-disconnected-foreground = ${colors.secondary}
+
+ramp-signal-0 = 0
+ramp-signal-1 = 1
+ramp-signal-2 = 2
+ramp-signal-3 = 3
+ramp-signal-4 = 4
+ramp-signal-foreground = ${colors.foreground-alt}
+
 ; vim:ft=dosini

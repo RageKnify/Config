@@ -254,7 +254,7 @@ nmap <leader>/ :BLines<cr>
 " fuzzy find an open buffer
 nmap <leader>b :Buffers<cr>
 " fuzzy find text in the working directory
-nmap <leader>r :Rg<cr>
+nmap <leader>rg :Rg<cr>
 " fuzzy find Vim commands (like Ctrl-Shift-P in Sublime/Atom/VSC)
 nmap <leader>c :Commands<cr>
 
@@ -310,11 +310,9 @@ nnoremap <silent> <leader>n <cmd>lua vim.lsp.diagnostic.goto_next { wrap = false
 nnoremap <silent> <leader>p <cmd>lua vim.lsp.diagnostic.goto_prev { wrap = false }<CR>
 nnoremap <silent> <leader>d <cmd>lua vim.lsp.buf.definition()<CR>
 nnoremap <silent> <leader>gr <cmd>lua vim.lsp.buf.references()<CR>
+nnoremap <silent> <leader>rn <cmd>lua vim.lsp.buf.rename()<CR>
 nnoremap <silent> <leader>a <cmd>lua vim.lsp.buf.code_action()<CR>
 nnoremap <silent> <leader><cr> <cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<cr>
-
-command LspDisable lua vim.lsp.stop_client(vim.lsp.get_active_clients())
-command LspEnable edit
 
 autocmd BufEnter * lua require'completion'.on_attach()
 lua << EOF

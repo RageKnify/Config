@@ -88,3 +88,8 @@ if [[ -d /home/jp/Documents/STT/ ]]; then
 	alias 'ctf'='cd $CTF'
 fi
 
+PARENT=$(ps --no-header --pid=$PPID --format=cmd)
+if [[ $PARENT != "/bin/fish" && $PARENT != "fish" ]]
+then
+	exec fish
+fi

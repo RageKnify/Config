@@ -28,8 +28,8 @@ function greeting
 			awk 'BEGIN {i=""} /\.|:/ {print i" "$0"\\\n"; next} // {i = $0}' | \
 			sort | \
 			column -t -R1 | \
-			# public addresses are underlined for visibility \
-			sed 's/ \([^ ]\+\)$/ \\\e[4m\1/' | \
+			# # public addresses are underlined for visibility \
+			# sed 's/ \([^ ]\+\)$/ \\\e[4m\1/' | \
 			# private addresses are not \
 			sed 's/m\(\(10\.\|172\.\(1[6-9]\|2[0-9]\|3[01]\)\|192\.168\.\).*\)/m\\\e[24m\1/' | \
 			# unknown interfaces are cyan \

@@ -42,10 +42,10 @@ ws-icon-default = 
 
 [module/eth]
 type = internal/network
-interface = enp0s31f6
+interface = enp4s0
 interval = 3.0
 
-format-connected-prefix = "ETHERNET "
+format-connected-prefix = "RNL "
 format-disconnected-prefix = ${self.format-connected-prefix}
 
 format-connected-overline = #55aa55

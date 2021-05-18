@@ -10,6 +10,7 @@ export CVS_RSH=ssh
 export CVSROOT=:ext:ist189482@sig:/afs/ist.utl.pt/groups/leic-co/co20/cvs/010
 
 export PATH="$HOME/bin:$PATH"
+export PATH="$HOME/Config/scripts:$PATH"
 export PATH="$HOME/.local/bin:$PATH"
 export PATH="$HOME/.cargo/bin:$PATH"
 export PATH="$HOME/.gem/ruby/2.7.0/bin:$PATH"

@@ -73,13 +73,9 @@ export JAVA_HOME=/usr/lib/jvm/java-8-openjdk
 
 shopt -s autocd
 
-function prompt_command {
-    RET=$?
-    export PS1=$(~/.bash_prompt_command $RET $COLUMNS)
-}
-
+source /usr/share/git/completion/git-prompt.sh
 PROMPT_DIRTRIM=2
-PROMPT_COMMAND=prompt_command
+export PS1='[\u@\h \W$(__git_ps1 " (%s)")]\$ '
 
 # Android stuff
 export USE_CCACHE=1

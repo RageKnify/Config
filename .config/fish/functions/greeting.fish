@@ -58,13 +58,15 @@ function greeting
 
 		end
 	end
-	set TODO (cat ~/TODO.txt)
-	if [ "$TODO" != "" ]
-		set_color normal
-		echo -e "\n \\e[1mTODO:\\e[0m"
-		for LINE in $TODO
-			set_color green
-			echo -e "\t$LINE"
+	if [ -f "~/TODO.txt" ]
+		set TODO (cat ~/TODO.txt)
+		if [ "$TODO" != "" ]
+			set_color normal
+			echo -e "\n \\e[1mTODO:\\e[0m"
+			for LINE in $TODO
+				set_color green
+				echo -e "\t$LINE"
+			end
 		end
 	end
 end

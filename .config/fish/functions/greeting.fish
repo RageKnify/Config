@@ -58,7 +58,7 @@ function greeting
 
 		end
 	end
-	if [ -f "~/TODO.txt" ]
+	if [ -f ~/TODO.txt ]
 		set TODO (cat ~/TODO.txt)
 		if [ "$TODO" != "" ]
 			set_color normal

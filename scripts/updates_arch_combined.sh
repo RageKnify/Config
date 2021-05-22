@@ -10,6 +10,8 @@ if ! updates_aur=$(paru -Qum 2> /dev/null | tee -a /tmp/updates_total | wc -l); 
 	updates_aur=0
 fi
 
+chmod 666 /tmp/updates_total
+
 updates=$(($updates_arch + $updates_aur))
 
 if [ "$updates" -gt 0 ]; then

@@ -17,7 +17,9 @@ set_wp() {
 	convert -scale 1920x1080 $1 /tmp/wallpaper.png
 	composite -gravity center /home/jp/Pictures/$HORSEMAN.png /tmp/wallpaper.png /tmp/wallpaper.png
 	# /home/jp/Documents/Code/arch-pape-maker/mepapemaker.sh /tmp/wallpaper.png /tmp/wallpaper.png
-	convert -spread 15 /tmp/wallpaper.png /tmp/lockscreen.png
+
+	# convert -spread 15 /tmp/wallpaper.png /tmp/lockscreen.png
+
 	# $HOME/Documents/Code/corrupter/corrupter \
 	# 	-bheight 10 \
 	# 	-boffset 5	\

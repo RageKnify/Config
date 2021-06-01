@@ -341,28 +341,29 @@ call sign_define("LspDiagnosticsSignHint", {"text" : "", "texthl" : "LspDiagn
 
 lua require('lspfuzzy').setup {}
 
-let g:lualine = {
-	\'options' : {
-		\'theme' : 'auto',
-		\'section_separators' : ['', ''],
-		\'component_separators' : ['', ''],
-		\'icons_enabled' : v:true,
-	\},
-	\'sections' : {
-		\'lualine_b' : [ 'diff' ],
-		\'lualine_c' : [
-			\['diagnostics', {
-				\'sources': ['nvim_lsp', 'ale'],
-				\'symbols': {'error': ':', 'warn':':', 'info': ':'}}],
-			\['filename', {'file_status': v:true,},],
-		\],
-		\'lualine_x' : [ 'encoding', 'filetype' ],
-	\},
-	\'tabline' : {
-		\'lualine_a': [ 'hostname' ],
-		\'lualine_b' : [ 'branch' ],
-		\'lualine_c': [ ['filename', {'file_status': v:true, 'shorten': v:false, 'full_path': v:true}] ],
-	\},
-	\'extensions' : [ 'fzf', 'fugitive' ],
-\}
-lua require('lualine').setup {}
+lua << EOF
+require('lualine').setup {
+	options = {
+		theme = 'auto',
+		section_separators = {'', ''},
+		component_separators = {'', ''},
+		icons_enabled = true
+	},
+	sections = {
+		lualine_b = { 'diff' },
+		lualine_c = {
+			{'diagnostics', {
+				sources = {nvim_lsp, ale},
+				symbols = {error = ':', warn =':', info = ':', hint = ':'}}},
+			{'filename', {file_status = true}}
+		},
+		lualine_x = { 'encoding', 'filetype' },
+	},
+	tabline = {
+		lualine_a = { 'hostname' },
+		lualine_b = { 'branch' },
+		lualine_c = { {'filename', {file_status = true, shorten = false, full_path = true}}}
+	},
+	extensions = { fzf, fugitive },
+}
+EOF

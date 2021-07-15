@@ -17,7 +17,7 @@ export PATH="$HOME/.gem/ruby/2.7.0/bin:$PATH"
 export PATH="$JAVA_HOME/bin:$PATH"
 export PATH="$HOME/.config/nvim/plugged/vim-live-latex-preview/bin/:$PATH"
 
-export FZF_DEFAULT_COMMAND='rg'
+export FZF_DEFAULT_COMMAND='rg --files'
 
 export MANPAGER='nvim +Man!'
 

@@ -3,9 +3,9 @@
 # Assign Workspaces:
 assign [class="firefox"] $ws1
 assign [class="Ghidra"] $ws3
-assign [class="discord"] $ws5
 assign [class="Thunderbird"] $ws6
 assign [class="Gimp"] $ws7
+assign [class="discord"] $ws10
 
 exec --no-startup-id nm-applet &
 exec --no-startup-id gebaard &

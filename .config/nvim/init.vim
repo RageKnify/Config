@@ -196,6 +196,7 @@ Plug 'nvim-lua/lsp_extensions.nvim', {'for': 'rust'}
 
 " neovim's treesitter
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+Plug 'nvim-treesitter/nvim-treesitter-textobjects'
 
 " Asynchronous Lint Engine
 let g:ale_set_signs = 0
@@ -374,5 +375,25 @@ require('lualine').setup {
 		lualine_c = { {'filename', {file_status = true, shorten = false, full_path = true}}}
 	},
 	extensions = { fzf, fugitive },
+}
+EOF
+
+lua <<EOF
+require'nvim-treesitter.configs'.setup {
+  textobjects = {
+    select = {
+      enable = true,
+
+      -- Automatically jump forward to textobj, similar to targets.vim
+      lookahead = true,
+
+      keymaps = {
+        ["af"] = "@function.outer",
+        ["if"] = "@function.inner",
+        ["ac"] = "@class.outer",
+        ["ic"] = "@class.inner",
+      },
+    },
+  },
 }
 EOF

@@ -263,8 +263,6 @@ Plug 'ojroques/nvim-lspfuzzy'
 " gc<operator> to toggle comment respective lines
 Plug 'tpope/vim-commentary'
 
-Plug 'nekonako/xresources-nvim'
-
 Plug 'andweeb/presence.nvim'
 
 let g:presence_auto_update       = 1
@@ -273,11 +271,13 @@ let g:presence_workspace_text    = "Working on %s"
 let g:presence_neovim_image_text = "vim but better"
 let g:presence_main_image        = "neovim"
 
+Plug 'RRethy/nvim-base16'
+
 call plug#end()
 
 " colorscheme settings
 set background=light
-lua require('xresources')
+colorscheme base16-solarized-light
 lua require'nvim-treesitter.configs'.setup { highlight = { enable = true } }
 
 " nvim-lsp setup

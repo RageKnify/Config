@@ -130,6 +130,8 @@ set mouse=a
 " Shows the effects of a command incrementally, as you type.
 set inccommand=nosplit
 
+au TextYankPost * lua vim.highlight.on_yank {higroup="IncSearch", timeout=1000, on_visual=true}
+
 call plug#begin('~/.config/nvim/plugged')
 
 Plug 'hoob3rt/lualine.nvim'

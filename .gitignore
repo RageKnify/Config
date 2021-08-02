@@ -1,0 +1,6 @@
+.config/i3/config
+.config/nvim/plugged
+.config/nvim/.netrwhist
+.config/nvim/autoload
+.config/polybar/config
+.config/sxhkd/sxhkdrc

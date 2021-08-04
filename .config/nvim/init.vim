@@ -90,10 +90,10 @@ set hidden
 
 set completeopt=noinsert,menuone,noselect
 
-nnoremap <Up>       :resize +2<CR>
-nnoremap <Down>     :resize -2<CR>
-nnoremap <Left>     :vertical resize +2<CR>
-nnoremap <Right>    :vertical resize -2<CR>
+nnoremap <silent> <Up>       :resize +2<CR>
+nnoremap <silent> <Down>     :resize -2<CR>
+nnoremap <silent> <Left>     :vertical resize +2<CR>
+nnoremap <silent> <Right>    :vertical resize -2<CR>
 
 " Filter command
 command! -nargs=? Filter let @a='' | execute 'g/<args>/y A' | new | setlocal bt=nofile | put! a

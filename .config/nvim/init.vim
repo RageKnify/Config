@@ -285,7 +285,12 @@ let g:presence_main_image        = "neovim"
 
 Plug 'RRethy/nvim-base16'
 
+Plug 'nvim-lua/plenary.nvim'
+Plug 'lewis6991/gitsigns.nvim'
+
 call plug#end()
+
+lua require('gitsigns').setup()
 
 " colorscheme settings
 set background=light

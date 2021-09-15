@@ -198,7 +198,7 @@ Plug 'nvim-lua/lsp_extensions.nvim', {'for': 'rust'}
 
 " neovim's treesitter
 Plug 'nvim-treesitter/nvim-treesitter', { 'branch': '0.5-compat', 'do': ':TSUpdate' }
-Plug 'nvim-treesitter/nvim-treesitter-textobjects'
+Plug 'nvim-treesitter/nvim-treesitter-textobjects', {'branch' : '0.5-compat'}
 
 " Asynchronous Lint Engine
 let g:ale_set_signs = 0

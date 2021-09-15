@@ -89,7 +89,7 @@ if [[ -d /home/jp/Documents/STT/ ]]; then
 fi
 
 PARENT=$(ps --no-header --pid=$PPID --format=cmd)
-if [[ $PARENT != "/bin/fish" && $PARENT != "fish" ]]
+if [[ $PARENT != "/bin/fish" && $PARENT != "fish" && $PARENT != "-fish" ]]
 then
 	exec fish
 fi

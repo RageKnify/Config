@@ -3,7 +3,7 @@
 # Assign Workspaces:
 assign [class="firefox"] $ws1
 assign [class="Ghidra"] $ws3
-assign [class="Thunderbird"] $ws6
+assign [class="Thunderbird"] $ws5
 assign [class="Gimp"] $ws7
 assign [class="discord"] $ws10
 

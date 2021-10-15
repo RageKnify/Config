@@ -154,45 +154,15 @@ hi def link LspReferenceText CursorLine
 hi def link LspReferenceRead CursorLine
 hi def link LspReferenceWrite CursorLine
 
-" neovim completion
-Plug 'hrsh7th/nvim-compe'
-set completeopt=menuone,noselect
-let g:compe = {}
-let g:compe.enabled = v:true
-let g:compe.autocomplete = v:true
-let g:compe.debug = v:false
-let g:compe.min_length = 1
-let g:compe.preselect = 'enable'
-let g:compe.throttle_time = 80
-let g:compe.source_timeout = 200
-let g:compe.incomplete_delay = 400
-let g:compe.max_abbr_width = 100
-let g:compe.max_kind_width = 100
-let g:compe.max_menu_width = 100
-let g:compe.documentation = v:true
-
-let g:compe.source = {}
-let g:compe.source.path = v:true
-let g:compe.source.buffer = v:true
-let g:compe.source.calc = v:true
-let g:compe.source.vsnip = v:true
-let g:compe.source.nvim_lsp = v:true
-let g:compe.source.nvim_lua = v:true
-let g:compe.source.spell = v:true
-let g:compe.source.tags = v:true
-let g:compe.source.snippets_nvim = v:true
-let g:compe.source.treesitter = v:true
-let g:compe.source.omni = v:true
-
-" Snippets
-Plug 'hrsh7th/vim-vsnip'
-
-Plug 'hrsh7th/vim-vsnip-integ'
+" completion
+Plug 'ms-jpq/coq_nvim', {'branch': 'coq'}
+" don't close on keystroke, wait for new results to replace
+let g:coq_settings = { 'display.pum.fast_close': v:false }
+" 9000+ snippets
+Plug 'ms-jpq/coq.artifacts', {'branch': 'artifacts'}
 
 " neovim's LSP implementation configs
 Plug 'neovim/nvim-lspconfig'
-
-Plug 'nvim-lua/completion-nvim'
 
 Plug 'nvim-lua/lsp_extensions.nvim', {'for': 'rust'}
 
@@ -337,7 +307,6 @@ nnoremap <silent> <leader>rn <cmd>lua vim.lsp.buf.rename()<CR>
 nnoremap <silent> <leader>a <cmd>lua vim.lsp.buf.code_action()<CR>
 nnoremap <silent> <leader><cr> <cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<cr>
 
-autocmd BufEnter * lua require'completion'.on_attach()
 lua << EOF
 vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
 	vim.lsp.diagnostic.on_publish_diagnostics, {

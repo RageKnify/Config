@@ -40,9 +40,9 @@ XF86AudioMicMute
 
 # brightness up
 XF86MonBrightnessUp
-	light -A 5
+	light -A 2
 
 # brightness down
 XF86MonBrightnessDown
-	light -U 5
+	light -U 2
 

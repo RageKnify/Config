@@ -259,7 +259,11 @@ Plug 'RRethy/nvim-base16'
 Plug 'nvim-lua/plenary.nvim'
 Plug 'lewis6991/gitsigns.nvim'
 
+Plug 'luukvbaal/stabilize.nvim'
+
 call plug#end()
+
+lua require('stabilize').setup()
 
 lua require('gitsigns').setup()
 

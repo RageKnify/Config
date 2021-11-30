@@ -134,7 +134,8 @@ au TextYankPost * lua vim.highlight.on_yank {higroup="IncSearch", timeout=1000, 
 
 call plug#begin('~/.config/nvim/plugged')
 
-Plug 'hoob3rt/lualine.nvim'
+Plug 'kyazdani42/nvim-web-devicons'
+Plug 'nvim-lualine/lualine.nvim'
 set laststatus=2
 set showtabline=2
 set noshowmode
@@ -337,8 +338,8 @@ lua << EOF
 require('lualine').setup {
 	options = {
 		theme = 'auto',
-		section_separators = {'', ''},
-		component_separators = {'', ''},
+		section_separators = {left='', right=''},
+		component_separators = {left='', right=''},
 		icons_enabled = true
 	},
 	sections = {
@@ -347,17 +348,33 @@ require('lualine').setup {
 			{'diagnostics', {
 				sources = {nvim_lsp, ale},
 				symbols = {error = ':', warn =':', info = ':', hint = ':'}}},
-			{'filename', {file_status = true}}
+			{'filename', file_status = true, path = 1}
 		},
-		lualine_x = { 'encoding', 'filetype' },
+		lualine_x = { 'encoding', {'filetype', colored = false} },
+	},
+	inactive_sections = {
+		lualine_c = {
+			{'filename', file_status = true, path = 1}
+		},
+		lualine_x = { 'encoding', {'filetype', colored = false} },
 	},
 	tabline = {
 		lualine_a = { 'hostname' },
 		lualine_b = { 'branch' },
-		lualine_c = { {'filename', {file_status = true, shorten = false, full_path = true}}}
+		lualine_z = { {'tabs', tabs_color = { inactive = "TermCursor", active = "ColorColumn" } } }
 	},
 	extensions = { fzf, fugitive },
 }
+if _G.Tabline_timer == nil then
+  _G.Tabline_timer = vim.loop.new_timer()
+else
+  _G.Tabline_timer:stop()
+end
+_G.Tabline_timer:start(0,             -- never timeout
+                       100,          -- repeat every 1000 ms
+                       vim.schedule_wrap(function() -- updater function
+                                            vim.api.nvim_command('redrawtabline')
+                                         end))
 EOF
 
 lua <<EOF

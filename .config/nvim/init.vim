@@ -127,9 +127,6 @@ set selection=exclusive
 
 set mouse=a
 
-" Shows the effects of a command incrementally, as you type.
-set inccommand=nosplit
-
 au TextYankPost * lua vim.highlight.on_yank {higroup="IncSearch", timeout=1000, on_visual=true}
 
 call plug#begin('~/.config/nvim/plugged')
@@ -168,8 +165,8 @@ Plug 'neovim/nvim-lspconfig'
 Plug 'nvim-lua/lsp_extensions.nvim', {'for': 'rust'}
 
 " neovim's treesitter
-Plug 'nvim-treesitter/nvim-treesitter', { 'branch': '0.5-compat', 'do': ':TSUpdate' }
-Plug 'nvim-treesitter/nvim-treesitter-textobjects', {'branch' : '0.5-compat'}
+Plug 'nvim-treesitter/nvim-treesitter', { 'do': ':TSUpdate' }
+Plug 'nvim-treesitter/nvim-treesitter-textobjects'
 
 " Asynchronous Lint Engine
 let g:ale_set_signs = 0
@@ -304,13 +301,13 @@ require'lspconfig'.julials.setup{
 }
 EOF
 
-nnoremap <silent> <leader>n <cmd>lua vim.lsp.diagnostic.goto_next { wrap = false }<CR>
-nnoremap <silent> <leader>p <cmd>lua vim.lsp.diagnostic.goto_prev { wrap = false }<CR>
+nnoremap <silent> <leader>n <cmd>lua vim.diagnostic.goto_next { wrap = false }<CR>
+nnoremap <silent> <leader>p <cmd>lua vim.diagnostic.goto_prev { wrap = false }<CR>
 nnoremap <silent> <leader>d <cmd>lua vim.lsp.buf.definition()<CR>
 nnoremap <silent> <leader>gr <cmd>lua vim.lsp.buf.references()<CR>
 nnoremap <silent> <leader>rn <cmd>lua vim.lsp.buf.rename()<CR>
 nnoremap <silent> <leader>a <cmd>lua vim.lsp.buf.code_action()<CR>
-nnoremap <silent> <leader><cr> <cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<cr>
+nnoremap <silent> <leader><cr> <cmd>lua vim.diagnostic.open_float()<cr>
 
 lua << EOF
 vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
@@ -331,10 +328,10 @@ vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
 )
 EOF
 
-call sign_define("LspDiagnosticsSignError", {"text" : "", "texthl" : "LspDiagnosticsVirtualTextError"})
-call sign_define("LspDiagnosticsSignWarning", {"text" : "", "texthl" : "LspDiagnosticsVirtualTextWarning"})
-call sign_define("LspDiagnosticsSignInformation", {"text" : "", "texthl" : "LspDiagnosticsVirtualTextInformation"})
-call sign_define("LspDiagnosticsSignHint", {"text" : "", "texthl" : "LspDiagnosticsVirtualTextHint"})
+call sign_define("DiagnosticsSignError", {"text" : "", "texthl" : "DiagnosticsSignError"})
+call sign_define("DiagnosticsSignWarn", {"text" : "", "texthl" : "DiagnosticsSignWarn"})
+call sign_define("DiagnosticsSignInfo", {"text" : "", "texthl" : "DiagnosticsSignInfo"})
+call sign_define("DiagnosticsSignHint", {"text" : "", "texthl" : "DiagnosticsSignHint"})
 
 lua require('lspfuzzy').setup {}
 

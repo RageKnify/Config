@@ -4,21 +4,20 @@ set foldexpr=nvim_treesitter#foldexpr()
 set foldmethod=expr
 
 lua << EOF
-local inlay_hints = require('lsp_extensions.inlay_hints')
-
-local M = {}
+local inlay_hints = require('lsp_extensions').inlay_hints
 
 -- Global function, so you can just call it on the lua side
 ShowHintsLine = function()
-  vim.lsp.buf_request(0, 'rust-analyzer/inlayHints', inlay_hints.get_params(), inlay_hints.get_callback {
+  inlay_hints {
     only_current_line = true
-  })
+  }
 end
 
 ShowHintsFile = function()
-  vim.lsp.buf_request(0, 'rust-analyzer/inlayHints', inlay_hints.get_params(), inlay_hints.get_callback{})
+  inlay_hints()
 end
 EOF
-autocmd CursorHold,CursorHoldI,CursorMoved *.rs :lua ShowHintsLine()
+" not working for some reason
+" autocmd CursorHold,CursorHoldI *.rs :lua ShowHintsLine()
 
 nnoremap <silent> <leader>h <cmd>lua ShowHintsFile()<CR>

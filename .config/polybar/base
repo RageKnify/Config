@@ -34,9 +34,9 @@ module-margin-left = 0
 module-margin-right = 1
 
 font-0 = "Fira Sans:pixelsize=14;4"
-font-1 = "Font Awesome 5 Free:style=regular;4"
-font-2 = "Font Awesome 5 Free:style=solid;4"
-font-3 = "Font Awesome 5 Brands,Font Awesome 5 Brands Regular:style=Regular;4"
+font-1 = "Font Awesome 6 Free:style=regular;4"
+font-2 = "Font Awesome 6 Free:style=solid;4"
+font-3 = "Font Awesome 6 Brands,Font Awesome 6 Brands Regular:style=Regular;4"
 
 tray-position = right
 tray-padding = 1

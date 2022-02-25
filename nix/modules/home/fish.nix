@@ -8,7 +8,6 @@
 { pkgs, ... }:
 {
   programs.fish.enable = true;
-  programs.fish.enableCompletion = true;
 
   # starship
   programs.starship.enable = true;

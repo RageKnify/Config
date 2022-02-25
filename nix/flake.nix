@@ -47,7 +47,7 @@
           value = inputs.nixpkgs.lib.nixosSystem {
             inherit system pkgs;
             modules = [
-              dir
+              # dir
               (dir + "/${name}/configuration.nix")
               inputs.home.nixosModules.home-manager {
                 home-manager.useGlobalPkgs = true;

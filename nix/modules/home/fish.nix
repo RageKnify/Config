@@ -11,7 +11,7 @@
 
   # starship
   programs.starship.enable = true;
-  programs.fish.promptInit = ''
+  programs.fish.interactiveShellInit = ''
   starship init fish | source
   '';
 }

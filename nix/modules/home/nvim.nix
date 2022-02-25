@@ -40,5 +40,5 @@
 
     set selection=exclusive
     '';
-  }
+  };
 }

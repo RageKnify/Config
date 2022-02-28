@@ -28,7 +28,7 @@
       system = "x86_64-linux";
       user = "jp";
 
-      pkg-sets = final: prev: let args {
+      pkg-sets = final: prev: let args = {
         system = final.system;
         config.allowUnFree = true;
       }; in {

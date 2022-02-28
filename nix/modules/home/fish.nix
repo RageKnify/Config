@@ -18,5 +18,5 @@
   programs.fish.shellAbbrs = {
 	n = "nvim";
 	nv = "nvim";
-  }
+  };
 }

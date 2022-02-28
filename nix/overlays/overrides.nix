@@ -8,4 +8,5 @@
 self: super: {
   discord = super.latest.discord;
   neovim = super.unstable.neovim;
+  starship = super.unstable.starship;
 }

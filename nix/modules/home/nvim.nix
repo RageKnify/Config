@@ -13,8 +13,7 @@
   programs.neovim.vimdiffAlias = true;
   home.sessionVariables.EDITOR = "nvim";
 
-  programs.neovim.configure = {
-    customRC = ''
+  programs.neovim.extraConfig = ''
     nnoremap <silent> <Up>       :resize +2<CR>
     nnoremap <silent> <Down>     :resize -2<CR>
     nnoremap <silent> <Left>     :vertical resize +2<CR>
@@ -41,5 +40,4 @@
 
     set selection=exclusive
     '';
-  };
 }

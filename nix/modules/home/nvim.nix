@@ -7,6 +7,7 @@
 
 { pkgs, ... }:
 {
+  programs.neovim.package = pkgs.unstable.neovim;
   programs.neovim.enable = true;
   programs.neovim.viAlias = true;
   programs.neovim.vimAlias = true;

@@ -28,18 +28,19 @@
       system = "x86_64-linux";
       user = "jp";
 
+      pkg-sets = final: prev: let args {
+        system = final.system;
+        config.allowUnFree = true;
+      }; in {
+        unstable = import inputs.unstable args;
+        latest = import inputs.latest args;
+      };
+
       pkgs = (import inputs.nixpkgs) {
         inherit system;
         config.allowUnfree = true;
-        overlays = attrValues self.overlays;
+        overlays = [ pkg-sets ];
       };
-
-      mkOverlays = dir: listToAttrs (map
-        (name: {
-          name = removeSuffix ".nix" name;
-          value = import (dir + "/${name}");
-        })
-        (attrNames (readDir dir)));
 
       mkHosts = dir: listToAttrs (map
         (name: {
@@ -61,21 +62,6 @@
        (attrNames (readDir dir)));
 
     in {
-
-      overlays = mkOverlays ./overlays // {
-        unstable = final: prev: {
-          unstable = import inputs.unstable {
-            inherit system;
-            config.allowUnfree = true;
-          };
-        };
-        latest = final: prev: {
-          latest = import inputs.latest {
-            inherit system;
-            config.allowUnfree = true;
-          };
-        };
-      };
 
       nixosConfigurations = mkHosts ./hosts;
     };

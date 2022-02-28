@@ -14,6 +14,7 @@
   };
 
   # starship
+  programs.starship.package = pkgs.unstable.starship;
   programs.starship.enable = true;
   programs.fish.interactiveShellInit = ''
   starship init fish | source

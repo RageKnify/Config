@@ -13,5 +13,10 @@
   programs.starship.enable = true;
   programs.fish.interactiveShellInit = ''
   starship init fish | source
+  fish_vi_key_bindings
   '';
+  programs.fish.shellAbbrs = {
+	n = "nvim";
+	nv = "nvim";
+  }
 }

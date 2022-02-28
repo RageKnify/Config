@@ -7,5 +7,5 @@
 
 self: super: {
   discord = super.latest.discord;
-  neovim = super.latest.neovim;
+  neovim = super.unstable.neovim;
 }

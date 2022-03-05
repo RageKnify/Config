@@ -202,9 +202,6 @@ Plug 'ying17zi/vim-live-latex-preview', {'for': 'tex'}
 let g:livepreview_previewer = 'zathura'
 let g:livepreview_cursorhold_recompile = 0
 
-" Julia goodies
-Plug 'JuliaEditorSupport/julia-vim'
-
 " Coq goodies
 Plug 'whonore/Coqtail'
 
@@ -271,6 +268,9 @@ lua require'nvim-treesitter.configs'.setup { highlight = { enable = true } }
 
 " nvim-lsp setup
 lua << EOF
+local lsp = require'lspconfig'
+local coq = require'coq'
+
 local capabilities = vim.lsp.protocol.make_client_capabilities()
 capabilities.textDocument.completion.completionItem.snippetSupport = true
 capabilities.textDocument.completion.completionItem.resolveSupport = {
@@ -281,24 +281,20 @@ capabilities.textDocument.completion.completionItem.resolveSupport = {
 	}
 }
 
-require'lspconfig'.rust_analyzer.setup{
+lsp.rust_analyzer.setup(coq.lsp_ensure_capabilities{
 	capabilities = capabilities,
 	on_attach = require'generic_lsp'
-}
-function file_exists(name)
+})
+function executable_exists(name)
    local f=io.open(name,"r")
    if f~=nil then io.close(f) return true else return false end
 end
-if file_exists('pyls') then
-	require'lspconfig'.pyls.setup{
+if executable_exists('/home/jp/.local/bin/pylsp') then
+	lsp.pylsp.setup(coq.lsp_ensure_capabilities{
 		capabilities = capabilities,
 		on_attach = require'generic_lsp'
-	}
+	})
 end
-require'lspconfig'.julials.setup{
-	capabilities = capabilities,
-	on_attach = require'generic_lsp'
-}
 EOF
 
 nnoremap <silent> <leader>n <cmd>lua vim.diagnostic.goto_next { wrap = false }<CR>

@@ -43,5 +43,8 @@ disabled = true
 format = "[$status ]($style)"
 disabled = false
 
+[sudo]
+disabled = false
+
 [character]
 format = "[⋉ ](white)"

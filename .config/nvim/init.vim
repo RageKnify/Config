@@ -155,7 +155,11 @@ hi def link LspReferenceWrite CursorLine
 " completion
 Plug 'ms-jpq/coq_nvim', {'branch': 'coq'}
 " don't close on keystroke, wait for new results to replace
-let g:coq_settings = { 'display.pum.fast_close': v:false }
+let g:coq_settings = {
+	\'auto_start': 'shut-up',
+	\'display.pum.fast_close': v:false,
+	\'keymap.jump_to_mark': v:null,
+\}
 " 9000+ snippets
 Plug 'ms-jpq/coq.artifacts', {'branch': 'artifacts'}
 

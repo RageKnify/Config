@@ -348,7 +348,7 @@ require('lualine').setup {
 		lualine_b = { 'diff' },
 		lualine_c = {
 			{'diagnostics', {
-				sources = {nvim_lsp, ale},
+				sources = {nvim_diagnostic, ale},
 				symbols = {error = ':', warn =':', info = ':', hint = ':'}}},
 			{'filename', file_status = true, path = 1}
 		},

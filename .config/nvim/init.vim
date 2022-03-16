@@ -187,6 +187,7 @@ au VimEnter,BufEnter,ColorScheme *
 Plug 'dense-analysis/ale'
 let g:ale_linters = {
 \	'rust': [],
+\	'python': [],
 \}
 let g:ale_fixers = {
 \	'*': ['trim_whitespace'],

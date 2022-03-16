@@ -1,4 +1,4 @@
-{ pkgs, ... }: {
+{ pkgs, lib, ... }: {
   imports = [
     ./hardware-configuration.nix
 
@@ -9,7 +9,13 @@
   zramSwap.enable = true;
   networking.hostName = "lazarus";
   networking.domain = "jplborges.pt";
-  services.openssh.enable = true;
+  services.openssh = {
+    enable = true;
+    passwordAuthentication = false;
+    # permitRootLogin = "no";
+    authorizedKeysFiles = lib.mkForce [ "/etc/ssh/authorized_keys.d/%u" ];
+    challengeResponseAuthentication = false;
+  };
   nix = {
     package = pkgs.nixFlakes;
     extraOptions = ''

@@ -9,9 +9,9 @@
   description = "Nix configuration for PCs and servers.";
 
   inputs = {
-    nixpkgs.url = { url = "github:nixos/nixpkgs/nixos-21.11"; };
-    nixpkgs-unstable.url = { url = "github:nixos/nixpkgs/nixos-unstable"; };
-    impermanence = { url = "github:nix-community/impermanence/master"; };
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-21.11";
+    nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
+    impermanence = "github:nix-community/impermanence/master";
     home = {
       url = "github:nix-community/home-manager/release-21.11";
       inputs.nixpkgs.follows = "nixpkgs";

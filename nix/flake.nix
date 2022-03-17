@@ -9,11 +9,10 @@
   description = "Nix configuration for PCs and servers.";
 
   inputs = {
-    nixpkgs      = { url = "github:nixos/nixpkgs/nixos-21.11"; };
-    unstable     = { url = "github:nixos/nixpkgs/nixos-unstable"; };
-    latest       = { url = "github:nixos/nixpkgs/master"; };
+    nixpkgs.url = { url = "github:nixos/nixpkgs/nixos-21.11"; };
+    nixpkgs-unstable.url = { url = "github:nixos/nixpkgs/nixos-unstable"; };
     impermanence = { url = "github:nix-community/impermanence/master"; };
-    home         = {
+    home = {
       url = "github:nix-community/home-manager/release-21.11";
       inputs.nixpkgs.follows = "nixpkgs";
     };
@@ -28,19 +27,14 @@
       system = "x86_64-linux";
       user = "jp";
 
-      pkg-sets = final: prev: let args = {
-        system = final.system;
-        config.allowUnFree = true;
-      }; in {
-        unstable = import inputs.unstable args;
-        latest = import inputs.latest args;
-      };
-
-      pkgs = (import inputs.nixpkgs) {
+      mkPkgs = pkgs: extraOverlays: import pkgs {
         inherit system;
         config.allowUnfree = true;
-        overlays = [ pkg-sets ];
+        overlays = extraOverlays ++ (attrValues self.overlays);
       };
+
+      pkgs = mkPkgs inputs.nixpkgs [ self.overlay ];
+      pkgs' = mkPkgs inputs.nixpkgs-unstable [];
 
       mkHosts = dir: listToAttrs (map
         (name: {
@@ -62,6 +56,11 @@
        (attrNames (readDir dir)));
 
     in {
+      overlay = final: prev: {
+        unstable = pkgs';
+      };
+
+      overlays = mkOverlays ./overlays;
 
       nixosConfigurations = mkHosts ./hosts;
     };

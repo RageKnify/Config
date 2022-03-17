@@ -69,7 +69,7 @@
         unstable = pkgs';
       };
 
-      overlays = mkOverlays ./overlays;
+      /* overlays = mkOverlays ./overlays; */
 
       nixosConfigurations = mkHosts ./hosts;
     };

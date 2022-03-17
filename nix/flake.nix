@@ -55,7 +55,7 @@
                 home-manager.useUserPackages = true;
                 home-manager.users.${user} = import (dir + "/${name}/home.nix");
               }
-	      inputs.impermanence.nixosModules.impermanence
+              inputs.impermanence.nixosModules.impermanence
             ];
           };
        })

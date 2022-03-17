@@ -36,6 +36,15 @@
       pkgs = mkPkgs inputs.nixpkgs [ self.overlay ];
       pkgs' = mkPkgs inputs.nixpkgs-unstable [];
 
+      mkOverlays = dir: listToAttrs (map
+        (name: {
+          name = removeSuffix ".nix" name;
+          value = import "${dir}/${name}" {
+            packageDir = ./packages;
+          };
+        })
+        (attrNames (readDir dir)));
+
       mkHosts = dir: listToAttrs (map
         (name: {
           inherit name;

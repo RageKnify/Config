@@ -52,6 +52,7 @@
             inherit system pkgs;
             modules = [
               # dir
+              { networking.hostName = name; }
               (dir + "/${name}/configuration.nix")
               inputs.home.nixosModules.home-manager {
                 home-manager.useGlobalPkgs = true;

@@ -12,14 +12,7 @@
     authorizedKeysFiles = lib.mkForce [ "/etc/ssh/authorized_keys.d/%u" ];
     challengeResponseAuthentication = false;
   };
-  nix = {
-    package = pkgs.nixFlakes;
-    extraOptions = ''
-      experimental-features = nix-command flakes
-    '';
-  };
 
-  nix.trustedUsers = [ "root" "@wheel" ];
   users = {
     mutableUsers = true;
     users = {

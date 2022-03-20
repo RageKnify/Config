@@ -15,7 +15,7 @@
     };
     windowManager.i3 = {
       enable = true;
-      configFile = "$HOME/.config/i3/config"
+      configFile = "$HOME/.config/i3/config";
     };
   };
 

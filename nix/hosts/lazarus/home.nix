@@ -7,19 +7,10 @@
 
 { pkgs, ... }:
 {
-  imports = [
-    ../../modules/home/nvim.nix
-    ../../modules/home/fish.nix
-  ];
-
-  home.packages = with pkgs; [
-    # Tools
-    neofetch
-    unzip
-    zip
-    htop
-    man-pages
-  ];
+  modules = {
+    fish.enable = true;
+    neovim.enable = true;
+  };
 
   home.stateVersion = "21.11";
 }

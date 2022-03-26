@@ -1,5 +1,8 @@
 # hosts/system.nix
 #
+# Author: João Borges <RageKnify@gmail.com>
+# URL:    https://github.com/RageKnify/Config
+#
 # System config common across all hosts
 
 { inputs, pkgs, lib, ... }:
@@ -15,9 +18,14 @@ in
     '';
   };
   nix.trustedUsers = [ "root" "@wheel" ];
+  security.sudo.extraConfig = "Defaults pwfeedback";
 
   # Every host shares the same time zone.
   time.timeZone = "Europe/Lisbon";
+
+  services.journald.extraConfig = ''
+  SystemMaxUse=500M
+  '';
 
   # Essential packages.
   environment.systemPackages = with pkgs; [
@@ -28,6 +36,8 @@ in
     htop
     neofetch
     man-pages
+    fzf
+    procps
   ];
 
   system.stateVersion = "21.11";

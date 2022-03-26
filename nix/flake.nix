@@ -20,9 +20,9 @@
 
   outputs = inputs @ { self, ... }:
     let
-      inherit (builtins) listToAttrs attrValues attrNames readDir;
+      inherit (builtins) listToAttrs concatLists attrValues attrNames readDir;
       inherit (inputs.nixpkgs) lib;
-      inherit (lib) removeSuffix;
+      inherit (lib) mapAttrs removeSuffix hasSuffix;
 
       system = "x86_64-linux";
       user = "jp";
@@ -45,21 +45,39 @@
         })
         (attrNames (readDir dir)));
 
+      /* systemModules = mkModules ./modules/system; */
+      homeModules = mkModules ./modules/home;
+
+      # Imports every nix module from a directory, recursively.
+      mkModules = dir: concatLists (attrValues (mapAttrs
+        (name: value:
+          if value == "directory"
+          then mkModules "${dir}/${name}"
+          else if value == "regular" && hasSuffix ".nix" name
+          then [ (import "${dir}/${name}") ]
+          else [])
+        (readDir dir)));
+
+      # Imports every host defined in a directory.
       mkHosts = dir: listToAttrs (map
         (name: {
           inherit name;
           value = inputs.nixpkgs.lib.nixosSystem {
             inherit system pkgs;
+            specialArgs = { inherit user; configDir = ./config; };
             modules = [
-              # dir
               { networking.hostName = name; }
               (dir + "/system.nix")
               (dir + "/${name}/hardware.nix")
-              (dir + "/${name}/configuration.nix")
+              (dir + "/${name}/system.nix")
               inputs.home.nixosModules.home-manager {
-                home-manager.useGlobalPkgs = true;
-                home-manager.useUserPackages = true;
-                home-manager.users.${user} = import (dir + "/${name}/home.nix");
+                home-manager = {
+                  useGlobalPkgs = true;
+                  useUserPackages = true;
+                  extraSpecialArgs = { configDir = ./config; };
+                  sharedModules = homeModules;
+                  users.${user} = import (dir + "/${name}/home.nix");
+                };
               }
               inputs.impermanence.nixosModules.impermanence
             ];

@@ -1,9 +1,17 @@
+# hosts/lazarus/system.nix
+#
+# Author: João Borges <RageKnify@gmail.com>
+# URL:    https://github.com/RageKnify/Config
+#
+# System configuration.
+
 { pkgs, lib, ... }: {
   imports = [
   ];
 
   boot.cleanTmpDir = true;
   zramSwap.enable = true;
+  networking.hostname = "lazarus";
   networking.domain = "jplborges.pt";
   services.openssh = {
     enable = true;

@@ -30,6 +30,16 @@ in
         ${pkgs.xorg.xkbcomp}/bin/xkbcomp ${compiledLayout} $DISPLAY
         ${pkgs.xcape}/bin/xcape -e 'Control_L=Escape'
         '';
+        defaultSession = "xsession";
+        session = [
+          {
+            name = "xsession";
+            manage = "desktop";
+            start = ''
+            exec $HOME/.xsession
+            '';
+          }
+        ];
         lightdm = {
           enable = true;
           extraConfig = ''
@@ -37,7 +47,7 @@ in
           '';
           greeters.mini = {
             enable = true;
-            user = user;
+            inherit user;
           };
         };
       };

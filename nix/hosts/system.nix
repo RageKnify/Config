@@ -31,6 +31,7 @@ in
   environment.systemPackages = with pkgs; [
     cached-nix-shell
     neovim
+    tmux
     zip
     unzip
     htop

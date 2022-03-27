@@ -152,7 +152,7 @@ in
         workspaceAutoBackAndForth = true;
       };
     };
-    programs.polybar = {
+    services.polybar = {
       enable = true;
       package = (pkgs.polybar.override { i3GapsSupport = true; pulseSupport = true; });
     };

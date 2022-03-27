@@ -75,6 +75,7 @@ in
         };
       };
     };
+    xsession.windowManager.i3.config.terminal = "alacritty";
     home.sessionVariables.TERMINAL = "alacritty";
   };
 }

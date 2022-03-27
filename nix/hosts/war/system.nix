@@ -41,7 +41,6 @@ in
     autoScrub.pools = [ "rpool" ];
   };
 
-  networking.hostname = "war";
   networking.hostId = "48a4b691";
   networking.networkmanager = {
     enable = true;

@@ -11,7 +11,6 @@
 
   boot.cleanTmpDir = true;
   zramSwap.enable = true;
-  networking.hostname = "lazarus";
   networking.domain = "jplborges.pt";
   services.openssh = {
     enable = true;

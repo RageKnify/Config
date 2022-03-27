@@ -154,6 +154,16 @@ in
     };
     services.polybar = {
       enable = true;
+      script = ''
+      . /home/jp/.colors
+      if type "xrandr"; then
+        for m in $(xrandr --query | grep " connected" | cut -d" " -f1); do
+          MONITOR=$m polybar --reload bar&
+        done
+      else
+        polybar --reload bar&
+      fi
+      '';
       package = (pkgs.polybar.override { i3GapsSupport = true; pulseSupport = true; });
     };
     programs.rofi = {

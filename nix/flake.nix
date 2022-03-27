@@ -83,7 +83,7 @@
         })
         (attrNames (readDir dir)));
 
-      /* systemModules = mkModules ./modules/system; */
+      systemModules = mkModules ./modules/system;
       homeModules = mkModules ./modules/home;
 
       # Imports every nix module from a directory, recursively.
@@ -118,7 +118,7 @@
                 };
               }
               inputs.impermanence.nixosModules.impermanence
-            ];
+            ] ++ systemModules;
           };
        })
        (attrNames (readDir dir)));

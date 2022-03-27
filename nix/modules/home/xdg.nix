@@ -38,7 +38,6 @@ in {
         Mount = {
           where = "$HOME/downloads/";
           type = "tmpfs";
-          mountConfig.Options = [ "mode=1755" "strictatime" "rw" "nosuid" "nodev" "size=50%" ];
         };
       };
     };

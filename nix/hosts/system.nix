@@ -37,6 +37,7 @@ in
     neofetch
     man-pages
     fzf
+    ripgrep
     procps
   ];
 

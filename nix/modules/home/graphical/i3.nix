@@ -142,10 +142,6 @@ in
         bars = [];
 
         startup = [
-          {
-            command = "${configDir}/polybar/launch.sh";
-            notification = false;
-          }
           { command = "nm-applet"; notification = false; }
         ];
 
@@ -184,6 +180,8 @@ in
           fixed-center = false;
           background = "\${colors.background}";
           foreground = "\${colors.foreground}";
+          line-size = 3;
+          line-color = "#f00";
           module-margin-left = 0;
           module-margin-right = 1;
           font = [

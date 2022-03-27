@@ -152,6 +152,10 @@ in
         workspaceAutoBackAndForth = true;
       };
     };
+    programs.polybar = {
+      enable = true;
+      package = (pkgs.polybar.override { i3GapsSupport = true; pulseSupport = true; });
+    };
     programs.rofi = {
       enable = true;
       font = "JetBrainsMono 14";

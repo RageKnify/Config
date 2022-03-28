@@ -7,7 +7,7 @@
 
 { pkgs, config, lib, colors, configDir, ... }:
 let
-  inherit (lib) mkEnableOption mkIf;
+  inherit (lib) mkEnableOption mkIf mkForce;
   cfg = config.modules.graphical.i3;
   i3Mod = "Mod4";
   i3Pkg = pkgs.i3-gaps;
@@ -151,9 +151,15 @@ in
         };
       };
     };
+    systemd.user.services.polybar = {
+      Unit.After = mkForce [ "graphical-session-pre.target" ];
+      Unit.PartOf = mkForce [ "graphical-session.target" ];
+      Install.WantedBy = mkForce [ "graphical-session.target" ];
+    };
     services.polybar = {
       enable = true;
       script = ''
+      ${pkgs.coreutils}/bin/sleep 1
       for m in $(${pkgs.xorg.xrandr}/bin/xrandr --query | ${pkgs.gnugrep}/bin/grep " connected" | ${pkgs.coreutils}/bin/cut -d" " -f1); do
         MONITOR=$m polybar --reload bar&
       done

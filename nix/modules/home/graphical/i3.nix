@@ -154,13 +154,9 @@ in
     services.polybar = {
       enable = true;
       script = ''
-      if type "xrandr"; then
-        for m in $(xrandr --query | grep " connected" | cut -d" " -f1); do
-          MONITOR=$m polybar --reload bar&
-        done
-      else
-        polybar --reload bar&
-      fi
+      for m in $(${pkgs.xorg.xrandr}/bin/xrandr --query | ${pkgs.gnugrep}/bin/grep " connected" | ${pkgs.coreutils}/bin/cut -d" " -f1); do
+        MONITOR=$m polybar --reload bar&
+      done
       '';
       package = (pkgs.polybar.override { i3GapsSupport = true; pulseSupport = true; });
       settings = with colors.dark; {
@@ -197,7 +193,7 @@ in
           tray-padding = 1;
           padding = 0;
           bottom = false;
-          monitor = "\${env:MONITOR:}";
+          monitor = "\${env:MONITOR:eDP-1}";
           # modules-left = i3 xkeyboard mpd pulseaudio
           modules-left = "i3 xkeyboard pulseaudio";
           # modules-right = filesystem0 filesystem1 cpu temperature memory wlan battery date

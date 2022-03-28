@@ -145,21 +145,30 @@ in
 
           startup = [
             { command = "nm-applet"; notification = false; }
+            {
+              command = "${pkgs.systemd}/bin/systemctl --user start graphical-session-i3.target";
+              notification = false;
+            }
           ];
 
           workspaceAutoBackAndForth = true;
         };
       };
     };
+    systemd.user.targets.graphical-session-i3 = {
+      Unit = {
+        Description = "i3 X session";
+        BindsTo = [ "graphical-session.target" ];
+        Requisite = [ "graphical-session.target" ];
+      };
+    };
     systemd.user.services.polybar = {
-      Unit.After = mkForce [ "graphical-session-pre.target" ];
-      Unit.PartOf = mkForce [ "graphical-session.target" ];
-      Install.WantedBy = mkForce [ "graphical-session.target" ];
+      Unit.PartOf = mkForce [ "graphical-session-i3.target" ];
+      Install.WantedBy = mkForce [ "graphical-session-i3.target" ];
     };
     services.polybar = {
       enable = true;
       script = ''
-      ${pkgs.coreutils}/bin/sleep 1
       for m in $(${pkgs.xorg.xrandr}/bin/xrandr --query | ${pkgs.gnugrep}/bin/grep " connected" | ${pkgs.coreutils}/bin/cut -d" " -f1); do
         MONITOR=$m polybar --reload bar&
       done

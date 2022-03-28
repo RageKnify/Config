@@ -4,7 +4,7 @@
 # URL:    https://github.com/RageKnify/Config
 #
 # Login manager and graphical configuration.
-{ pkgs, config, lib, user, configDir, ... }:
+{ pkgs, config, lib, user, colors, configDir, ... }:
 let
   inherit (lib) mkEnableOption mkOption types mkIf;
   cfg = config.modules.graphical;
@@ -30,10 +30,10 @@ in
         ${pkgs.xorg.xkbcomp}/bin/xkbcomp ${compiledLayout} $DISPLAY
         ${pkgs.xcape}/bin/xcape -e 'Control_L=Escape'
         '';
-        defaultSession = "xsession";
+        defaultSession = "user-xsession";
         session = [
           {
-            name = "xsession";
+            name = "user-xsession";
             manage = "desktop";
             start = ''
             exec $HOME/.xsession
@@ -48,6 +48,22 @@ in
           greeters.mini = {
             enable = true;
             inherit user;
+            extraConfig = with colors.dark; ''
+            font = Mono
+            font-size = 1em
+            font-weight = bold
+            font-style = normal
+            text-color = "#${base00}"
+            error-color = "#${base08}"
+            window-color = "#${base00}"
+            border-color = "#${base05}"
+            border-width = 2px
+            layout-space = 15
+            password-color = "#${base05}"
+            password-background-color = "#${base00}"
+            password-border-color = "#${base05}"
+            password-border-width = 2px
+            '';
           };
         };
       };

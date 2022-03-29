@@ -395,10 +395,11 @@ in
     services.xscreensaver = {
       enable = true;
       settings = {
-        lock = true;
-        mode = "blank";
-        dailogTheme = "Dark Gray";
-        lockTimeout = "0:01:00";
+        # TODO: this shit doesn't fucking work
+        /* lock = true; */
+        /* mode = "blank"; */
+        /* dialogTheme = "darkgray"; */
+        /* lockTimeout = 1; */
       };
     };
   };

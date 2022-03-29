@@ -185,6 +185,7 @@ in
               pkgs.tree-sitter-grammars.tree-sitter-c
               pkgs.tree-sitter-grammars.tree-sitter-comment
               pkgs.tree-sitter-grammars.tree-sitter-lua
+              pkgs.tree-sitter-grammars.tree-sitter-markdown
               pkgs.tree-sitter-grammars.tree-sitter-ocaml
               pkgs.tree-sitter-grammars.tree-sitter-rust
               pkgs.tree-sitter-grammars.tree-sitter-vim

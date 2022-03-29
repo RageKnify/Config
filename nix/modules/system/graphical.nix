@@ -104,6 +104,7 @@ in
 
       pavucontrol
 
+      feh
       firefox
       zathura
     ];

@@ -34,7 +34,7 @@ in
         set noexpandtab
 
         " delete trailing whitespace
-        autocmd FileType ocaml,nix,wast,c,lua,vim autocmd BufWritePre * %s/\s\+$//e
+        autocmd FileType ocaml,nix,wast,c,lua,vim autocmd BufWritePre * %s/\s\+$//e|norm ``
 
         " makes n=Next and N=Previous for find (? / /)
         nnoremap <expr> n  'Nn'[v:searchforward]

@@ -22,9 +22,12 @@ in
       enable = true;
       keybindings = {
         # lock screen
-        "${sxhkdMod} + x"      = "xscreensaver-command -lock";
+        "${sxhkdMod} + x"     = "xscreensaver-command -lock";
         # shutdown prompt
-        "${sxhkdMod}+shift+x"  = "echo"; # TODO
+        "${sxhkdMod}+shift+x" = "echo"; # TODO
+
+        # flameshot
+        "${sxhkdMod}+Print"    = "flameshot gui";
 
         # TODO: only have these for laptops
         # sound toggle
@@ -45,6 +48,11 @@ in
 
         # brightness down
         "XF86MonBrightnessDown" = "light -U 10";
+      };
+    };
+    services.flameshot = {
+      enable = true;
+      settings = {
       };
     };
     # for access to pactl

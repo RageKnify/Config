@@ -21,6 +21,7 @@ in {
         pull.rebase = true;
         url."git@github.com".pushinsteadOf = "https://github.com/";
         commit.template = "${configDir}/gitmessage.txt" ;
+        commit.verbose = true;
       };
       aliases = {
         st = "status";

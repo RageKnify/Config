@@ -5,9 +5,13 @@
 #
 # XDG home configuration. (Based on RiscadoA's)
 
-{ lib, config, ... }:
+{ pkgs, lib, config, ... }:
 let
   inherit (lib) mkEnableOption mkIf;
+  jp-downloads-script = pkgs.writeShellScript "jp-downloads-script.sh" ''
+  ${pkgs.coreutils}/bin/mkdir /dev/shm/jp-downloads
+  ${pkgs.coreutils}/bin/ln -s /dev/shm/jp-downloads -fT /home/jp/downloads
+  '';
   cfg = config.modules.xdg;
 in {
   options.modules.xdg.enable = mkEnableOption "xdg";
@@ -25,19 +29,19 @@ in {
         publicShare = "$HOME/documents/public/";
         templates = "$HOME/documents/templates/";
         videos = "$HOME/documents/videos/";
-        createDirectories = true;
       };
     };
-    systemd.user.mounts = {
+    systemd.user.services = {
       home-jp-downloads = {
-        Unit = {
-          Description = "Mount /home/jp/downloads as a tmpfs";
-          PartOf = [ "default.target" ];
+        Install = {
+          WantedBy = [ "graphical-session.target" ];
         };
-        Install = { WantedBy = [ "default.target" ]; };
-        Mount = {
-          where = "$HOME/downloads/";
-          type = "tmpfs";
+        Unit = {
+          PartOf = [ "graphical-session.target" ];
+          Description = "Link /home/jp/downloads to a directory in tmpfs";
+        };
+        Service =  {
+          ExecStart = "${jp-downloads-script}";
         };
       };
     };

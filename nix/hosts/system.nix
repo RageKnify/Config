@@ -42,5 +42,11 @@ in
     procps
   ];
 
+  # dedup equal pages
+  hardware.ksm = {
+    enable = true;
+    sleep = null;
+  };
+
   system.stateVersion = "21.11";
 }

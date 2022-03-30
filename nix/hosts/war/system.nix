@@ -94,14 +94,22 @@ in
       isNormalUser = true;
       createHome = true;
       shell = pkgs.fish;
-      extraGroups = [ "wheel" "video" ];
+      extraGroups = [ "wheel" "video" "libvirtd" ];
     };
   };
 
   environment.systemPackages = with pkgs; [
     # dev machine
     git
+    # virtualization
+    virt-manager
   ];
+
+  # virtualization
+  programs.dconf.enable = true;
+  virtualisation = {
+    libvirtd.enable = true;
+  };
 
   security.pki.certificateFiles = [ ../../config/certs/rnl.crt ];
 

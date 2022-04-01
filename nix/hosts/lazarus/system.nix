@@ -10,7 +10,6 @@
   ];
 
   boot.cleanTmpDir = true;
-  zramSwap.enable = true;
   networking.domain = "jplborges.pt";
   services.openssh = {
     enable = true;

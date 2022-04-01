@@ -56,12 +56,12 @@ in
             text-color = "#${base00}"
             error-color = "#${base08}"
             window-color = "#${base00}"
-            border-color = "#${base05}"
+            border-color = "#${base04}"
             border-width = 2px
             layout-space = 15
-            password-color = "#${base05}"
+            password-color = "#${base04}"
             password-background-color = "#${base00}"
-            password-border-color = "#${base05}"
+            password-border-color = "#${base04}"
             password-border-width = 2px
             '';
           };

@@ -5,7 +5,7 @@
 #
 # System config common across all hosts
 
-{ inputs, pkgs, lib, ... }:
+{ inputs, pkgs, lib, configDir, ... }:
 let
   inherit (builtins) toString;
   inherit (lib.my) mapModules;
@@ -47,6 +47,8 @@ in
     enable = true;
     sleep = null;
   };
+
+  security.pki.certificateFiles = [ "${configDir}/certs/rnl.crt" ];
 
   system.stateVersion = "21.11";
 }

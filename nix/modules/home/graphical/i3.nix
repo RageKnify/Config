@@ -1,4 +1,4 @@
-# modules/graphical/home/i3.nix
+# modules/home/graphical/i3.nix
 #
 # Author: João Borges <RageKnify@gmail.com>
 # URL:    https://github.com/RageKnify/Config

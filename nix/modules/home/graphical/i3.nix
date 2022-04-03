@@ -18,6 +18,11 @@ in
   config = mkIf cfg.enable {
     xsession = {
       enable = true;
+      pointerCursor = {
+        package = pkgs.quintom-cursor-theme;
+        name = "Quintom_Ink";
+        size = 28;
+      };
       windowManager.i3 = {
         enable = true;
         package = i3Pkg;

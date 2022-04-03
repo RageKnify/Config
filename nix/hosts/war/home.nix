@@ -14,6 +14,7 @@
     graphical.i3.enable = true;
     graphical.sxhkd.enable = true;
     graphical.alacritty.enable = true;
+    graphical.gtk.enable = true;
     shell.git.enable = true;
   };
 

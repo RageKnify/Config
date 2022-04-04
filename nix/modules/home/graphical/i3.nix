@@ -397,6 +397,36 @@ in
       enable = true;
       font = "JetBrainsMono 14";
     };
+    services.dunst = {
+      enable = true;
+      settings = {
+        global = {
+          follow = "mouse";
+          width = "(200, 300)";
+          height = 200;
+          notification_limit = 2;
+          offset = "(30, 30)";
+          padding = 6;
+          font = "Monospace 14";
+          horizontal_padding = 6;
+          dmenu = "${pkgs.rofi}/bin/rofi -dmenu";
+          frame_color = "#${colors.dark.base00}";
+        };
+        urgency_low = with colors.dark; {
+          background = "#${base01}";
+          foreground = "#${base05}";
+        };
+        urgency_normal = with colors.dark; {
+          background = "#${base01}";
+          foreground = "#${base05}";
+        };
+        urgency_critical = with colors.dark; {
+          background = "#${base01}";
+          foreground = "#${base08}";
+          frame_color = "#${base08}";
+        };
+      };
+    };
     services.xscreensaver = {
       enable = true;
       settings = {

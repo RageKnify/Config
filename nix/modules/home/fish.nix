@@ -16,9 +16,10 @@ in
   config = mkIf cfg.enable {
     programs.fish = {
       enable = true;
-      shellAbbrs = mkIf config.modules.neovim.enable {
-        n = "nvim";
-        nv = "nvim";
+      shellAbbrs = {
+        cd = "z";
+        n = mkIf config.modules.neovim.enable "nvim";
+        nv = mkIf config.modules.neovim.enable "nvim";
       };
       functions = {
         greeting = ''

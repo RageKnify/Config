@@ -18,7 +18,7 @@ in
     gtk = {
       font = {
         name = "Noto";
-        size = 9;
+        size = 14;
       };
       iconTheme = {
         package = pkgs.papirus-icon-theme;

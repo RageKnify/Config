@@ -124,7 +124,7 @@ in
           fonts = {
             names = [ "JetBrainsMono" ];
             style = "Bold Semi-Condensed";
-            size = 11.0;
+            size = 14.0;
           };
 
           menu = "${pkgs.rofi}/bin/rofi -matching fuzzy -show run";

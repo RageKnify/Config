@@ -26,7 +26,7 @@ in
       };
       theme = {
         package = pkgs.solarc-gtk-theme;
-        name = "SolArc-Darker";
+        name = "SolArc";
       };
     };
   };

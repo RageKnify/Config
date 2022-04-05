@@ -15,13 +15,9 @@
     graphical.sxhkd.enable = true;
     graphical.alacritty.enable = true;
     graphical.gtk.enable = true;
+    graphical.programs.enable = true;
     shell.git.enable = true;
   };
-
-  home.packages = [
-    pkgs.unstable.discord
-    pkgs.thunderbird
-  ];
 
   home.keyboard = null;
   home.stateVersion = "21.11";

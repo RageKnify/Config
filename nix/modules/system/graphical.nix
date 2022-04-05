@@ -109,6 +109,7 @@ in
 
       feh
       firefox
+      libreoffice
       zathura
     ];
 

@@ -95,7 +95,7 @@ in
       isNormalUser = true;
       createHome = true;
       shell = pkgs.fish;
-      extraGroups = [ "wheel" "video" "libvirtd" ];
+      extraGroups = [ "wheel" "video" "libvirtd" "docker" ];
     };
   };
 
@@ -110,6 +110,11 @@ in
   programs.dconf.enable = true;
   virtualisation = {
     libvirtd.enable = true;
+  };
+
+  virtualisation.docker = {
+    enable = true;
+    enableOnBoot = false;
   };
 
   security.pki.certificateFiles = [ ../../config/certs/rnl.crt ];

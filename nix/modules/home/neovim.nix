@@ -175,6 +175,16 @@ in
             '';
           }
 
+          {
+            plugin = vim-illuminate;
+            config = ''
+            let g:Illuminate_delay = 100
+            hi def link LspReferenceText CursorLine
+            hi def link LspReferenceRead CursorLine
+            hi def link LspReferenceWrite CursorLine
+            '';
+          }
+
           nvim-cmp
           cmp-treesitter
           cmp-nvim-lsp

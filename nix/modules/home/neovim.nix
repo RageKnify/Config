@@ -258,8 +258,6 @@ in
     home.file."${config.xdg.configHome}/nvim/after/ftplugin/wast.vim".text = twoSpaceIndentConfig;
     home.file."${config.xdg.configHome}/nvim/after/ftplugin/yaml.vim".text = twoSpaceIndentConfig;
 
-    programs.direnv.enable = true;
-
     home.sessionVariables = {
       EDITOR = "nvim";
       MANPAGER = "nvim +Man!";

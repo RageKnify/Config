@@ -19,6 +19,9 @@
     shell.git.enable = true;
   };
 
+  # to enable starhip in nix-shells
+  programs.bash.enable = true;
+
   home.keyboard = null;
   home.stateVersion = "21.11";
 }

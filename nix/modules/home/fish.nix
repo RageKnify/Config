@@ -97,9 +97,6 @@ in
     home.sessionVariables._ZO_ECHO = "1";
 
     programs.fish.interactiveShellInit = ''
-    # starship init
-    starship init fish | source
-
     fish_vi_key_bindings
     # fzf stuf
     source (fzf-share)/key-bindings.fish

@@ -40,6 +40,9 @@ in
         nnoremap <expr> n  'Nn'[v:searchforward]
         nnoremap <expr> N  'nN'[v:searchforward]
 
+        " Easy bind to leave terminal mode
+        tnoremap <Esc> <C-\><C-n>
+
         " Change leader key to space bar
         let mapleader = " "
 

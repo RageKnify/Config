@@ -6,11 +6,6 @@
 # System configuration.
 
 { config, pkgs, configDir, user, ... }:
-let
-  compiledLayout = pkgs.runCommand "keyboard-layout" {} ''
-    ${pkgs.xorg.xkbcomp}/bin/xkbcomp ${configDir}/xkbmap $out
-  '';
-in
 {
   modules.graphical.enable = true;
 
@@ -27,13 +22,16 @@ in
 
   services.upower.enable = true;
 
-  # Use the systemd-boot EFI boot loader.
-  boot.loader.systemd-boot = {
-    enable = true;
-    editor = false;
-    consoleMode = "auto";
+  boot.loader = {
+    # Use the systemd-boot EFI boot loader.
+    systemd-boot = {
+      enable = true;
+      editor = false;
+      consoleMode = "auto";
+      configurationLimit = 20;
+    };
+    efi.canTouchEfiVariables = true;
   };
-  boot.loader.efi.canTouchEfiVariables = true;
 
   boot.supportedFilesystems = [ "zfs" ];
   boot.kernelParams = [ "nohibernate" ];

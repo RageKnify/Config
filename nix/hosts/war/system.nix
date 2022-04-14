@@ -90,9 +90,6 @@ in
 
   boot.cleanTmpDir = true;
 
-  # For when I have more RAM
-  # zramSwap.enable = true;
-
   users = {
     mutableUsers = true;
     users.jp = {

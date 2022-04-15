@@ -45,25 +45,16 @@ in
           extraConfig = ''
             set logind-check-graphical=true
           '';
-          greeters.mini = {
+          greeters.gtk = {
             enable = true;
-            inherit user;
-            extraConfig = with colors.dark; ''
-            font = Mono
-            font-size = 1em
-            font-weight = bold
-            font-style = normal
-            text-color = "#${base00}"
-            error-color = "#${base08}"
-            window-color = "#${base00}"
-            border-color = "#${base04}"
-            border-width = 2px
-            layout-space = 15
-            password-color = "#${base04}"
-            password-background-color = "#${base00}"
-            password-border-color = "#${base04}"
-            password-border-width = 2px
-            '';
+            theme = {
+              package = pkgs.solarc-gtk-theme;
+              name = "SolArc";
+            };
+            iconTheme = {
+              package = pkgs.papirus-icon-theme;
+              name = "Papirus-Dark";
+            };
           };
         };
       };

@@ -88,15 +88,8 @@
 
   boot.cleanTmpDir = true;
 
-  users = {
-    mutableUsers = true;
-    users.jp = {
-      isNormalUser = true;
-      createHome = true;
-      shell = pkgs.fish;
-      extraGroups = [ "wheel" "video" "libvirtd" "docker" ];
-    };
-  };
+  users.users.root.hashedPassword = "$6$wlIVxKTns9xQ3Rc4$fbiA/wXnZ0l9TXKr90KmNVSltyU.MOH2Si8ntvLXINKGpug82rpFABP.PXAOp6Qtbq.onD8qAaSpq.TaKOmgj1";
+  users.users.jp.extraGroups = [ "video" "libvirtd" "docker" ];
 
   environment.systemPackages = with pkgs; [
     # dev machine
@@ -115,8 +108,6 @@
     enable = true;
     enableOnBoot = false;
   };
-
-  security.pki.certificateFiles = [ ../../config/certs/rnl.crt ];
 
   services.fwupd.enable = true;
 

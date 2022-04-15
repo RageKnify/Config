@@ -18,7 +18,10 @@ in
     '';
   };
   nix.trustedUsers = [ "root" "@wheel" ];
-  security.sudo.extraConfig = "Defaults pwfeedback";
+  security.sudo.extraConfig = ''
+  Defaults pwfeedback
+  Defaults lecture=never
+  '';
 
   # Every host shares the same time zone.
   time.timeZone = "Europe/Lisbon";
@@ -26,6 +29,19 @@ in
   services.journald.extraConfig = ''
   SystemMaxUse=500M
   '';
+
+  users = {
+    users.jp = {
+      isNormalUser = true;
+      hashedPassword = "$6$ISAN7cArW1aVhCSd$p3a.cLXkyl13EUKC2tSjhFRW0Wy2gTyzmdkvVVvtU1QaS14BAzS7acXOZ6xb2Baog8ur6q88FY639bKci.1Gh/";
+      createHome = true;
+      shell = pkgs.fish;
+      extraGroups = [ "wheel" ];
+    };
+  };
+
+  # make fish a login shell so that lightdm doesn't discriminate
+  environment.shells = [ pkgs.fish ];
 
   # Essential packages.
   environment.systemPackages = with pkgs; [
@@ -48,6 +64,7 @@ in
     sleep = null;
   };
 
+  networking.search = [ "rnl.tecnico.ulisboa.pt" ];
   security.pki.certificateFiles = [ "${configDir}/certs/rnl.crt" ];
 
   system.stateVersion = "21.11";

@@ -5,15 +5,12 @@
 #
 # System configuration.
 
-{ config, pkgs, ... }:
-
-let
-  sshKeys = [
-    "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIC2sdJFvvnEIYztPcznXvKpY4vOWedZ1qzDaAgRxrczS"
-    "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIM5IK29XTLu4cHt5V4qoS/OQvHgBf+LtVsSKZygbWueL"
-  ];
-in {
-  modules.graphical.enable = true;
+{ lib, config, pkgs, sshKeys, ... }:
+{
+  modules = {
+    graphical.enable = true;
+    impermanence.enable = true;
+  };
 
   console.useXkbConfig = true;
 
@@ -40,6 +37,9 @@ in {
       "nohibernate"
     ];
     initrd.supportedFilesystems = [ "zfs" ];
+    initrd.postDeviceCommands = lib.mkAfter ''
+      zfs rollback -r zroot/local/root@blank
+    '';
     initrd.kernelModules = [ "r8169" ];
     initrd.network = {
       # This will use udhcp to get an ip address.
@@ -77,8 +77,13 @@ in {
     };
   };
 
+  services.zfs = {
+    trim.enable = true;
+    autoScrub.enable = true;
+    autoScrub.pools = [ "rpool" ];
+  };
+
   networking = {
-    hostName = "death";
     hostId = "5e8c59c3";
     domain = "rnl.tecnico.ulisboa.pt";
 
@@ -121,19 +126,26 @@ in {
   services.openssh = {
     enable = true;
     passwordAuthentication = false;
-    challengeResponseAuthentication = false;
     permitRootLogin = "no";
+    authorizedKeysFiles = lib.mkForce [ "/etc/ssh/authorized_keys.d/%u" ];
+    challengeResponseAuthentication = false;
+    hostKeys = [
+      {
+        path = "/persist/secrets/ssh/ssh_host_ed25519_key";
+        type = "ed25519";
+      }
+      {
+        path = "/persist/secrets/ssh/ssh_host_rsa_key";
+        type = "rsa";
+        bits = 4096;
+      }
+    ];
   };
 
-  users = {
-    mutableUsers = true;
-    users.jp = {
-      isNormalUser = true;
-      createHome = true;
-      shell = pkgs.fish;
-      extraGroups = [ "wheel" "video" "libvirtd" "docker" ];
+  users.users.root.hashedPassword = "$6$DGdSZAJTaUYbM4nR$49euO8k5K5.MRzbUBnzvCypKUdbsQ2453ucThTCISfLo31mgHMq3oXegPfC6c2grL.2.qeMz1SzNMIPxfmv6x/";
+  users.users.jp = {
       openssh.authorizedKeys.keys = sshKeys;
-    };
+      extraGroups = [ "video" "libvirtd" "docker" ]; # TODO: remove docker
   };
 
   environment.systemPackages = with pkgs; [
@@ -153,8 +165,6 @@ in {
     enable = true;
     enableOnBoot = false;
   };
-
-  security.pki.certificateFiles = [ ../../config/certs/rnl.crt ];
 
   services.fwupd.enable = true;
 

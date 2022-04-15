@@ -23,6 +23,11 @@
       inherit (builtins) listToAttrs concatLists attrValues attrNames readDir;
       inherit (inputs.nixpkgs) lib;
       inherit (lib) mapAttrs removeSuffix hasSuffix;
+      sshKeys = [
+        "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIC2sdJFvvnEIYztPcznXvKpY4vOWedZ1qzDaAgRxrczS jp@war"
+        "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIHRO0/CTcEQHFV8C2REiurmTrPkd7nAlcwynI6eFCqu1 jp@death"
+        "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAII9ckbhT0em/dL75+RV+sdqwbprRC9Ff/MoqqpBgbUSh jp@pestilence"
+      ];
       colors = {
         dark = {
           "base00" = "002b36";
@@ -102,7 +107,7 @@
           inherit name;
           value = inputs.nixpkgs.lib.nixosSystem {
             inherit system pkgs;
-            specialArgs = { inherit user colors; configDir = ./config; };
+            specialArgs = { inherit user colors sshKeys; configDir = ./config; };
             modules = [
               { networking.hostName = name; }
               (dir + "/system.nix")

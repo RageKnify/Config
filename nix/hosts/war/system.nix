@@ -103,6 +103,8 @@
     git
     # virtualization
     virt-manager
+
+    jellyfin-media-player
   ];
 
   # virtualization

@@ -29,6 +29,7 @@
       consoleMode = "auto";
       configurationLimit = 20;
     };
+    timeout = 2;
     efi.canTouchEfiVariables = true;
   };
   boot = {

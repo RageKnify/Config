@@ -18,7 +18,13 @@
     longitude = -9.8;
   };
 
-  services.tlp.enable = true;
+  services.tlp = {
+    enable = true;
+    settings = {
+      START_CHARGE_THRESH_BAT0 = 65;
+      STOP_CHARGE_THRESH_BAT0 = 70;
+    };
+  };
 
   services.upower.enable = true;
 

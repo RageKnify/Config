@@ -9,6 +9,7 @@
 {
   modules = {
     graphical.enable = true;
+    graphical.extraSetupCommands = "${pkgs.xorg.xrandr}/bin/xrandr --output DVI-D-1 --primary --mode 1920x1080 --pos 1080x420 --rotate normal --output HDMI-1 --mode 1920x1080 --pos 0x0 --rotate left --output VGA-1 --off";
     impermanence.enable = true;
   };
 
@@ -154,6 +155,8 @@
     git
     # virtualization
     virt-manager
+    # for screen setup
+    xorg.xrandr
   ];
 
   # virtualization

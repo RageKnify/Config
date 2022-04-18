@@ -15,6 +15,7 @@ in
 {
   options.modules.graphical = {
     enable = mkEnableOption "graphical";
+    extraSetupCommands = mkOption { type = types.str; default = ""; };
   };
 
   config = mkIf cfg.enable {
@@ -29,6 +30,7 @@ in
         setupCommands = ''
         ${pkgs.xorg.xkbcomp}/bin/xkbcomp ${compiledLayout} $DISPLAY
         ${pkgs.xcape}/bin/xcape -e 'Control_L=Escape'
+        ${cfg.extraSetupCommands}
         '';
         defaultSession = "user-xsession";
         session = [

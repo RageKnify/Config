@@ -170,6 +170,8 @@
     enableOnBoot = false;
   };
 
+  services.avahi.enable = true;
+
   services.fwupd.enable = true;
 
   hardware.enableRedistributableFirmware = true;

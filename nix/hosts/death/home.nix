@@ -22,6 +22,8 @@
   # to enable starhip in nix-shells
   programs.bash.enable = true;
 
+  home.packages = [ pkgs.spotify ];
+
   home.keyboard = null;
   home.stateVersion = "21.11";
 }

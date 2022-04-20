@@ -274,6 +274,8 @@ in
           label-indicator-on-foreground = "\${colors.background}";
           label-indicator-on-background = "\${colors.secondary}";
           label-indicator-on-overline = "\${colors.secondary}";
+
+          blacklist-0 = "num lock";
         };
         # TODO: filesystem module on zfs
         "module/cpu" = {

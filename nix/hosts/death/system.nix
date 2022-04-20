@@ -172,6 +172,10 @@
 
   services.avahi.enable = true;
 
+  # Try to avoid graphical bugs
+  services.xserver.videoDrivers = [ "nvidia" ];
+  hardware.nvidia.package = config.boot.kernelPackages.nvidiaPackages.legacy_470;
+
   services.fwupd.enable = true;
 
   hardware.enableRedistributableFirmware = true;

@@ -21,7 +21,7 @@ in
 
   config = mkIf cfg.enable {
     programs.neovim = {
-      package = pkgs.neovim-unwrapped;
+      package = pkgs.unstable.neovim-unwrapped;
       enable = true;
       viAlias = true;
       vimAlias = true;
@@ -115,7 +115,7 @@ in
         " Avoiding W
         cabbrev W w
         '';
-        plugins = with pkgs.vimPlugins; [
+        plugins = with pkgs.unstable.vimPlugins; [
           nvim-web-devicons
           {
             plugin = lualine-nvim;
@@ -135,7 +135,7 @@ in
                             lualine_b = { 'diff' },
                             lualine_c = {
                                     {'diagnostics', {
-                                            sources = {nvim_diagnostic, ale},
+                                            sources = {nvim_diagnostic},
                                             symbols = {error = ':', warn =':', info = ':', hint = ':'}}},
                                     {'filename', file_status = true, path = 1}
                             },
@@ -192,21 +192,50 @@ in
           cmp-treesitter
           cmp-nvim-lsp
           {
-            plugin = (nvim-treesitter.withPlugins (plugins: [
-              pkgs.tree-sitter-grammars.tree-sitter-nix
+            plugin = (nvim-treesitter.withPlugins (plugins: with pkgs.unstable.tree-sitter-grammars; [
+              tree-sitter-nix
               # TODO: rust and others only on dev machines
-              pkgs.tree-sitter-grammars.tree-sitter-c
-              pkgs.tree-sitter-grammars.tree-sitter-comment
-              pkgs.tree-sitter-grammars.tree-sitter-lua
-              pkgs.tree-sitter-grammars.tree-sitter-markdown
-              pkgs.tree-sitter-grammars.tree-sitter-ocaml
-              pkgs.tree-sitter-grammars.tree-sitter-rust
-              pkgs.tree-sitter-grammars.tree-sitter-vim
+              tree-sitter-c
+              tree-sitter-comment
+              tree-sitter-lua
+              tree-sitter-markdown
+              tree-sitter-ocaml
+              tree-sitter-rust
+              tree-sitter-vim
             ]));
             config = "lua require'nvim-treesitter.configs'.setup { highlight = { enable = true } }";
           }
 
-          nvim-lspconfig
+          {
+            plugin = nvim-lspconfig;
+            config = ''
+lua << EOF
+local lsp = require'lspconfig'
+
+local capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
+capabilities.textDocument.completion.completionItem.snippetSupport = true
+capabilities.textDocument.completion.completionItem.resolveSupport = {
+	properties = {
+		'documentation',
+		'detail',
+		'additionalTextEdits',
+	}
+}
+
+lsp.rust_analyzer.setup{
+	capabilities = capabilities,
+	on_attach = require'generic_lsp'
+}
+EOF
+nnoremap <silent> <leader>n <cmd>lua vim.diagnostic.goto_next { wrap = false }<CR>
+nnoremap <silent> <leader>p <cmd>lua vim.diagnostic.goto_prev { wrap = false }<CR>
+nnoremap <silent> <leader>d <cmd>lua vim.lsp.buf.definition()<CR>
+nnoremap <silent> <leader>gr <cmd>lua vim.lsp.buf.references()<CR>
+nnoremap <silent> <leader>rn <cmd>lua vim.lsp.buf.rename()<CR>
+nnoremap <silent> <leader>a <cmd>lua vim.lsp.buf.code_action()<CR>
+nnoremap <silent> <leader><cr> <cmd>lua vim.diagnostic.open_float()<cr>
+            '';
+          }
           lsp_extensions-nvim
 
           vim-signature
@@ -257,6 +286,44 @@ in
     home.file."${config.xdg.configHome}/nvim/after/ftplugin/ocaml.vim".text = twoSpaceIndentConfig;
     home.file."${config.xdg.configHome}/nvim/after/ftplugin/wast.vim".text = twoSpaceIndentConfig;
     home.file."${config.xdg.configHome}/nvim/after/ftplugin/yaml.vim".text = twoSpaceIndentConfig;
+
+    # Rust config
+    home.file."${config.xdg.configHome}/nvim/after/ftplugin/rust.vim".text = ''
+" Use LSP omni-completion in Rust files.
+setlocal omnifunc=v:lua.vim.lsp.omnifunc
+set foldexpr=nvim_treesitter#foldexpr()
+set foldmethod=expr
+
+lua << EOF
+local inlay_hints = require('lsp_extensions').inlay_hints
+
+-- Global function, so you can just call it on the lua side
+ShowHintsLine = function()
+  inlay_hints {
+    only_current_line = true
+  }
+end
+
+ShowHintsFile = function()
+  inlay_hints()
+end
+EOF
+" not working for some reason
+" autocmd CursorHold,CursorHoldI *.rs :lua ShowHintsLine()
+
+nnoremap <silent> <leader>h <cmd>lua ShowHintsFile()<CR>
+    '';
+    home.file."${config.xdg.configHome}/nvim/lua/generic_lsp.lua".text = ''
+return function(client)
+	-- [[ other on_attach code ]]
+	vim.api.nvim_buf_set_keymap(0, 'n', 'K', '<cmd>lua vim.lsp.buf.hover()<CR>', {noremap = true})
+
+	-- illuminate stuff
+	vim.api.nvim_buf_set_keymap(0, 'n', '<leader>gn', '<cmd>lua require"illuminate".next_reference{}<cr>', {noremap = true})
+	vim.api.nvim_buf_set_keymap(0, 'n', '<leader>gp', '<cmd>lua require"illuminate".next_reference{reverse=true}<cr>', {noremap = true})
+	require 'illuminate'.on_attach(client)
+end
+    '';
 
     home.sessionVariables = {
       EDITOR = "nvim";

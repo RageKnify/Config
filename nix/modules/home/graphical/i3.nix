@@ -514,6 +514,7 @@ in
     };
     services.picom = {
       enable = true;
+      vSync = true;
     };
     services.dunst = {
       enable = true;

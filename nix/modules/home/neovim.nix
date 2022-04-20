@@ -227,13 +227,6 @@ lsp.rust_analyzer.setup{
 	on_attach = require'generic_lsp'
 }
 EOF
-nnoremap <silent> <leader>n <cmd>lua vim.diagnostic.goto_next { wrap = false }<CR>
-nnoremap <silent> <leader>p <cmd>lua vim.diagnostic.goto_prev { wrap = false }<CR>
-nnoremap <silent> <leader>d <cmd>lua vim.lsp.buf.definition()<CR>
-nnoremap <silent> <leader>gr <cmd>lua vim.lsp.buf.references()<CR>
-nnoremap <silent> <leader>rn <cmd>lua vim.lsp.buf.rename()<CR>
-nnoremap <silent> <leader>a <cmd>lua vim.lsp.buf.code_action()<CR>
-nnoremap <silent> <leader><cr> <cmd>lua vim.diagnostic.open_float()<cr>
             '';
           }
           lsp_extensions-nvim
@@ -322,6 +315,15 @@ return function(client)
 	vim.api.nvim_buf_set_keymap(0, 'n', '<leader>gn', '<cmd>lua require"illuminate".next_reference{}<cr>', {noremap = true})
 	vim.api.nvim_buf_set_keymap(0, 'n', '<leader>gp', '<cmd>lua require"illuminate".next_reference{reverse=true}<cr>', {noremap = true})
 	require 'illuminate'.on_attach(client)
+
+  local set = vim.keymap.set
+  set('n', '<leader>n', function () vim.diagnostic.goto_next { wrap = false } end, {silent = true})
+  set('n', '<leader>p', function () vim.diagnostic.goto_prev { wrap = false } end, {silent = true})
+  set('n', '<leader>d', vim.lsp.buf.definition, {silent = true})
+  set('n', '<leader>gr', vim.lsp.buf.references, {silent = true})
+  set('n', '<leader>rn', vim.lsp.buf.rename, {silent = true})
+  set('n', '<leader>a', vim.lsp.buf.code_action, {silent = true})
+  set('n', '<leader><cr>', vim.diagnostic.open_float, {silent = true})
 end
     '';
 

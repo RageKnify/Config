@@ -23,6 +23,22 @@ in {
         commit.template = "${configDir}/gitmessage.txt" ;
         commit.verbose = true;
       };
+      includes = [
+        {
+          condition = "gitdir:~/dev/github/";
+          contents.user = {
+            name = "RageKnify";
+            email = "RageKnify@gmail.com";
+          };
+        }
+        {
+          condition = "gitdir:~/dev/ark/";
+          contents.user = {
+            name = "João Borges";
+            email = "joao.borges@rnl.tecnico.ulisboa.pt";
+          };
+        }
+      ];
       aliases = {
         st = "status";
       };

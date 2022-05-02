@@ -279,6 +279,9 @@ EOF
     home.file."${config.xdg.configHome}/nvim/after/ftplugin/ocaml.vim".text = twoSpaceIndentConfig;
     home.file."${config.xdg.configHome}/nvim/after/ftplugin/wast.vim".text = twoSpaceIndentConfig;
     home.file."${config.xdg.configHome}/nvim/after/ftplugin/yaml.vim".text = twoSpaceIndentConfig;
+    home.file."${config.xdg.configHome}/nvim/after/ftplugin/yacc.vim".text = twoSpaceIndentConfig;
+    home.file."${config.xdg.configHome}/nvim/after/ftplugin/lex.vim".text = twoSpaceIndentConfig;
+    home.file."${config.xdg.configHome}/nvim/after/ftplugin/cpp.vim".text = twoSpaceIndentConfig;
 
     # Rust config
     home.file."${config.xdg.configHome}/nvim/after/ftplugin/rust.vim".text = ''

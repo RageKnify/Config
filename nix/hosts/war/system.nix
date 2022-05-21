@@ -5,7 +5,7 @@
 #
 # System configuration.
 
-{ config, pkgs, configDir, user, ... }:
+{ config, pkgs, lib, configDir, user, ... }:
 {
   modules.graphical.enable = true;
 
@@ -91,7 +91,24 @@
         }
       ];
     };
+    wgstt = {
+      address = [ "10.6.77.100/32" "fd00:677::100/128"];
+      privateKeyFile = "/etc/nixos/secrets/wg-privkey";
+      dns = [ "10.6.77.1" ];
+      peers = [
+        {
+          publicKey = "u0DdfahuhX8GsVaQ4P2kBcHoF9kw9HZL9uqPcu2UMw8=";
+          endpoint = "pest.stt.rnl.tecnico.ulisboa.pt:34266";
+          allowedIPs = [
+            "10.0.0.0/8"
+            "fd00::/8"
+          ];
+          persistentKeepalive = 25;
+        }
+      ];
+    };
   };
+  systemd.services.wg-quick-wgstt.wantedBy = lib.mkForce [ ];
 
   boot.cleanTmpDir = true;
 

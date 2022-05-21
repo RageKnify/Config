@@ -259,6 +259,7 @@ EOF
               tree-sitter-nix
               # TODO: rust and others only on dev machines
               tree-sitter-c
+              tree-sitter-cpp
               tree-sitter-comment
               tree-sitter-lua
               tree-sitter-markdown

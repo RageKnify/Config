@@ -88,6 +88,7 @@
   networking = {
     hostId = "5e8c59c3";
     domain = "rnl.tecnico.ulisboa.pt";
+    search = [ "tecnico.ulisboa.pt" ];
 
     useDHCP = false;
 
@@ -118,8 +119,6 @@
       "2001:690:2100:82::1"
       "2001:690:2100:82::2"
     ];
-
-    search = [ "rnl.tecnico.ulisboa.pt" ];
   };
 
   boot.cleanTmpDir = true;

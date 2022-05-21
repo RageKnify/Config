@@ -106,6 +106,8 @@ in
       zathura
     ];
 
+    services.gnome.gnome-keyring.enable = true;
+
     # TODO: laptop only
     programs.light.enable = true;
 

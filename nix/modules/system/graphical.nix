@@ -71,7 +71,7 @@ in
     };
 
     # Required for gtk. (copied from RiscadoA)
-    services.dbus.packages = [ pkgs.gnome3.dconf ];
+    services.dbus.packages = [ pkgs.dconf ];
 
     fonts.fonts = with pkgs; [
       noto-fonts

@@ -16,13 +16,14 @@ in
   options.modules.graphical.i3.enable = mkEnableOption "i3";
 
   config = mkIf cfg.enable {
+    home.pointerCursor = {
+      package = pkgs.quintom-cursor-theme;
+      name = "Quintom_Ink";
+      size = 28;
+      x11.enable = true;
+    };
     xsession = {
       enable = true;
-      pointerCursor = {
-        package = pkgs.quintom-cursor-theme;
-        name = "Quintom_Ink";
-        size = 28;
-      };
       windowManager.i3 = {
         enable = true;
         package = i3Pkg;
@@ -204,9 +205,9 @@ in
           module-margin-right = 1;
           font = [
             "JetBrainsMono:pixelsize=14;4"
-            "Font Awesome 5 Free:style=regular;4"
-            "Font Awesome 5 Free:style=solid;4"
-            "Font Awesome 5 Brands,Font Awesome 5 Brands Regular:style=Regular;4"
+            "Font Awesome 6 Free:style=regular;4"
+            "Font Awesome 6 Free:style=solid;4"
+            "Font Awesome 6 Brands,Font Awesome 6 Brands Regular:style=Regular;4"
           ];
           tray-position = "right";
           tray-padding = 1;

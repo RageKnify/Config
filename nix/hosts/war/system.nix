@@ -7,7 +7,10 @@
 
 { config, pkgs, lib, configDir, user, ... }:
 {
-  modules.graphical.enable = true;
+  modules = {
+    graphical.enable = true;
+    personal.enable = true;
+  };
 
   console.useXkbConfig = true;
 

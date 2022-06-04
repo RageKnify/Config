@@ -16,7 +16,7 @@
     passwordAuthentication = false;
     # permitRootLogin = "no";
     authorizedKeysFiles = lib.mkForce [ "/etc/ssh/authorized_keys.d/%u" ];
-    challengeResponseAuthentication = false;
+    kbdInteractiveAuthentication = false;
   };
 
   users = {

@@ -130,7 +130,7 @@
     passwordAuthentication = false;
     permitRootLogin = "no";
     authorizedKeysFiles = lib.mkForce [ "/etc/ssh/authorized_keys.d/%u" ];
-    challengeResponseAuthentication = false;
+    kbdInteractiveAuthentication = false;
     hostKeys = [
       {
         path = "/persist/secrets/ssh/ssh_host_ed25519_key";

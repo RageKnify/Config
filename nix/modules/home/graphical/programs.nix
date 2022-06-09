@@ -14,7 +14,7 @@ in {
 
   config = mkIf cfg.enable {
     home.packages = [
-      pkgs.unstable.discord
+      pkgs.latest.discord
       pkgs.unstable.ghidra-bin
       pkgs.unstable.signal-desktop
       pkgs.thunderbird

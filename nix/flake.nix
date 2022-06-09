@@ -11,6 +11,7 @@
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-22.05";
     nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
+    nixpkgs-latest.url =  "github:nixos/nixpkgs/master";
     impermanence.url = "github:nix-community/impermanence/master";
     home = {
       url = "github:nix-community/home-manager/release-22.05";
@@ -78,6 +79,7 @@
 
       pkgs = mkPkgs inputs.nixpkgs [ self.overlay ];
       pkgs' = mkPkgs inputs.nixpkgs-unstable [];
+      pkgs'' = mkPkgs inputs.nixpkgs-latest [];
 
       mkOverlays = dir: listToAttrs (map
         (name: {
@@ -131,6 +133,7 @@
     in {
       overlay = final: prev: {
         unstable = pkgs';
+        latest = pkgs'';
       };
 
       overlays = mkOverlays ./overlays;

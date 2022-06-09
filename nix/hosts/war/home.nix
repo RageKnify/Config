@@ -15,6 +15,7 @@
     graphical.sxhkd.enable = true;
     graphical.kitty.enable = true;
     graphical.gtk.enable = true;
+    graphical.fusuma.enable = true;
     graphical.programs.enable = true;
     shell.git.enable = true;
   };

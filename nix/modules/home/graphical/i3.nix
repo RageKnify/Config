@@ -30,6 +30,8 @@ in
         config = {
           modifier = i3Mod;
 
+          focus.newWindow = "urgent";
+
           keybindings = lib.mkOptionDefault {
             # switch to next or previous workspace
             "${i3Mod}+Tab"       = "workspace next";

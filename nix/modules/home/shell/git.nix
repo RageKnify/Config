@@ -40,7 +40,9 @@ in {
         }
       ];
       aliases = {
-        st = "status";
+        st = "status -sv";
+        ll = "log --graph --max-count=30";
+        lll = "log --graph";
       };
     };
   };

@@ -27,4 +27,8 @@
     enable = true;
     dockerCompat = true;
   };
+
+  environment.systemPackages = with pkgs; [
+    python3Full
+  ];
 }

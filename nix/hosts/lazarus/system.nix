@@ -29,6 +29,14 @@
   };
 
   environment.systemPackages = with pkgs; [
-    python3Full
+    (let
+      extra-packages = python-packages: with python-packages; [
+        docker
+        # other python packages you want
+      ];
+      pythonWithStuf = python3.withPackages extra-packages;
+    in
+    pythonWithStuf
+    )
   ];
 }

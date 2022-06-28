@@ -24,10 +24,8 @@
     };
   };
 
-  virtualisation.podman = {
+  virtualisation.docker = {
     enable = true;
-    dockerCompat = true;
-    dockerSocket.enable = true;
   };
 
   environment.systemPackages = with pkgs; [

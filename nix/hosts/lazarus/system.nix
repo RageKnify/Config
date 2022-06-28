@@ -9,7 +9,7 @@
 
   boot.cleanTmpDir = true;
   networking.domain = "jplborges.pt";
-  networking.firewall.allowedTCPPorts = [ 80 443 ];
+  networking.firewall.allowedTCPPorts = [ 80 443 1001 ];
   services.openssh = {
     enable = true;
     passwordAuthentication = false;

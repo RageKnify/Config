@@ -16,6 +16,7 @@ in {
     home.packages = [
       pkgs.latest.discord
       pkgs.unstable.ghidra-bin
+      pkgs.gimp
       pkgs.unstable.signal-desktop
       pkgs.thunderbird
     ];

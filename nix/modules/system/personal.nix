@@ -41,10 +41,18 @@ in
         };
       };
     };
+
     # YubiKey stuf
     services.pcscd.enable = true;
     environment.systemPackages = with pkgs; [
       yubikey-manager
+    ];
+
+    # Printer stuf
+    services.printing.enable = true;
+    services.printing.drivers = with pkgs; [
+      gutenprint
+      gutenprintBin
     ];
   };
 }

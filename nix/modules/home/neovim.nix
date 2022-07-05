@@ -332,7 +332,8 @@ EOF
           plenary-nvim
           {
             plugin = gitsigns-nvim;
-            config = "lua require('gitsigns').setup()";
+            # commented out, the plugin isn't being imported right
+            # config = "lua require('gitsigns').setup()";
           }
         ];
     };

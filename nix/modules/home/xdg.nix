@@ -1,4 +1,4 @@
-# hosts/lazarus/system.nix
+# modules/home/xdg.nix
 #
 # Author: João Borges <RageKnify@gmail.com>
 # URL:    https://github.com/RageKnify/Config

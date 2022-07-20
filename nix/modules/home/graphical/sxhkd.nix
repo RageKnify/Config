@@ -26,6 +26,9 @@ in
         # shutdown prompt
         "${sxhkdMod}+shift+x" = "echo"; # TODO
 
+        # rofi-calc
+        "${sxhkdMod}+p"       = "rofi -show calc -modi calc -no-show-match -no-sort -theme $XDG_DATA_HOME/rofi/themes/calc";
+
         # flameshot
         "${sxhkdMod}+Print"    = "flameshot gui";
 

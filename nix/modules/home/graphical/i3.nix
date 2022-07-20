@@ -397,6 +397,96 @@ in
         };
       };
     };
+    xdg.dataFile."rofi/themes/calc.rasi".text = with colors.dark; ''
+* {
+    al: #00000000;
+    bg: #${base00}ff;
+    fg: #${base05}ff;
+    se: #${base02}ff;
+    ac: #${base09}ff;
+}
+window {
+    background-color: @bg;
+    border:           0px;
+    border-color:     @ac;
+    border-radius:    12px;
+    location:         center;
+    text-color:       @fg;
+    width:            50%;
+    x-offset:         0;
+    y-offset:         0;
+}
+mainbox {
+    background-color: @al;
+    border: 0% 0% 0% 0%;
+    border-color: @ac;
+    border-radius: 0% 0% 0% 0%;
+    padding: 0%;
+    spacing: 0%;
+}
+textbox {
+    padding: 0% 0% 0% 0.5%;
+    text-color: @fg;
+    background-color: @bg;
+}
+textbox-current-entry {
+    padding: 0% 0% 0% 0.5%;
+}
+listview {
+    border: 2px dash 0px 0px ;
+    background-color: @al;
+    cycle: false;
+    dynamic: true;
+    layout: vertical;
+    padding: 0.5% 0.5% 0.5% 0.5%;
+    spacing: 0%;
+}
+element {
+    background-color: @al;
+    border-radius: 0%;
+    padding: 0%;
+    text-color: @fg;
+    children: [ element-text ];
+}
+element-text {
+    background-color: inherit;
+    text-color:       inherit;
+}
+element selected {
+    background-color: @se;
+}
+scrollbar {
+    width:        4px ;
+    border:       0;
+    handle-width: 8px ;
+    padding:      0;
+}
+entry {
+    padding: 0% 0% 0% 0.5%;
+    spacing:    0;
+    text-color: inherit;
+    background-color: inherit;
+}
+prompt {
+    padding: 0% 0% 0% 0.5%;
+    text-color: inherit;
+    background-color: inherit;
+}
+inputbar {
+    spacing:    0;
+    text-color: @bg;
+    background-color: @ac;
+    padding:    1px ;
+    children:   [ prompt,textbox-prompt-colon,entry ];
+}
+textbox-prompt-colon {
+    expand:     false;
+    str:        ":";
+    margin:     0px 0.3em 0em 0em ;
+    text-color: inherit;
+    background-color: inherit;
+}
+    '';
     programs.rofi = {
       enable = true;
       plugins = with pkgs; [

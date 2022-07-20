@@ -402,7 +402,7 @@ in
       plugins = with pkgs; [
         pkgs.rofi-calc
       ];
-      font = "JetBrainsMono Nerd Font 10";
+      font = "JetBrainsMono Nerd Font Bold 14";
       extraConfig = {
         show-icons = true;
         icon-theme = "Papirus";
@@ -441,7 +441,7 @@ in
           padding = mkLiteral "0.30% 1% 0% -0.5%";
           background-color = mkLiteral "@al";
           text-color = mkLiteral "@bg";
-          font = "JetBrainsMono Nerd Font 12";
+          font = "JetBrainsMono Nerd Font Bold 12";
         };
         entry = {
           background-color = mkLiteral "@al";

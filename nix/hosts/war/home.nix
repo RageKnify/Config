@@ -19,6 +19,7 @@
     personal.enable = true;
     graphical.programs.enable = true;
     shell.git.enable = true;
+    shell.tmux.enable = true;
   };
 
   # to enable starhip in nix-shells

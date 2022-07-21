@@ -412,7 +412,7 @@ window {
     border-radius:    12px;
     location:         center;
     text-color:       @fg;
-    width:            50%;
+    width:            35%;
     x-offset:         0;
     y-offset:         0;
 }
@@ -521,7 +521,7 @@ textbox-prompt-colon {
           border = mkLiteral "0px";
           border-color = mkLiteral "@ac";
           border-radius = mkLiteral "12px";
-          width = mkLiteral "35%";
+          width = mkLiteral "50%";
           location = mkLiteral "center";
           x-offset = 0;
           y-offset = 0;
@@ -557,8 +557,8 @@ textbox-prompt-colon {
         listview = {
           background-color = mkLiteral "@al";
           padding = mkLiteral "10px";
-          columns = 5;
-          lines = 3;
+          columns = 4;
+          lines = 4;
           spacing = mkLiteral "0%";
           cycle = false;
           dynamic = true;

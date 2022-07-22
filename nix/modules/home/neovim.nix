@@ -267,7 +267,24 @@ EOF
               tree-sitter-rust
               tree-sitter-vim
             ]));
-            config = "lua require'nvim-treesitter.configs'.setup { highlight = { enable = true } }";
+            config = ''
+            lua << EOF
+            -- enable highlighting
+            require'nvim-treesitter.configs'.setup { highlight = { enable = true } }
+
+            local function define_fdm()
+              if (require "nvim-treesitter.parsers".has_parser()) then
+                -- with treesitter parser
+                vim.wo.foldexpr="nvim_treesitter#foldexpr()"
+                vim.wo.foldmethod="expr"
+              else
+                -- without treesitter parser
+                vim.wo.foldmethod="syntax"
+              end
+            end
+            vim.api.nvim_create_autocmd({ "FileType" }, { callback = define_fdm })
+            EOF
+            '';
           }
 
           {
@@ -352,8 +369,6 @@ EOF
     home.file."${config.xdg.configHome}/nvim/after/ftplugin/rust.vim".text = ''
 " Use LSP omni-completion in Rust files.
 setlocal omnifunc=v:lua.vim.lsp.omnifunc
-set foldexpr=nvim_treesitter#foldexpr()
-set foldmethod=expr
 
 lua << EOF
 local inlay_hints = require('lsp_extensions').inlay_hints

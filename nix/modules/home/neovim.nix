@@ -15,6 +15,16 @@ setlocal softtabstop=2
 setlocal tabstop=2
 setlocal expandtab
   '';
+  # TODO: if nvim-osc52 is added to nixpkgs I can stop having it here
+  nvim-osc52 = pkgs.vimUtils.buildVimPlugin {
+    name = "nvim-osc52";
+    src = pkgs.fetchFromGitHub {
+      owner = "ojroques";
+      repo = "nvim-osc52";
+      rev = "3d482f503f120a7794a5d97a79b2da0bc12a3d14";
+      sha256 = "sha256-q8GP2NJhQ8+99jp2YglDfiJeWNepzWtaNQ8sGnldQbM=";
+    };
+  };
 in
 {
   options.modules.neovim.enable = mkEnableOption "neovim";
@@ -351,6 +361,30 @@ EOF
             plugin = gitsigns-nvim;
             # commented out, the plugin isn't being imported right
             # config = "lua require('gitsigns').setup()";
+          }
+
+          {
+            plugin = nvim-osc52;
+            config = ''
+local function copy(lines, _)
+  require('osc52').copy(table.concat(lines, '\n'))
+end
+
+local function paste()
+  return {vim.fn.split(vim.fn.getreg(""), '\n'), vim.fn.getregtype("")}
+end
+
+vim.g.clipboard = {
+  name = 'osc52',
+  copy = {['+'] = copy, ['*'] = copy},
+  paste = {['+'] = paste, ['*'] = paste},
+}
+
+-- Now the '+' register will copy to system clipboard using OSC52
+vim.keymap.set('n', '<leader>y', '"+y')
+vim.keymap.set('x', '<leader>y', '"+y')
+            '';
+            type = "lua";
           }
         ];
     };

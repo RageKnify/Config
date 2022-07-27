@@ -9,6 +9,289 @@
 let
   inherit (lib) mkEnableOption mkIf;
   cfg = config.modules.neovim;
+  personal = config.modules.personal.enable;
+  commonGrammars = with pkgs.unstable.tree-sitter-grammars; [
+    tree-sitter-bash
+    tree-sitter-comment
+    tree-sitter-html
+    tree-sitter-markdown
+    tree-sitter-python
+  ];
+  personalGrammars = if personal then with pkgs.unstable.tree-sitter-grammars; [
+    tree-sitter-nix
+    tree-sitter-c
+    tree-sitter-cpp
+    tree-sitter-java
+    tree-sitter-javascript
+    tree-sitter-latex
+    tree-sitter-lua
+    tree-sitter-ocaml
+    tree-sitter-ocaml-interface
+    tree-sitter-rust
+    tree-sitter-toml
+    tree-sitter-typescript
+    tree-sitter-vim
+    tree-sitter-yaml
+  ] else [];
+  commonPlugins = with pkgs.unstable.vimPlugins; [
+    nvim-web-devicons
+    {
+      plugin = lualine-nvim;
+      type = "lua";
+      config = ''
+vim.o.laststatus=2
+vim.o.showtabline=2
+vim.o.showmode=false
+require'lualine'.setup {
+  options = {
+    theme = 'auto',
+    section_separators = {left='', right=''},
+    component_separators = {left='', right=''},
+    icons_enabled = true
+  },
+  sections = {
+    lualine_b = { 'diff' },
+    lualine_c = {
+      {'diagnostics', {
+        sources = {nvim_diagnostic},
+        symbols = {error = ':', warn =':', info = ':', hint = ':'}}},
+      {'filename', file_status = true, path = 1}
+    },
+    lualine_x = { 'encoding', {'filetype', colored = false} },
+  },
+  inactive_sections = {
+    lualine_c = {
+      {'filename', file_status = true, path = 1}
+    },
+    lualine_x = { 'encoding', {'filetype', colored = false} },
+  },
+  tabline = {
+    lualine_a = { 'hostname' },
+    lualine_b = { 'branch' },
+    lualine_z = { {'tabs', tabs_color = { inactive = "TermCursor", active = "ColorColumn" } } }
+  },
+  extensions = { fzf, fugitive },
+}
+if _G.Tabline_timer == nil then
+  _G.Tabline_timer = vim.loop.new_timer()
+else
+  _G.Tabline_timer:stop()
+end
+_G.Tabline_timer:start(0,             -- never timeout
+                       100,          -- repeat every 1000 ms
+                       vim.schedule_wrap(function() -- updater function
+                                            vim.api.nvim_command('redrawtabline')
+                                         end))
+      '';
+    }
+
+    {
+      plugin = delimitMate;
+      config = ''
+      let delimitMate_expand_cr=2
+      let delimitMate_expand_space=1
+      '';
+    }
+
+    {
+      plugin = vim-illuminate;
+      config = ''
+      let g:Illuminate_delay = 100
+      hi def link LspReferenceText CursorLine
+      hi def link LspReferenceRead CursorLine
+      hi def link LspReferenceWrite CursorLine
+      '';
+    }
+
+    {
+      plugin = (nvim-treesitter.withPlugins (
+        plugins: commonGrammars ++ personalGrammars
+      ));
+      type = "lua";
+      config = ''
+-- enable highlighting
+require'nvim-treesitter.configs'.setup { highlight = { enable = true } }
+
+local function define_fdm()
+  if (require "nvim-treesitter.parsers".has_parser()) then
+    -- with treesitter parser
+    vim.wo.foldexpr="nvim_treesitter#foldexpr()"
+    vim.wo.foldmethod="expr"
+  else
+    -- without treesitter parser
+    vim.wo.foldmethod="syntax"
+  end
+end
+vim.api.nvim_create_autocmd({ "FileType" }, { callback = define_fdm })
+            '';
+    }
+
+    vim-signature
+
+    {
+      plugin = fzf-vim;
+      config = ''
+      let $FZF_DEFAULT_OPTS='--layout=reverse'
+
+      " Using the custom window creation function
+      let g:fzf_layout = { 'window': { 'height': 0.75, 'width': 0.75 } }
+      '';
+    }
+
+    vim-commentary
+
+    {
+      plugin = nvim-base16;
+      config = ''
+      " colorscheme settings
+      set background=light
+      colorscheme base16-solarized-light
+      '';
+    }
+
+    vim-fugitive
+
+    plenary-nvim
+    {
+      plugin = gitsigns-nvim;
+      # commented out, the plugin isn't being imported right
+      # config = "lua require('gitsigns').setup()";
+    }
+
+    {
+      plugin = nvim-osc52;
+      type = "lua";
+      config = ''
+local function copy(lines, _)
+  require('osc52').copy(table.concat(lines, '\n'))
+end
+
+local function paste()
+  return {vim.fn.split(vim.fn.getreg(""), '\n'), vim.fn.getregtype("")}
+end
+
+vim.g.clipboard = {
+  name = 'osc52',
+  copy = {['+'] = copy, ['*'] = copy},
+  paste = {['+'] = paste, ['*'] = paste},
+}
+
+-- Now the '+' register will copy to system clipboard using OSC52
+vim.keymap.set('n', '<leader>y', '"+y')
+vim.keymap.set('x', '<leader>y', '"+y')
+      '';
+    }
+
+    {
+      plugin = nvim-colorizer-lua;
+      type = "lua";
+      config = ''
+require 'colorizer'.setup ({'*';}, { names = false; })
+      '';
+    }
+  ];
+  personalPlugins = if personal then with pkgs.unstable.vimPlugins; [
+    {
+      plugin = nvim-lspconfig;
+      type = "lua";
+      config = ''
+local lsp = require'lspconfig'
+
+local capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
+capabilities.textDocument.completion.completionItem.snippetSupport = true
+capabilities.textDocument.completion.completionItem.resolveSupport = {
+	properties = {
+		'documentation',
+		'detail',
+		'additionalTextEdits',
+	}
+}
+
+lsp.rust_analyzer.setup{
+	capabilities = capabilities,
+	on_attach = require'generic_lsp'
+}
+      '';
+    }
+    lsp_extensions-nvim
+
+    {
+      plugin = presence-nvim;
+      config = ''
+      let g:presence_auto_update       = 1
+      let g:presence_editing_text      = "Editing %s"
+      let g:presence_workspace_text    = "Working on %s"
+      let g:presence_neovim_image_text = "vim but better"
+      let g:presence_main_image        = "neovim"
+      '';
+    }
+
+    luasnip
+    {
+      plugin = nvim-cmp;
+      type = "lua";
+      config = ''
+-- Setup nvim-cmp.
+local cmp = require'cmp'
+
+cmp.setup({
+  snippet = {
+    -- REQUIRED - you must specify a snippet engine
+    expand = function(args)
+      require('luasnip').lsp_expand(args.body) -- For `luasnip` users.
+    end,
+  },
+  window = {
+    -- completion = cmp.config.window.bordered(),
+    -- documentation = cmp.config.window.bordered(),
+  },
+  mapping = cmp.mapping.preset.insert({
+    ['<C-b>'] = cmp.mapping.scroll_docs(-4),
+    ['<C-f>'] = cmp.mapping.scroll_docs(4),
+    ['<C-Space>'] = cmp.mapping.complete(),
+    ['<C-e>'] = cmp.mapping.abort(),
+    ['<CR>'] = cmp.mapping.confirm({ select = true }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
+  }),
+  sources = cmp.config.sources({
+    { name = 'nvim_lsp' },
+    { name = 'luasnip' }, -- For luasnip users.
+  }, {
+    { name = 'buffer' },
+  })
+})
+
+-- Set configuration for specific filetype.
+cmp.setup.filetype('gitcommit', {
+  sources = cmp.config.sources({
+    -- { name = 'cmp_git' }, -- You can specify the `cmp_git` source if you were installed it.
+  }, {
+    { name = 'buffer' },
+  })
+})
+
+-- Use buffer source for `/` (if you enabled `native_menu`, this won't work anymore).
+cmp.setup.cmdline('/', {
+  mapping = cmp.mapping.preset.cmdline(),
+  sources = {
+    { name = 'buffer' }
+  }
+})
+
+-- Use cmdline & path source for ':' (if you enabled `native_menu`, this won't work anymore).
+cmp.setup.cmdline(':', {
+  mapping = cmp.mapping.preset.cmdline(),
+  sources = cmp.config.sources({
+    { name = 'path' }
+  }, {
+    { name = 'cmdline' }
+  })
+})
+      '';
+    }
+    cmp_luasnip
+    cmp-treesitter
+    cmp-nvim-lsp
+  ] else [];
   twoSpaceIndentConfig = ''
 setlocal shiftwidth=2
 setlocal softtabstop=2
@@ -125,271 +408,7 @@ in
         " Avoiding W
         cabbrev W w
         '';
-        plugins = with pkgs.unstable.vimPlugins; [
-          nvim-web-devicons
-          {
-            plugin = lualine-nvim;
-            type = "lua";
-            config = ''
-vim.o.laststatus=2
-vim.o.showtabline=2
-vim.o.showmode=false
-require'lualine'.setup {
-        options = {
-                theme = 'auto',
-                section_separators = {left='', right=''},
-                component_separators = {left='', right=''},
-                icons_enabled = true
-        },
-        sections = {
-                lualine_b = { 'diff' },
-                lualine_c = {
-                        {'diagnostics', {
-                                sources = {nvim_diagnostic},
-                                symbols = {error = ':', warn =':', info = ':', hint = ':'}}},
-                        {'filename', file_status = true, path = 1}
-                },
-                lualine_x = { 'encoding', {'filetype', colored = false} },
-        },
-        inactive_sections = {
-                lualine_c = {
-                        {'filename', file_status = true, path = 1}
-                },
-                lualine_x = { 'encoding', {'filetype', colored = false} },
-        },
-        tabline = {
-                lualine_a = { 'hostname' },
-                lualine_b = { 'branch' },
-                lualine_z = { {'tabs', tabs_color = { inactive = "TermCursor", active = "ColorColumn" } } }
-        },
-        extensions = { fzf, fugitive },
-}
-if _G.Tabline_timer == nil then
-  _G.Tabline_timer = vim.loop.new_timer()
-else
-  _G.Tabline_timer:stop()
-end
-_G.Tabline_timer:start(0,             -- never timeout
-                       100,          -- repeat every 1000 ms
-                       vim.schedule_wrap(function() -- updater function
-                                            vim.api.nvim_command('redrawtabline')
-                                         end))
-            '';
-          }
-
-          vim-fugitive
-
-          {
-            plugin = delimitMate;
-            config = ''
-            let delimitMate_expand_cr=2
-            let delimitMate_expand_space=1
-            '';
-          }
-
-          {
-            plugin = vim-illuminate;
-            config = ''
-            let g:Illuminate_delay = 100
-            hi def link LspReferenceText CursorLine
-            hi def link LspReferenceRead CursorLine
-            hi def link LspReferenceWrite CursorLine
-            '';
-          }
-
-          luasnip
-          {
-            plugin = nvim-cmp;
-            type = "lua";
-            config = ''
--- Setup nvim-cmp.
-local cmp = require'cmp'
-
-cmp.setup({
-  snippet = {
-    -- REQUIRED - you must specify a snippet engine
-    expand = function(args)
-      require('luasnip').lsp_expand(args.body) -- For `luasnip` users.
-    end,
-  },
-  window = {
-    -- completion = cmp.config.window.bordered(),
-    -- documentation = cmp.config.window.bordered(),
-  },
-  mapping = cmp.mapping.preset.insert({
-    ['<C-b>'] = cmp.mapping.scroll_docs(-4),
-    ['<C-f>'] = cmp.mapping.scroll_docs(4),
-    ['<C-Space>'] = cmp.mapping.complete(),
-    ['<C-e>'] = cmp.mapping.abort(),
-    ['<CR>'] = cmp.mapping.confirm({ select = true }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
-  }),
-  sources = cmp.config.sources({
-    { name = 'nvim_lsp' },
-    { name = 'luasnip' }, -- For luasnip users.
-  }, {
-    { name = 'buffer' },
-  })
-})
-
--- Set configuration for specific filetype.
-cmp.setup.filetype('gitcommit', {
-  sources = cmp.config.sources({
-    -- { name = 'cmp_git' }, -- You can specify the `cmp_git` source if you were installed it.
-  }, {
-    { name = 'buffer' },
-  })
-})
-
--- Use buffer source for `/` (if you enabled `native_menu`, this won't work anymore).
-cmp.setup.cmdline('/', {
-  mapping = cmp.mapping.preset.cmdline(),
-  sources = {
-    { name = 'buffer' }
-  }
-})
-
--- Use cmdline & path source for ':' (if you enabled `native_menu`, this won't work anymore).
-cmp.setup.cmdline(':', {
-  mapping = cmp.mapping.preset.cmdline(),
-  sources = cmp.config.sources({
-    { name = 'path' }
-  }, {
-    { name = 'cmdline' }
-  })
-})
-            '';
-          }
-          cmp_luasnip
-          cmp-treesitter
-          cmp-nvim-lsp
-          {
-            plugin = (nvim-treesitter.withPlugins (plugins: with pkgs.unstable.tree-sitter-grammars; [
-              tree-sitter-nix
-              # TODO: rust and others only on dev machines
-              tree-sitter-c
-              tree-sitter-cpp
-              tree-sitter-comment
-              tree-sitter-lua
-              tree-sitter-markdown
-              tree-sitter-ocaml
-              tree-sitter-rust
-              tree-sitter-vim
-            ]));
-            type = "lua";
-            config = ''
--- enable highlighting
-require'nvim-treesitter.configs'.setup { highlight = { enable = true } }
-
-local function define_fdm()
-  if (require "nvim-treesitter.parsers".has_parser()) then
-    -- with treesitter parser
-    vim.wo.foldexpr="nvim_treesitter#foldexpr()"
-    vim.wo.foldmethod="expr"
-  else
-    -- without treesitter parser
-    vim.wo.foldmethod="syntax"
-  end
-end
-vim.api.nvim_create_autocmd({ "FileType" }, { callback = define_fdm })
-            '';
-          }
-
-          {
-            plugin = nvim-lspconfig;
-            type = "lua";
-            config = ''
-local lsp = require'lspconfig'
-
-local capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
-capabilities.textDocument.completion.completionItem.snippetSupport = true
-capabilities.textDocument.completion.completionItem.resolveSupport = {
-	properties = {
-		'documentation',
-		'detail',
-		'additionalTextEdits',
-	}
-}
-
-lsp.rust_analyzer.setup{
-	capabilities = capabilities,
-	on_attach = require'generic_lsp'
-}
-            '';
-          }
-          lsp_extensions-nvim
-
-          vim-signature
-          {
-            plugin = fzf-vim;
-            config = ''
-            let $FZF_DEFAULT_OPTS='--layout=reverse'
-
-            " Using the custom window creation function
-            let g:fzf_layout = { 'window': { 'height': 0.75, 'width': 0.75 } }
-            '';
-          }
-
-          vim-commentary
-
-          {
-            plugin = presence-nvim;
-            config = ''
-            let g:presence_auto_update       = 1
-            let g:presence_editing_text      = "Editing %s"
-            let g:presence_workspace_text    = "Working on %s"
-            let g:presence_neovim_image_text = "vim but better"
-            let g:presence_main_image        = "neovim"
-            '';
-          }
-
-          {
-            plugin = nvim-base16;
-            config = ''
-            " colorscheme settings
-            set background=light
-            colorscheme base16-solarized-light
-            '';
-          }
-
-          plenary-nvim
-          {
-            plugin = gitsigns-nvim;
-            # commented out, the plugin isn't being imported right
-            # config = "lua require('gitsigns').setup()";
-          }
-
-          {
-            plugin = nvim-osc52;
-            type = "lua";
-            config = ''
-local function copy(lines, _)
-  require('osc52').copy(table.concat(lines, '\n'))
-end
-
-local function paste()
-  return {vim.fn.split(vim.fn.getreg(""), '\n'), vim.fn.getregtype("")}
-end
-
-vim.g.clipboard = {
-  name = 'osc52',
-  copy = {['+'] = copy, ['*'] = copy},
-  paste = {['+'] = paste, ['*'] = paste},
-}
-
--- Now the '+' register will copy to system clipboard using OSC52
-vim.keymap.set('n', '<leader>y', '"+y')
-vim.keymap.set('x', '<leader>y', '"+y')
-            '';
-          }
-
-          {
-            plugin = nvim-colorizer-lua;
-            type = "lua";
-            config = ''
-require 'colorizer'.setup ({'*';}, { names = false; })
-            '';
-          }
-        ];
+        plugins = commonPlugins ++ personalPlugins;
     };
 
     # languages that should use 2 space indent

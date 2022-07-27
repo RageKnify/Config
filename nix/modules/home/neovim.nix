@@ -381,6 +381,14 @@ vim.keymap.set('n', '<leader>y', '"+y')
 vim.keymap.set('x', '<leader>y', '"+y')
             '';
           }
+
+          {
+            plugin = nvim-colorizer-lua;
+            type = "lua";
+            config = ''
+require 'colorizer'.setup ({'*';}, { names = false; })
+            '';
+          }
         ];
     };
 

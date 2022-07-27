@@ -16,6 +16,7 @@
     graphical.kitty.enable = true;
     graphical.gtk.enable = true;
     graphical.programs.enable = true;
+    personal.enable = true;
     shell.git.enable = true;
     shell.tmux.enable = true;
   };

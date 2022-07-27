@@ -3,9 +3,9 @@
 # Author: João Borges <RageKnify@gmail.com>
 # URL:    https://github.com/RageKnify/Config
 #
-# Git configuration. (Based on RiscadoA's)
+# tmux configuration
 
-{ config, lib, colors, ... }:
+{ config, lib, colors, hostColor, ... }:
 let
   inherit (lib) mkEnableOption mkIf;
   cfg = config.modules.shell.tmux;
@@ -21,7 +21,7 @@ in {
       extraConfig = ''
       set -g terminal-overrides ",gnome*:RGB"
       # Set status bar color
-      set -g status-style fg='#${colors.dark.base00}',bg='#${colors.dark.base08}'
+      set -g status-style fg='#${colors.light.base07}',bg='#${hostColor}'
 
       # set status line
       set -g status-left '#[bold][#S]  '

@@ -95,6 +95,7 @@
       ];
     };
     wgstt = {
+      autostart = false;
       address = [ "10.6.77.100/32" "fd00:677::100/128"];
       privateKeyFile = "/etc/nixos/secrets/wg-privkey";
       dns = [ "10.6.77.1" ];
@@ -105,6 +106,21 @@
           allowedIPs = [
             "10.0.0.0/8"
             "fd00::/8"
+          ];
+          persistentKeepalive = 25;
+        }
+      ];
+    };
+    cscpt = {
+      autostart = false;
+      address = [ "10.122.122.34/32" ];
+      privateKeyFile = "/etc/nixos/secrets/wg-privkey";
+      peers = [
+        {
+          publicKey = "TAakuUUYICXaDOVamxYhJRRkJKt7pGhzHOgr1exCjGI=";
+          endpoint = "game.cybersecuritychallenge.pt:31337";
+          allowedIPs = [
+            "10.122.122.1/32"
           ];
           persistentKeepalive = 25;
         }

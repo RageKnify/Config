@@ -21,7 +21,7 @@ in {
       extraConfig = ''
       set -g terminal-overrides ",gnome*:RGB"
       # Set status bar color
-      set -g status-style fg='#${colors.light.base07}',bg='#${hostColor}'
+      set -g status-style fg='${colors.light.base07}',bg='${hostColor}'
 
       # set status line
       set -g status-left '#[bold][#S]  '

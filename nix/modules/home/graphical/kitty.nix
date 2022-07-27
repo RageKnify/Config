@@ -30,38 +30,38 @@ in
       };
       /* wait for 22.05? -> theme = "Solarized Light"; */
       settings = with colors.light; {
-        background = "#${base00}";
-        foreground = "#${base05}";
-        selection_background = "#${base05}";
-        selection_foreground = "#${base00}";
-        url_color = "#${base04}";
-        cursor = "#${base05}";
-        active_border_color = "#${base03}";
-        inactive_border_color = "#${base01}";
-        active_tab_background = "#${base00}";
-        active_tab_foreground = "#${base05}";
-        inactive_tab_background = "#${base01}";
-        inactive_tab_foreground = "#${base04}";
+        background = "${base00}";
+        foreground = "${base05}";
+        selection_background = "${base05}";
+        selection_foreground = "${base00}";
+        url_color = "${base04}";
+        cursor = "${base05}";
+        active_border_color = "${base03}";
+        inactive_border_color = "${base01}";
+        active_tab_background = "${base00}";
+        active_tab_foreground = "${base05}";
+        inactive_tab_background = "${base01}";
+        inactive_tab_foreground = "${base04}";
 
         # normal
-        color0 = "#${base07}";
-        color1 = "#${base08}";
-        color2 = "#${base0B}";
-        color3 = "#${base0A}";
-        color4 = "#${base0D}";
-        color5 = "#${base0E}";
-        color6 = "#${base0C}";
-        color7 = "#${base02}";
+        color0 = "${base07}";
+        color1 = "${base08}";
+        color2 = "${base0B}";
+        color3 = "${base0A}";
+        color4 = "${base0D}";
+        color5 = "${base0E}";
+        color6 = "${base0C}";
+        color7 = "${base02}";
 
         # bright
-        color8 = "#${base04}";
-        color9 = "#${base09}";
-        color10 = "#${base06}";
-        color11 = "#${base05}";
-        color12 = "#${base03}";
-        color13 = "#${base01}";
-        color14 = "#${base0F}";
-        color15 = "#${base00}";
+        color8 = "${base04}";
+        color9 = "${base09}";
+        color10 = "${base06}";
+        color11 = "${base05}";
+        color12 = "${base03}";
+        color13 = "${base01}";
+        color14 = "${base0F}";
+        color15 = "${base00}";
       };
     };
     xsession.windowManager.i3.config.terminal = "kitty";

@@ -87,41 +87,41 @@ in
 
           colors  = with colors.dark; {
             focused = {
-              border = "#${base05}";
-              background = "#${base00}";
-              text = "#${base05}";
-              indicator = "#${base05}";
-              childBorder = "#${base05}";
+              border = "${base05}";
+              background = "${base00}";
+              text = "${base05}";
+              indicator = "${base05}";
+              childBorder = "${base05}";
             };
             focusedInactive = {
-              border = "#${base01}";
-              background = "#${base01}";
-              text = "#${base05}";
-              indicator = "#${base03}";
-              childBorder = "#${base01}";
+              border = "${base01}";
+              background = "${base01}";
+              text = "${base05}";
+              indicator = "${base03}";
+              childBorder = "${base01}";
             };
             unfocused = {
-              border = "#${base01}";
-              background = "#${base00}";
-              text = "#${base05}";
-              indicator = "#${base01}";
-              childBorder = "#${base01}";
+              border = "${base01}";
+              background = "${base00}";
+              text = "${base05}";
+              indicator = "${base01}";
+              childBorder = "${base01}";
             };
             urgent = {
-              border = "#${base08}";
-              background = "#${base08}";
-              text = "#${base00}";
-              indicator = "#${base08}";
-              childBorder = "#${base08}";
+              border = "${base08}";
+              background = "${base08}";
+              text = "${base00}";
+              indicator = "${base08}";
+              childBorder = "${base08}";
             };
             placeholder = {
-              border = "#${base00}";
-              background = "#${base00}";
-              text = "#${base05}";
-              indicator = "#${base00}";
-              childBorder = "#${base00}";
+              border = "${base00}";
+              background = "${base00}";
+              text = "${base05}";
+              indicator = "${base00}";
+              childBorder = "${base00}";
             };
-            background = "#${base07}";
+            background = "${base07}";
           };
 
           fonts = {
@@ -183,13 +183,13 @@ in
       package = (pkgs.polybar.override { i3GapsSupport = true; pulseSupport = true; });
       settings = with colors.dark; {
         colors  = {
-          background      = "#${base00}";
-          background-alt  = "#${base01}";
-          foreground      = "#${base05}";
-          foreground-alt  = "#${base06}";
-          primary         = "#${base09}";
-          secondary       = "#${base0A}";
-          alert           = "#${base08}";
+          background      = "${base00}";
+          background-alt  = "${base01}";
+          foreground      = "${base05}";
+          foreground-alt  = "${base06}";
+          primary         = "${base09}";
+          secondary       = "${base0A}";
+          alert           = "${base08}";
         };
         "global/wm" = {
           margin-top = 5;
@@ -286,7 +286,7 @@ in
           interval = 2;
           format-prefix = " ";
           format-prefix-foreground = "\${colors.foreground-alt}";
-          format-overline = "#${base0E}";
+          format-overline = "${base0E}";
           label = "%percentage%%";
         };
         "module/temperature" = {
@@ -295,13 +295,13 @@ in
           warn-temperature = 60;
 
           format = "<ramp> <label>";
-          format-overline = "#${base0E}";
+          format-overline = "${base0E}";
           format-warn = "<ramp> <label-warn>";
           format-warn-overline = "\${self.format-overline}";
 
           label = "%temperature-c%";
           label-warn = "%temperature-c%";
-          label-warn-foreground = "#${base08}";
+          label-warn-foreground = "${base08}";
 
           ramp-0 = "";
           ramp-1 = "";
@@ -315,7 +315,7 @@ in
           interval = 2;
           format-prefix = " ";
           format-prefix-foreground = "\${colors.foreground-alt}";
-          format-overline = "#${base0C}";
+          format-overline = "${base0C}";
           label = "%gb_used%/%gb_total%";
         };
         "module/date" = {
@@ -327,7 +327,7 @@ in
           time-alt = "%H:%M:%S";
           format-prefix = " ";
           format-prefix-foreground = "\${colors.foreground-alt}";
-          format-overline = "#${base08}";
+          format-overline = "${base08}";
           label = "%date% %time%";
         };
         "module/pulseaudio" = {
@@ -344,7 +344,7 @@ in
 
           format-charging = "<animation-charging> <label-charging>";
           label-charging = "%percentage%%";
-          format-charging-overline = "#${base0A}";
+          format-charging-overline = "${base0A}";
 
           format-discharging = "<ramp-capacity> <label-discharging>";
           label-discharging = "%percentage%%";
@@ -380,7 +380,7 @@ in
           format-disconnected-prefix-foreground = "\${colors.foreground-alt}";
 
           format-connected = "<ramp-signal> <label-connected>";
-          format-connected-overline = "#${base0B}";
+          format-connected-overline = "${base0B}";
           label-connected = "%essid%";
 
           format-disconnected = "<label-disconnected>";
@@ -400,10 +400,10 @@ in
     xdg.dataFile."rofi/themes/calc.rasi".text = with colors.dark; ''
 * {
     al: #00000000;
-    bg: #${base00}ff;
-    fg: #${base05}ff;
-    se: #${base02}ff;
-    ac: #${base09}ff;
+    bg: ${base00}ff;
+    fg: ${base05}ff;
+    se: ${base02}ff;
+    ac: ${base09}ff;
 }
 window {
     background-color: @bg;
@@ -509,10 +509,10 @@ textbox-prompt-colon {
         # 1080p/launchers/colorful/style_1.rasi
         "*" = with colors.dark; {
           al = mkLiteral "#00000000";
-          bg = mkLiteral "#${base00}ff";
-          fg = mkLiteral "#${base05}ff";
-          se = mkLiteral "#${base02}ff";
-          ac = mkLiteral "#${base09}ff";
+          bg = mkLiteral "${base00}ff";
+          fg = mkLiteral "${base05}ff";
+          se = mkLiteral "${base02}ff";
+          ac = mkLiteral "${base09}ff";
         };
         window = {
           transparency = "real";
@@ -622,20 +622,20 @@ textbox-prompt-colon {
           font = "Monospace 14";
           horizontal_padding = 6;
           dmenu = "${pkgs.rofi}/bin/rofi -dmenu";
-          frame_color = "#${colors.dark.base00}";
+          frame_color = "${colors.dark.base00}";
         };
         urgency_low = with colors.dark; {
-          background = "#${base01}";
-          foreground = "#${base05}";
+          background = "${base01}";
+          foreground = "${base05}";
         };
         urgency_normal = with colors.dark; {
-          background = "#${base01}";
-          foreground = "#${base05}";
+          background = "${base01}";
+          foreground = "${base05}";
         };
         urgency_critical = with colors.dark; {
-          background = "#${base01}";
-          foreground = "#${base08}";
-          frame_color = "#${base08}";
+          background = "${base01}";
+          foreground = "${base08}";
+          frame_color = "${base08}";
         };
       };
     };

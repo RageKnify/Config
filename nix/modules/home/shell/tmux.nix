@@ -37,6 +37,9 @@ in {
 
       # Enable mouse
       set -g mouse on
+
+      # Enable osc-52
+      set -g set-clipboard on
       '';
       historyLimit = 50000;
       keyMode = "vi";

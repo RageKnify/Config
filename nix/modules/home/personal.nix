@@ -16,6 +16,12 @@ in {
     home.packages = with pkgs;[
       # LaTeX
       texlive.combined.scheme-full
+      texlab
+      # Rust
+      rustup
+      pkgs.unstable.rust-analyzer
+      # GCC
+      pkgs.gcc
     ];
   };
 }

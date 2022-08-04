@@ -26,9 +26,6 @@
   programs.bash.enable = true;
 
   home.packages = with pkgs; [
-    rustup
-    pkgs.unstable.rust-analyzer
-    pkgs.gcc
   ];
 
   home.keyboard = null;

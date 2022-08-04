@@ -211,6 +211,10 @@ lsp.rust_analyzer.setup{
 	capabilities = capabilities,
 	on_attach = require'generic_lsp'
 }
+lsp.texlab.setup{
+	capabilities = capabilities,
+	on_attach = require'generic_lsp'
+}
       '';
     }
     lsp_extensions-nvim

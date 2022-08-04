@@ -32,6 +32,13 @@ in {
           };
         }
         {
+          condition = "gitdir:~/dev/noah/";
+          contents.user = {
+            name = "João Borges";
+            email = "joao.p.l.borges@tecnico.ulisboa.pt";
+          };
+        }
+        {
           condition = "gitdir:~/dev/ark/";
           contents.user = {
             name = "João Borges";

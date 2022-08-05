@@ -389,6 +389,7 @@ in
         endfunction
 
         nnoremap <silent> <leader><leader> :nohlsearch<cr>
+        nnoremap <silent> <leader>m :silent call jobstart('make')<cr>
 
         set selection=exclusive
 
@@ -424,6 +425,7 @@ in
     home.file."${config.xdg.configHome}/nvim/after/ftplugin/yacc.vim".text = twoSpaceIndentConfig;
     home.file."${config.xdg.configHome}/nvim/after/ftplugin/lex.vim".text = twoSpaceIndentConfig;
     home.file."${config.xdg.configHome}/nvim/after/ftplugin/cpp.vim".text = twoSpaceIndentConfig;
+    home.file."${config.xdg.configHome}/nvim/after/ftplugin/tex.vim".text = twoSpaceIndentConfig;
 
     # Rust config
     home.file."${config.xdg.configHome}/nvim/after/ftplugin/rust.vim".text = ''

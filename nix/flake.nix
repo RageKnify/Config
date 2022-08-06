@@ -83,15 +83,22 @@
       system = "x86_64-linux";
       user = "jp";
 
-      mkPkgs = pkgs: extraOverlays: import pkgs {
+      pkg-sets = final: prev:
+        let args = {
+          system = final.system;
+          config.allowUnfree = true;
+        };
+        in
+        {
+          unstable = import inputs.nixpkgs-unstable args;
+          latest = import inputs.nixpkgs-latest args;
+        };
+
+      mkPkgs = system: import inputs.nixpkgs {
         inherit system;
         config.allowUnfree = true;
-        overlays = extraOverlays ++ (attrValues self.overlays);
+        overlays = [ pkg-sets] ++ (attrValues (mkOverlays ./overlays));
       };
-
-      pkgs = mkPkgs inputs.nixpkgs [ self.overlay ];
-      pkgs' = mkPkgs inputs.nixpkgs-unstable [];
-      pkgs'' = mkPkgs inputs.nixpkgs-latest [];
 
       mkOverlays = dir: listToAttrs (map
         (name: {
@@ -120,7 +127,8 @@
         (name: {
           inherit name;
           value = inputs.nixpkgs.lib.nixosSystem {
-            inherit system pkgs;
+            inherit system;
+            pkgs = mkPkgs system;
             specialArgs = { inherit user colors sshKeys; configDir = ./config; };
             modules = [
               { networking.hostName = name; }
@@ -147,13 +155,6 @@
        (attrNames (readDir dir)));
 
     in {
-      overlay = final: prev: {
-        unstable = pkgs';
-        latest = pkgs'';
-      };
-
-      overlays = mkOverlays ./overlays;
-
       nixosConfigurations = mkHosts ./hosts;
     };
 }

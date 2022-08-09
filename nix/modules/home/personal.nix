@@ -22,6 +22,8 @@ in {
       pkgs.unstable.rust-analyzer
       # GCC
       pkgs.gcc
+      # Make
+      pkgs.gnumake
     ];
   };
 }

@@ -23,7 +23,7 @@
     let
       inherit (builtins) listToAttrs concatLists attrValues attrNames readDir;
       inherit (inputs.nixpkgs) lib;
-      inherit (lib) mapAttrs removeSuffix hasSuffix;
+      inherit (lib) mapAttrs mapAttrsToList hasSuffix;
       sshKeys = [
         "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIC2sdJFvvnEIYztPcznXvKpY4vOWedZ1qzDaAgRxrczS jp@war"
         "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIHRO0/CTcEQHFV8C2REiurmTrPkd7nAlcwynI6eFCqu1 jp@death"
@@ -94,20 +94,16 @@
           latest = import inputs.nixpkgs-latest args;
         };
 
-      mkPkgs = system: import inputs.nixpkgs {
-        inherit system;
-        config.allowUnfree = true;
-        overlays = [ pkg-sets] ++ (attrValues (mkOverlays ./overlays));
-      };
+      overlaysDir = ./overlays;
 
-      mkOverlays = dir: listToAttrs (map
-        (name: {
-          name = removeSuffix ".nix" name;
-          value = import "${dir}/${name}" {
-            packageDir = ./packages;
-          };
-        })
-        (attrNames (readDir dir)));
+      overlays = mapAttrsToList
+        (name: _: import "${overlaysDir}/${name}" { })
+        (readDir overlaysDir) ++ [pkg-sets];
+
+      pkgs = import inputs.nixpkgs {
+        inherit system overlays;
+        config.allowUnfree = true;
+      };
 
       systemModules = mkModules ./modules/system;
       homeModules = mkModules ./modules/home;
@@ -127,8 +123,7 @@
         (name: {
           inherit name;
           value = inputs.nixpkgs.lib.nixosSystem {
-            inherit system;
-            pkgs = mkPkgs system;
+            inherit system pkgs;
             specialArgs = { inherit user colors sshKeys; configDir = ./config; };
             modules = [
               { networking.hostName = name; }

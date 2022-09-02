@@ -14,7 +14,7 @@ in {
 
   config = mkIf cfg.enable {
     home.packages = [
-      pkgs.discord
+      pkgs.discord-nss_latest
       pkgs.unstable.ghidra-bin
       pkgs.gimp
       pkgs.unstable.signal-desktop

@@ -5,7 +5,7 @@
 #
 # Need to use nss_latest like Firefox for hyperlinks to work
 
-{ }: final: prev: rec {
+{ ... }: final: prev: rec {
   discord-nss_latest = prev.discord.override {
     nss = final.nss_latest;
   };

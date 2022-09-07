@@ -137,6 +137,7 @@
   environment.systemPackages = with pkgs; [
     # dev machine
     git
+    riff
     # virtualization
     virt-manager
 

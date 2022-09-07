@@ -13,6 +13,10 @@
     nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
     nixpkgs-latest.url =  "github:nixos/nixpkgs/master";
     impermanence.url = "github:nix-community/impermanence/master";
+    riff = {
+      url = "github:DeterminateSystems/riff/main";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     home = {
       url = "github:nix-community/home-manager/release-22.05";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -96,9 +100,9 @@
 
       overlaysDir = ./overlays;
 
-      overlays = mapAttrsToList
-        (name: _: import "${overlaysDir}/${name}" { })
-        (readDir overlaysDir) ++ [pkg-sets];
+      overlays = [pkg-sets] ++ mapAttrsToList
+        (name: _: import "${overlaysDir}/${name}" { inherit inputs; })
+        (readDir overlaysDir);
 
       pkgs = import inputs.nixpkgs {
         inherit system overlays;

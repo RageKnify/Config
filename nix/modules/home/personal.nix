@@ -14,6 +14,8 @@ in {
 
   config = mkIf cfg.enable {
     home.packages = with pkgs;[
+      # ansible
+      ansible
       # LaTeX
       texlive.combined.scheme-full
       texlab

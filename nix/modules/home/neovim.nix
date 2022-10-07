@@ -10,6 +10,7 @@ let
   inherit (lib) mkEnableOption mkIf;
   cfg = config.modules.neovim;
   personal = config.modules.personal.enable;
+  git = config.modules.shell.git.enable;
   commonGrammars = with pkgs.unstable.tree-sitter-grammars; [
     tree-sitter-bash
     tree-sitter-comment
@@ -70,7 +71,7 @@ require'lualine'.setup {
     lualine_b = { 'branch' },
     lualine_z = { {'tabs', tabs_color = { inactive = "TermCursor", active = "ColorColumn" } } }
   },
-  extensions = { fzf, fugitive },
+  extensions = { fzf'' + (if git then ", fugitive " else "") + ''},
 }
 if _G.Tabline_timer == nil then
   _G.Tabline_timer = vim.loop.new_timer()
@@ -149,14 +150,7 @@ vim.api.nvim_create_autocmd({ "FileType" }, { callback = define_fdm })
       '';
     }
 
-    vim-fugitive
-
     plenary-nvim
-    {
-      plugin = gitsigns-nvim;
-      # commented out, the plugin isn't being imported right
-      # config = "lua require('gitsigns').setup()";
-    }
 
     {
       plugin = nvim-osc52;
@@ -413,7 +407,16 @@ in
         " Avoiding W
         cabbrev W w
         '';
-        plugins = commonPlugins ++ personalPlugins;
+        plugins = commonPlugins ++ personalPlugins ++ (
+          if git then with pkgs.unstable.vimPlugins; [
+            vim-fugitive
+            {
+              plugin = gitsigns-nvim;
+              # commented out, the plugin isn't being imported right
+              # config = "lua require('gitsigns').setup()";
+            }
+          ] else []
+        );
     };
 
     # languages that should use 2 space indent

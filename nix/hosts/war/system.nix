@@ -58,7 +58,7 @@
     enable = true;
   };
   networking.wg-quick.interfaces = {
-    wgrnl = {
+    rnl = {
       address = [ "192.168.20.13/24" "fd92:3315:9e43:c490::13/64" ];
       dns = [
       "193.136.164.1"
@@ -69,7 +69,7 @@
       privateKeyFile = "/etc/nixos/secrets/wg-privkey";
       table = "765";
       postUp = ''
-        ${pkgs.wireguard-tools}/bin/wg set wgrnl fwmark 765
+        ${pkgs.wireguard-tools}/bin/wg set rnl fwmark 765
         ${pkgs.iproute2}/bin/ip rule add not fwmark 765 table 765
         ${pkgs.iproute2}/bin/ip -6 rule add not fwmark 765 table 765
       '';
@@ -94,7 +94,7 @@
         }
       ];
     };
-    wgstt = {
+    stt = {
       autostart = false;
       address = [ "10.6.77.100/32" "fd00:677::100/128"];
       privateKeyFile = "/etc/nixos/secrets/wg-privkey";
@@ -106,21 +106,6 @@
           allowedIPs = [
             "10.0.0.0/8"
             "fd00::/8"
-          ];
-          persistentKeepalive = 25;
-        }
-      ];
-    };
-    cscpt = {
-      autostart = false;
-      address = [ "10.122.122.34/32" ];
-      privateKeyFile = "/etc/nixos/secrets/wg-privkey";
-      peers = [
-        {
-          publicKey = "TAakuUUYICXaDOVamxYhJRRkJKt7pGhzHOgr1exCjGI=";
-          endpoint = "game.cybersecuritychallenge.pt:31337";
-          allowedIPs = [
-            "10.122.122.1/32"
           ];
           persistentKeepalive = 25;
         }

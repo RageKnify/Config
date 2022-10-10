@@ -78,6 +78,7 @@
             war = "base08";
             death = "base0A";
             lazarus = "base09";
+            cain = "base0C";
           };
           base = mapping."${hostName}";
         in

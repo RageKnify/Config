@@ -180,7 +180,7 @@ vim.keymap.set('x', '<leader>y', '"+y')
       plugin = nvim-colorizer-lua;
       type = "lua";
       config = ''
-require 'colorizer'.setup ({'*';}, { names = false; })
+require 'colorizer'.setup ({ user_default_options = { names = false; }})
       '';
     }
   ];
@@ -191,7 +191,7 @@ require 'colorizer'.setup ({'*';}, { names = false; })
       config = ''
 local lsp = require'lspconfig'
 
-local capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
+local capabilities = require('cmp_nvim_lsp').default_capabilities()
 capabilities.textDocument.completion.completionItem.snippetSupport = true
 capabilities.textDocument.completion.completionItem.resolveSupport = {
 	properties = {
@@ -226,7 +226,7 @@ lsp.texlab.setup{
 
     luasnip
     {
-      plugin = nvim-cmp;
+      plugin = pkgs.unstable.luajitPackages.nvim-cmp;
       type = "lua";
       config = ''
 -- Setup nvim-cmp.
@@ -302,8 +302,8 @@ setlocal expandtab
     src = pkgs.fetchFromGitHub {
       owner = "ojroques";
       repo = "nvim-osc52";
-      rev = "3d482f503f120a7794a5d97a79b2da0bc12a3d14";
-      sha256 = "sha256-q8GP2NJhQ8+99jp2YglDfiJeWNepzWtaNQ8sGnldQbM=";
+      rev = "87069dc586d835b70360d4771de53adb9b4aaff7";
+      sha256 = "sha256-JAWf0VDgsOF4K9BH3Ihc+JB8IAuaF7pmqPdAz8pytQ4=";
     };
   };
 in
@@ -411,9 +411,8 @@ in
           if git then with pkgs.unstable.vimPlugins; [
             vim-fugitive
             {
-              plugin = gitsigns-nvim;
-              # commented out, the plugin isn't being imported right
-              # config = "lua require('gitsigns').setup()";
+              plugin = pkgs.unstable.luajitPackages.gitsigns-nvim;
+              config = "lua require('gitsigns').setup()";
             }
           ] else []
         );

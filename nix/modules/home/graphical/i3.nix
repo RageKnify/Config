@@ -143,7 +143,7 @@ in
 
           assigns = {
             "1" = [{ class = "firefox"; }];
-            "5" = [{ class = "Thunderbird"; }];
+            "5" = [{ class = "thunderbird"; }];
             "7" = [{ class = "Gimp"; }];
             "10" = [{ class = "discord"; }];
           };

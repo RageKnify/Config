@@ -19,7 +19,8 @@ in {
       customPaneNavigationAndResize = true;
       escapeTime = 0;
       extraConfig = ''
-      set -g terminal-overrides ",gnome*:RGB"
+      set -sa terminal-overrides ',gnome*:RGB'
+      set -sa terminal-overrides ',xterm-256color:RGB'
       # Set status bar color
       set -g status-style fg='${colors.light.base07}',bg='${hostColor}'
 

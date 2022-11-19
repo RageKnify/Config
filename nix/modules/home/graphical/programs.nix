@@ -19,6 +19,7 @@ in {
       pkgs.gimp
       pkgs.unstable.signal-desktop
       pkgs.thunderbird
+      pkgs.vlc
     ];
   };
 }

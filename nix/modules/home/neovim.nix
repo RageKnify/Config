@@ -153,7 +153,7 @@ vim.api.nvim_create_autocmd({ "FileType" }, { callback = define_fdm })
     plenary-nvim
 
     {
-      plugin = nvim-osc52;
+      plugin = pkgs.nvim-osc52;
       type = "lua";
       config = ''
 local function copy(lines, _)
@@ -296,16 +296,6 @@ setlocal softtabstop=2
 setlocal tabstop=2
 setlocal expandtab
   '';
-  # TODO: if nvim-osc52 is added to nixpkgs I can stop having it here
-  nvim-osc52 = pkgs.vimUtils.buildVimPlugin {
-    name = "nvim-osc52";
-    src = pkgs.fetchFromGitHub {
-      owner = "ojroques";
-      repo = "nvim-osc52";
-      rev = "87069dc586d835b70360d4771de53adb9b4aaff7";
-      sha256 = "sha256-JAWf0VDgsOF4K9BH3Ihc+JB8IAuaF7pmqPdAz8pytQ4=";
-    };
-  };
 in
 {
   options.modules.neovim.enable = mkEnableOption "neovim";

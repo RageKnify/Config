@@ -21,6 +21,10 @@
       url = "github:nix-community/home-manager/release-22.05";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    nvim-osc52 = {
+      url = "github:ojroques/nvim-osc52/main";
+      flake = false;
+    };
   };
 
   outputs = inputs @ { self, ... }:

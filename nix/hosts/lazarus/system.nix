@@ -28,6 +28,29 @@
     enable = true;
   };
 
+  services.restic.backups = {
+    default = {
+      paths = [
+        "/home/jp/caddy/static/"
+        "/home/jp/data/caddy/"
+        "/home/jp/data/gotify/"
+        "/home/jp/data/focalboard/"
+        "/home/jp/data/wallabag/"
+      ];
+      pruneOpts = [
+        "--keep-daily 7"
+        "--keep-weekly 5"
+        "--keep-monthly 12"
+        "--keep-yearly 5"
+      ];
+      repository = "rclone:onedrive:backups/lazarus";
+      passwordFile = "/root/restic-default.password";
+      extraBackupArgs = [
+        "--verbose"
+      ];
+    };
+  };
+
   environment.systemPackages = with pkgs; [
     (let
       extra-packages = python-packages: with python-packages; [

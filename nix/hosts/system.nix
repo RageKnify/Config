@@ -56,6 +56,9 @@ in
     fzf
     ripgrep
     procps
+    # backups
+    restic
+    rclone
   ];
 
   # dedup equal pages

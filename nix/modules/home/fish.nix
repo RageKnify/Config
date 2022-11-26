@@ -89,9 +89,6 @@ in
       };
     };
 
-    # starship
-    programs.starship.package = pkgs.unstable.starship;
-    programs.starship.enable = true;
     # zoxide
     programs.zoxide.enable = true;
     home.sessionVariables._ZO_ECHO = "1";
@@ -102,6 +99,10 @@ in
     source (fzf-share)/key-bindings.fish
     fzf_key_bindings
     '';
+
+    # starship
+    programs.starship.package = pkgs.unstable.starship;
+    programs.starship.enable = true;
     programs.starship.settings = {
       scan_timeout = 1;
       add_newline = false;
@@ -136,5 +137,7 @@ in
       sudo.disabled = false;
       character.format = "[⋉ ](white)";
     };
+    # to enable starhip in nix-shells
+    programs.bash.enable = true;
   };
 }

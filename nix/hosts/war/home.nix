@@ -22,9 +22,6 @@
     shell.tmux.enable = true;
   };
 
-  # to enable starhip in nix-shells
-  programs.bash.enable = true;
-
   home.packages = with pkgs; [
   ];
 

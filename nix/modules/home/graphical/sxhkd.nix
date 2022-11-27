@@ -26,6 +26,9 @@ in
         # shutdown prompt
         "${sxhkdMod}+shift+x" = "echo"; # TODO
 
+        # open a DnD book pdf
+        "${sxhkdMod}+z" = "${pkgs.dnd_book}/bin/dnd_book.sh";
+
         # rofi-calc
         "${sxhkdMod}+p"       = "rofi -show calc -modi calc -no-show-match -no-sort -theme $XDG_DATA_HOME/rofi/themes/calc";
 

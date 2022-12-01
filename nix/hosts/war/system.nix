@@ -142,5 +142,8 @@
 
   services.fwupd.enable = true;
 
+  boot.plymouth.enable = true;
+  boot.initrd.systemd.enable = true;
+
   hardware.enableRedistributableFirmware = true;
 }

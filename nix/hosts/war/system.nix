@@ -57,62 +57,194 @@
   networking.networkmanager = {
     enable = true;
   };
-  networking.wg-quick.interfaces = {
-    rnl = {
-      address = [ "192.168.20.13/24" "fd92:3315:9e43:c490::13/64" ];
-      dns = [
-      "193.136.164.1"
-      "193.136.164.2"
-      "2001:690:2100:80::1"
-      "2001:690:2100:80::2"
-      ];
-      privateKeyFile = "/etc/nixos/secrets/wg-privkey";
-      table = "765";
-      postUp = ''
-        ${pkgs.wireguard-tools}/bin/wg set rnl fwmark 765
-        ${pkgs.iproute2}/bin/ip rule add not fwmark 765 table 765
-        ${pkgs.iproute2}/bin/ip -6 rule add not fwmark 765 table 765
-      '';
-      postDown = ''
-        ${pkgs.iproute2}/bin/ip rule del not fwmark 765 table 765
-        ${pkgs.iproute2}/bin/ip -6 rule del not fwmark 765 table 765
-      '';
-      peers = [
-        {
-          publicKey = "g08PXxMmzC6HA+Jxd+hJU0zJdI6BaQJZMgUrv2FdLBY=";
-          endpoint = "193.136.164.211:34266";
-          allowedIPs = [
+  services.resolved = {
+    enable = true;
+    fallbackDns = [
+      "1.1.1.1"
+      "1.0.0.1"
+      "2606:4700:4700::1111"
+      "2606:4700:4700::1001"
+    ];
+  };
+  networking.firewall.checkReversePath = "loose";
+  systemd.network = let
+    rnlFwmark = 765;
+    sttFwmark = 577;
+    in {
+    enable = true;
+    config.routeTables.rnl = rnlFwmark;
+    config.routeTables.stt = sttFwmark;
+    netdevs."10-rnl" = {
+      enable = true;
+      netdevConfig = {
+        Kind = "wireguard";
+        MTUBytes = "1300";
+        Name = "rnl";
+      };
+      wireguardConfig = {
+        PrivateKeyFile = "/etc/nixos/secrets/wg-privkey";
+        FirewallMark = rnlFwmark;
+        RouteTable = "rnl";
+      };
+      wireguardPeers = [{
+        wireguardPeerConfig = {
+          PublicKey = "g08PXxMmzC6HA+Jxd+hJU0zJdI6BaQJZMgUrv2FdLBY=";
+          Endpoint = "193.136.164.211:34266";
+          AllowedIPs = [
+            # public RNL-operated ranges
             "193.136.164.0/24"
             "193.136.154.0/24"
-            "10.16.64.0/18"
             "2001:690:2100:80::/58"
-            "193.136.128.24/29"
-            "146.193.33.81/32"
-            "192.168.154.0/24"
+
+            # public 3rd-party ranges
+            "193.136.128.24/29" # DSI-RNL peering
+            "146.193.33.81/32" # INESC watergate
+
+            # private RNL-operated ranges
+            "10.16.64.0/18"
+            "192.168.154.0/24" # Labs AMT
+            "192.168.20.0/24" # rnl VPN
+            "fd92:3315:9e43:c490::/64" # rnl VPN
+
+            # multicast
+            "224.0.0.0/24"
+            "ff02::/16"
+            "239.255.255.250/32"
+            "239.255.255.253/32"
+            "fe80::/10"
           ];
-          persistentKeepalive = 25;
-        }
-      ];
+          PersistentKeepalive = 25;
+        };
+      }];
     };
-    stt = {
-      autostart = false;
-      address = [ "10.6.77.100/32" "fd00:677::100/128"];
-      privateKeyFile = "/etc/nixos/secrets/wg-privkey";
-      dns = [ "10.6.77.1" ];
-      peers = [
-        {
-          publicKey = "u0DdfahuhX8GsVaQ4P2kBcHoF9kw9HZL9uqPcu2UMw8=";
-          endpoint = "pest.stt.rnl.tecnico.ulisboa.pt:34266";
-          allowedIPs = [
+    netdevs."20-stt" = {
+      enable = true;
+      netdevConfig = {
+        Kind = "wireguard";
+        MTUBytes = "1300";
+        Name = "stt";
+      };
+      wireguardConfig = {
+        PrivateKeyFile = "/etc/nixos/secrets/wg-privkey";
+        FirewallMark = sttFwmark;
+        RouteTable = "stt";
+      };
+      wireguardPeers = [{
+        wireguardPeerConfig = {
+          PublicKey = "u0DdfahuhX8GsVaQ4P2kBcHoF9kw9HZL9uqPcu2UMw8=";
+          Endpoint = "pest.stt.rnl.tecnico.ulisboa.pt:34266";
+          AllowedIPs = [
             "10.0.0.0/8"
             "fd00::/8"
           ];
-          persistentKeepalive = 25;
+          PersistentKeepalive = 25;
+        };
+      }];
+    };
+    networks."40-rnl" = {
+      name = "rnl";
+
+      addresses = [
+        { addressConfig.Address = "192.168.20.13/24"; }
+        {
+          addressConfig.Address = "fd92:3315:9e43:c490::13/64";
+          #addressConfig.DuplicateAddressDetection = "none";
         }
       ];
+
+      networkConfig = {
+        LinkLocalAddressing = "no";
+        IPv6AcceptRA = false;
+        #MulticastDNS = true;
+      };
+
+      linkConfig = {
+        Multicast = true;
+        #AllMulticast = true;
+      };
+
+      routingPolicyRules = [
+        {
+          routingPolicyRuleConfig = {
+            InvertRule = true;
+            FirewallMark = rnlFwmark;
+            Table = "rnl";
+          };
+        }
+      ];
+
+      ntp = [ "ntp.rnl.tecnico.ulisboa.pt" ];
+
+      dns = [
+        "2001:690:2100:80::1"
+        "193.136.164.2"
+        "2001:690:2100:80::2"
+        "193.136.164.1"
+      ];
+      domains = [
+        # Main domain, with dns search
+        "rnl.tecnico.ulisboa.pt"
+
+        # alt domains
+        "~rnl.ist.utl.pt"
+        "~rnl.pt"
+
+        # public ranges (DSI-assigned)
+        "~164.136.193.in-addr.arpa"
+        "~154.136.193.in-addr.arpa"
+        "~8.0.0.0.0.1.2.0.9.6.0.1.0.0.2.ip6.arpa"
+
+        # private ranges (rnl VPN)
+        "~20.168.192.in-addr.arpa"
+        "~0.9.4.c.3.4.e.9.5.1.3.3.2.9.d.f.ip6.arpa"
+
+        # private range (Labs AMT)
+        "~154.168.192.in-addr.arpa"
+
+        # resolve any other domain by default
+        "~."
+
+      ] ++ (
+        # private ranges (DSI-assigned)
+        builtins.map
+        (octet: "~" + (builtins.toString octet) + ".16.10.in-addr.arpa")
+        (lib.range 64 127));
+    };
+    networks."50-stt" = {
+      name = "stt";
+
+      addresses = [
+        { addressConfig.Address = "10.6.77.100/8"; }
+        { addressConfig.Address = "fd00:677::100/8"; }
+      ];
+
+      networkConfig = {
+        LinkLocalAddressing = "no";
+        IPv6AcceptRA = false;
+        #MulticastDNS = true;
+      };
+
+      routingPolicyRules = [
+        {
+          routingPolicyRuleConfig = {
+            InvertRule = true;
+            FirewallMark = sttFwmark;
+            Table = "stt";
+          };
+        }
+      ];
+
+      dns = [ "10.6.77.1" ];
+      domains = [
+        "~stt.pt"
+      ];
+
+      extraConfig = ''
+      [Network]
+      DNSSEC=false
+      '';
     };
   };
-  systemd.services.wg-quick-wgstt.wantedBy = lib.mkForce [ ];
 
   boot.cleanTmpDir = true;
 

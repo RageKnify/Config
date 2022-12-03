@@ -201,6 +201,10 @@ capabilities.textDocument.completion.completionItem.resolveSupport = {
 	}
 }
 
+lsp.ocamllsp.setup{
+	capabilities = capabilities,
+	on_attach = require'generic_lsp'
+}
 lsp.rust_analyzer.setup{
 	capabilities = capabilities,
 	on_attach = require'generic_lsp'

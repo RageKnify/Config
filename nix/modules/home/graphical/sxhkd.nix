@@ -21,10 +21,8 @@ in
     services.sxhkd = {
       enable = true;
       keybindings = {
-        # lock screen
-        "${sxhkdMod} + x"     = "xscreensaver-command -lock";
-        # shutdown prompt
-        "${sxhkdMod}+shift+x" = "echo"; # TODO
+        # power menu
+        "${sxhkdMod}+x" = "${pkgs.power_menu}/bin/power_menu.sh";
 
         # open a DnD book pdf
         "${sxhkdMod}+z" = "${pkgs.dnd_book}/bin/dnd_book.sh";

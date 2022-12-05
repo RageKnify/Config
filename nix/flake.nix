@@ -34,7 +34,6 @@
       inherit (lib) mapAttrs mapAttrsToList hasSuffix;
       sshKeys = [
         "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIC2sdJFvvnEIYztPcznXvKpY4vOWedZ1qzDaAgRxrczS jp@war"
-        "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIHRO0/CTcEQHFV8C2REiurmTrPkd7nAlcwynI6eFCqu1 jp@death"
         "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAII9ckbhT0em/dL75+RV+sdqwbprRC9Ff/MoqqpBgbUSh jp@pestilence"
         "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIO8F6mLnoZq/Z1nnLiWPs0f6MlPN4AS7HmwmuheDebxS jp@famine"
       ];

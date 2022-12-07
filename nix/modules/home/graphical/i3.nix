@@ -5,7 +5,7 @@
 #
 # i3 configuration.
 
-{ pkgs, config, lib, colors, configDir, ... }:
+{ pkgs, config, lib, hostName, colors, configDir, ... }:
 let
   inherit (lib) mkEnableOption mkIf mkForce;
   cfg = config.modules.graphical.i3;
@@ -796,6 +796,13 @@ textbox-prompt-colon {
         /* dialogTheme = "darkgray"; */
         /* lockTimeout = 1; */
       };
+    };
+    services.random-background = {
+      enable = true;
+      enableXinerama = true;
+      display = "fill";
+      imageDirectory = "%h/documents/pictures/Wallpapers/${hostName}";
+      interval = "10m";
     };
   };
 }

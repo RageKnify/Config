@@ -144,6 +144,7 @@
                   useUserPackages = true;
                   extraSpecialArgs = {
                     inherit colors;
+                    hostName = name;
                     hostColor = hostNameToColor name;
                     configDir = ./config;
                   };

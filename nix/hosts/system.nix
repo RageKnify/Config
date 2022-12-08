@@ -55,6 +55,7 @@ in
     man-pages
     fzf
     ripgrep
+    fd
     procps
     # backups
     restic

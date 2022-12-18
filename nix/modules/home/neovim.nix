@@ -215,7 +215,7 @@ lsp.texlab.setup{
 }
       '';
     }
-    lsp_extensions-nvim
+    rust-tools-nvim
 
     {
       plugin = presence-nvim;
@@ -429,23 +429,16 @@ in
 setlocal omnifunc=v:lua.vim.lsp.omnifunc
 
 lua << EOF
-local inlay_hints = require('lsp_extensions').inlay_hints
+local rt = require("rust-tools")
 
--- Global function, so you can just call it on the lua side
-ShowHintsLine = function()
-  inlay_hints {
-    only_current_line = true
-  }
-end
-
-ShowHintsFile = function()
-  inlay_hints()
-end
-EOF
-" not working for some reason
-" autocmd CursorHold,CursorHoldI *.rs :lua ShowHintsLine()
-
-nnoremap <silent> <leader>h <cmd>lua ShowHintsFile()<CR>
+rt.setup({
+  server = {
+    on_attach = function(_, bufnr)
+      -- Hover actions
+      vim.keymap.set("n", "<C-space>", rt.hover_actions.hover_actions, { buffer = bufnr })
+    end,
+  },
+})
     '';
     home.file."${config.xdg.configHome}/nvim/lua/generic_lsp.lua".text = ''
 return function(client)

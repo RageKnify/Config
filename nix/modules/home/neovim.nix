@@ -189,30 +189,31 @@ require 'colorizer'.setup ({ user_default_options = { names = false; }})
       plugin = nvim-lspconfig;
       type = "lua";
       config = ''
-local lsp = require'lspconfig'
+-- common lsp setup
+local lsp_config = require'lspconfig'
+local lsp_setup = require'generic_lsp'
 
-local capabilities = require('cmp_nvim_lsp').default_capabilities()
-capabilities.textDocument.completion.completionItem.snippetSupport = true
-capabilities.textDocument.completion.completionItem.resolveSupport = {
-	properties = {
-		'documentation',
-		'detail',
-		'additionalTextEdits',
-	}
-}
+-- ocaml lsp setup
+lsp_config.ocamllsp.setup(lsp_setup)
 
-lsp.ocamllsp.setup{
-	capabilities = capabilities,
-	on_attach = require'generic_lsp'
-}
-lsp.rust_analyzer.setup{
-	capabilities = capabilities,
-	on_attach = require'generic_lsp'
-}
-lsp.texlab.setup{
-	capabilities = capabilities,
-	on_attach = require'generic_lsp'
-}
+-- Rust lsp setup
+local rt = require("rust-tools")
+
+local capabilities = lsp_setup.capabilities
+local on_attach = lsp_setup.on_attach
+rt.setup({
+  server = {
+    capabilities = capabilities,
+    on_attach = function(_, bufnr)
+      -- Hover actions
+      on_attach(_, bufnr)
+      vim.keymap.set('n', 'K', rt.hover_actions.hover_actions, {silent=true})
+    end,
+  },
+})
+
+-- tex lsp setup
+lsp_config.texlab.setup(lsp_setup)
       '';
     }
     rust-tools-nvim
@@ -299,7 +300,7 @@ setlocal shiftwidth=2
 setlocal softtabstop=2
 setlocal tabstop=2
 setlocal expandtab
-  '';
+'';
 in
 {
   options.modules.neovim.enable = mkEnableOption "neovim";
@@ -423,42 +424,44 @@ in
     home.file."${config.xdg.configHome}/nvim/after/ftplugin/cpp.vim".text = twoSpaceIndentConfig;
     home.file."${config.xdg.configHome}/nvim/after/ftplugin/tex.vim".text = twoSpaceIndentConfig;
 
-    # Rust config
-    home.file."${config.xdg.configHome}/nvim/after/ftplugin/rust.vim".text = ''
-" Use LSP omni-completion in Rust files.
-setlocal omnifunc=v:lua.vim.lsp.omnifunc
-
-lua << EOF
-local rt = require("rust-tools")
-
-rt.setup({
-  server = {
-    on_attach = function(_, bufnr)
-      -- Hover actions
-      vim.keymap.set("n", "<C-space>", rt.hover_actions.hover_actions, { buffer = bufnr })
-    end,
-  },
-})
-    '';
     home.file."${config.xdg.configHome}/nvim/lua/generic_lsp.lua".text = ''
-return function(client)
-	-- [[ other on_attach code ]]
-	vim.api.nvim_buf_set_keymap(0, 'n', 'K', '<cmd>lua vim.lsp.buf.hover()<CR>', {noremap = true})
+local lsp = require'lspconfig'
 
-	-- illuminate stuff
-	vim.api.nvim_buf_set_keymap(0, 'n', '<leader>gn', '<cmd>lua require"illuminate".next_reference{}<cr>', {noremap = true})
-	vim.api.nvim_buf_set_keymap(0, 'n', '<leader>gp', '<cmd>lua require"illuminate".next_reference{reverse=true}<cr>', {noremap = true})
-	require 'illuminate'.on_attach(client)
+local capabilities = require('cmp_nvim_lsp').default_capabilities()
+capabilities.textDocument.completion.completionItem.snippetSupport = true
+capabilities.textDocument.completion.completionItem.resolveSupport = {
+  properties = {
+    'documentation',
+    'detail',
+    'additionalTextEdits',
+  }
+}
 
+local on_attach = function(client, bufnr)
   local set = vim.keymap.set
+  -- [[ other on_attach code ]]
+  set('n', 'K', vim.lsp.buf.hover, {silent=true})
+
+  -- illuminate stuff
+  local illuminate = require"illuminate"
+  set('n', '<leader>gn', illuminate.next_reference, {silent=true})
+  set('n', '<leader>gp', function () illuminate.next_reference{reverse=true} end, {silent=true})
+  require 'illuminate'.on_attach(client)
+
+
   set('n', '<leader>n', function () vim.diagnostic.goto_next { wrap = false } end, {silent = true})
   set('n', '<leader>p', function () vim.diagnostic.goto_prev { wrap = false } end, {silent = true})
   set('n', '<leader>d', vim.lsp.buf.definition, {silent = true})
   set('n', '<leader>gr', vim.lsp.buf.references, {silent = true})
   set('n', '<leader>rn', vim.lsp.buf.rename, {silent = true})
   set('n', '<leader>a', vim.lsp.buf.code_action, {silent = true})
+  set('n', '<leader>fm', function () vim.lsp.buf.format({ async = false }) end, {})
   set('n', '<leader><cr>', vim.diagnostic.open_float, {silent = true})
+
+  -- Use LSP omni-completion in LSP enabled files.
+  vim.bo[bufnr].omnifunc = "v:lua.vim.lsp.omnifunc"
 end
+return {capabilities = capabilities, on_attach = on_attach}
     '';
 
     home.sessionVariables = {

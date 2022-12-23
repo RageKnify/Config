@@ -8,5 +8,6 @@
 { ... }: final: prev: rec {
   discord-nss_latest = prev.discord.override {
     nss = final.nss_latest;
+    withOpenASAR = true;
   };
 }

@@ -16,8 +16,9 @@ in
     extraOptions = ''
       experimental-features = nix-command flakes
     '';
+    registry.nixpkgs.flake = inputs.nixpkgs;
+    settings.trusted-users = [ "root" "@wheel" ];
   };
-  nix.settings.trusted-users = [ "root" "@wheel" ];
   security.sudo.extraConfig = ''
   Defaults pwfeedback
   Defaults lecture=never

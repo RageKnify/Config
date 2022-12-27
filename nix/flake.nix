@@ -132,7 +132,10 @@
           inherit name;
           value = inputs.nixpkgs.lib.nixosSystem {
             inherit system pkgs;
-            specialArgs = { inherit user colors sshKeys; configDir = ./config; };
+            specialArgs = {
+              inherit inputs user colors sshKeys;
+              configDir = ./config;
+            };
             modules = [
               { networking.hostName = name; }
               (dir + "/system.nix")

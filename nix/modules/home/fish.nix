@@ -93,11 +93,16 @@ in
     programs.zoxide.enable = true;
     home.sessionVariables._ZO_ECHO = "1";
 
+    home.packages = [
+      pkgs.any-nix-shell
+    ];
+
     programs.fish.interactiveShellInit = ''
     fish_vi_key_bindings
     # fzf stuf
     source (fzf-share)/key-bindings.fish
     fzf_key_bindings
+    any-nix-shell fish --info-right | source
     '';
 
     # starship

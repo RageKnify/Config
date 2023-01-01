@@ -51,7 +51,7 @@ require'lualine'.setup {
     icons_enabled = true
   },
   sections = {
-    lualine_b = { 'diff' },
+    lualine_b = { '' + (if git then "'diff'" else "")+ '' },
     lualine_c = {
       {'diagnostics', {
         sources = {nvim_diagnostic},
@@ -68,7 +68,7 @@ require'lualine'.setup {
   },
   tabline = {
     lualine_a = { 'hostname' },
-    lualine_b = { 'branch' },
+    lualine_b = { '' + (if git then "'branch'" else "")+ '' },
     lualine_z = { {'tabs', tabs_color = { inactive = "TermCursor", active = "ColorColumn" } } }
   },
   extensions = { fzf'' + (if git then ", fugitive " else "") + ''},

@@ -16,6 +16,8 @@ in {
     home.packages = with pkgs;[
       # ansible
       ansible
+      # wallpaper script
+      horseman_wallpaper
       # LaTeX
       texlive.combined.scheme-full
       texlab
@@ -23,9 +25,9 @@ in {
       rustup
       pkgs.unstable.rust-analyzer
       # GCC
-      pkgs.gcc
+      gcc
       # Make
-      pkgs.gnumake
+      gnumake
     ];
   };
 }

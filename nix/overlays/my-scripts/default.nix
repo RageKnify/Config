@@ -8,4 +8,5 @@
 { ... }: final: prev: rec {
   dnd_book = import ./dnd_book.nix { inherit final prev; };
   power_menu = import ./power_menu.nix { inherit final prev; };
+  horseman_wallpaper = import ./horseman_wallpaper.nix { inherit final prev; };
 }

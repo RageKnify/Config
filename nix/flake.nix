@@ -25,6 +25,10 @@
       url = "github:ojroques/nvim-osc52/main";
       flake = false;
     };
+    agenix = {
+      url = "github:ryantm/agenix/main";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs = inputs @ { self, ... }:
@@ -102,9 +106,11 @@
           latest = import inputs.nixpkgs-latest args;
         };
 
+      secretsDir = ./secrets;
+
       overlaysDir = ./overlays;
 
-      overlays = [pkg-sets] ++ mapAttrsToList
+      overlays = [ inputs.agenix.overlay pkg-sets ] ++ mapAttrsToList
         (name: _: import "${overlaysDir}/${name}" { inherit inputs; })
         (readDir overlaysDir);
 
@@ -134,6 +140,7 @@
             inherit system pkgs;
             specialArgs = {
               inherit inputs user colors sshKeys;
+              hostSecretsDir = "${secretsDir}/${name}";
               configDir = ./config;
             };
             modules = [
@@ -156,6 +163,7 @@
                 };
               }
               inputs.impermanence.nixosModules.impermanence
+              inputs.agenix.nixosModules.age
             ] ++ systemModules;
           };
        })

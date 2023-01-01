@@ -5,7 +5,7 @@
 #
 # System configuration.
 
-{ pkgs, lib, sshKeys, ... }: {
+{ pkgs, lib, sshKeys, config, hostSecretsDir, ... }: {
 
   boot.cleanTmpDir = true;
   networking.domain = "jplborges.pt";
@@ -28,6 +28,13 @@
     enable = true;
   };
 
+  # Secret Management
+  age = {
+    secrets = {
+      restic_default_password.file = "${hostSecretsDir}/restic_default_password.age";
+    };
+  };
+
   services.restic.backups = {
     default = {
       paths = [
@@ -44,7 +51,7 @@
         "--keep-yearly 5"
       ];
       repository = "rclone:onedrive:backups/lazarus";
-      passwordFile = "/root/restic-default.password";
+      passwordFile = config.age.secrets.restic_default_password.path;
       extraBackupArgs = [
         "--verbose"
       ];

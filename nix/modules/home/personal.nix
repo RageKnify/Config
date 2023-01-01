@@ -16,6 +16,8 @@ in {
     home.packages = with pkgs;[
       # ansible
       ansible
+      # agenix
+      agenix
       # wallpaper script
       horseman_wallpaper
       # LaTeX

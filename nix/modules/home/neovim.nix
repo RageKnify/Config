@@ -414,7 +414,25 @@ in
             vim-fugitive
             {
               plugin = gitsigns-nvim;
-              config = "lua require('gitsigns').setup()";
+              type = "lua";
+              config = ''
+require('gitsigns').setup{
+  signs = {
+    add = {  text = '+' },
+  },
+  on_attach = function(bufnr)
+    local gs = package.loaded.gitsigns
+
+    local function map(mode, l, r, opts)
+      opts = opts or {}
+      opts.buffer = bufnr
+      vim.keymap.set(mode, l, r, opts)
+    end
+
+    map('n', '<leader>gb', gs.toggle_current_line_blame)
+  end,
+}
+              '';
             }
           ] else []
         );

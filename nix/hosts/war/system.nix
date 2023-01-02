@@ -14,6 +14,44 @@
 
   console.useXkbConfig = true;
 
+  services.kmonad = {
+    enable = true;
+    keyboards = {
+      thinkpad_keyboard = {
+        name = "thinkpad_keyboard";
+        device = "/dev/input/by-path/platform-i8042-serio-0-event-kbd";
+        defcfg = {
+          enable = true;
+          fallthrough = true;
+          allowCommands = false;
+        };
+        config = ''
+(defalias
+  cte (tap-hold 100 esc lctl)
+)
+
+(defsrc
+  esc
+  grv  1    2    3    4    5    6    7    8    9    0    -    =    bspc
+  tab  q    w    e    r    t    y    u    i    o    p    [    ]    ret
+  caps a    s    d    f    g    h    j    k    l    ;    '    bksl
+  lsft lsgt z    x    c    v    b    n    m    ,    .    /    rsft
+  lctl lmet lalt                spc            ralt sys  rctl
+)
+
+(deflayer colemak-dh-pt
+  @cte
+  grv  1    2    3    4    5    6    7    8    9    0    -    =    bspc
+  tab  q    w    f    p    b    j    l    u    y    ;    [    ]    ret
+  @cte a    r    s    t    g    m    n    e    i    o    '    bksl
+  lsft z    x    c    d    v    lsgt k    h    ,    .    /    rsft
+  @cte lmet lalt                spc            ralt prnt rctl
+)
+        '';
+      };
+    };
+  };
+
   location = {
     provider = "manual";
     # Lisboa, Portugal

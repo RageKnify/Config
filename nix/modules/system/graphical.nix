@@ -8,9 +8,6 @@
 let
   inherit (lib) mkEnableOption mkOption types mkIf;
   cfg = config.modules.graphical;
-  compiledLayout = pkgs.runCommand "keyboard-layout" {} ''
-    ${pkgs.xorg.xkbcomp}/bin/xkbcomp ${configDir}/xkbmap $out
-  '';
 in
 {
   options.modules.graphical = {
@@ -26,10 +23,9 @@ in
         enable = true;
         touchpad.naturalScrolling = true;
       };
+      layout = "pt";
       displayManager = {
         setupCommands = ''
-        ${pkgs.xorg.xkbcomp}/bin/xkbcomp ${compiledLayout} $DISPLAY
-        ${pkgs.xcape}/bin/xcape -e 'Control_L=Escape'
         ${cfg.extraSetupCommands}
         '';
         defaultSession = "user-xsession";

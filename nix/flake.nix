@@ -29,6 +29,10 @@
       url = "github:ryantm/agenix/main";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    kmonad = {
+      url = "github:kmonad/kmonad/master?dir=nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs = inputs @ { self, ... }:
@@ -110,9 +114,15 @@
 
       overlaysDir = ./overlays;
 
-      overlays = [ inputs.agenix.overlay pkg-sets ] ++ mapAttrsToList
+      myOverlays = mapAttrsToList
         (name: _: import "${overlaysDir}/${name}" { inherit inputs; })
         (readDir overlaysDir);
+
+      overlays = [
+        inputs.agenix.overlay
+        inputs.kmonad.overlays.default
+        pkg-sets
+      ] ++ myOverlays;
 
       pkgs = import inputs.nixpkgs {
         inherit system overlays;
@@ -164,6 +174,7 @@
               }
               inputs.impermanence.nixosModules.impermanence
               inputs.agenix.nixosModules.age
+              inputs.kmonad.nixosModules.default
             ] ++ systemModules;
           };
        })

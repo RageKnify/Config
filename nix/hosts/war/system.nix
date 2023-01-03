@@ -26,10 +26,6 @@
           allowCommands = false;
         };
         config = ''
-(defalias
-  cte (tap-next-release esc lctl)
-)
-
 (defsrc
   esc
   grv  1    2    3    4    5    6    7    8    9    0    -    =    bspc
@@ -37,6 +33,10 @@
   caps a    s    d    f    g    h    j    k    l    ;    '    bksl
   lsft lsgt z    x    c    v    b    n    m    ,    .    /    rsft
   lctl lmet lalt                spc            ralt sys  rctl
+)
+
+(defalias
+  cte (tap-next-release esc lctl)
 )
 
 (deflayer colemak-dh

@@ -39,7 +39,7 @@
   lctl lmet lalt                spc            ralt sys  rctl
 )
 
-(deflayer colemak-dh-pt
+(deflayer colemak-dh
   @cte
   grv  1    2    3    4    5    6    7    8    9    0    -    =    bspc
   tab  q    w    f    p    b    j    l    u    y    ;    [    ]    ret

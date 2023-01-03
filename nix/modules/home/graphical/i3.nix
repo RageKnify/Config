@@ -350,6 +350,13 @@ in
           label-discharging = "%percentage%%";
           format-discharging-overline = "\${self.format-charging-overline}";
 
+          low-at = 10;
+          format-low = "<animation-low> <ramp-capacity> <label-discharging>";
+          format-low-overline = "\${self.format-charging-overline}";
+
+          animation-low-0 = ".";
+          animation-low-1 = "!";
+
           ramp-capacity-foreground = "\${colors.foreground-alt}";
           ramp-capacity-0 = "";
           ramp-capacity-1 = "";

@@ -27,7 +27,7 @@
         };
         config = ''
 (defalias
-  cte (tap-hold 100 esc lctl)
+  cte (tap-next-release esc lctl)
 )
 
 (defsrc

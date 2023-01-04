@@ -21,49 +21,49 @@
   fileSystems."/nix" =
     { device = "rpool/nixos/nix";
       fsType = "zfs";
-      options = [ "zfsutil" ];
+      options = [ "zfsutil" "X-mount.mkdir" ];
     };
 
   fileSystems."/etc" =
     { device = "rpool/nixos/etc";
       fsType = "zfs";
-      options = [ "zfsutil" ];
+      options = [ "zfsutil" "X-mount.mkdir" ];
     };
 
   fileSystems."/var" =
     { device = "rpool/nixos/var";
       fsType = "zfs";
-      options = [ "zfsutil" ];
+      options = [ "zfsutil" "X-mount.mkdir" ];
     };
 
   fileSystems."/var/lib" =
     { device = "rpool/nixos/var/lib";
       fsType = "zfs";
-      options = [ "zfsutil" ];
+      options = [ "zfsutil" "X-mount.mkdir" ];
     };
 
   fileSystems."/var/log" =
     { device = "rpool/nixos/var/log";
       fsType = "zfs";
-      options = [ "zfsutil" ];
+      options = [ "zfsutil" "X-mount.mkdir" ];
     };
 
   fileSystems."/var/spool" =
     { device = "rpool/nixos/var/spool";
       fsType = "zfs";
-      options = [ "zfsutil" ];
+      options = [ "zfsutil" "X-mount.mkdir" ];
     };
 
   fileSystems."/root" =
     { device = "rpool/nixos/root";
       fsType = "zfs";
-      options = [ "zfsutil" ];
+      options = [ "zfsutil" "X-mount.mkdir" ];
     };
 
   fileSystems."/home" =
     { device = "rpool/nixos/home";
       fsType = "zfs";
-      options = [ "zfsutil" ];
+      options = [ "zfsutil" "X-mount.mkdir" ];
     };
 
   fileSystems."/boot" =

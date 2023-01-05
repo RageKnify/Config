@@ -47,6 +47,8 @@ in
 
   # make fish a login shell so that lightdm doesn't discriminate
   environment.shells = [ pkgs.fish ];
+  # necessary for completions to work
+  programs.fish.enable = true;
 
   # Essential packages.
   environment.systemPackages = with pkgs; [

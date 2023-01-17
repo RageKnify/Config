@@ -264,17 +264,19 @@ cmp.setup({
   }),
   sources = cmp.config.sources({
     { name = 'nvim_lsp' },
-    { name = 'luasnip' }, -- For luasnip users.
-  }, {
+    { name = 'luasnip' },
+    { name = 'treesitter' },
+    { name = 'spell' },
+    { name = 'path' },
     { name = 'buffer' },
   })
 })
 
--- Set configuration for specific filetype.
+-- autocomplete commits, Issue/PR numbers, mentions
 cmp.setup.filetype('gitcommit', {
   sources = cmp.config.sources({
-    -- { name = 'cmp_git' }, -- You can specify the `cmp_git` source if you were installed it.
-  }, {
+    { name = 'git' },
+    { name = 'spell' },
     { name = 'buffer' },
   })
 })
@@ -283,7 +285,7 @@ cmp.setup.filetype('gitcommit', {
 cmp.setup.cmdline('/', {
   mapping = cmp.mapping.preset.cmdline(),
   sources = {
-    { name = 'buffer' }
+    { name = 'buffer' },
   }
 })
 
@@ -291,9 +293,8 @@ cmp.setup.cmdline('/', {
 cmp.setup.cmdline(':', {
   mapping = cmp.mapping.preset.cmdline(),
   sources = cmp.config.sources({
-    { name = 'path' }
-  }, {
-    { name = 'cmdline' }
+    { name = 'path' },
+    { name = 'cmdline' },
   })
 })
       '';
@@ -301,6 +302,9 @@ cmp.setup.cmdline(':', {
     cmp_luasnip
     cmp-treesitter
     cmp-nvim-lsp
+    cmp-spell
+    cmp-path
+    cmp-git
   ] else [];
   twoSpaceIndentConfig = ''
 setlocal shiftwidth=2

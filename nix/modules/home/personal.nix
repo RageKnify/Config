@@ -18,6 +18,8 @@ in {
       ansible
       # agenix
       agenix
+      # calc
+      libqalculate
       # wallpaper script
       horseman_wallpaper
       # LaTeX

@@ -54,5 +54,10 @@ in
       gutenprint
       gutenprintBin
     ];
+
+    # SSH stuf
+    programs.ssh = {
+      startAgent = true;
+    };
   };
 }

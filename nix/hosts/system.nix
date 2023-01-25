@@ -17,6 +17,7 @@ in
     '';
     gc = {
       automatic = true;
+      dates = "weekly";
       randomizedDelaySec = "60min";
     };
     package = pkgs.nixFlakes;

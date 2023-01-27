@@ -10,47 +10,13 @@
   modules = {
     graphical.enable = true;
     personal.enable = true;
+    kmonad = {
+      enable = true;
+      normal_device = "/dev/input/by-path/platform-i8042-serio-0-event-kbd";
+    };
   };
 
   console.useXkbConfig = true;
-
-  services.kmonad = {
-    enable = true;
-    keyboards = {
-      thinkpad_keyboard = {
-        name = "thinkpad_keyboard";
-        device = "/dev/input/by-path/platform-i8042-serio-0-event-kbd";
-        defcfg = {
-          enable = true;
-          fallthrough = true;
-          allowCommands = false;
-        };
-        config = ''
-(defsrc
-  esc
-  grv  1    2    3    4    5    6    7    8    9    0    -    =    bspc
-  tab  q    w    e    r    t    y    u    i    o    p    [    ]    ret
-  caps a    s    d    f    g    h    j    k    l    ;    '    bksl
-  lsft lsgt z    x    c    v    b    n    m    ,    .    /    rsft
-  lctl lmet lalt                spc            ralt sys  rctl
-)
-
-(defalias
-  cte (tap-hold-next 500 esc lctl)
-)
-
-(deflayer colemak-dh
-  @cte
-  grv  1    2    3    4    5    6    7    8    9    0    -    =    bspc
-  tab  q    w    f    p    b    j    l    u    y    ;    [    ]    ret
-  @cte a    r    s    t    g    m    n    e    i    o    '    bksl
-  lsft z    x    c    d    v    lsgt k    h    ,    .    /    rsft
-  @cte lmet lalt                spc            ralt prnt rctl
-)
-        '';
-      };
-    };
-  };
 
   location = {
     provider = "manual";

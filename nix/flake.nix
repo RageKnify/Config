@@ -33,6 +33,15 @@
       url = "github:kmonad/kmonad/master?dir=nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    digga = {
+      url = "github:divnix/digga";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        nixpkgs-unstable.follows = "nixpkgs-unstable";
+        nixlib.follows = "nixpkgs";
+        home-manager.follows = "home";
+      };
+    };
   };
 
   outputs = inputs @ { self, ... }:
@@ -132,15 +141,9 @@
       systemModules = mkModules ./modules/system;
       homeModules = mkModules ./modules/home;
 
-      # Imports every nix module from a directory, recursively.
-      mkModules = dir: concatLists (attrValues (mapAttrs
-        (name: value:
-          if value == "directory"
-          then mkModules "${dir}/${name}"
-          else if value == "regular" && hasSuffix ".nix" name
-          then [ (import "${dir}/${name}") ]
-          else [])
-        (readDir dir)));
+      mkModules = dir: concatLists (attrValues
+        (inputs.digga.lib.importExportableModules dir)
+      );
 
       # Imports every host defined in a directory.
       mkHosts = dir: listToAttrs (map

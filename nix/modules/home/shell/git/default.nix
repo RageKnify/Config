@@ -20,7 +20,7 @@ in {
         init.defaultBranch = "main";
         pull.rebase = true;
         url."git@github.com".pushinsteadOf = "https://github.com/";
-        commit.template = "${configDir}/gitmessage.txt" ;
+        commit.template = "${builtins.toString ./.}/gitmessage.txt";
         commit.verbose = true;
       };
       includes = [

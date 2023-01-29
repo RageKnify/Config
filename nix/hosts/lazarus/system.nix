@@ -6,16 +6,13 @@
 # System configuration.
 
 { pkgs, lib, sshKeys, config, hostSecretsDir, ... }: {
+  modules = {
+    server.enable = true;
+  };
 
   boot.cleanTmpDir = true;
   networking.domain = "jplborges.pt";
   networking.firewall.allowedTCPPorts = [ 80 443 1001 ];
-  services.openssh = {
-    enable = true;
-    passwordAuthentication = false;
-    authorizedKeysFiles = lib.mkForce [ "/etc/ssh/authorized_keys.d/%u" ];
-    kbdInteractiveAuthentication = false;
-  };
 
   users = {
     mutableUsers = true;

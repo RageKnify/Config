@@ -9,6 +9,7 @@
 
   modules = {
     personal.enable = true;
+    server.enable = true;
   };
 
   services.zfs = {
@@ -55,18 +56,9 @@
 
   boot.cleanTmpDir = true;
 
-  services.openssh = {
-    enable = true;
-    passwordAuthentication = false;
-    permitRootLogin = "no";
-    authorizedKeysFiles = lib.mkForce [ "/etc/ssh/authorized_keys.d/%u" ];
-    kbdInteractiveAuthentication = false;
-  };
-
   users = {
     users = {
       root.hashedPassword = "$6$DGdSZAJTaUYbM4nR$49euO8k5K5.MRzbUBnzvCypKUdbsQ2453ucThTCISfLo31mgHMq3oXegPfC6c2grL.2.qeMz1SzNMIPxfmv6x/";
-      jp.openssh.authorizedKeys.keys = sshKeys;
     };
   };
 

@@ -183,8 +183,6 @@ vim.keymap.set('x', '<leader>y', '"+y')
 require 'colorizer'.setup ({ user_default_options = { names = false; }})
       '';
     }
-
-    vim-wordmotion
   ];
   personalPlugins = if personal then with pkgs.unstable.vimPlugins; [
     {

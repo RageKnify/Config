@@ -484,7 +484,7 @@ local on_attach = function(client, bufnr)
   set('n', '<leader>gr', vim.lsp.buf.references, {silent = true})
   set('n', '<leader>rn', vim.lsp.buf.rename, {silent = true})
   set('n', '<leader>a', vim.lsp.buf.code_action, {silent = true})
-  set('n', '<leader>fm', function () vim.lsp.buf.format({ async = false }) end, {})
+  set('n', '<leader>tt', function () vim.lsp.buf.format({ async = false }) end, {})
   set('n', '<leader><cr>', vim.diagnostic.open_float, {silent = true})
 
   -- Use LSP omni-completion in LSP enabled files.

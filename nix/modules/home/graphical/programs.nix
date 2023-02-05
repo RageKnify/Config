@@ -13,13 +13,13 @@ in {
   options.modules.graphical.programs.enable = mkEnableOption "programs";
 
   config = mkIf cfg.enable {
-    home.packages = [
-      pkgs.discord-nss_latest
-      pkgs.unstable.ghidra-bin
-      pkgs.gimp
-      pkgs.unstable.signal-desktop
-      pkgs.thunderbird
-      pkgs.vlc
+    home.packages = with pkgs; [
+      discord-nss_latest
+      unstable.ghidra-bin
+      gimp
+      unstable.signal-desktop
+      thunderbird
+      vlc
     ];
   };
 }

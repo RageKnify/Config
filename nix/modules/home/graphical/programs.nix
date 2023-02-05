@@ -17,6 +17,7 @@ in {
       discord-nss_latest
       unstable.ghidra-bin
       gimp
+      obsidian
       unstable.signal-desktop
       thunderbird
       vlc

@@ -130,12 +130,45 @@ vim.api.nvim_create_autocmd({ "FileType" }, { callback = define_fdm })
     vim-signature
 
     {
-      plugin = fzf-vim;
+      plugin = fzf-lua;
+      type = "lua";
       config = ''
-      let $FZF_DEFAULT_OPTS='--layout=reverse'
+local fzf_lua = require('fzf-lua')
+fzf_lua.setup{
+  fzf_opts = {
+    ['--layout'] = 'reverse',
+  },
+  winopts = {
+    height = 0.75,
+    width = 0.75,
+  },
+}
 
-      " Using the custom window creation function
-      let g:fzf_layout = { 'window': { 'height': 0.75, 'width': 0.75 } }
+local set = vim.keymap.set
+
+local files = function()
+  vim.fn.system('git rev-parse --is-inside-work-tree')
+  if vim.v.shell_error == 0 then
+    fzf_lua.git_files()
+  else
+    fzf_lua.files()
+  end
+end
+
+-- fuzzy find files in the working directory (where you launched Vim from)
+set('n', '<leader>f', files)
+
+-- fuzzy find lines in the current file
+set('n', '<leader>/', fzf_lua.blines)
+
+-- fuzzy find an open buffer
+set('n', '<leader>b', fzf_lua.buffers)
+
+-- fuzzy find text in the working directory
+set('n', '<leader>rg', fzf_lua.grep_project)
+
+-- fuzzy find Vim commands (like Ctrl-Shift-P in Sublime/Atom/VSC)
+set('n', '<leader>c', fzf_lua.commands)
       '';
     }
 
@@ -342,17 +375,6 @@ in
 
         " Change leader key to space bar
         let mapleader = " "
-
-        " fuzzy find files in the working directory (where you launched Vim from)
-        nmap <expr> <leader>f FugitiveHead() != "" ? ':GFiles --cached --others --exclude-standard<CR>' : ':Files<CR>'
-        " fuzzy find lines in the current file
-        nmap <leader>/ :BLines<cr>
-        " fuzzy find an open buffer
-        nmap <leader>b :Buffers<cr>
-        " fuzzy find text in the working directory
-        nmap <leader>rg :Rg<cr>
-        " fuzzy find Vim commands (like Ctrl-Shift-P in Sublime/Atom/VSC)
-        nmap <leader>c :Commands<cr>
 
         " Keeps undo history over different sessions
         set undofile

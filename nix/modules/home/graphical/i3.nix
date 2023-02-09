@@ -67,6 +67,9 @@ in
             "${i3Mod}+Shift+Down"   = "move down";
             "${i3Mod}+Shift+Up"     = "move up";
             "${i3Mod}+Shift+Right"  = "move right";
+
+            # move workspace to next output
+            "${i3Mod}+n"  = "move workspace to output next";
           };
 
           modes = {

@@ -146,9 +146,6 @@ in
 
           assigns = {
             "1" = [{ class = "firefox"; }];
-            "5" = [{ class = "thunderbird"; }];
-            "7" = [{ class = "Gimp"; }];
-            "10" = [{ class = "discord"; }];
           };
 
           bars = [];
@@ -209,7 +206,8 @@ in
           module-margin-left = 0;
           module-margin-right = 1;
           font = [
-            "JetBrainsMono:pixelsize=14;4"
+            "DejaVu Mono:pixelsize=14;4"
+            "DejaVu Mono:style=bold:pixelsize=14;4"
             "Font Awesome 6 Free:style=regular;4"
             "Font Awesome 6 Free:style=solid;4"
             "Font Awesome 6 Brands,Font Awesome 6 Brands Regular:style=Regular;4"
@@ -234,36 +232,29 @@ in
           label-mode-background = "\${colors.primary}";
 
           # focused = Active workspace on focused monitor
-          label-focused = "%icon%";
+          label-focused = "%name%";
           label-focused-background = "\${colors.background-alt}";
           label-focused-overline = "\${colors.primary}";
           label-focused-padding = 2;
+          label-focused-font = 2;
 
           # unfocused = Inactive workspace on any monitor
-          label-unfocused = "%icon%";
+          label-unfocused = "%name%";
           label-unfocused-padding = 2;
+          label-unfocused-font = 2;
 
           # visible = Active workspace on unfocused monitor
-          label-visible = "%icon%";
+          label-visible = "%name%";
           label-visible-background = "\${self.label-focused-background}";
           label-visible-overline = "\${self.label-focused-overline}";
           label-visible-padding = "\${self.label-focused-padding}";
+          label-visible-font = 2;
 
           # urgent = Workspace with urgency hint set
-          label-urgent = "%icon%";
+          label-urgent = "%name%";
           label-urgent-background = "\${colors.alert}";
           label-urgent-padding = 2;
-
-          ws-icon-0 = "1;";
-          ws-icon-1 = "2;";
-          ws-icon-2 = "3;";
-          ws-icon-3 = "4;";
-          ws-icon-4 = "5;";
-          ws-icon-5 = "6;";
-          ws-icon-6 = "7;";
-          ws-icon-7 = "8;";
-          ws-icon-8 = "9;";
-          ws-icon-9 = "10;";
+          label-urgent-font = 2;
         };
         "module/xkeyboard" = {
           type = "internal/xkeyboard";

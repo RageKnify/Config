@@ -295,6 +295,28 @@ setlocal softtabstop=2
 setlocal tabstop=2
 setlocal expandtab
 '';
+  files = {
+    "${config.xdg.configHome}/nvim/lua/generic_lsp.lua".source = ./generic_lsp.lua;
+  } //
+    # languages that should use 2 space indent
+    builtins.listToAttrs (builtins.map
+      (filetype: {
+        name = "${config.xdg.configHome}/nvim/after/ftplugin/${filetype}.vim";
+        value = {
+          text = twoSpaceIndentConfig;
+        };
+      })
+      [
+        "markdown"
+        "nix"
+        "ocaml"
+        "wast"
+        "yaml"
+        "yacc"
+        "lex"
+        "cpp"
+        "tex"
+      ]);
 in
 {
   options.modules.neovim.enable = mkEnableOption "neovim";
@@ -336,18 +358,7 @@ require('gitsigns').setup{
         );
     };
 
-    # languages that should use 2 space indent
-    home.file."${config.xdg.configHome}/nvim/after/ftplugin/markdown.vim".text = twoSpaceIndentConfig;
-    home.file."${config.xdg.configHome}/nvim/after/ftplugin/nix.vim".text = twoSpaceIndentConfig;
-    home.file."${config.xdg.configHome}/nvim/after/ftplugin/ocaml.vim".text = twoSpaceIndentConfig;
-    home.file."${config.xdg.configHome}/nvim/after/ftplugin/wast.vim".text = twoSpaceIndentConfig;
-    home.file."${config.xdg.configHome}/nvim/after/ftplugin/yaml.vim".text = twoSpaceIndentConfig;
-    home.file."${config.xdg.configHome}/nvim/after/ftplugin/yacc.vim".text = twoSpaceIndentConfig;
-    home.file."${config.xdg.configHome}/nvim/after/ftplugin/lex.vim".text = twoSpaceIndentConfig;
-    home.file."${config.xdg.configHome}/nvim/after/ftplugin/cpp.vim".text = twoSpaceIndentConfig;
-    home.file."${config.xdg.configHome}/nvim/after/ftplugin/tex.vim".text = twoSpaceIndentConfig;
-
-    home.file."${config.xdg.configHome}/nvim/lua/generic_lsp.lua".source = ./generic_lsp.lua;
+    home.file = files;
 
     home.sessionVariables = {
       EDITOR = "nvim";

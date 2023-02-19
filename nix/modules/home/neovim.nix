@@ -371,6 +371,8 @@ in
         set undofile
         set undodir=/tmp//
 
+        set signcolumn=yes
+
         " Saves cursor position to be used next time the file is edited
         autocmd BufReadPost *
         \ if line("'\"") > 1 && line("'\"") <= line("$") |
@@ -421,6 +423,14 @@ in
 
         " Avoiding W
         cabbrev W w
+
+        " Fancy fold markers
+        function! MyFoldText()
+            let line = getline(v:foldstart)
+            let foldedlinecount = v:foldend - v:foldstart + 1
+            return '  '. foldedlinecount . line
+        endfunction
+        set foldtext=MyFoldText()
         '';
         plugins = commonPlugins ++ personalPlugins ++ (
           if git then with pkgs.unstable.vimPlugins; [

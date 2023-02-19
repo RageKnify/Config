@@ -419,10 +419,6 @@ in
         set splitbelow
         set splitright
 
-        set shiftwidth=4
-        set softtabstop=4
-        set tabstop=4
-
         " Avoiding W
         cabbrev W w
         '';

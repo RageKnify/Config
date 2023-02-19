@@ -347,91 +347,7 @@ in
       viAlias = true;
       vimAlias = true;
       vimdiffAlias = true;
-      extraConfig = ''
-        " sane defaults
-        set shiftwidth=4
-        set softtabstop=4
-        set tabstop=4
-        set noexpandtab
-
-        " delete trailing whitespace
-        autocmd FileType c,cpp,java,lua,nix,ocaml,vim,wast autocmd BufWritePre <buffer> %s/\s\+$//e
-
-        " makes n=Next and N=Previous for find (? / /)
-        nnoremap <expr> n  'Nn'[v:searchforward]
-        nnoremap <expr> N  'nN'[v:searchforward]
-
-        " Easy bind to leave terminal mode
-        tnoremap <Esc> <C-\><C-n>
-
-        " Change leader key to space bar
-        let mapleader = " "
-
-        " Keeps undo history over different sessions
-        set undofile
-        set undodir=/tmp//
-
-        set signcolumn=yes
-
-        " Saves cursor position to be used next time the file is edited
-        autocmd BufReadPost *
-        \ if line("'\"") > 1 && line("'\"") <= line("$") |
-        \   execute "normal! g`\"" |
-        \ endif
-
-        nnoremap <silent> <Up>       :resize +2<CR>
-        nnoremap <silent> <Down>     :resize -2<CR>
-        nnoremap <silent> <Left>     :vertical resize +2<CR>
-        nnoremap <silent> <Right>    :vertical resize -2<CR>
-
-        "move to the split in the direction shown, or create a new split
-        nnoremap <silent> <C-h> :call WinMove('h')<cr>
-        nnoremap <silent> <C-j> :call WinMove('j')<cr>
-        nnoremap <silent> <C-k> :call WinMove('k')<cr>
-        nnoremap <silent> <C-l> :call WinMove('l')<cr>
-
-        function! WinMove(key)
-          let t:curwin = winnr()
-          exec "wincmd ".a:key
-          if (t:curwin == winnr())
-            if (match(a:key,'[jk]'))
-              wincmd v
-            else
-              wincmd s
-            endif
-            exec "wincmd ".a:key
-          endif
-        endfunction
-
-        nnoremap <silent> <leader><leader> :nohlsearch<cr>
-        nnoremap <silent> <leader>m :silent call jobstart('make')<cr>
-
-        set selection=exclusive
-
-        set mouse=a
-
-        au TextYankPost * lua vim.highlight.on_yank {higroup="IncSearch", timeout=1000, on_visual=true}
-
-        let g:bufferline_echo = 0
-
-        set nowrap
-
-        set scrolloff=5
-
-        set splitbelow
-        set splitright
-
-        " Avoiding W
-        cabbrev W w
-
-        " Fancy fold markers
-        function! MyFoldText()
-            let line = getline(v:foldstart)
-            let foldedlinecount = v:foldend - v:foldstart + 1
-            return '  '. foldedlinecount . line
-        endfunction
-        set foldtext=MyFoldText()
-        '';
+      extraConfig = builtins.readFile ./base.vim;
         plugins = commonPlugins ++ personalPlugins ++ (
           if git then with pkgs.unstable.vimPlugins; [
             vim-fugitive
@@ -472,45 +388,7 @@ require('gitsigns').setup{
     home.file."${config.xdg.configHome}/nvim/after/ftplugin/cpp.vim".text = twoSpaceIndentConfig;
     home.file."${config.xdg.configHome}/nvim/after/ftplugin/tex.vim".text = twoSpaceIndentConfig;
 
-    home.file."${config.xdg.configHome}/nvim/lua/generic_lsp.lua".text = ''
-local lsp = require'lspconfig'
-
-local capabilities = require('cmp_nvim_lsp').default_capabilities()
-capabilities.textDocument.completion.completionItem.snippetSupport = true
-capabilities.textDocument.completion.completionItem.resolveSupport = {
-  properties = {
-    'documentation',
-    'detail',
-    'additionalTextEdits',
-  }
-}
-
-local on_attach = function(client, bufnr)
-  local set = vim.keymap.set
-  -- [[ other on_attach code ]]
-  set('n', 'K', vim.lsp.buf.hover, {silent=true})
-
-  -- illuminate stuff
-  local illuminate = require"illuminate"
-  set('n', '<leader>gn', illuminate.next_reference, {silent=true})
-  set('n', '<leader>gp', function () illuminate.next_reference{reverse=true} end, {silent=true})
-  require 'illuminate'.on_attach(client)
-
-
-  set('n', '<leader>n', function () vim.diagnostic.goto_next { wrap = false } end, {silent = true})
-  set('n', '<leader>p', function () vim.diagnostic.goto_prev { wrap = false } end, {silent = true})
-  set('n', '<leader>d', vim.lsp.buf.definition, {silent = true})
-  set('n', '<leader>gr', vim.lsp.buf.references, {silent = true})
-  set('n', '<leader>rn', vim.lsp.buf.rename, {silent = true})
-  set('n', '<leader>a', vim.lsp.buf.code_action, {silent = true})
-  set('n', '<leader>tt', function () vim.lsp.buf.format({ async = false }) end, {})
-  set('n', '<leader><cr>', vim.diagnostic.open_float, {silent = true})
-
-  -- Use LSP omni-completion in LSP enabled files.
-  vim.bo[bufnr].omnifunc = "v:lua.vim.lsp.omnifunc"
-end
-return {capabilities = capabilities, on_attach = on_attach}
-    '';
+    home.file."${config.xdg.configHome}/nvim/lua/generic_lsp.lua".source = ./generic_lsp.lua;
 
     home.sessionVariables = {
       EDITOR = "nvim";

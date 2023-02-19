@@ -128,7 +128,7 @@
         (readDir overlaysDir);
 
       overlays = [
-        inputs.agenix.overlay
+        inputs.agenix.overlays.default
         inputs.kmonad.overlays.default
         pkg-sets
       ] ++ myOverlays;

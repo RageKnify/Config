@@ -9,6 +9,9 @@
 let
   inherit (lib) mkEnableOption mkIf;
   cfg = config.modules.shell.git;
+  signers = builtins.toFile "signers" ''
+RageKnify@gmail.com,joao.p.l.borges@tecnico.ulisboa.pt,joao.borges@rnl.tecnico.ulisboa.pt ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIC2sdJFvvnEIYztPcznXvKpY4vOWedZ1qzDaAgRxrczS jp@war
+  '';
 in {
   options.modules.shell.git.enable = mkEnableOption "git";
 
@@ -20,8 +23,14 @@ in {
         init.defaultBranch = "main";
         pull.rebase = true;
         url."git@github.com".pushinsteadOf = "https://github.com/";
-        commit.template = "${builtins.toString ./.}/gitmessage.txt";
-        commit.verbose = true;
+        commit = {
+          template = "${builtins.toString ./.}/gitmessage.txt";
+          verbose = true;
+          gpgSign = true;
+        };
+        gpg.format = "ssh";
+        gpg.ssh.allowedSignersFile = signers;
+        user.signingKey = "~/.ssh/id_ed25519";
       };
       includes = [
         {

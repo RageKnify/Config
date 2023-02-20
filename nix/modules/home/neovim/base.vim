@@ -78,6 +78,6 @@ cabbrev W w
 function! MyFoldText()
     let line = getline(v:foldstart)
     let foldedlinecount = v:foldend - v:foldstart + 1
-    return '  '. foldedlinecount . line
+    return '  '. foldedlinecount . ' ' . line
 endfunction
 set foldtext=MyFoldText()

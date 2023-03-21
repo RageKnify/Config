@@ -228,6 +228,21 @@ lsp_config.texlab.setup(lsp_setup)
       '';
     }
 
+    {
+      plugin = pkgs.obsidian-nvim;
+      type = "lua";
+      config = ''
+require('obsidian').setup({
+  dir = "~/documents/obsidian/",
+  completion = {
+    nvim_cmp = true,
+  },
+})
+local set = vim.keymap.set
+set('n', '<leader>o', vim.cmd.ObsidianQuickSwitch)
+      '';
+    }
+
     luasnip
     {
       plugin = nvim-cmp;

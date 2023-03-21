@@ -25,6 +25,10 @@
       url = "github:ojroques/nvim-osc52/main";
       flake = false;
     };
+    obsidian-nvim = {
+      url = "github:epwalsh/obsidian.nvim/main";
+      flake = false;
+    };
     agenix = {
       url = "github:ryantm/agenix/main";
       inputs.nixpkgs.follows = "nixpkgs";

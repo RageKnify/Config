@@ -398,6 +398,23 @@
         "type": "github"
       }
     },
+    "obsidian-nvim": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1676575215,
+        "narHash": "sha256-r7Wr16SuVa1HqGrUWnRc3tjKGTBRiLbrV+iED8p7G+o=",
+        "owner": "epwalsh",
+        "repo": "obsidian.nvim",
+        "rev": "5ecf680cf8fc49c6881126f4242a496d79c6f6f7",
+        "type": "github"
+      },
+      "original": {
+        "owner": "epwalsh",
+        "ref": "main",
+        "repo": "obsidian.nvim",
+        "type": "github"
+      }
+    },
     "riff": {
       "inputs": {
         "fenix": "fenix",
@@ -432,6 +449,7 @@
         "nixpkgs-latest": "nixpkgs-latest",
         "nixpkgs-unstable": "nixpkgs-unstable",
         "nvim-osc52": "nvim-osc52",
+        "obsidian-nvim": "obsidian-nvim",
         "riff": "riff"
       }
     },

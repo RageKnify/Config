@@ -5,7 +5,7 @@
 #
 # Git configuration. (Based on RiscadoA's)
 
-{ lib, config, configDir, ... }:
+{ pkgs, lib, config, configDir, ... }:
 let
   inherit (lib) mkEnableOption mkIf;
   cfg = config.modules.shell.git;
@@ -24,7 +24,7 @@ in {
         pull.rebase = true;
         url."git@github.com".pushinsteadOf = "https://github.com/";
         commit = {
-          template = "${builtins.toString ./.}/gitmessage.txt";
+          template = "${pkgs.writeText "gitmessage.txt" (builtins.readFile ./gitmessage.txt)}";
           verbose = true;
           gpgSign = true;
         };

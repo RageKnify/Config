@@ -233,6 +233,7 @@ lsp_config.texlab.setup(lsp_setup)
       type = "lua";
       config = ''
 require('obsidian').setup({
+  disable_frontmatter = true,
   dir = "~/documents/obsidian/",
   completion = {
     nvim_cmp = true,

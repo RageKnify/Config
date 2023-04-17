@@ -15,11 +15,6 @@ in
     extraOptions = ''
       experimental-features = nix-command flakes
     '';
-    gc = {
-      automatic = true;
-      dates = "weekly";
-      randomizedDelaySec = "60min";
-    };
     package = pkgs.nixFlakes;
     registry.nixpkgs.flake = inputs.nixpkgs;
     settings.trusted-users = [ "root" "@wheel" ];

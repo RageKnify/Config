@@ -39,5 +39,11 @@ in
         upper = "05:00";
       };
     };
+
+    nix.gc = {
+      automatic = true;
+      dates = "weekly";
+      randomizedDelaySec = "60min";
+    };
   };
 }

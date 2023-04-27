@@ -38,7 +38,7 @@ in
   )
 
   (defalias
-    cte (tap-hold-next 500 esc lctl)
+    cte (tap-hold-next 100 esc lctl)
   )
 
   (deflayer colemak-dh

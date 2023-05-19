@@ -18,6 +18,12 @@ in {
   config = mkIf cfg.enable {
     programs.git = {
       enable = true;
+      delta = {
+        enable = true;
+        options = {
+          light = true;
+        };
+      };
       extraConfig = {
         diff.tool = "vimdiff";
         init.defaultBranch = "main";

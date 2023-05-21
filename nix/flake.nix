@@ -21,10 +21,6 @@
       url = "github:nix-community/home-manager/release-22.11";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    nvim-osc52 = {
-      url = "github:ojroques/nvim-osc52/main";
-      flake = false;
-    };
     obsidian-nvim = {
       url = "github:epwalsh/obsidian.nvim/main";
       flake = false;

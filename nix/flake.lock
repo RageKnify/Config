@@ -381,23 +381,6 @@
         "type": "github"
       }
     },
-    "nvim-osc52": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1677841591,
-        "narHash": "sha256-SQpwiA+dyTRXBq0YtUZ4nkYKglyChIyQeWopD73qznQ=",
-        "owner": "ojroques",
-        "repo": "nvim-osc52",
-        "rev": "47ce7ee2396fa3ee4fb6b0e0ef14ba06f9c9bd31",
-        "type": "github"
-      },
-      "original": {
-        "owner": "ojroques",
-        "ref": "main",
-        "repo": "nvim-osc52",
-        "type": "github"
-      }
-    },
     "obsidian-nvim": {
       "flake": false,
       "locked": {
@@ -448,7 +431,6 @@
         "nixpkgs": "nixpkgs",
         "nixpkgs-latest": "nixpkgs-latest",
         "nixpkgs-unstable": "nixpkgs-unstable",
-        "nvim-osc52": "nvim-osc52",
         "obsidian-nvim": "obsidian-nvim",
         "riff": "riff"
       }

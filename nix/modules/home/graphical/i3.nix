@@ -10,7 +10,6 @@ let
   inherit (lib) mkEnableOption mkIf mkForce;
   cfg = config.modules.graphical.i3;
   i3Mod = "Mod4";
-  i3Pkg = pkgs.i3-gaps;
 in
 {
   options.modules.graphical.i3.enable = mkEnableOption "i3";
@@ -26,7 +25,6 @@ in
       enable = true;
       windowManager.i3 = {
         enable = true;
-        package = i3Pkg;
         config = {
           modifier = i3Mod;
 
@@ -180,7 +178,7 @@ in
         MONITOR=$m polybar --reload bar&
       done
       '';
-      package = (pkgs.polybar.override { i3GapsSupport = true; pulseSupport = true; });
+      package = (pkgs.polybar.override { i3Support = true; pulseSupport = true; });
       settings = with colors.dark; {
         colors  = {
           background      = "${base00}";

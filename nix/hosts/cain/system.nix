@@ -54,8 +54,6 @@
     ];
   };
 
-  boot.cleanTmpDir = true;
-
   users = {
     users = {
       root.hashedPassword = "$6$DGdSZAJTaUYbM4nR$49euO8k5K5.MRzbUBnzvCypKUdbsQ2453ucThTCISfLo31mgHMq3oXegPfC6c2grL.2.qeMz1SzNMIPxfmv6x/";

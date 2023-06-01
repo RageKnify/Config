@@ -10,7 +10,6 @@
     server.enable = true;
   };
 
-  boot.cleanTmpDir = true;
   networking.domain = "jplborges.pt";
   networking.firewall.allowedTCPPorts = [ 80 443 1001 ];
 

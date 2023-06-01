@@ -27,7 +27,6 @@ in {
       texlab
       # Rust
       rustup
-      pkgs.unstable.rust-analyzer
       # GCC
       gcc
       # Make

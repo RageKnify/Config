@@ -11,7 +11,7 @@ let
   cfg = config.modules.neovim;
   personal = config.modules.personal.enable;
   git = config.modules.shell.git.enable;
-  commonPlugins = with pkgs.unstable.vimPlugins; [
+  commonPlugins = with pkgs.vimPlugins; [
     nvim-web-devicons
     {
       plugin = lualine-nvim;
@@ -83,7 +83,7 @@ _G.Tabline_timer:start(0,             -- never timeout
 
     (import ./tree-sitter.nix {
       inherit personal;
-      nvim-treesitter = pkgs.unstable.vimPlugins.nvim-treesitter;
+      nvim-treesitter = pkgs.vimPlugins.nvim-treesitter;
     })
 
     vim-signature
@@ -176,7 +176,7 @@ require 'colorizer'.setup ({ user_default_options = { names = false; }})
       '';
     }
   ];
-  personalPlugins = if personal then with pkgs.unstable.vimPlugins; [
+  personalPlugins = if personal then with pkgs.vimPlugins; [
     {
       plugin = nvim-lspconfig;
       type = "lua";
@@ -339,14 +339,14 @@ in
 
   config = mkIf cfg.enable {
     programs.neovim = {
-      package = pkgs.unstable.neovim-unwrapped;
+      package = pkgs.neovim-unwrapped;
       enable = true;
       viAlias = true;
       vimAlias = true;
       vimdiffAlias = true;
       extraConfig = builtins.readFile ./base.vim;
         plugins = commonPlugins ++ personalPlugins ++ (
-          if git then with pkgs.unstable.vimPlugins; [
+          if git then with pkgs.vimPlugins; [
             vim-fugitive
             {
               plugin = gitsigns-nvim;

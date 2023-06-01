@@ -106,7 +106,6 @@ in
     '';
 
     # starship
-    programs.starship.package = pkgs.unstable.starship;
     programs.starship.enable = true;
     programs.starship.settings = {
       scan_timeout = 1;

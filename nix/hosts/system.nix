@@ -74,5 +74,7 @@ in
   networking.search = [ "rnl.tecnico.ulisboa.pt" ];
   security.pki.certificateFiles = [ "${configDir}/certs/rnl.crt" ];
 
+  boot.tmp.cleanOnBoot = true;
+
   system.stateVersion = "21.11";
 }

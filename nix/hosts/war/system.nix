@@ -251,8 +251,6 @@
     };
   };
 
-  boot.cleanTmpDir = true;
-
   users.users.root.hashedPassword = "$6$wlIVxKTns9xQ3Rc4$fbiA/wXnZ0l9TXKr90KmNVSltyU.MOH2Si8ntvLXINKGpug82rpFABP.PXAOp6Qtbq.onD8qAaSpq.TaKOmgj1";
   users.users.jp.extraGroups = [ "video" "libvirtd" "docker" ];
 

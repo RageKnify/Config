@@ -29,10 +29,6 @@
       url = "github:ryantm/agenix/main";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    kmonad = {
-      url = "github:kmonad/kmonad/master?dir=nix";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
     digga = {
       url = "github:divnix/digga";
       inputs = {
@@ -129,7 +125,6 @@
 
       overlays = [
         inputs.agenix.overlays.default
-        inputs.kmonad.overlays.default
         pkg-sets
       ] ++ myOverlays;
 
@@ -177,7 +172,6 @@
               }
               inputs.impermanence.nixosModules.impermanence
               inputs.agenix.nixosModules.age
-              inputs.kmonad.nixosModules.default
             ] ++ systemModules;
           };
        })

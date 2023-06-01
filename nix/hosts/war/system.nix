@@ -10,7 +10,7 @@
   modules = {
     graphical.enable = true;
     personal.enable = true;
-    kmonad = {
+    kanata = {
       enable = true;
       normal_device = "/dev/input/by-path/platform-i8042-serio-0-event-kbd";
     };

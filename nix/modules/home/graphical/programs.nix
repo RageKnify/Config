@@ -14,6 +14,7 @@ in {
 
   config = mkIf cfg.enable {
     home.packages = with pkgs; [
+      arandr
       discord-nss_latest
       unstable.ghidra-bin
       gimp

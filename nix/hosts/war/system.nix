@@ -39,13 +39,18 @@
   boot.loader = {
     # Use the systemd-boot EFI boot loader.
     systemd-boot = {
-      enable = true;
+      enable = lib.mkForce false;
       editor = false;
       consoleMode = "auto";
       configurationLimit = 20;
     };
     timeout = 2;
     efi.canTouchEfiVariables = true;
+  };
+
+  boot.lanzaboote = {
+    enable = true;
+    pkiBundle = "/etc/secureboot/";
   };
 
   boot.supportedFilesystems = [ "zfs" ];
@@ -262,6 +267,8 @@
     virt-manager
 
     jellyfin-media-player
+    # For debugging and troubleshooting Secure Boot.
+    pkgs.sbctl
   ];
 
   # virtualization

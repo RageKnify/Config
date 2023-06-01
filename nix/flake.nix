@@ -38,6 +38,10 @@
         home-manager.follows = "home";
       };
     };
+    lanzaboote = {
+      url = "github:nix-community/lanzaboote";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs = inputs @ { self, ... }:
@@ -172,6 +176,7 @@
               }
               inputs.impermanence.nixosModules.impermanence
               inputs.agenix.nixosModules.age
+              inputs.lanzaboote.nixosModules.lanzaboote
             ] ++ systemModules;
           };
        })

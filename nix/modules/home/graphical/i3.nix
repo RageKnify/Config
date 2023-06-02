@@ -131,7 +131,7 @@ in
             size = 14.0;
           };
 
-          menu = "${pkgs.rofi}/bin/rofi -matching fuzzy -modi drun -show drun";
+          menu = "${pkgs.rofi}/bin/rofi -matching normal -modi drun -show drun";
           window = {
             hideEdgeBorders = "both";
           };

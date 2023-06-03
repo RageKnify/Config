@@ -33,6 +33,8 @@ in {
       gnumake
       # Python
       my_python
+      # nixfmt
+      nixfmt
     ];
   };
 }

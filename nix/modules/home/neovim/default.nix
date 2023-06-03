@@ -313,6 +313,9 @@ setlocal expandtab
 '';
   files = {
     "${config.xdg.configHome}/nvim/lua/generic_lsp.lua".source = ./generic_lsp.lua;
+    "${config.xdg.configHome}/nvim/after/ftplugin/nix.vim".text = ''
+nnoremap <silent> <leader>tt :silent !${pkgs.nixfmt}/bin/nixfmt %<CR>
+'' + twoSpaceIndentConfig;
   } //
     # languages that should use 2 space indent
     builtins.listToAttrs (builtins.map
@@ -324,7 +327,6 @@ setlocal expandtab
       })
       [
         "markdown"
-        "nix"
         "ocaml"
         "wast"
         "yaml"

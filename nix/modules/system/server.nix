@@ -9,11 +9,8 @@
 let
   inherit (lib) mkEnableOption mkOption types mkIf;
   cfg = config.modules.server;
-in
-{
-  options.modules.server = {
-    enable = mkEnableOption "server";
-  };
+in {
+  options.modules.server = { enable = mkEnableOption "server"; };
 
   config = mkIf cfg.enable {
     services.openssh = {
@@ -24,11 +21,7 @@ in
       kbdInteractiveAuthentication = false;
     };
 
-    users = {
-      users = {
-        jp.openssh.authorizedKeys.keys = sshKeys;
-      };
-    };
+    users = { users = { jp.openssh.authorizedKeys.keys = sshKeys; }; };
 
     system.autoUpgrade = {
       enable = true;

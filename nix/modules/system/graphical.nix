@@ -8,11 +8,13 @@
 let
   inherit (lib) mkEnableOption mkOption types mkIf;
   cfg = config.modules.graphical;
-in
-{
+in {
   options.modules.graphical = {
     enable = mkEnableOption "graphical";
-    extraSetupCommands = mkOption { type = types.str; default = ""; };
+    extraSetupCommands = mkOption {
+      type = types.str;
+      default = "";
+    };
   };
 
   config = mkIf cfg.enable {
@@ -26,18 +28,16 @@ in
       layout = "pt";
       displayManager = {
         setupCommands = ''
-        ${cfg.extraSetupCommands}
+          ${cfg.extraSetupCommands}
         '';
         defaultSession = "user-xsession";
-        session = [
-          {
-            name = "user-xsession";
-            manage = "desktop";
-            start = ''
+        session = [{
+          name = "user-xsession";
+          manage = "desktop";
+          start = ''
             exec $HOME/.xsession
-            '';
-          }
-        ];
+          '';
+        }];
         lightdm = {
           enable = true;
           extraConfig = ''

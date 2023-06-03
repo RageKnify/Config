@@ -11,7 +11,7 @@
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-23.05";
     nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
-    nixpkgs-latest.url =  "github:nixos/nixpkgs/master";
+    nixpkgs-latest.url = "github:nixos/nixpkgs/master";
     impermanence.url = "github:nix-community/impermanence/master";
     home = {
       url = "github:nix-community/home-manager/release-23.05";
@@ -40,7 +40,7 @@
     };
   };
 
-  outputs = inputs @ { self, ... }:
+  outputs = inputs@{ self, ... }:
     let
       inherit (builtins) listToAttrs concatLists attrValues attrNames readDir;
       inherit (inputs.nixpkgs) lib;
@@ -52,22 +52,23 @@
       ];
       colors = {
         dark = {
-          "base00" = "#002b36"; #background
-          "base01" = "#073642"; #lighter background
-          "base02" = "#586e75"; #selection background
-          "base03" = "#657b83"; #comments, invisibles, line highlighting
-          "base04" = "#839496"; #dark foreground
-          "base05" = "#93a1a1"; #default foreground
-          "base06" = "#eee8d5"; #light foreground
-          "base07" = "#fdf6e3"; #light background
-          "base08" = "#dc322f"; #red       variables
-          "base09" = "#cb4b16"; #orange    integers, booleans, constants
-          "base0A" = "#b58900"; #yellow    classes
-          "base0B" = "#859900"; #green     strings
-          "base0C" = "#2aa198"; #aqua      support, regular expressions
-          "base0D" = "#268bd2"; #blue      functions, methods
-          "base0E" = "#6c71c4"; #purple    keywords, storage, selector
-          "base0F" = "#d33682"; #          deprecated, opening/closing embedded language tags
+          "base00" = "#002b36"; # background
+          "base01" = "#073642"; # lighter background
+          "base02" = "#586e75"; # selection background
+          "base03" = "#657b83"; # comments, invisibles, line highlighting
+          "base04" = "#839496"; # dark foreground
+          "base05" = "#93a1a1"; # default foreground
+          "base06" = "#eee8d5"; # light foreground
+          "base07" = "#fdf6e3"; # light background
+          "base08" = "#dc322f"; # red       variables
+          "base09" = "#cb4b16"; # orange    integers, booleans, constants
+          "base0A" = "#b58900"; # yellow    classes
+          "base0B" = "#859900"; # green     strings
+          "base0C" = "#2aa198"; # aqua      support, regular expressions
+          "base0D" = "#268bd2"; # blue      functions, methods
+          "base0E" = "#6c71c4"; # purple    keywords, storage, selector
+          "base0F" =
+            "#d33682"; # deprecated, opening/closing embedded language tags
         };
         light = {
           "base00" = "#fdf6e3";
@@ -97,20 +98,18 @@
             cain = "base0C";
           };
           base = mapping."${hostName}";
-        in
-          colors.light."${base}"
-      ;
+        in colors.light."${base}";
 
       system = "x86_64-linux";
       user = "jp";
 
       pkg-sets = final: prev:
-        let args = {
-          system = final.system;
-          config.allowUnfree = true;
-        };
-        in
-        {
+        let
+          args = {
+            system = final.system;
+            config.allowUnfree = true;
+          };
+        in {
           unstable = import inputs.nixpkgs-unstable args;
           latest = import inputs.nixpkgs-latest args;
         };
@@ -123,10 +122,7 @@
         (name: _: import "${overlaysDir}/${name}" { inherit inputs; })
         (readDir overlaysDir);
 
-      overlays = [
-        inputs.agenix.overlays.default
-        pkg-sets
-      ] ++ myOverlays;
+      overlays = [ inputs.agenix.overlays.default pkg-sets ] ++ myOverlays;
 
       pkgs = import inputs.nixpkgs {
         inherit system overlays;
@@ -136,13 +132,12 @@
       systemModules = mkModules ./modules/system;
       homeModules = mkModules ./modules/home;
 
-      mkModules = dir: concatLists (attrValues
-        (inputs.digga.lib.importExportableModules dir)
-      );
+      mkModules = dir:
+        concatLists (attrValues (inputs.digga.lib.importExportableModules dir));
 
       # Imports every host defined in a directory.
-      mkHosts = dir: listToAttrs (map
-        (name: {
+      mkHosts = dir:
+        listToAttrs (map (name: {
           inherit name;
           value = inputs.nixpkgs.lib.nixosSystem {
             inherit system pkgs;
@@ -156,7 +151,8 @@
               (dir + "/system.nix")
               (dir + "/${name}/hardware.nix")
               (dir + "/${name}/system.nix")
-              inputs.home.nixosModules.home-manager {
+              inputs.home.nixosModules.home-manager
+              {
                 home-manager = {
                   useGlobalPkgs = true;
                   useUserPackages = true;
@@ -175,10 +171,7 @@
               inputs.lanzaboote.nixosModules.lanzaboote
             ] ++ systemModules;
           };
-       })
-       (attrNames (readDir dir)));
+        }) (attrNames (readDir dir)));
 
-    in {
-      nixosConfigurations = mkHosts ./hosts;
-    };
+    in { nixosConfigurations = mkHosts ./hosts; };
 }

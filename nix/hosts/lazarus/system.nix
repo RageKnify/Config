@@ -6,28 +6,23 @@
 # System configuration.
 
 { pkgs, lib, sshKeys, config, hostSecretsDir, ... }: {
-  modules = {
-    server.enable = true;
-  };
+  modules = { server.enable = true; };
 
   networking.domain = "jplborges.pt";
   networking.firewall.allowedTCPPorts = [ 80 443 1001 ];
 
   users = {
     mutableUsers = true;
-    users = {
-      jp.openssh.authorizedKeys.keys = sshKeys;
-    };
+    users = { jp.openssh.authorizedKeys.keys = sshKeys; };
   };
 
-  virtualisation.docker = {
-    enable = true;
-  };
+  virtualisation.docker = { enable = true; };
 
   # Secret Management
   age = {
     secrets = {
-      restic_default_password.file = "${hostSecretsDir}/restic_default_password.age";
+      restic_default_password.file =
+        "${hostSecretsDir}/restic_default_password.age";
     };
   };
 
@@ -48,21 +43,20 @@
       ];
       repository = "rclone:onedrive:backups/lazarus";
       passwordFile = config.age.secrets.restic_default_password.path;
-      extraBackupArgs = [
-        "--verbose"
-      ];
+      extraBackupArgs = [ "--verbose" ];
     };
   };
 
-  environment.systemPackages = with pkgs; [
-    (let
-      extra-packages = python-packages: with python-packages; [
-        docker
-        # other python packages you want
-      ];
-      pythonWithStuf = python3.withPackages extra-packages;
-    in
-    pythonWithStuf
-    )
-  ];
+  environment.systemPackages = with pkgs;
+    [
+      (let
+        extra-packages = python-packages:
+          with python-packages;
+          [
+            docker
+            # other python packages you want
+          ];
+        pythonWithStuf = python3.withPackages extra-packages;
+      in pythonWithStuf)
+    ];
 }

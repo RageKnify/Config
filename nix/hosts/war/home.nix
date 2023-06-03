@@ -5,8 +5,7 @@
 #
 # Home configuration.
 
-{ pkgs, ... }:
-{
+{ pkgs, ... }: {
   modules = {
     fish.enable = true;
     neovim.enable = true;
@@ -22,8 +21,7 @@
     shell.tmux.enable = true;
   };
 
-  home.packages = with pkgs; [
-  ];
+  home.packages = with pkgs; [ ];
 
   home.keyboard = null;
   home.stateVersion = "21.11";

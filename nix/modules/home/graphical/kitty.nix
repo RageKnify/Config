@@ -1,4 +1,3 @@
-
 # modules/home/graphical/kitty.nix
 #
 # Author: João Borges <RageKnify@gmail.com>
@@ -10,8 +9,7 @@
 let
   inherit (lib) mkEnableOption mkIf;
   cfg = config.modules.graphical.kitty;
-in
-{
+in {
   options.modules.graphical.kitty.enable = mkEnableOption "kitty";
 
   config = mkIf cfg.enable {
@@ -28,7 +26,7 @@ in
         "ctrl+minus" = "change_font_size all -2.0";
         "ctrl+home" = "change_font_size all 0";
       };
-      /* wait for 22.05? -> theme = "Solarized Light"; */
+      # wait for 22.05? -> theme = "Solarized Light";
       settings = with colors.light; {
         background = "${base00}";
         foreground = "${base05}";

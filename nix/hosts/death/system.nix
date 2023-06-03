@@ -5,11 +5,11 @@
 #
 # System configuration.
 
-{ lib, config, pkgs, sshKeys, ... }:
-{
+{ lib, config, pkgs, sshKeys, ... }: {
   modules = {
     graphical.enable = true;
-    graphical.extraSetupCommands = "${pkgs.xorg.xrandr}/bin/xrandr --output DVI-D-1 --primary --mode 1920x1080 --pos 1080x420 --rotate normal --output HDMI-1 --mode 1920x1080 --pos 0x0 --rotate left --output VGA-1 --off";
+    graphical.extraSetupCommands =
+      "${pkgs.xorg.xrandr}/bin/xrandr --output DVI-D-1 --primary --mode 1920x1080 --pos 1080x420 --rotate normal --output HDMI-1 --mode 1920x1080 --pos 0x0 --rotate left --output VGA-1 --off";
     impermanence.enable = true;
     personal.enable = true;
   };
@@ -142,10 +142,11 @@
     ];
   };
 
-  users.users.root.hashedPassword = "$6$DGdSZAJTaUYbM4nR$49euO8k5K5.MRzbUBnzvCypKUdbsQ2453ucThTCISfLo31mgHMq3oXegPfC6c2grL.2.qeMz1SzNMIPxfmv6x/";
+  users.users.root.hashedPassword =
+    "$6$DGdSZAJTaUYbM4nR$49euO8k5K5.MRzbUBnzvCypKUdbsQ2453ucThTCISfLo31mgHMq3oXegPfC6c2grL.2.qeMz1SzNMIPxfmv6x/";
   users.users.jp = {
-      openssh.authorizedKeys.keys = sshKeys;
-      extraGroups = [ "video" "libvirtd" ];
+    openssh.authorizedKeys.keys = sshKeys;
+    extraGroups = [ "video" "libvirtd" ];
   };
 
   environment.systemPackages = with pkgs; [
@@ -159,9 +160,7 @@
 
   # virtualization
   programs.dconf.enable = true;
-  virtualisation = {
-    libvirtd.enable = true;
-  };
+  virtualisation = { libvirtd.enable = true; };
 
   virtualisation.docker = {
     enable = true;
@@ -172,7 +171,8 @@
 
   # Try to avoid graphical bugs
   services.xserver.videoDrivers = [ "nvidia" ];
-  hardware.nvidia.package = config.boot.kernelPackages.nvidiaPackages.legacy_470;
+  hardware.nvidia.package =
+    config.boot.kernelPackages.nvidiaPackages.legacy_470;
 
   services.fwupd.enable = true;
 

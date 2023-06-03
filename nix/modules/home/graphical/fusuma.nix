@@ -9,17 +9,22 @@
 let
   inherit (lib) mkEnableOption mkIf mkForce;
   cfg = config.modules.graphical.fusuma;
-in
-{
+in {
   options.modules.graphical.fusuma.enable = mkEnableOption "fusuma";
 
   config = mkIf cfg.enable {
     services.fusuma = {
       enable = true;
-      extraPackages = with pkgs;[ xdotool i3-gaps coreutils ];
+      extraPackages = with pkgs; [ xdotool i3-gaps coreutils ];
       settings = {
-        thershold = { swipe = 0.4; pinch = 0.4; };
-        interval = { swipe = 0.8; pinch = 0.1; };
+        thershold = {
+          swipe = 0.4;
+          pinch = 0.4;
+        };
+        interval = {
+          swipe = 0.8;
+          pinch = 0.1;
+        };
         swipe = {
           "3" = {
             left = { command = "exec i3-msg focus right"; };

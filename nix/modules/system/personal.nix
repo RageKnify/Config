@@ -9,16 +9,13 @@
 let
   inherit (lib) mkEnableOption mkOption types mkIf;
   cfg = config.modules.personal;
-in
-{
-  options.modules.personal = {
-    enable = mkEnableOption "personal";
-  };
+in {
+  options.modules.personal = { enable = mkEnableOption "personal"; };
 
   config = mkIf cfg.enable {
     # to login into Fenix with Kerberos, on Firefox's about:config
     # network.negotiate-auth.trusted-uris	= id.tecnico.ulisboa.pt
-    krb5 =  {
+    krb5 = {
       enable = true;
       libdefaults = {
         default_realm = "IST.UTL.PT";
@@ -44,20 +41,13 @@ in
 
     # YubiKey stuf
     services.pcscd.enable = true;
-    environment.systemPackages = with pkgs; [
-      yubikey-manager
-    ];
+    environment.systemPackages = with pkgs; [ yubikey-manager ];
 
     # Printer stuf
     services.printing.enable = true;
-    services.printing.drivers = with pkgs; [
-      gutenprint
-      gutenprintBin
-    ];
+    services.printing.drivers = with pkgs; [ gutenprint gutenprintBin ];
 
     # SSH stuf
-    programs.ssh = {
-      startAgent = true;
-    };
+    programs.ssh = { startAgent = true; };
   };
 }

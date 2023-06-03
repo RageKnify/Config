@@ -9,8 +9,8 @@
 let
   inherit (lib) mkEnableOption mkIf;
   jp-downloads-script = pkgs.writeShellScript "jp-downloads-script.sh" ''
-  ${pkgs.coreutils}/bin/mkdir /dev/shm/jp-downloads
-  ${pkgs.coreutils}/bin/ln -s /dev/shm/jp-downloads -fT /home/jp/downloads
+    ${pkgs.coreutils}/bin/mkdir /dev/shm/jp-downloads
+    ${pkgs.coreutils}/bin/ln -s /dev/shm/jp-downloads -fT /home/jp/downloads
   '';
   cfg = config.modules.xdg;
 in {
@@ -33,16 +33,12 @@ in {
     };
     systemd.user.services = {
       home-jp-downloads = {
-        Install = {
-          WantedBy = [ "graphical-session.target" ];
-        };
+        Install = { WantedBy = [ "graphical-session.target" ]; };
         Unit = {
           PartOf = [ "graphical-session.target" ];
           Description = "Link /home/jp/downloads to a directory in tmpfs";
         };
-        Service =  {
-          ExecStart = "${jp-downloads-script}";
-        };
+        Service = { ExecStart = "${jp-downloads-script}"; };
       };
     };
   };

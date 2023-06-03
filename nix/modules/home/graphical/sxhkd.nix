@@ -10,14 +10,14 @@ let
   inherit (lib) mkEnableOption mkIf;
   cfg = config.modules.graphical.sxhkd;
   sxhkdMod = "mod4";
-in
-{
+in {
   options.modules.graphical.sxhkd.enable = mkEnableOption "sxhkd";
 
   config = mkIf cfg.enable {
-    xsession.windowManager.i3.config.startup = [
-        { command = "sxhkd"; notification = false; }
-    ];
+    xsession.windowManager.i3.config.startup = [{
+      command = "sxhkd";
+      notification = false;
+    }];
     services.sxhkd = {
       enable = true;
       keybindings = {
@@ -28,10 +28,11 @@ in
         "${sxhkdMod}+z" = "${pkgs.dnd_book}/bin/dnd_book.sh";
 
         # rofi-calc
-        "${sxhkdMod}+p"       = "rofi -show calc -modi calc -no-show-match -no-sort -theme $XDG_DATA_HOME/rofi/themes/calc";
+        "${sxhkdMod}+p" =
+          "rofi -show calc -modi calc -no-show-match -no-sort -theme $XDG_DATA_HOME/rofi/themes/calc";
 
         # flameshot
-        "${sxhkdMod}+Print"    = "flameshot gui";
+        "${sxhkdMod}+Print" = "flameshot gui";
 
         # TODO: only have these for laptops
         # sound toggle
@@ -64,8 +65,6 @@ in
       };
     };
     # for access to pactl
-    home.packages = [
-      pkgs.pulseaudio
-    ];
+    home.packages = [ pkgs.pulseaudio ];
   };
 }

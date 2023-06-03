@@ -9,8 +9,7 @@
 let
   inherit (builtins) toString;
   inherit (lib.my) mapModules;
-in
-{
+in {
   nix = {
     extraOptions = ''
       experimental-features = nix-command flakes
@@ -20,21 +19,22 @@ in
     settings.trusted-users = [ "root" "@wheel" ];
   };
   security.sudo.extraConfig = ''
-  Defaults pwfeedback
-  Defaults lecture=never
+    Defaults pwfeedback
+    Defaults lecture=never
   '';
 
   # Every host shares the same time zone.
   time.timeZone = "Europe/Lisbon";
 
   services.journald.extraConfig = ''
-  SystemMaxUse=500M
+    SystemMaxUse=500M
   '';
 
   users = {
     users.jp = {
       isNormalUser = true;
-      hashedPassword = "$6$ISAN7cArW1aVhCSd$p3a.cLXkyl13EUKC2tSjhFRW0Wy2gTyzmdkvVVvtU1QaS14BAzS7acXOZ6xb2Baog8ur6q88FY639bKci.1Gh/";
+      hashedPassword =
+        "$6$ISAN7cArW1aVhCSd$p3a.cLXkyl13EUKC2tSjhFRW0Wy2gTyzmdkvVVvtU1QaS14BAzS7acXOZ6xb2Baog8ur6q88FY639bKci.1Gh/";
       createHome = true;
       shell = pkgs.fish;
       extraGroups = [ "wheel" ];

@@ -22,9 +22,7 @@ in {
         "/var/lib/sddm"
         "/var/log"
       ];
-      files = [
-        "/etc/machine-id"
-      ];
+      files = [ "/etc/machine-id" ];
     };
 
     fileSystems."/persist".neededForBoot = true;

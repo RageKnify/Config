@@ -5,7 +5,8 @@
 #
 # Have access to obisdian.nvim
 
-{ inputs, ... }: final: prev: rec {
+{ inputs, ... }:
+final: prev: rec {
   obsidian-nvim = final.vimUtils.buildVimPlugin {
     name = "obsidian-nvim";
     src = inputs.obsidian-nvim;

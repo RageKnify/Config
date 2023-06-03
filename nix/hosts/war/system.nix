@@ -5,8 +5,7 @@
 #
 # System configuration.
 
-{ config, pkgs, lib, configDir, user, ... }:
-{
+{ config, pkgs, lib, configDir, user, ... }: {
   modules = {
     graphical.enable = true;
     personal.enable = true;
@@ -64,23 +63,17 @@
   };
 
   networking.hostId = "48a4b691";
-  networking.networkmanager = {
-    enable = true;
-  };
+  networking.networkmanager = { enable = true; };
   services.resolved = {
     enable = true;
-    fallbackDns = [
-      "1.1.1.1"
-      "1.0.0.1"
-      "2606:4700:4700::1111"
-      "2606:4700:4700::1001"
-    ];
+    fallbackDns =
+      [ "1.1.1.1" "1.0.0.1" "2606:4700:4700::1111" "2606:4700:4700::1001" ];
   };
   networking.firewall.checkReversePath = "loose";
   systemd.network = let
     rnlFwmark = 765;
     sttFwmark = 577;
-    in {
+  in {
     enable = true;
     config.routeTables.rnl = rnlFwmark;
     config.routeTables.stt = sttFwmark;
@@ -143,10 +136,7 @@
         wireguardPeerConfig = {
           PublicKey = "u0DdfahuhX8GsVaQ4P2kBcHoF9kw9HZL9uqPcu2UMw8=";
           Endpoint = "pest.stt.rnl.tecnico.ulisboa.pt:34266";
-          AllowedIPs = [
-            "10.0.0.0/8"
-            "fd00::/8"
-          ];
+          AllowedIPs = [ "10.0.0.0/8" "fd00::/8" ];
           PersistentKeepalive = 25;
         };
       }];
@@ -173,15 +163,13 @@
         #AllMulticast = true;
       };
 
-      routingPolicyRules = [
-        {
-          routingPolicyRuleConfig = {
-            InvertRule = true;
-            FirewallMark = rnlFwmark;
-            Table = "rnl";
-          };
-        }
-      ];
+      routingPolicyRules = [{
+        routingPolicyRuleConfig = {
+          InvertRule = true;
+          FirewallMark = rnlFwmark;
+          Table = "rnl";
+        };
+      }];
 
       ntp = [ "ntp.rnl.tecnico.ulisboa.pt" ];
 
@@ -234,29 +222,26 @@
         #MulticastDNS = true;
       };
 
-      routingPolicyRules = [
-        {
-          routingPolicyRuleConfig = {
-            InvertRule = true;
-            FirewallMark = sttFwmark;
-            Table = "stt";
-          };
-        }
-      ];
+      routingPolicyRules = [{
+        routingPolicyRuleConfig = {
+          InvertRule = true;
+          FirewallMark = sttFwmark;
+          Table = "stt";
+        };
+      }];
 
       dns = [ "10.6.77.1" ];
-      domains = [
-        "~stt.pt"
-      ];
+      domains = [ "~stt.pt" ];
 
       extraConfig = ''
-      [Network]
-      DNSSEC=false
+        [Network]
+        DNSSEC=false
       '';
     };
   };
 
-  users.users.root.hashedPassword = "$6$wlIVxKTns9xQ3Rc4$fbiA/wXnZ0l9TXKr90KmNVSltyU.MOH2Si8ntvLXINKGpug82rpFABP.PXAOp6Qtbq.onD8qAaSpq.TaKOmgj1";
+  users.users.root.hashedPassword =
+    "$6$wlIVxKTns9xQ3Rc4$fbiA/wXnZ0l9TXKr90KmNVSltyU.MOH2Si8ntvLXINKGpug82rpFABP.PXAOp6Qtbq.onD8qAaSpq.TaKOmgj1";
   users.users.jp.extraGroups = [ "video" "libvirtd" "docker" ];
 
   environment.systemPackages = with pkgs; [
@@ -273,9 +258,7 @@
 
   # virtualization
   programs.dconf.enable = true;
-  virtualisation = {
-    libvirtd.enable = true;
-  };
+  virtualisation = { libvirtd.enable = true; };
 
   virtualisation.docker = {
     enable = true;

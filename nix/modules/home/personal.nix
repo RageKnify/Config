@@ -13,7 +13,7 @@ in {
   options.modules.personal.enable = mkEnableOption "personal";
 
   config = mkIf cfg.enable {
-    home.packages = with pkgs;[
+    home.packages = with pkgs; [
       # ansible
       ansible
       # agenix

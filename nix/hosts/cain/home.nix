@@ -1,5 +1,4 @@
-{ pkgs, ... }:
-{
+{ pkgs, ... }: {
   modules = {
     fish.enable = true;
     neovim.enable = true;

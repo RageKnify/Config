@@ -10,8 +10,7 @@ let
   inherit (lib) mkEnableOption mkIf mkForce;
   cfg = config.modules.graphical.i3;
   i3Mod = "Mod4";
-in
-{
+in {
   options.modules.graphical.i3.enable = mkEnableOption "i3";
 
   config = mkIf cfg.enable {
@@ -32,42 +31,42 @@ in
 
           keybindings = lib.mkOptionDefault {
             # switch to next or previous workspace
-            "${i3Mod}+Tab"       = "workspace next";
+            "${i3Mod}+Tab" = "workspace next";
             "${i3Mod}+Shift+Tab" = "workspace prev";
 
             # change gaps
-            "${i3Mod}+s"        = "gaps inner current plus 5";
-            "${i3Mod}+Shift+s"  = "gaps inner current minus 5";
+            "${i3Mod}+s" = "gaps inner current plus 5";
+            "${i3Mod}+Shift+s" = "gaps inner current minus 5";
 
-            "${i3Mod}+Shift+r"  = "restart";
-            "${i3Mod}+r"        = "mode \"resize\"";
+            "${i3Mod}+Shift+r" = "restart";
+            "${i3Mod}+r" = ''mode "resize"'';
 
-            "${i3Mod}+g"        = "split h";
+            "${i3Mod}+g" = "split h";
 
             # change focus
-            "${i3Mod}+h"      = "focus left";
-            "${i3Mod}+j"      = "focus down";
-            "${i3Mod}+k"      = "focus up";
-            "${i3Mod}+l"      = "focus right";
+            "${i3Mod}+h" = "focus left";
+            "${i3Mod}+j" = "focus down";
+            "${i3Mod}+k" = "focus up";
+            "${i3Mod}+l" = "focus right";
             # alternatively, you can use the cursor keys:
-            "${i3Mod}+Left"   = "focus left";
-            "${i3Mod}+Down"   = "focus down";
-            "${i3Mod}+Up"     = "focus up";
-            "${i3Mod}+Right"  = "focus right";
+            "${i3Mod}+Left" = "focus left";
+            "${i3Mod}+Down" = "focus down";
+            "${i3Mod}+Up" = "focus up";
+            "${i3Mod}+Right" = "focus right";
 
             # move focused window
-            "${i3Mod}+Shift+h"      = "move left";
-            "${i3Mod}+Shift+j"      = "move down";
-            "${i3Mod}+Shift+k"      = "move up";
-            "${i3Mod}+Shift+l"      = "move right";
+            "${i3Mod}+Shift+h" = "move left";
+            "${i3Mod}+Shift+j" = "move down";
+            "${i3Mod}+Shift+k" = "move up";
+            "${i3Mod}+Shift+l" = "move right";
             # alternatively, you can use the cursor keys:
-            "${i3Mod}+Shift+Left"   = "move left";
-            "${i3Mod}+Shift+Down"   = "move down";
-            "${i3Mod}+Shift+Up"     = "move up";
-            "${i3Mod}+Shift+Right"  = "move right";
+            "${i3Mod}+Shift+Left" = "move left";
+            "${i3Mod}+Shift+Down" = "move down";
+            "${i3Mod}+Shift+Up" = "move up";
+            "${i3Mod}+Shift+Right" = "move right";
 
             # move workspace to next output
-            "${i3Mod}+n"  = "move workspace to output next";
+            "${i3Mod}+n" = "move workspace to output next";
           };
 
           modes = {
@@ -79,14 +78,14 @@ in
               k = "resize shrink height 5 px or 5 ppt";
               l = "resize grow width 5 px or 5 ppt";
 
-              Left  = "resize shrink width 5 px or 5 ppt";
-              Down  = "resize grow height 5 px or 5 ppt";
-              Up    = "resize shrink height 5 px or 5 ppt";
+              Left = "resize shrink width 5 px or 5 ppt";
+              Down = "resize grow height 5 px or 5 ppt";
+              Up = "resize shrink height 5 px or 5 ppt";
               Right = "resize grow width 5 px or 5 ppt";
             };
           };
 
-          colors  = with colors.dark; {
+          colors = with colors.dark; {
             focused = {
               border = "${base05}";
               background = "${base00}";
@@ -132,9 +131,7 @@ in
           };
 
           menu = "${pkgs.rofi}/bin/rofi -matching normal -modi drun -show drun";
-          window = {
-            hideEdgeBorders = "both";
-          };
+          window = { hideEdgeBorders = "both"; };
 
           gaps = {
             inner = 0;
@@ -142,16 +139,18 @@ in
             smartGaps = true;
           };
 
-          assigns = {
-            "1" = [{ class = "firefox"; }];
-          };
+          assigns = { "1" = [{ class = "firefox"; }]; };
 
-          bars = [];
+          bars = [ ];
 
           startup = [
-            { command = "nm-applet"; notification = false; }
             {
-              command = "${pkgs.systemd}/bin/systemctl --user start graphical-session-i3.target";
+              command = "nm-applet";
+              notification = false;
+            }
+            {
+              command =
+                "${pkgs.systemd}/bin/systemctl --user start graphical-session-i3.target";
               notification = false;
             }
           ];
@@ -174,20 +173,23 @@ in
     services.polybar = {
       enable = true;
       script = ''
-      for m in $(${pkgs.xorg.xrandr}/bin/xrandr --query | ${pkgs.gnugrep}/bin/grep " connected" | ${pkgs.coreutils}/bin/cut -d" " -f1); do
-        MONITOR=$m polybar --reload bar&
-      done
+        for m in $(${pkgs.xorg.xrandr}/bin/xrandr --query | ${pkgs.gnugrep}/bin/grep " connected" | ${pkgs.coreutils}/bin/cut -d" " -f1); do
+          MONITOR=$m polybar --reload bar&
+        done
       '';
-      package = (pkgs.polybar.override { i3Support = true; pulseSupport = true; });
+      package = (pkgs.polybar.override {
+        i3Support = true;
+        pulseSupport = true;
+      });
       settings = with colors.dark; {
-        colors  = {
-          background      = "${base00}";
-          background-alt  = "${base01}";
-          foreground      = "${base05}";
-          foreground-alt  = "${base06}";
-          primary         = "${base09}";
-          secondary       = "${base0A}";
-          alert           = "${base08}";
+        colors = {
+          background = "${base00}";
+          background-alt = "${base01}";
+          foreground = "${base05}";
+          foreground-alt = "${base06}";
+          primary = "${base09}";
+          secondary = "${base0A}";
+          alert = "${base08}";
         };
         "global/wm" = {
           margin-top = 5;
@@ -397,248 +399,246 @@ in
       };
     };
     xdg.dataFile."rofi/themes/power.rasi".text = with colors.dark; ''
-/**
- *
- * Author : Aditya Shakya (adi1090x)
- * Github : @adi1090x
- *
- * Rofi Theme File
- * Rofi Version: 1.7.3
- **/
+      /**
+       *
+       * Author : Aditya Shakya (adi1090x)
+       * Github : @adi1090x
+       *
+       * Rofi Theme File
+       * Rofi Version: 1.7.3
+       **/
 
-/*****----- Configuration -----*****/
-configuration {
-    show-icons:                 false;
-}
+      /*****----- Configuration -----*****/
+      configuration {
+          show-icons:                 false;
+      }
 
-/*****----- Global Properties -----*****/
-* {
-    background:     ${base00}ff;
-    background-alt: ${base01}ff;
-    foreground:     ${base05}ff;
-    selected:       ${base02}ff;
-    active:         ${base09}ff;
-    urgent:         ${base0A}ff;
-}
+      /*****----- Global Properties -----*****/
+      * {
+          background:     ${base00}ff;
+          background-alt: ${base01}ff;
+          foreground:     ${base05}ff;
+          selected:       ${base02}ff;
+          active:         ${base09}ff;
+          urgent:         ${base0A}ff;
+      }
 
-/*
-USE_BUTTONS=YES
-*/
+      /*
+      USE_BUTTONS=YES
+      */
 
-/*****----- Main Window -----*****/
-window {
-    transparency:                "real";
-    location:                    center;
-    anchor:                      center;
-    fullscreen:                  false;
-    width:                       800px;
-    x-offset:                    0px;
-    y-offset:                    0px;
+      /*****----- Main Window -----*****/
+      window {
+          transparency:                "real";
+          location:                    center;
+          anchor:                      center;
+          fullscreen:                  false;
+          width:                       800px;
+          x-offset:                    0px;
+          y-offset:                    0px;
 
-    padding:                     0px;
-    border:                      0px solid;
-    border-radius:               10px;
-    border-color:                @selected;
-    cursor:                      "default";
-    background-color:            @background;
-}
+          padding:                     0px;
+          border:                      0px solid;
+          border-radius:               10px;
+          border-color:                @selected;
+          cursor:                      "default";
+          background-color:            @background;
+      }
 
-/*****----- Main Box -----*****/
-mainbox {
-    background-color:            transparent;
-    orientation:                 horizontal;
-    children:                    [ "imagebox", "listview" ];
-}
+      /*****----- Main Box -----*****/
+      mainbox {
+          background-color:            transparent;
+          orientation:                 horizontal;
+          children:                    [ "imagebox", "listview" ];
+      }
 
-/*****----- Imagebox -----*****/
-imagebox {
-    spacing:                     0px;
-    padding:                     30px;
-    background-color:            transparent;
-    background-image:            url("~/documents/pictures/Wallpapers/solarized_mountains.png", width);
-    children:                    [ "inputbar", "dummy", "message" ];
-}
+      /*****----- Imagebox -----*****/
+      imagebox {
+          spacing:                     0px;
+          padding:                     30px;
+          background-color:            transparent;
+          background-image:            url("~/documents/pictures/Wallpapers/solarized_mountains.png", width);
+          children:                    [ "inputbar", "dummy", "message" ];
+      }
 
-/*****----- User -----*****/
-userimage {
-    margin:                      0px 0px;
-    border:                      10px;
-    border-radius:               10px;
-    border-color:                @background-alt;
-    background-color:            transparent;
-    background-image:            url("~/documents/pictures/Wallpapers/solarized_mountains.png", height);
-}
+      /*****----- User -----*****/
+      userimage {
+          margin:                      0px 0px;
+          border:                      10px;
+          border-radius:               10px;
+          border-color:                @background-alt;
+          background-color:            transparent;
+          background-image:            url("~/documents/pictures/Wallpapers/solarized_mountains.png", height);
+      }
 
-/*****----- Inputbar -----*****/
-inputbar {
-    padding:                     15px;
-    border-radius:               10px;
-    background-color:            @urgent;
-    text-color:                  @background;
-    children:                    [ "dummy", "prompt", "dummy"];
-}
+      /*****----- Inputbar -----*****/
+      inputbar {
+          padding:                     15px;
+          border-radius:               10px;
+          background-color:            @urgent;
+          text-color:                  @background;
+          children:                    [ "dummy", "prompt", "dummy"];
+      }
 
-dummy {
-    background-color:            transparent;
-}
+      dummy {
+          background-color:            transparent;
+      }
 
-prompt {
-    background-color:            inherit;
-    text-color:                  inherit;
-}
+      prompt {
+          background-color:            inherit;
+          text-color:                  inherit;
+      }
 
-/*****----- Message -----*****/
-message {
-    enabled:                     true;
-    margin:                      0px;
-    padding:                     15px;
-    border-radius:               10px;
-    background-color:            @active;
-    text-color:                  @background;
-}
-textbox {
-    background-color:            inherit;
-    text-color:                  inherit;
-    vertical-align:              0.5;
-    horizontal-align:            0.5;
-}
+      /*****----- Message -----*****/
+      message {
+          enabled:                     true;
+          margin:                      0px;
+          padding:                     15px;
+          border-radius:               10px;
+          background-color:            @active;
+          text-color:                  @background;
+      }
+      textbox {
+          background-color:            inherit;
+          text-color:                  inherit;
+          vertical-align:              0.5;
+          horizontal-align:            0.5;
+      }
 
-/*****----- Listview -----*****/
-listview {
-    enabled:                     true;
-    columns:                     2;
-    lines:                       2;
-    cycle:                       true;
-    dynamic:                     true;
-    scrollbar:                   false;
-    layout:                      vertical;
-    reverse:                     false;
-    fixed-height:                true;
-    fixed-columns:               true;
+      /*****----- Listview -----*****/
+      listview {
+          enabled:                     true;
+          columns:                     2;
+          lines:                       2;
+          cycle:                       true;
+          dynamic:                     true;
+          scrollbar:                   false;
+          layout:                      vertical;
+          reverse:                     false;
+          fixed-height:                true;
+          fixed-columns:               true;
 
-    spacing:                     30px;
-    margin:                      30px;
-    background-color:            transparent;
-    cursor:                      "default";
-}
+          spacing:                     30px;
+          margin:                      30px;
+          background-color:            transparent;
+          cursor:                      "default";
+      }
 
-/*****----- Elements -----*****/
-element {
-    enabled:                     true;
-    padding:                     18px 10px;
-    border-radius:               20px;
-    background-color:            @background-alt;
-    text-color:                  @foreground;
-    cursor:                      pointer;
-}
-element-text {
-    font:                        "feather bold 32";
-    background-color:            transparent;
-    text-color:                  inherit;
-    cursor:                      inherit;
-    vertical-align:              0.5;
-    horizontal-align:            0.5;
-}
-element selected.normal {
-    background-color:            var(selected);
-    text-color:                  var(background);
-}
+      /*****----- Elements -----*****/
+      element {
+          enabled:                     true;
+          padding:                     18px 10px;
+          border-radius:               20px;
+          background-color:            @background-alt;
+          text-color:                  @foreground;
+          cursor:                      pointer;
+      }
+      element-text {
+          font:                        "feather bold 32";
+          background-color:            transparent;
+          text-color:                  inherit;
+          cursor:                      inherit;
+          vertical-align:              0.5;
+          horizontal-align:            0.5;
+      }
+      element selected.normal {
+          background-color:            var(selected);
+          text-color:                  var(background);
+      }
     '';
     xdg.dataFile."rofi/themes/calc.rasi".text = with colors.dark; ''
-* {
-    al: #00000000;
-    bg: ${base00}ff;
-    fg: ${base05}ff;
-    se: ${base02}ff;
-    ac: ${base09}ff;
-}
-window {
-    background-color: @bg;
-    border:           0px;
-    border-color:     @ac;
-    border-radius:    12px;
-    location:         center;
-    text-color:       @fg;
-    width:            35%;
-    x-offset:         0;
-    y-offset:         0;
-}
-mainbox {
-    background-color: @al;
-    border: 0% 0% 0% 0%;
-    border-color: @ac;
-    border-radius: 0% 0% 0% 0%;
-    padding: 0%;
-    spacing: 0%;
-}
-textbox {
-    padding: 0% 0% 0% 0.5%;
-    text-color: @fg;
-    background-color: @bg;
-}
-textbox-current-entry {
-    padding: 0% 0% 0% 0.5%;
-}
-listview {
-    border: 2px dash 0px 0px ;
-    background-color: @al;
-    cycle: false;
-    dynamic: true;
-    layout: vertical;
-    padding: 0.5% 0.5% 0.5% 0.5%;
-    spacing: 0%;
-}
-element {
-    background-color: @al;
-    border-radius: 0%;
-    padding: 0%;
-    text-color: @fg;
-    children: [ element-text ];
-}
-element-text {
-    background-color: inherit;
-    text-color:       inherit;
-}
-element selected {
-    background-color: @se;
-}
-scrollbar {
-    width:        4px ;
-    border:       0;
-    handle-width: 8px ;
-    padding:      0;
-}
-entry {
-    padding: 0% 0% 0% 0.5%;
-    spacing:    0;
-    text-color: inherit;
-    background-color: inherit;
-}
-prompt {
-    padding: 0% 0% 0% 0.5%;
-    text-color: inherit;
-    background-color: inherit;
-}
-inputbar {
-    spacing:    0;
-    text-color: @bg;
-    background-color: @ac;
-    padding:    1px ;
-    children:   [ prompt,textbox-prompt-colon,entry ];
-}
-textbox-prompt-colon {
-    expand:     false;
-    str:        ":";
-    margin:     0px 0.3em 0em 0em ;
-    text-color: inherit;
-    background-color: inherit;
-}
+      * {
+          al: #00000000;
+          bg: ${base00}ff;
+          fg: ${base05}ff;
+          se: ${base02}ff;
+          ac: ${base09}ff;
+      }
+      window {
+          background-color: @bg;
+          border:           0px;
+          border-color:     @ac;
+          border-radius:    12px;
+          location:         center;
+          text-color:       @fg;
+          width:            35%;
+          x-offset:         0;
+          y-offset:         0;
+      }
+      mainbox {
+          background-color: @al;
+          border: 0% 0% 0% 0%;
+          border-color: @ac;
+          border-radius: 0% 0% 0% 0%;
+          padding: 0%;
+          spacing: 0%;
+      }
+      textbox {
+          padding: 0% 0% 0% 0.5%;
+          text-color: @fg;
+          background-color: @bg;
+      }
+      textbox-current-entry {
+          padding: 0% 0% 0% 0.5%;
+      }
+      listview {
+          border: 2px dash 0px 0px ;
+          background-color: @al;
+          cycle: false;
+          dynamic: true;
+          layout: vertical;
+          padding: 0.5% 0.5% 0.5% 0.5%;
+          spacing: 0%;
+      }
+      element {
+          background-color: @al;
+          border-radius: 0%;
+          padding: 0%;
+          text-color: @fg;
+          children: [ element-text ];
+      }
+      element-text {
+          background-color: inherit;
+          text-color:       inherit;
+      }
+      element selected {
+          background-color: @se;
+      }
+      scrollbar {
+          width:        4px ;
+          border:       0;
+          handle-width: 8px ;
+          padding:      0;
+      }
+      entry {
+          padding: 0% 0% 0% 0.5%;
+          spacing:    0;
+          text-color: inherit;
+          background-color: inherit;
+      }
+      prompt {
+          padding: 0% 0% 0% 0.5%;
+          text-color: inherit;
+          background-color: inherit;
+      }
+      inputbar {
+          spacing:    0;
+          text-color: @bg;
+          background-color: @ac;
+          padding:    1px ;
+          children:   [ prompt,textbox-prompt-colon,entry ];
+      }
+      textbox-prompt-colon {
+          expand:     false;
+          str:        ":";
+          margin:     0px 0.3em 0em 0em ;
+          text-color: inherit;
+          background-color: inherit;
+      }
     '';
     programs.rofi = {
       enable = true;
-      plugins = with pkgs; [
-        pkgs.rofi-calc
-      ];
+      plugins = with pkgs; [ pkgs.rofi-calc ];
       font = "JetBrainsMono Nerd Font Bold 14";
       extraConfig = {
         show-icons = true;
@@ -648,10 +648,8 @@ textbox-prompt-colon {
         disable-history = false;
         sidebar-mode = false;
       };
-      theme = let
-        inherit (config.lib.formats.rasi) mkLiteral;
-      in
-      {
+      theme = let inherit (config.lib.formats.rasi) mkLiteral;
+      in {
         # this is taken from adi1090x/rofi
         # 1080p/launchers/colorful/style_1.rasi
         "*" = with colors.dark; {
@@ -716,7 +714,7 @@ textbox-prompt-colon {
           border = mkLiteral "0% 0% 0% 0%";
           border-radius = mkLiteral "0% 0% 0% 0%";
           border-color = mkLiteral "@ac";
-          children = map mkLiteral ["inputbar" "listview"];
+          children = map mkLiteral [ "inputbar" "listview" ];
           spacing = mkLiteral "0%";
           padding = mkLiteral "0%";
         };
@@ -790,10 +788,10 @@ textbox-prompt-colon {
       enable = true;
       settings = {
         # TODO: this shit doesn't fucking work
-        /* lock = true; */
-        /* mode = "blank"; */
-        /* dialogTheme = "darkgray"; */
-        /* lockTimeout = 1; */
+        # lock = true;
+        # mode = "blank";
+        # dialogTheme = "darkgray";
+        # lockTimeout = 1;
       };
     };
     services.random-background = {

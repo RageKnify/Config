@@ -31,6 +31,8 @@ in {
       gcc
       # Make
       gnumake
+      # Python
+      my_python
     ];
   };
 }

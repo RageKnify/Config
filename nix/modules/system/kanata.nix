@@ -65,12 +65,12 @@ in
 
 
   (deflayer qwerty
-    @cte
+    _
     @grl  _    _    _    _    _    _    _    _    _    _    _    _    _
-    _     q    w    e    r    t    y    u    i    o    p    _    _    _
-    @cte  a    s    d    f    g    h    j    k    l    ;    _    _
-    _     lsgt z    x    c    v    b    n    m    _    _    _    _
-    @cte  _    _              _              _    _    _
+    _     _    _    _    _    _    _    _    _    _    _    _    _    _
+    _     _    _    _    _    _    _    _    _    _    _    _    _
+    _     _    _    _    _    _    _    _    _    _    _    _    _
+    _     _    _                   _         _    _    _
   )
 
 

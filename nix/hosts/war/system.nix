@@ -5,7 +5,7 @@
 #
 # System configuration.
 
-{ config, pkgs, lib, configDir, user, ... }: {
+{ config, pkgs, lib, configDir, hostSecretsDir, ... }: {
   modules = {
     graphical.enable = true;
     personal.enable = true;
@@ -62,6 +62,25 @@
     autoScrub.pools = [ "rpool" ];
   };
 
+  services.openssh = {
+    hostKeys = [{
+      path = "/etc/ssh/ssh_host_ed25519_key";
+      type = "ed25519";
+    }];
+  };
+
+  age = {
+    identityPaths = [ "/etc/ssh/ssh_host_ed25519_key" ];
+    secrets = {
+      wireguard-privkey = {
+        file = "${hostSecretsDir}/wireguard-privkey.age";
+        mode = "600";
+        owner = "systemd-network";
+        group = "systemd-network";
+      };
+    };
+  };
+
   networking.hostId = "48a4b691";
   networking.networkmanager = { enable = true; };
   services.resolved = {
@@ -85,7 +104,7 @@
         Name = "rnl";
       };
       wireguardConfig = {
-        PrivateKeyFile = "/etc/nixos/secrets/wg-privkey";
+        PrivateKeyFile = config.age.secrets.wireguard-privkey.path;
         FirewallMark = rnlFwmark;
         RouteTable = "rnl";
       };
@@ -128,7 +147,7 @@
         Name = "stt";
       };
       wireguardConfig = {
-        PrivateKeyFile = "/etc/nixos/secrets/wg-privkey";
+        PrivateKeyFile = config.age.secrets.wireguard-privkey.path;
         FirewallMark = sttFwmark;
         RouteTable = "stt";
       };

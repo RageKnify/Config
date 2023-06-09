@@ -79,6 +79,11 @@ in {
     })
   ];
 
+  environment.etc."ssl/certs/tecnico-ca.pem".source = (builtins.fetchurl {
+    url = "https://si.tecnico.ulisboa.pt/configuracoes/cacert.crt";
+    sha256 = "1yj2liyccwg6srxjzxfbk67wmkqdwxcx78khfi64ds8rgvs3n6hp";
+  });
+
   boot.tmp.cleanOnBoot = true;
 
   system.stateVersion = "21.11";

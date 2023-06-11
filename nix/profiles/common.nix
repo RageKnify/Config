@@ -1,4 +1,4 @@
-# hosts/system.nix
+# profiles/common.nix
 #
 # Author: João Borges <RageKnify@gmail.com>
 # URL:    https://github.com/RageKnify/Config

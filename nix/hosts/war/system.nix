@@ -6,10 +6,9 @@
 # System configuration.
 
 { config, pkgs, lib, hostSecretsDir, profiles, ... }: {
-  imports = with profiles; [ common ];
+  imports = with profiles; [ common graphical.full ];
 
   modules = {
-    graphical.enable = true;
     personal.enable = true;
     kanata = {
       enable = true;

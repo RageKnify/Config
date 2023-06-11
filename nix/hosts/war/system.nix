@@ -6,7 +6,7 @@
 # System configuration.
 
 { config, pkgs, lib, hostSecretsDir, profiles, ... }: {
-  imports = with profiles; [ common graphical.full ];
+  imports = with profiles; [ common graphical.full graphical.laptop ];
 
   modules = {
     personal.enable = true;

@@ -8,11 +8,6 @@
 { pkgs, config, lib, user, colors, ... }: {
   services.xserver = {
     enable = true;
-    # TODO: laptop only
-    libinput = {
-      enable = true;
-      touchpad.naturalScrolling = true;
-    };
     layout = "pt";
     displayManager = {
       defaultSession = "user-xsession";
@@ -88,9 +83,4 @@
   ];
 
   services.gnome.gnome-keyring.enable = true;
-
-  # TODO: laptop only
-  programs.light.enable = true;
-
-  programs.nm-applet.enable = true;
 }

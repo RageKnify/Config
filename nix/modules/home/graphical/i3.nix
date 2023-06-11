@@ -5,7 +5,7 @@
 #
 # i3 configuration.
 
-{ pkgs, config, lib, hostName, colors, configDir, ... }:
+{ pkgs, config, lib, hostName, colors, ... }:
 let
   inherit (lib) mkEnableOption mkIf mkForce;
   cfg = config.modules.graphical.i3;

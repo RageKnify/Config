@@ -146,7 +146,6 @@
             specialArgs = {
               inherit inputs user colors sshKeys profiles;
               hostSecretsDir = "${secretsDir}/${name}";
-              configDir = ./config;
             };
             modules = [
               { networking.hostName = name; }
@@ -161,7 +160,6 @@
                     inherit colors;
                     hostName = name;
                     hostColor = hostNameToColor name;
-                    configDir = ./config;
                   };
                   sharedModules = homeModules;
                   users.${user} = import (dir + "/${name}/home.nix");

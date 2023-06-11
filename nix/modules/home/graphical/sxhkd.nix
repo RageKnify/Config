@@ -5,7 +5,7 @@
 #
 # sxhkd configuration.
 
-{ pkgs, config, lib, colors, configDir, ... }:
+{ pkgs, config, lib, colors, ... }:
 let
   inherit (lib) mkEnableOption mkIf;
   cfg = config.modules.graphical.sxhkd;

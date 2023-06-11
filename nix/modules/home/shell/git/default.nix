@@ -5,7 +5,7 @@
 #
 # Git configuration. (Based on RiscadoA's)
 
-{ pkgs, lib, config, configDir, ... }:
+{ pkgs, lib, config, ... }:
 let
   inherit (lib) mkEnableOption mkIf;
   cfg = config.modules.shell.git;

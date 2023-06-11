@@ -5,7 +5,7 @@
 #
 # System configuration.
 
-{ config, pkgs, lib, configDir, hostSecretsDir, profiles, ... }: {
+{ config, pkgs, lib, hostSecretsDir, profiles, ... }: {
   imports = with profiles; [ common ];
 
   modules = {

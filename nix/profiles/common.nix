@@ -5,7 +5,7 @@
 #
 # System config common across all hosts
 
-{ inputs, pkgs, lib, configDir, ... }:
+{ inputs, pkgs, lib, ... }:
 let
   inherit (builtins) toString;
   inherit (lib.my) mapModules;

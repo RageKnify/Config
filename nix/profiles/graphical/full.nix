@@ -77,10 +77,11 @@
     pavucontrol
 
     feh
-    firefox
     libreoffice
     zathura
   ];
+
+  programs.firefox.enable = true;
 
   services.gnome.gnome-keyring.enable = true;
 }

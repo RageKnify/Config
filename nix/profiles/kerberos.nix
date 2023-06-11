@@ -6,8 +6,6 @@
 # Kerberos config
 
 { inputs, pkgs, lib, ... }: {
-  # to login into Fenix with Kerberos, on Firefox's about:config
-  # network.negotiate-auth.trusted-uris	= id.tecnico.ulisboa.pt
   krb5 = {
     enable = true;
     libdefaults = {
@@ -27,4 +25,6 @@
       };
     };
   };
+
+  programs.firefox.preferences."network.negotiate-auth.trusted-uris" = "id.tecnico.ulisboa.pt";
 }

@@ -5,11 +5,11 @@
 #
 # System configuration.
 
-{ pkgs, lib, sshKeys, ... }: {
+{ pkgs, lib, sshKeys, profiles, ... }: {
+  imports = with profiles; [ common server ];
 
   modules = {
     personal.enable = true;
-    server.enable = true;
   };
 
   services.zfs = {

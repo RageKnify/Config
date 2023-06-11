@@ -5,8 +5,8 @@
 #
 # System configuration.
 
-{ pkgs, lib, sshKeys, config, hostSecretsDir, ... }: {
-  modules = { server.enable = true; };
+{ pkgs, lib, sshKeys, config, hostSecretsDir, profiles, ... }: {
+  imports = with profiles; [ server common ];
 
   networking.domain = "jplborges.pt";
   networking.firewall.allowedTCPPorts = [ 80 443 1001 ];

@@ -135,6 +135,8 @@
       mkModules = dir:
         concatLists (attrValues (inputs.digga.lib.importExportableModules dir));
 
+      profiles = inputs.digga.lib.rakeLeaves ./profiles;
+
       # Imports every host defined in a directory.
       mkHosts = dir:
         listToAttrs (map (name: {
@@ -142,13 +144,12 @@
           value = inputs.nixpkgs.lib.nixosSystem {
             inherit system pkgs;
             specialArgs = {
-              inherit inputs user colors sshKeys;
+              inherit inputs user colors sshKeys profiles;
               hostSecretsDir = "${secretsDir}/${name}";
               configDir = ./config;
             };
             modules = [
               { networking.hostName = name; }
-              (dir + "/system.nix")
               (dir + "/${name}/hardware.nix")
               (dir + "/${name}/system.nix")
               inputs.home.nixosModules.home-manager

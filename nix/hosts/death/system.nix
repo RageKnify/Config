@@ -5,7 +5,9 @@
 #
 # System configuration.
 
-{ lib, config, pkgs, sshKeys, ... }: {
+{ lib, config, pkgs, sshKeys, profiles, ... }: {
+  imports = with profiles; [ common ];
+
   modules = {
     graphical.enable = true;
     graphical.extraSetupCommands =
@@ -125,10 +127,12 @@
   # Enable the OpenSSH daemon.
   services.openssh = {
     enable = true;
-    passwordAuthentication = false;
-    permitRootLogin = "no";
+    settings = {
+      PermitRootLogin = "no";
+      PasswordAuthentication = false;
+      KbdInteractiveAuthentication = false;
+    };
     authorizedKeysFiles = lib.mkForce [ "/etc/ssh/authorized_keys.d/%u" ];
-    kbdInteractiveAuthentication = false;
     hostKeys = [
       {
         path = "/persist/secrets/ssh/ssh_host_ed25519_key";

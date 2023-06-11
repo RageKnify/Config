@@ -5,7 +5,9 @@
 #
 # System configuration.
 
-{ config, pkgs, lib, configDir, hostSecretsDir, ... }: {
+{ config, pkgs, lib, configDir, hostSecretsDir, profiles, ... }: {
+  imports = with profiles; [ common ];
+
   modules = {
     graphical.enable = true;
     personal.enable = true;

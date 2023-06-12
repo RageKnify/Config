@@ -15,7 +15,7 @@ in {
   config = mkIf cfg.enable {
     services.fusuma = {
       enable = true;
-      extraPackages = with pkgs; [ xdotool i3-gaps coreutils ];
+      extraPackages = with pkgs; [ xdotool i3 coreutils ];
       settings = {
         thershold = {
           swipe = 0.4;

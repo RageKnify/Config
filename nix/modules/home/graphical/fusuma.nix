@@ -17,12 +17,12 @@ in {
       enable = true;
       extraPackages = with pkgs; [ xdotool i3 coreutils ];
       settings = {
-        thershold = {
-          swipe = 0.4;
+        threshold = {
+          swipe = 0.25;
           pinch = 0.4;
         };
         interval = {
-          swipe = 0.8;
+          swipe = 1.0;
           pinch = 0.1;
         };
         swipe = {

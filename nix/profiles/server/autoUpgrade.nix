@@ -5,12 +5,11 @@
 #
 # autoUpgrade config
 
-{ ... }:
-{
+{ lib, ... }: {
   system.autoUpgrade = {
     enable = true;
     flake = "github:RageKnify/Config?dir=nix";
-    allowReboot = true;
+    allowReboot = lib.mkDefault true;
     rebootWindow = {
       lower = "03:00";
       upper = "05:00";

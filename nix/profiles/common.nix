@@ -86,5 +86,5 @@ in {
 
   boot.tmp.cleanOnBoot = true;
 
-  system.stateVersion = "21.11";
+  system.stateVersion = lib.mkDefault "21.11";
 }

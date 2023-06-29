@@ -96,6 +96,7 @@
             death = "base0A";
             lazarus = "base09";
             cain = "base0C";
+            azazel = "base07";
           };
           base = mapping."${hostName}";
         in colors.light."${base}";

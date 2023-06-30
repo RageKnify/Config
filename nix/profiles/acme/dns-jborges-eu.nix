@@ -1,5 +1,10 @@
 { config, lib, pkgs, hostSecretsDir, ... }: {
-  age.secrets.ovh.file = "${hostSecretsDir}/ovh.age";
+  age.secrets.ovh = {
+    file = "${hostSecretsDir}/ovh.age";
+    mode = "600";
+    owner = "acme";
+    group = "acme";
+  };
 
   # Use services.nginx.virtualHosts."example.jborges.eu".useACMEHost = "jborges.eu";
   # to use the wildcard certificate on subdomains.

@@ -11,10 +11,12 @@
     server.full
     acme.common
     acme.dns-jborges-eu
+    acme.dns-jplborges-pt
     mail
     nginx.common
     nginx.jborges-eu
     nginx.r-jplborges-pt
+    wallabag
     zfs.common
     zfs.email
   ];

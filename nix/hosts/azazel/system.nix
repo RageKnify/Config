@@ -15,6 +15,8 @@
     nginx.common
     nginx.jborges-eu
     nginx.r-jplborges-pt
+    zfs.common
+    zfs.email
   ];
 
   users = {

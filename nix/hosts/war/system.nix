@@ -6,7 +6,13 @@
 # System configuration.
 
 { config, pkgs, lib, hostSecretsDir, profiles, ... }: {
-  imports = with profiles; [ common graphical.full graphical.laptop kerberos ];
+  imports = with profiles; [
+    common
+    graphical.full
+    graphical.laptop
+    kerberos
+    zfs.common
+  ];
 
   modules = {
     personal.enable = true;

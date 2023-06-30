@@ -19,6 +19,29 @@
           };
         };
 
+        mailboxes = {
+          Archive = {
+            auto = "subscribe";
+            specialUse = "Archive";
+          };
+          Drafts = {
+            auto = "subscribe";
+            specialUse = "Drafts";
+          };
+          Sent = {
+            auto = "subscribe";
+            specialUse = "Sent";
+          };
+          Junk = {
+            auto = "subscribe";
+            specialUse = "Junk";
+          };
+          Trash = {
+            auto = "no";
+            specialUse = "Trash";
+          };
+        };
+
         certificateScheme = "acme";
       };
     }

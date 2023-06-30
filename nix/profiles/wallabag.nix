@@ -10,7 +10,7 @@ in {
   };
 
   virtualisation.oci-containers.containers.wallabag = {
-    image = "wallabag/wallabag:2.6.1";
+    image = "wallabag/wallabag:2.5.4";
     ports = [ "127.0.0.1:${port}:80" ];
     volumes = [
       "/var/lib/wallabag/data:/var/www/wallabag/data"

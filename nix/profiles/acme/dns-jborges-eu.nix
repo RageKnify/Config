@@ -1,7 +1,6 @@
 { config, lib, pkgs, hostSecretsDir, ... }: {
   age.secrets.ovh = {
     file = "${hostSecretsDir}/ovh.age";
-    mode = "600";
     owner = "acme";
     group = "acme";
   };

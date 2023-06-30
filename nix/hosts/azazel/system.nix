@@ -8,6 +8,7 @@
 { pkgs, lib, sshKeys, config, hostSecretsDir, profiles, ... }: {
   imports = with profiles; [
     common
+    docker
     server.full
     acme.common
     acme.dns-jborges-eu

@@ -12,6 +12,7 @@
     nixpkgs.url = "github:nixos/nixpkgs/nixos-23.05";
     nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
     nixpkgs-latest.url = "github:nixos/nixpkgs/master";
+    flake-utils.url = "github:numtide/flake-utils";
     impermanence.url = "github:nix-community/impermanence/master";
     home = {
       url = "github:nix-community/home-manager/release-23.05";
@@ -32,11 +33,19 @@
         nixpkgs-unstable.follows = "nixpkgs-unstable";
         nixlib.follows = "nixpkgs";
         home-manager.follows = "home";
+        flake-utils.follows = "flake-utils";
       };
     };
     lanzaboote = {
       url = "github:nix-community/lanzaboote";
       inputs.nixpkgs.follows = "nixpkgs";
+      inputs.flake-utils.follows = "flake-utils";
+    };
+    simple-nixos-mailserver = {
+      url =
+      "gitlab:simple-nixos-mailserver/nixos-mailserver/nixos-23.05";
+      inputs.nixpkgs.follows = "nixpkgs-unstable";
+      inputs.utils.follows = "flake-utils";
     };
   };
 

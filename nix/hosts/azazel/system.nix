@@ -6,7 +6,15 @@
 # System configuration.
 
 { pkgs, lib, sshKeys, config, hostSecretsDir, profiles, ... }: {
-  imports = with profiles; [ common server.full ];
+  imports = with profiles; [
+    common
+    server.full
+    acme.common
+    acme.dns-jborges-eu
+    mail
+    nginx.common
+    nginx.jborges-eu
+  ];
 
   users = {
     users = { jp.openssh.authorizedKeys.keys = sshKeys; };
@@ -31,10 +39,17 @@
         prefixLength = 22;
       }];
 
-      ipv6.addresses = [{
-        address = "2a03:4000:1a:1d4::1";
-        prefixLength = 64;
-      }];
+      ipv6.addresses = [
+        {
+          address = "2a03:4000:1a:1d4::1";
+          prefixLength = 64;
+        }
+        {
+          # mail.jborges.eu
+          address = "2a03:4000:1a:1d4::236";
+          prefixLength = 64;
+        }
+      ];
 
     };
 

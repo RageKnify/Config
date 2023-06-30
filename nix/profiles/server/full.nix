@@ -5,7 +5,11 @@
 #
 # full server config
 
-{ profiles, ... }:
-{
-  imports = with profiles; [ server.sshd server.autoUpgrade server.nix-gc ];
+{ profiles, ... }: {
+  imports = with profiles; [
+    server.sshd
+    server.autoUpgrade
+    server.nix-gc
+    server.fail2ban
+  ];
 }

@@ -14,6 +14,7 @@
     mail
     nginx.common
     nginx.jborges-eu
+    nginx.r-jplborges-pt
   ];
 
   users = {

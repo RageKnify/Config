@@ -15,5 +15,5 @@
 
   networking.firewall.allowedTCPPorts = [ 80 443 ];
 
-  environment.persistence."/persist".directories = [ "/var/www" ];
+  environment.persistence."/persist".directories = [ "/var/www/jborges.eu/" ];
 }

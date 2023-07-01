@@ -16,5 +16,7 @@ in {
     [ hosts.lazarus users.jp_war ];
   "azazel/mailJoaoHashedPassword.age".publicKeys = [ hosts.azazel users.jp_war ];
   "azazel/ovh.age".publicKeys = [ hosts.azazel users.jp_war ];
+  "azazel/resticPassword.age".publicKeys = [ hosts.azazel users.jp_war ];
+  "azazel/backupEnvFile.age".publicKeys = [ hosts.azazel users.jp_war ];
   "war/wireguard-privkey.age".publicKeys = [ hosts.war ];
 }

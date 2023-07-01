@@ -23,6 +23,23 @@
     zfs.email
   ];
 
+  modules = {
+    services.backups = {
+      enable = true;
+
+      passwordFile = config.age.secrets.resticPassword.path;
+
+      environmentFile = config.age.secrets.backupEnvFile.path;
+
+      paths = [ "/persist/" ];
+    };
+  };
+
+  age.secrets = {
+    resticPassword.file = "${hostSecretsDir}/resticPassword.age";
+    backupEnvFile.file = "${hostSecretsDir}/backupEnvFile.age";
+  };
+
   users = {
     users = { jp.openssh.authorizedKeys.keys = sshKeys; };
     users.root = {

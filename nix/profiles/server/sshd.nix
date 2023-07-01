@@ -5,17 +5,21 @@
 #
 # sshd config
 
-{ lib, sshKeys, ... }:
-{
+{ lib, sshKeys, ... }: {
   services.openssh = {
     enable = true;
     settings = {
-      PermitRootLogin = "no";
+      # PermitRootLogin = "no";
       PasswordAuthentication = false;
       KbdInteractiveAuthentication = false;
     };
     authorizedKeysFiles = lib.mkForce [ "/etc/ssh/authorized_keys.d/%u" ];
   };
 
-  users = { users = { jp.openssh.authorizedKeys.keys = sshKeys; }; };
+  users = {
+    users = {
+      jp.openssh.authorizedKeys.keys = sshKeys;
+      root.openssh.authorizedKeys.keys = sshKeys;
+    };
+  };
 }

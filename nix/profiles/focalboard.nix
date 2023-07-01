@@ -24,7 +24,10 @@ in {
   services.nginx.virtualHosts.${domain} = {
     forceSSL = true;
     useACMEHost = "jplborges.pt";
-    locations."/".proxyPass = "http://127.0.0.1:${port}";
+    locations."/" = {
+      proxyWebsockets = true;
+      proxyPass = "http://127.0.0.1:${port}";
+    };
   };
 
   virtualisation.oci-containers.containers.focalboard = {

@@ -20,11 +20,10 @@
       ".ist.utl.pt" = "IST.UTL.PT";
     };
     realms = {
-      "IST.UTL.PT" = {
-        admin_server = "kerberosmaster.ist.utl.pt";
-      };
+      "IST.UTL.PT" = { admin_server = "kerberosmaster.ist.utl.pt"; };
     };
   };
 
-  programs.firefox.preferences."network.negotiate-auth.trusted-uris" = "id.tecnico.ulisboa.pt";
+  programs.firefox.preferences."network.negotiate-auth.trusted-uris" =
+    "id.tecnico.ulisboa.pt";
 }

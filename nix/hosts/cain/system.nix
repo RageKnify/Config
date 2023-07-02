@@ -8,9 +8,7 @@
 { pkgs, lib, sshKeys, profiles, ... }: {
   imports = with profiles; [ common server.full ];
 
-  modules = {
-    personal.enable = true;
-  };
+  modules = { personal.enable = true; };
 
   services.zfs = {
     trim.enable = true;

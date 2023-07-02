@@ -42,8 +42,7 @@
       inputs.flake-utils.follows = "flake-utils";
     };
     simple-nixos-mailserver = {
-      url =
-      "gitlab:simple-nixos-mailserver/nixos-mailserver/nixos-23.05";
+      url = "gitlab:simple-nixos-mailserver/nixos-mailserver/nixos-23.05";
       inputs.nixpkgs.follows = "nixpkgs-unstable";
       inputs.utils.follows = "flake-utils";
     };

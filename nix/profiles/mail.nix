@@ -1,51 +1,60 @@
 { inputs, pkgs, lib, config, hostSecretsDir, ... }: {
   age.secrets.mailJoaoHashedPassword.file =
     "${hostSecretsDir}/mailJoaoHashedPassword.age";
+  age.secrets.mailWarHashedPassword.file =
+    "${hostSecretsDir}/mailWarHashedPassword.age";
+  age.secrets.mailAzazelHashedPassword.file =
+    "${hostSecretsDir}/mailAzazelHashedPassword.age";
 
-  imports = [
-    inputs.simple-nixos-mailserver.nixosModule
-    {
-      mailserver = {
-        enable = true;
-        fqdn = "mail.jborges.eu";
+  imports = [ ];
 
-        domains = [ "jborges.eu" "jplborges.pt" ];
+  mailserver = {
+    enable = true;
+    fqdn = "mail.jborges.eu";
 
-        loginAccounts = {
-          "me@jborges.eu" = {
-            hashedPasswordFile = config.age.secrets.mailJoaoHashedPassword.path;
+    domains = [ "jborges.eu" "jplborges.pt" ];
 
-            aliases = [ "@jborges.eu" ];
-          };
-        };
+    loginAccounts = {
+      "me@jborges.eu" = {
+        hashedPasswordFile = config.age.secrets.mailJoaoHashedPassword.path;
 
-        mailboxes = {
-          Archive = {
-            auto = "subscribe";
-            specialUse = "Archive";
-          };
-          Drafts = {
-            auto = "subscribe";
-            specialUse = "Drafts";
-          };
-          Sent = {
-            auto = "subscribe";
-            specialUse = "Sent";
-          };
-          Junk = {
-            auto = "subscribe";
-            specialUse = "Junk";
-          };
-          Trash = {
-            auto = "no";
-            specialUse = "Trash";
-          };
-        };
-
-        certificateScheme = "acme";
+        aliases = [ "@jborges.eu" ];
       };
-    }
-  ];
+      "azazel@jborges.eu" = {
+        hashedPasswordFile = config.age.secrets.mailAzazelHashedPassword.path;
+        sendOnly = true;
+      };
+      "war@jborges.eu" = {
+        hashedPasswordFile = config.age.secrets.mailWarHashedPassword.path;
+        sendOnly = true;
+      };
+    };
+
+    mailboxes = {
+      Archive = {
+        auto = "subscribe";
+        specialUse = "Archive";
+      };
+      Drafts = {
+        auto = "subscribe";
+        specialUse = "Drafts";
+      };
+      Sent = {
+        auto = "subscribe";
+        specialUse = "Sent";
+      };
+      Junk = {
+        auto = "subscribe";
+        specialUse = "Junk";
+      };
+      Trash = {
+        auto = "no";
+        specialUse = "Trash";
+      };
+    };
+
+    certificateScheme = "acme";
+  };
 
   security.acme.certs."mail.jborges.eu" = {
     dnsProvider = "ovh";

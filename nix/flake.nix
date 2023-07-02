@@ -178,6 +178,7 @@
               inputs.impermanence.nixosModules.impermanence
               inputs.agenix.nixosModules.age
               inputs.lanzaboote.nixosModules.lanzaboote
+              inputs.simple-nixos-mailserver.nixosModule
             ] ++ systemModules;
           };
         }) (attrNames (readDir dir)));

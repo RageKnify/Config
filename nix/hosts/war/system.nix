@@ -21,6 +21,16 @@
       normal_device = "/dev/input/by-path/platform-i8042-serio-0-event-kbd";
     };
     syncthing.enable = true;
+    services.backups = {
+      enable = true;
+
+      passwordFile = config.age.secrets.resticPassword.path;
+
+      environmentFile = config.age.secrets.backupEnvFile.path;
+
+      dynamicFilesFrom =
+        "${pkgs.fd}/bin/fd -d 1 . -E '{music,dnd}' /home/jp/documents/ ; ${pkgs.fd}/bin/fd -d 1 . -E books /home/jp/documents/dnd/";
+    };
   };
 
   console.useXkbConfig = true;
@@ -85,6 +95,8 @@
         owner = "systemd-network";
         group = "systemd-network";
       };
+      resticPassword.file = "${hostSecretsDir}/resticPassword.age";
+      backupEnvFile.file = "${hostSecretsDir}/backupEnvFile.age";
     };
   };
 

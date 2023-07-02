@@ -14,9 +14,17 @@ let
 in {
   "lazarus/restic_default_password.age".publicKeys =
     [ hosts.lazarus users.jp_war ];
-  "azazel/mailJoaoHashedPassword.age".publicKeys = [ hosts.azazel users.jp_war ];
+  "azazel/mailJoaoHashedPassword.age".publicKeys =
+    [ hosts.azazel users.jp_war ];
+  "azazel/mailWarHashedPassword.age".publicKeys = [ hosts.azazel users.jp_war ];
+  "azazel/mailAzazelHashedPassword.age".publicKeys =
+    [ hosts.azazel users.jp_war ];
+  "azazel/azazelMailPassword.age".publicKeys = [ hosts.azazel users.jp_war ];
   "azazel/ovh.age".publicKeys = [ hosts.azazel users.jp_war ];
   "azazel/resticPassword.age".publicKeys = [ hosts.azazel users.jp_war ];
   "azazel/backupEnvFile.age".publicKeys = [ hosts.azazel users.jp_war ];
   "war/wireguard-privkey.age".publicKeys = [ hosts.war ];
+  "war/resticPassword.age".publicKeys = [ hosts.war users.jp_war ];
+  "war/backupEnvFile.age".publicKeys = [ hosts.war users.jp_war ];
+  "war/warMailPassword.age".publicKeys = [ hosts.war users.jp_war ];
 }

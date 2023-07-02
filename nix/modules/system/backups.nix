@@ -5,10 +5,11 @@
 #
 # restic backups configuration with email on failure.
 
-{ pkgs, config, lib, utils, ... }:
+{ pkgs, config, lib, profiles, ... }:
 let
   inherit (lib) mkEnableOption mkOption types mkIf;
   cfg = config.modules.services.backups;
+  hostName = config.networking.hostName;
 in {
   options.modules.services.backups = {
     enable = mkEnableOption "backups";
@@ -40,6 +41,17 @@ in {
       example = [ "/var/lib/postgresql" "/home/user/backup" ];
     };
 
+    dynamicFilesFrom = mkOption {
+      type = types.nullOr types.str;
+      default = null;
+      description = lib.mdDoc ''
+        A script that produces a list of files to back up.
+        The results of this command are given to the
+        ‘–files-from’ option.
+      '';
+      example = [ "find /home/matt/git -type d -name .git" ];
+    };
+
     backupPrepareCommand = mkOption {
       type = with types; nullOr str;
       default = null;
@@ -64,14 +76,20 @@ in {
     systemdServiceName = "restic-backups-${resticName}";
     systemdFailServiceName = "${systemdServiceName}-fail";
   in {
+    # ensure all hosts have a working sendmail
+    modules.msmtp.enable = !config.mailserver.enable;
+
     services.restic.backups.${resticName} = {
-      repository = "b2:restic-jborges:${config.networking.hostName}";
+      repository = "b2:restic-jborges:${hostName}";
 
       passwordFile = cfg.passwordFile;
 
       environmentFile = cfg.environmentFile;
 
       paths = cfg.paths;
+
+      dynamicFilesFrom = cfg.dynamicFilesFrom;
+
       pruneOpts = [
         "--keep-last 20"
         "--keep-daily 7"
@@ -93,12 +111,12 @@ in {
       serviceConfig = {
         Type = "oneshot";
         ExecStart = pkgs.writeShellScript "backup-failed-mail.sh" ''
-        ${pkgs.postfix}/bin/sendmail -i -t << MESSAGE_END
-From: "${config.networking.hostName}" <robots@jborges.eu>
-To: "robots" <robots@jborges.eu>
-Subject: Backup Failed for ${config.networking.hostName}
-
-MESSAGE_END
+          /run/wrappers/bin/sendmail -t \
+          -f '"${hostName}" <${hostName}@jborges.eu>' << MESSAGE_END
+          From: "${hostName}" <${hostName}@jborges.eu>
+          To: "robots" <robots@jborges.eu>
+          Subject: Backup Failed for ${hostName}
+          MESSAGE_END
         '';
       };
     };

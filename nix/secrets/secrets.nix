@@ -23,6 +23,9 @@ in {
   "azazel/ovh.age".publicKeys = [ hosts.azazel users.jp_war ];
   "azazel/resticPassword.age".publicKeys = [ hosts.azazel users.jp_war ];
   "azazel/backupEnvFile.age".publicKeys = [ hosts.azazel users.jp_war ];
+  "azazel/registryPassword.age".publicKeys = [ hosts.azazel users.jp_war ];
+  "azazel/discordTokenEnv.age".publicKeys = [ hosts.azazel users.jp_war ];
+
   "war/wireguard-privkey.age".publicKeys = [ hosts.war ];
   "war/resticPassword.age".publicKeys = [ hosts.war users.jp_war ];
   "war/backupEnvFile.age".publicKeys = [ hosts.war users.jp_war ];

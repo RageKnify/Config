@@ -12,6 +12,7 @@
     graphical.laptop
     kerberos
     zfs.common
+    zfs.email
   ];
 
   modules = {

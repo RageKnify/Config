@@ -9,7 +9,7 @@
   imports = with profiles; [
     common
     docker
-    focalboard
+    # focalboard
     server.full
     acme.common
     acme.dns-jborges-eu
@@ -18,6 +18,7 @@
     nginx.common
     nginx.jborges-eu
     nginx.r-jplborges-pt
+    # rickbot
     wallabag
     zfs.common
     zfs.email

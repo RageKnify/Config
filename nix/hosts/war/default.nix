@@ -304,6 +304,29 @@
           llw = "log --oneline --graph --max-count=30 --since 'last week'";
           lll = "log --oneline --graph";
         };
+        includes = [
+          {
+            condition = "gitdir:~/dev/github/";
+            contents.user = {
+              name = "RageKnify";
+              email = "RageKnify@gmail.com";
+            };
+          }
+          {
+            condition = "gitdir:~/dev/gitlab.rnl/";
+            contents.user = {
+              name = "João Borges";
+              email = "joao.p.l.borges@tecnico.ulisboa.pt";
+            };
+          }
+          {
+            condition = "gitdir:~/dev/ark/";
+            contents.user = {
+              name = "João Borges";
+              email = "joao.borges@rnl.tecnico.ulisboa.pt";
+            };
+          }
+        ];
       };
       shell.tmux.enable = true;
     };

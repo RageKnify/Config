@@ -17,6 +17,8 @@ in {
     enable = mkEnableOption "git";
 
     aliases = options.programs.git.aliases;
+
+    includes = options.programs.git.includes;
   };
 
   config = mkIf cfg.enable {
@@ -41,30 +43,8 @@ in {
         gpg.ssh.allowedSignersFile = signers;
         user.signingKey = "~/.ssh/id_ed25519";
       };
-      includes = [
-        {
-          condition = "gitdir:~/dev/github/";
-          contents.user = {
-            name = "RageKnify";
-            email = "RageKnify@gmail.com";
-          };
-        }
-        {
-          condition = "gitdir:~/dev/gitlab.rnl/";
-          contents.user = {
-            name = "João Borges";
-            email = "joao.p.l.borges@tecnico.ulisboa.pt";
-          };
-        }
-        {
-          condition = "gitdir:~/dev/ark/";
-          contents.user = {
-            name = "João Borges";
-            email = "joao.borges@rnl.tecnico.ulisboa.pt";
-          };
-        }
-      ];
       aliases = cfg.aliases;
+      includes = cfg.includes;
     };
   };
 }

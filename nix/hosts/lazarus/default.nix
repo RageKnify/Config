@@ -16,6 +16,8 @@
     users = { jp.openssh.authorizedKeys.keys = sshKeys; };
   };
 
+  home-manager.users.jp = { imports = with profiles.home; [ fish ]; };
+
   virtualisation.docker = { enable = true; };
 
   # Secret Management

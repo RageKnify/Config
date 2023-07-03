@@ -7,7 +7,6 @@
 
 { pkgs, ... }: {
   modules = {
-    fish.enable = true;
     neovim.enable = true;
     shell.git.enable = true;
     shell.tmux.enable = true;

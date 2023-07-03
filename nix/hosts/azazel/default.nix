@@ -51,6 +51,8 @@
     mutableUsers = false;
   };
 
+  home-manager.users.jp = { imports = with profiles.home; [ fish ]; };
+
   networking = {
     networkmanager.enable = false;
     useDHCP = false;

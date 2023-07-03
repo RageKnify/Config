@@ -6,10 +6,7 @@
 # Home configuration.
 
 { pkgs, ... }: {
-  modules = {
-    fish.enable = true;
-    neovim.enable = true;
-  };
+  modules = { neovim.enable = true; };
 
   home.stateVersion = "21.11";
 }

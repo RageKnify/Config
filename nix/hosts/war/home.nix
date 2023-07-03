@@ -7,7 +7,6 @@
 
 { pkgs, ... }: {
   modules = {
-    fish.enable = true;
     neovim.enable = true;
     xdg.enable = true;
     graphical.i3.enable = true;

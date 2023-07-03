@@ -284,6 +284,8 @@
     "$6$wlIVxKTns9xQ3Rc4$fbiA/wXnZ0l9TXKr90KmNVSltyU.MOH2Si8ntvLXINKGpug82rpFABP.PXAOp6Qtbq.onD8qAaSpq.TaKOmgj1";
   users.users.jp.extraGroups = [ "input" "video" "libvirtd" "docker" ];
 
+  home-manager.users.jp = { imports = with profiles.home; [ fish ]; };
+
   environment.systemPackages = with pkgs; [
     # dev machine
     git

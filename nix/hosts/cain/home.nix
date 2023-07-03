@@ -1,6 +1,5 @@
 { pkgs, ... }: {
   modules = {
-    fish.enable = true;
     neovim.enable = true;
     xdg.enable = true;
     personal.enable = true;

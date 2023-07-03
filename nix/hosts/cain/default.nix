@@ -59,5 +59,7 @@
     };
   };
 
+  home-manager.users.jp = { imports = with profiles.home; [ fish ]; };
+
   virtualisation.docker = { enable = true; };
 }

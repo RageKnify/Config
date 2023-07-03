@@ -5,15 +5,19 @@
 #
 # Git configuration. (Based on RiscadoA's)
 
-{ pkgs, lib, config, ... }:
+{ pkgs, lib, options, config, ... }:
 let
-  inherit (lib) mkEnableOption mkIf;
+  inherit (lib) mkDefault mkOption mkEnableOption mkIf types generators;
   cfg = config.modules.shell.git;
   signers = builtins.toFile "signers" ''
     RageKnify@gmail.com,joao.p.l.borges@tecnico.ulisboa.pt,joao.borges@rnl.tecnico.ulisboa.pt ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIC2sdJFvvnEIYztPcznXvKpY4vOWedZ1qzDaAgRxrczS jp@war
   '';
 in {
-  options.modules.shell.git.enable = mkEnableOption "git";
+  options.modules.shell.git = {
+    enable = mkEnableOption "git";
+
+    aliases = options.programs.git.aliases;
+  };
 
   config = mkIf cfg.enable {
     programs.git = {
@@ -60,13 +64,7 @@ in {
           };
         }
       ];
-      aliases = {
-        st = "status -sv";
-        sts = "status";
-        ll = "log --oneline --graph --max-count=30";
-        llw = "log --oneline --graph --max-count=30 --since 'last week'";
-        lll = "log --oneline --graph";
-      };
+      aliases = cfg.aliases;
     };
   };
 }

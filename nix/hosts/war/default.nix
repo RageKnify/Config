@@ -295,7 +295,16 @@
       graphical.fusuma.enable = true;
       graphical.programs.enable = true;
       personal.enable = true;
-      shell.git.enable = true;
+      shell.git = {
+        enable = true;
+        aliases = {
+          st = "status -sv";
+          sts = "status";
+          ll = "log --oneline --graph --max-count=30";
+          llw = "log --oneline --graph --max-count=30 --since 'last week'";
+          lll = "log --oneline --graph";
+        };
+      };
       shell.tmux.enable = true;
     };
     home.keyboard = null;

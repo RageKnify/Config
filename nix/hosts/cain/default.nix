@@ -6,7 +6,7 @@
 # System configuration.
 
 { pkgs, lib, sshKeys, profiles, ... }: {
-  imports = with profiles; [ common server.full ];
+  imports = with profiles; [ common server.full ./hardware.nix ];
 
   modules = { personal.enable = true; };
 

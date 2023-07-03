@@ -22,6 +22,7 @@
     wallabag
     zfs.common
     zfs.email
+    ./hardware.nix
   ];
 
   modules = {

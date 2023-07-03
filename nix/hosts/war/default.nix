@@ -13,6 +13,7 @@
     kerberos
     zfs.common
     zfs.email
+    ./hardware.nix
   ];
 
   modules = {

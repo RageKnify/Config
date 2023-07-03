@@ -285,9 +285,8 @@
   users.users.jp.extraGroups = [ "input" "video" "libvirtd" "docker" ];
 
   home-manager.users.jp = {
-    imports = with profiles.home; [ fish ];
+    imports = with profiles.home; [ fish neovim ];
     modules = {
-      neovim.enable = true;
       xdg.enable = true;
       graphical.i3.enable = true;
       graphical.sxhkd.enable = true;

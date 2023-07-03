@@ -17,8 +17,7 @@
   };
 
   home-manager.users.jp = {
-    imports = with profiles.home; [ fish ];
-    modules = { neovim.enable = true; };
+    imports = with profiles.home; [ fish neovim ];
 
     home.stateVersion = "21.11";
   };

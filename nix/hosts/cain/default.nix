@@ -60,9 +60,8 @@
   };
 
   home-manager.users.jp = {
-    imports = with profiles.home; [ fish ];
+    imports = with profiles.home; [ fish neovim ];
     modules = {
-      neovim.enable = true;
       xdg.enable = true;
       personal.enable = true;
       shell.git.enable = true;

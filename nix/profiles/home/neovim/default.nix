@@ -330,51 +330,47 @@ let
       value = { text = twoSpaceIndentConfig; };
     }) [ "markdown" "ocaml" "wast" "yaml" "yacc" "lex" "cpp" "tex" ]);
 in {
-  options.modules.neovim.enable = mkEnableOption "neovim";
+  programs.neovim = {
+    package = pkgs.neovim-unwrapped;
+    enable = true;
+    viAlias = true;
+    vimAlias = true;
+    vimdiffAlias = true;
+    extraConfig = builtins.readFile ./base.vim;
+    plugins = commonPlugins ++ personalPlugins ++ (if git then
+      with pkgs.vimPlugins; [
+        vim-fugitive
+        {
+          plugin = gitsigns-nvim;
+          type = "lua";
+          config = ''
+            require('gitsigns').setup{
+              signs = {
+                add = {  text = '+' },
+              },
+              on_attach = function(bufnr)
+                local gs = package.loaded.gitsigns
 
-  config = mkIf cfg.enable {
-    programs.neovim = {
-      package = pkgs.neovim-unwrapped;
-      enable = true;
-      viAlias = true;
-      vimAlias = true;
-      vimdiffAlias = true;
-      extraConfig = builtins.readFile ./base.vim;
-      plugins = commonPlugins ++ personalPlugins ++ (if git then
-        with pkgs.vimPlugins; [
-          vim-fugitive
-          {
-            plugin = gitsigns-nvim;
-            type = "lua";
-            config = ''
-              require('gitsigns').setup{
-                signs = {
-                  add = {  text = '+' },
-                },
-                on_attach = function(bufnr)
-                  local gs = package.loaded.gitsigns
+                local function map(mode, l, r, opts)
+                  opts = opts or {}
+                  opts.buffer = bufnr
+                  vim.keymap.set(mode, l, r, opts)
+                end
 
-                  local function map(mode, l, r, opts)
-                    opts = opts or {}
-                    opts.buffer = bufnr
-                    vim.keymap.set(mode, l, r, opts)
-                  end
+                map('n', '<leader>gb', gs.toggle_current_line_blame)
+              end,
+            }
+          '';
+        }
+      ]
+    else
+      [ ]);
+  };
 
-                  map('n', '<leader>gb', gs.toggle_current_line_blame)
-                end,
-              }
-            '';
-          }
-        ]
-      else
-        [ ]);
-    };
+  home.file = files;
 
-    home.file = files;
-
-    home.sessionVariables = {
-      EDITOR = "nvim";
-      MANPAGER = "nvim +Man!";
-    };
+  home.sessionVariables = {
+    EDITOR = "nvim";
+    MANPAGER = "nvim +Man!";
   };
 }

@@ -16,7 +16,12 @@
     users = { jp.openssh.authorizedKeys.keys = sshKeys; };
   };
 
-  home-manager.users.jp = { imports = with profiles.home; [ fish ]; };
+  home-manager.users.jp = {
+    imports = with profiles.home; [ fish ];
+    modules = { neovim.enable = true; };
+
+    home.stateVersion = "21.11";
+  };
 
   virtualisation.docker = { enable = true; };
 

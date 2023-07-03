@@ -284,7 +284,24 @@
     "$6$wlIVxKTns9xQ3Rc4$fbiA/wXnZ0l9TXKr90KmNVSltyU.MOH2Si8ntvLXINKGpug82rpFABP.PXAOp6Qtbq.onD8qAaSpq.TaKOmgj1";
   users.users.jp.extraGroups = [ "input" "video" "libvirtd" "docker" ];
 
-  home-manager.users.jp = { imports = with profiles.home; [ fish ]; };
+  home-manager.users.jp = {
+    imports = with profiles.home; [ fish ];
+    modules = {
+      neovim.enable = true;
+      xdg.enable = true;
+      graphical.i3.enable = true;
+      graphical.sxhkd.enable = true;
+      graphical.kitty.enable = true;
+      graphical.gtk.enable = true;
+      graphical.fusuma.enable = true;
+      graphical.programs.enable = true;
+      personal.enable = true;
+      shell.git.enable = true;
+      shell.tmux.enable = true;
+    };
+    home.keyboard = null;
+    home.stateVersion = "21.11";
+  };
 
   environment.systemPackages = with pkgs; [
     # dev machine

@@ -51,7 +51,17 @@
     mutableUsers = false;
   };
 
-  home-manager.users.jp = { imports = with profiles.home; [ fish ]; };
+  home-manager.users.jp = {
+    imports = with profiles.home; [ fish ];
+
+    modules = {
+      neovim.enable = true;
+      shell.git.enable = true;
+      shell.tmux.enable = true;
+    };
+
+    home.stateVersion = "21.11";
+  };
 
   networking = {
     networkmanager.enable = false;

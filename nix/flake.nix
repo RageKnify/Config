@@ -170,7 +170,6 @@
                     hostColor = hostNameToColor name;
                   };
                   sharedModules = homeModules;
-                  users.${user} = import (dir + "/${name}/home.nix");
                 };
               }
               inputs.impermanence.nixosModules.impermanence

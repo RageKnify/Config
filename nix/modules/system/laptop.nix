@@ -22,6 +22,17 @@ in {
       '';
       example = [ "BAT0" ];
     };
+
+    adapter = mkOption {
+      type = types.nullOr types.str;
+      default = null;
+      description = lib.mdDoc ''
+        The identifier of the laptop's adapter, used by
+        other modules like polybar.
+      '';
+      example = [ "ADP1" ];
+    };
+
     wlan_interface = mkOption {
       type = types.nullOr types.str;
       default = null;

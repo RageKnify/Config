@@ -20,6 +20,7 @@
     laptop = {
       enable = true;
       battery = "BAT0";
+      adapter = "ADP1";
       wlan_interface = "wlp2s0";
     };
     kanata = {

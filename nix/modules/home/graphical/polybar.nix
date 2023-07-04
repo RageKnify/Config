@@ -178,7 +178,7 @@ in {
         "module/battery" = optionalAttrs laptop.enable {
           type = "internal/battery";
           battery = laptop.battery;
-          adapter = "ACAD";
+          adapter = laptop.adapter;
           full-at = 100;
           time-format = "%H:%M";
 

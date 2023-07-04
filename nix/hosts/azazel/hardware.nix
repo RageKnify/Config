@@ -13,6 +13,8 @@
   boot.kernelPackages = config.boot.zfs.package.latestCompatibleLinuxPackages;
   networking.hostId = "bdfd03f3";
 
+  environment.persistence."/persist".files = [ "/etc/machine-id" ];
+
   boot = {
     kernelParams =
       [ "ip=185.162.250.236::185.162.248.1:255.255.252.0::ens3:none" ];

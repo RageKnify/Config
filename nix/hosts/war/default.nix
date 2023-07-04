@@ -285,12 +285,11 @@
   users.users.jp.extraGroups = [ "input" "video" "libvirtd" "docker" ];
 
   home-manager.users.jp = {
-    imports = with profiles.home; [ fish neovim tmux ];
+    imports = with profiles.home; [ fish neovim tmux kitty ];
     modules = {
       xdg.enable = true;
       graphical.i3.enable = true;
       graphical.sxhkd.enable = true;
-      graphical.kitty.enable = true;
       graphical.gtk.enable = true;
       graphical.fusuma.enable = true;
       graphical.programs.enable = true;

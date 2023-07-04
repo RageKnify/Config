@@ -64,7 +64,7 @@
 
     modules = {
       xdg.enable = true;
-      shell.git.enable = true;
+      git.enable = true;
     };
 
     # to enable starhip in nix-shells

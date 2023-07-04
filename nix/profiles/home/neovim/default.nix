@@ -10,7 +10,7 @@ let
   inherit (lib) mkEnableOption mkIf lists strings;
   cfg = config.modules.neovim;
   personal = osConfig.modules.personal.enable;
-  git = config.modules.shell.git.enable;
+  git = config.modules.git.enable;
   commonPlugins = with pkgs.vimPlugins; [
     nvim-web-devicons
     {

@@ -54,7 +54,7 @@
   home-manager.users.jp = {
     imports = with profiles.home; [ fish neovim tmux ];
 
-    modules = { shell.git.enable = true; };
+    modules = { git.enable = true; };
 
     home.stateVersion = "21.11";
   };

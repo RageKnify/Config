@@ -8,12 +8,12 @@
 { pkgs, lib, options, config, ... }:
 let
   inherit (lib) mkDefault mkOption mkEnableOption mkIf types generators;
-  cfg = config.modules.shell.git;
+  cfg = config.modules.git;
   signers = builtins.toFile "signers" ''
     RageKnify@gmail.com,joao.p.l.borges@tecnico.ulisboa.pt,joao.borges@rnl.tecnico.ulisboa.pt ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIC2sdJFvvnEIYztPcznXvKpY4vOWedZ1qzDaAgRxrczS jp@war
   '';
 in {
-  options.modules.shell.git = {
+  options.modules.git = {
     enable = mkEnableOption "git";
 
     aliases = options.programs.git.aliases;

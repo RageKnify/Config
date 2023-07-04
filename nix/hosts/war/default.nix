@@ -293,7 +293,7 @@
       graphical.gtk.enable = true;
       graphical.fusuma.enable = true;
       graphical.programs.enable = true;
-      shell.git = {
+      git = {
         enable = true;
         aliases = {
           st = "status -sv";

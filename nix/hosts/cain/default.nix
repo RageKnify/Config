@@ -60,11 +60,11 @@
   };
 
   home-manager.users.jp = {
-    imports = with profiles.home; [ fish neovim ];
+    imports = with profiles.home; [ fish neovim tmux ];
+
     modules = {
       xdg.enable = true;
       shell.git.enable = true;
-      shell.tmux.enable = true;
     };
 
     # to enable starhip in nix-shells

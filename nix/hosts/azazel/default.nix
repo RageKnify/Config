@@ -52,12 +52,9 @@
   };
 
   home-manager.users.jp = {
-    imports = with profiles.home; [ fish neovim ];
+    imports = with profiles.home; [ fish neovim tmux ];
 
-    modules = {
-      shell.git.enable = true;
-      shell.tmux.enable = true;
-    };
+    modules = { shell.git.enable = true; };
 
     home.stateVersion = "21.11";
   };

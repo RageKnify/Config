@@ -285,7 +285,7 @@
   users.users.jp.extraGroups = [ "input" "video" "libvirtd" "docker" ];
 
   home-manager.users.jp = {
-    imports = with profiles.home; [ fish neovim ];
+    imports = with profiles.home; [ fish neovim tmux ];
     modules = {
       xdg.enable = true;
       graphical.i3.enable = true;
@@ -327,7 +327,6 @@
           }
         ];
       };
-      shell.tmux.enable = true;
     };
     home.keyboard = null;
     home.stateVersion = "21.11";

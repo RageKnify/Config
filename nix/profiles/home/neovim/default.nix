@@ -50,20 +50,21 @@ let
             },
                lualine_z = { {'tabs', tabs_color = { inactive = "TermCursor", active = "ColorColumn" } } }
              },
-             extensions = { fzf'' + (strings.optionalString git ", fugitive " ) + ''
-              },
-              }
-              if _G.Tabline_timer == nil then
-                _G.Tabline_timer = vim.loop.new_timer()
-              else
-                _G.Tabline_timer:stop()
-              end
-              _G.Tabline_timer:start(0,             -- never timeout
-                                     100,          -- repeat every 1000 ms
-                                     vim.schedule_wrap(function() -- updater function
-                                                          vim.api.nvim_command('redrawtabline')
-                                                       end))
-            '';
+             extensions = { fzf'' + (strings.optionalString git ", fugitive ")
+        + ''
+          },
+          }
+          if _G.Tabline_timer == nil then
+            _G.Tabline_timer = vim.loop.new_timer()
+          else
+            _G.Tabline_timer:stop()
+          end
+          _G.Tabline_timer:start(0,             -- never timeout
+                                 100,          -- repeat every 1000 ms
+                                 vim.schedule_wrap(function() -- updater function
+                                                      vim.api.nvim_command('redrawtabline')
+                                                   end))
+        '';
     }
 
     {
@@ -179,8 +180,8 @@ let
       '';
     }
   ];
-  personalPlugins = with pkgs.vimPlugins; lists.optionals personal
-    [
+  personalPlugins = with pkgs.vimPlugins;
+    lists.optionals personal [
       {
         plugin = nvim-lspconfig;
         type = "lua";
@@ -335,8 +336,8 @@ in {
     vimAlias = true;
     vimdiffAlias = true;
     extraConfig = builtins.readFile ./base.vim;
-    plugins = commonPlugins ++ personalPlugins ++ (with pkgs.vimPlugins; lists.optionals git
-      [
+    plugins = commonPlugins ++ personalPlugins ++ (with pkgs.vimPlugins;
+      lists.optionals git [
         vim-fugitive
         {
           plugin = gitsigns-nvim;

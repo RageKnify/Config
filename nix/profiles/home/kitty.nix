@@ -6,9 +6,8 @@
 # kitty configuration
 
 { lib, config, colors, ... }:
-let
-  inherit (lib) mkDefault;
-in{
+let inherit (lib) mkDefault;
+in {
   programs.kitty = {
     enable = true;
     font = {

@@ -288,11 +288,14 @@
     imports = with profiles.home; [ fish neovim tmux kitty ];
     modules = {
       xdg.enable = true;
-      graphical.i3.enable = true;
-      graphical.sxhkd.enable = true;
-      graphical.gtk.enable = true;
-      graphical.fusuma.enable = true;
-      graphical.programs.enable = true;
+      graphical = {
+        i3.enable = true;
+        polybar = { enable = true; };
+        sxhkd.enable = true;
+        gtk.enable = true;
+        fusuma.enable = true;
+        programs.enable = true;
+      };
       git = {
         enable = true;
         aliases = {

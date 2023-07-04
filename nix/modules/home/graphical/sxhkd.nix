@@ -5,10 +5,13 @@
 #
 # sxhkd configuration.
 
-{ pkgs, config, lib, colors, ... }:
+{ pkgs, config, lib, colors, osConfig, ... }:
 let
-  inherit (lib) mkEnableOption mkIf;
+  inherit (lib) mkEnableOption mkIf attrsets;
+  inherit (attrsets) optionalAttrs;
   cfg = config.modules.graphical.sxhkd;
+  laptop = osConfig.modules.laptop;
+  light = osConfig.programs.light;
   sxhkdMod = "mod4";
 in {
   options.modules.graphical.sxhkd.enable = mkEnableOption "sxhkd";
@@ -33,8 +36,7 @@ in {
 
         # flameshot
         "${sxhkdMod}+Print" = "flameshot gui";
-
-        # TODO: only have these for laptops
+      } // optionalAttrs laptop.enable {
         # sound toggle
         "XF86AudioMute" = "pactl set-sink-mute @DEFAULT_SINK@ toggle";
 
@@ -46,8 +48,7 @@ in {
 
         # mic toggle
         "XF86AudioMicMute" = "pactl set-source-mute 0 toggle";
-
-        # FIXME: these assume programs.light.enable in system
+      } // optionalAttrs light.enable {
         # brightness up
         "XF86MonBrightnessUp" = "light -A 10";
 

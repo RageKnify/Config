@@ -22,6 +22,9 @@ in {
     services.printing.drivers = with pkgs; [ gutenprint gutenprintBin ];
 
     # SSH stuf
-    programs.ssh = { startAgent = true; };
+    programs.ssh = {
+      startAgent = true;
+      agentTimeout = "30min";
+    };
   };
 }

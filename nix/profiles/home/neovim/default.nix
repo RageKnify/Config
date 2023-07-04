@@ -5,11 +5,11 @@
 #
 # neovim home configuration.
 
-{ pkgs, config, lib, ... }:
+{ pkgs, lib, config, osConfig, ... }:
 let
-  inherit (lib) mkEnableOption mkIf;
+  inherit (lib) mkEnableOption mkIf lists strings;
   cfg = config.modules.neovim;
-  personal = config.modules.personal.enable;
+  personal = osConfig.modules.personal.enable;
   git = config.modules.shell.git.enable;
   commonPlugins = with pkgs.vimPlugins; [
     nvim-web-devicons
@@ -28,7 +28,7 @@ let
             icons_enabled = true
           },
           sections = {
-            lualine_b = { '' + (if git then "'diff'" else "") + ''
+            lualine_b = { '' + (strings.optionalString git "'diff'") + ''
           },
              lualine_c = {
                {'diagnostics', {
@@ -46,11 +46,11 @@ let
            },
            tabline = {
              lualine_a = { 'hostname' },
-             lualine_b = { '' + (if git then "'branch'" else "") + ''
+             lualine_b = { '' + (strings.optionalString git "'branch'") + ''
             },
                lualine_z = { {'tabs', tabs_color = { inactive = "TermCursor", active = "ColorColumn" } } }
              },
-             extensions = { fzf'' + (if git then ", fugitive " else "") + ''
+             extensions = { fzf'' + (strings.optionalString git ", fugitive " ) + ''
               },
               }
               if _G.Tabline_timer == nil then
@@ -85,7 +85,7 @@ let
     }
 
     (import ./tree-sitter.nix {
-      inherit personal;
+      inherit personal lists;
       nvim-treesitter = pkgs.vimPlugins.nvim-treesitter;
     })
 
@@ -179,8 +179,8 @@ let
       '';
     }
   ];
-  personalPlugins = if personal then
-    with pkgs.vimPlugins; [
+  personalPlugins = with pkgs.vimPlugins; lists.optionals personal
+    [
       {
         plugin = nvim-lspconfig;
         type = "lua";
@@ -308,9 +308,7 @@ let
       cmp-spell
       cmp-path
       cmp-git
-    ]
-  else
-    [ ];
+    ];
   twoSpaceIndentConfig = ''
     setlocal shiftwidth=2
     setlocal softtabstop=2
@@ -337,8 +335,8 @@ in {
     vimAlias = true;
     vimdiffAlias = true;
     extraConfig = builtins.readFile ./base.vim;
-    plugins = commonPlugins ++ personalPlugins ++ (if git then
-      with pkgs.vimPlugins; [
+    plugins = commonPlugins ++ personalPlugins ++ (with pkgs.vimPlugins; lists.optionals git
+      [
         vim-fugitive
         {
           plugin = gitsigns-nvim;
@@ -362,9 +360,7 @@ in {
             }
           '';
         }
-      ]
-    else
-      [ ]);
+      ]);
   };
 
   home.file = files;

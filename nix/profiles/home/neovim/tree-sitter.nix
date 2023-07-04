@@ -1,4 +1,4 @@
-{ personal, nvim-treesitter, }:
+{ personal, nvim-treesitter, lists }:
 let
   grammars = with nvim-treesitter.builtGrammars;
     [
@@ -7,7 +7,7 @@ let
       tree-sitter-html
       tree-sitter-markdown
       tree-sitter-python
-    ] ++ (if personal then [
+    ] ++ (lists.optionals personal [
       tree-sitter-nix
       tree-sitter-c
       tree-sitter-cpp
@@ -22,8 +22,7 @@ let
       tree-sitter-typescript
       tree-sitter-vim
       tree-sitter-yaml
-    ] else
-      [ ]);
+    ]);
 in {
   plugin = (nvim-treesitter.withPlugins (plugins: grammars));
   type = "lua";

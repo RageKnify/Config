@@ -290,13 +290,21 @@
   users.users.jp.extraGroups = [ "input" "video" "libvirtd" "docker" ];
 
   home-manager.users.jp = {
-    imports = with profiles.home; [ fish neovim tmux kitty gtk ssh sxhkd ];
+    imports = with profiles.home; [
+      fish
+      neovim
+      tmux
+      kitty
+      gtk
+      ssh
+      sxhkd
+      fusuma
+    ];
     modules = {
       xdg.enable = true;
       graphical = {
         i3.enable = true;
         polybar = { enable = true; };
-        fusuma.enable = true;
         programs.enable = true;
       };
       git = {

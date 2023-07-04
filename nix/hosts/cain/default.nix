@@ -63,7 +63,6 @@
     imports = with profiles.home; [ fish neovim ];
     modules = {
       xdg.enable = true;
-      personal.enable = true;
       shell.git.enable = true;
       shell.tmux.enable = true;
     };

@@ -294,7 +294,6 @@
       graphical.gtk.enable = true;
       graphical.fusuma.enable = true;
       graphical.programs.enable = true;
-      personal.enable = true;
       shell.git = {
         enable = true;
         aliases = {

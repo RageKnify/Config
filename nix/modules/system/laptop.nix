@@ -32,4 +32,8 @@ in {
       example = [ "wlp2s0" ];
     };
   };
+  config = mkIf cfg.enable {
+    # laptop implies personal machine
+    modules.personal.enable = true;
+  };
 }

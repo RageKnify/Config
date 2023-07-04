@@ -17,7 +17,6 @@
   ];
 
   modules = {
-    personal.enable = true;
     laptop = {
       enable = true;
       battery = "BAT0";

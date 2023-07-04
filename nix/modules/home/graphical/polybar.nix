@@ -5,11 +5,13 @@
 #
 # polybar configuration.
 
-{ pkgs, config, lib, hostName, colors, ... }:
+{ pkgs, config, lib, hostName, colors, osConfig, ... }:
 let
-  inherit (lib) mkEnableOption mkIf mkForce strings;
+  inherit (lib) mkEnableOption mkIf mkForce strings attrsets;
+  inherit (attrsets) optionalAttrs;
   cfg = config.modules.graphical.polybar;
   i3 = config.modules.graphical.i3.enable;
+  laptop = osConfig.modules.laptop;
 in {
   options.modules.graphical.polybar.enable = mkEnableOption "polybar";
 
@@ -64,9 +66,10 @@ in {
           modules-left = (strings.optionalString i3 "i3 ")
             + "xkeyboard pulseaudio";
           # modules-right = filesystem0 filesystem1 cpu temperature memory wlan battery date
-          modules-right = "cpu temperature memory wlan battery date";
+          modules-right = "cpu temperature memory"
+            + (strings.optionalString laptop.enable " wlan battery") + " date";
         };
-        "module/i3" = lib.attrsets.optionalAttrs i3 {
+        "module/i3" = optionalAttrs i3 {
           type = "internal/i3";
           format = "<label-state> <label-mode>";
           index-sort = true;
@@ -172,10 +175,9 @@ in {
           type = "internal/pulseaudio";
           sink = "alsa_output.pci-0000_00_1f.3.analog-stereo";
         };
-        # TODO: laptop only
-        "module/battery" = {
+        "module/battery" = optionalAttrs laptop.enable {
           type = "internal/battery";
-          battery = "BAT0";
+          battery = laptop.battery;
           adapter = "ACAD";
           full-at = 100;
           time-format = "%H:%M";
@@ -214,10 +216,9 @@ in {
           animation-charging-foreground = "\${colors.foreground-alt}";
           animation-charging-framerate = 750;
         };
-        # TODO: laptop only
-        "module/wlan" = {
+        "module/wlan" = optionalAttrs laptop.enable {
           type = "internal/network";
-          interface = "wlp2s0";
+          interface = laptop.wlan_interface;
           interval = 3.0;
           format-connected-prefix = " ";
           format-disconnected-prefix = "\${self.format-connected-prefix}";

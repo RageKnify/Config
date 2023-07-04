@@ -18,6 +18,11 @@
 
   modules = {
     personal.enable = true;
+    laptop = {
+      enable = true;
+      battery = "BAT0";
+      wlan_interface = "wlp2s0";
+    };
     kanata = {
       enable = true;
       normal_device = "/dev/input/by-path/platform-i8042-serio-0-event-kbd";

@@ -69,15 +69,23 @@
   security.rtkit.enable = true;
 
   environment.systemPackages = with pkgs; [
-    xorg.xkbcomp
-    xscreensaver
-    xclip
-    xcape
-
-    pavucontrol
-
+    arandr
+    (discord.override {
+      nss = nss_latest; # hyperlinks can't open in Firefox without this
+      withOpenASAR = true; # it's supposed to be better
+    })
     feh
+    gimp
     libreoffice
+    obsidian
+    pavucontrol
+    thunderbird
+    unstable.ghidra-bin
+    unstable.signal-desktop
+    vlc
+    xcape
+    xclip
+    xorg.xkbcomp
     zathura
   ];
 

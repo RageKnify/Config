@@ -305,7 +305,6 @@
       graphical = {
         i3.enable = true;
         polybar = { enable = true; };
-        programs.enable = true;
       };
       git = {
         enable = true;

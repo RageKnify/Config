@@ -24,7 +24,7 @@ in {
     # SSH stuf
     programs.ssh = {
       startAgent = true;
-      agentTimeout = "30min";
+      agentTimeout = "30m";
     };
   };
 }

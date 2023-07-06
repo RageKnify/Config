@@ -18,6 +18,14 @@ in {
     registry.nixpkgs.flake = inputs.nixpkgs;
     settings.trusted-users = [ "root" "@wheel" ];
   };
+
+  system.activationScripts.diff = {
+    supportsDryActivation = true;
+    text = ''
+      ${pkgs.nvd}/bin/nvd --nix-bin-dir=${pkgs.nix}/bin diff /run/current-system "$systemConfig"
+    '';
+  };
+
   security.sudo.extraConfig = ''
     Defaults pwfeedback
     Defaults lecture=never

@@ -5,10 +5,11 @@
 #
 # i3 configuration.
 
-{ pkgs, config, lib, hostName, colors, ... }:
+{ pkgs, lib, config, osConfig, hostName, colors, ... }:
 let
-  inherit (lib) mkEnableOption mkIf mkForce;
+  inherit (lib) lists mkEnableOption mkIf mkForce;
   cfg = config.modules.graphical.i3;
+  laptop = osConfig.modules.laptop;
   i3Mod = "Mod4";
 in {
   options.modules.graphical.i3.enable = mkEnableOption "i3";
@@ -143,18 +144,14 @@ in {
 
           bars = [ ];
 
-          startup = [
-            {
-              command = "nm-applet";
-              notification = false;
-            }
-            {
-              command =
-                "${pkgs.systemd}/bin/systemctl --user start graphical-session-i3.target";
-              notification = false;
-            }
-          ];
-
+          startup = [{
+            command =
+              "${pkgs.systemd}/bin/systemctl --user start graphical-session-i3.target";
+            notification = false;
+          }] ++ lists.optionals laptop.enable [{
+            command = "nm-applet";
+            notification = false;
+          }];
           workspaceAutoBackAndForth = true;
         };
       };

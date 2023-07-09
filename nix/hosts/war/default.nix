@@ -9,7 +9,6 @@
   imports = with profiles; [
     common
     graphical.full
-    graphical.laptop
     kerberos
     zfs.common
     zfs.email

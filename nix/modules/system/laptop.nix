@@ -46,5 +46,14 @@ in {
   config = mkIf cfg.enable {
     # laptop implies personal machine
     modules.personal.enable = true;
+
+    services.xserver.libinput = {
+      enable = true;
+      touchpad.naturalScrolling = true;
+    };
+
+    programs.light.enable = true;
+
+    programs.nm-applet.enable = true;
   };
 }

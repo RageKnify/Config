@@ -41,4 +41,8 @@ in {
   };
 
   environment.persistence."/persist".directories = [ "/var/lib/focalboard" ];
+
+  modules.services.backups.paths = [
+    "/persist/var/lib/focalboard/"
+  ];
 }

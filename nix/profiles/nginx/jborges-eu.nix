@@ -16,4 +16,8 @@
   networking.firewall.allowedTCPPorts = [ 80 443 ];
 
   environment.persistence."/persist".directories = [ "/var/www/jborges.eu/" ];
+
+  modules.services.backups.paths = [
+    "/persist/var/www/jborges.eu/"
+  ];
 }

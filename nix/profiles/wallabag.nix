@@ -23,4 +23,8 @@ in {
   };
 
   environment.persistence."/persist".directories = [ "/var/lib/wallabag" ];
+
+  modules.services.backups.paths = [
+    "/persist/var/lib/wallabag/"
+  ];
 }

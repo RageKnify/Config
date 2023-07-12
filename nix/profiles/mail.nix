@@ -75,4 +75,10 @@
       group = "opendkim";
     }
   ];
+
+  modules.services.backups.paths = [
+    "/persist/var/lib/rspamd/"
+    "/persist/var/vmail/"
+    "/persist/var/dkim/"
+  ];
 }

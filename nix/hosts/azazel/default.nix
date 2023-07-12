@@ -32,8 +32,6 @@
       passwordFile = config.age.secrets.resticPassword.path;
 
       environmentFile = config.age.secrets.backupEnvFile.path;
-
-      paths = [ "/persist/" ];
     };
   };
 

@@ -9,7 +9,7 @@
   imports = with profiles; [
     common
     docker
-    # focalboard
+    focalboard
     server.full
     acme.common
     acme.dns-jborges-eu

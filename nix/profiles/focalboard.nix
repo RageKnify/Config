@@ -31,7 +31,7 @@ in {
   };
 
   virtualisation.oci-containers.containers.focalboard = {
-    image = "mattermost/focalboard:7.5.2";
+    image = "mattermost/focalboard:7.10.4";
     ports = [ "127.0.0.1:${port}:8000" ];
     volumes = [
       "${server_config}:/opt/focalboard/config.json:ro,Z"

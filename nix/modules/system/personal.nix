@@ -15,7 +15,12 @@ in {
   config = mkIf cfg.enable {
     # YubiKey stuf
     services.pcscd.enable = true;
-    environment.systemPackages = with pkgs; [ yubikey-manager ];
+    environment.systemPackages = with pkgs; [
+      yubikey-manager
+      # qmk stuf
+      qmk
+    ];
+    hardware.keyboard.qmk.enable = true;
 
     # Printer stuf
     services.printing.enable = true;

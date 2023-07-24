@@ -41,7 +41,6 @@
   };
 
   users = {
-    users = { jp.openssh.authorizedKeys.keys = sshKeys; };
     users.root = {
       hashedPassword =
         "$6$alrahBvGoXcPCyLt$7uDj.6W7Ca436Z9o/TrIJhitplMix.7EcFz3uDcuDD75z7CPpeQOeobjRcNnPJOAEJ.CyhoL.2AHivHFSXJsf.";

@@ -34,8 +34,7 @@ in {
         pull.rebase = true;
         url."git@github.com".pushinsteadOf = "https://github.com/";
         commit = {
-          template = "${pkgs.writeText "gitmessage.txt"
-            (builtins.readFile ./gitmessage.txt)}";
+          template = pkgs.copyPathToStore ./gitmessage.txt;
           verbose = true;
           gpgSign = true;
         };

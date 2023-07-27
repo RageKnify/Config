@@ -142,7 +142,10 @@ in {
             smartGaps = true;
           };
 
-          assigns = { "1" = [{ class = "firefox"; }]; };
+          assigns = {
+            "1" = [{ class = "firefox"; }];
+            "10" = [{ class = "discord"; }];
+          };
 
           bars = [ ];
 

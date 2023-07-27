@@ -234,7 +234,7 @@ let
       }
 
       {
-        plugin = pkgs.obsidian-nvim;
+        plugin = obsidian-nvim;
         type = "lua";
         config = ''
           require('obsidian').setup({

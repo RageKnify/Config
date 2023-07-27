@@ -7,9 +7,11 @@
 
 { inputs, ... }:
 final: prev: rec {
-  obsidian-nvim = final.vimUtils.buildVimPlugin {
-    name = "obsidian-nvim";
-    src = inputs.obsidian-nvim;
-    dontBuild = true;
-  };
+  vimPlugins = prev.vimPlugins.extend (final': prev': {
+    obsidian-nvim = final.vimUtils.buildVimPlugin {
+      name = "obsidian-nvim";
+      src = inputs.obsidian-nvim;
+      dontBuild = true;
+    };
+  });
 }

@@ -129,7 +129,7 @@
       disabled = false;
     };
     sudo.disabled = false;
-    character.format = "[⋉ ](white)";
+    character.format = "[⋉ ](black)";
   };
   # to enable starhip in nix-shells
   programs.bash.enable = true;

@@ -5,7 +5,7 @@
 #
 # Login manager and graphical configuration.
 
-{ pkgs, config, lib, user, colors, ... }: {
+{ pkgs, config, lib, user, ... }: {
   services.xserver = {
     enable = true;
     layout = "pt";

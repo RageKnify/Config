@@ -5,12 +5,13 @@
 #
 # i3 configuration.
 
-{ pkgs, lib, config, osConfig, colors, ... }:
+{ pkgs, lib, config, osConfig, myLib, ... }:
 let
   inherit (lib) lists mkEnableOption mkIf mkForce;
   cfg = config.modules.graphical.i3;
   laptop = osConfig.modules.laptop;
   hostName = osConfig.networking.hostName;
+  colors = myLib.colors;
   i3Mod = "Mod4";
 in {
   options.modules.graphical.i3.enable = mkEnableOption "i3";

@@ -5,13 +5,14 @@
 #
 # polybar configuration.
 
-{ pkgs, config, lib, hostName, colors, osConfig, ... }:
+{ pkgs, config, lib, hostName, osConfig, myLib, ... }:
 let
   inherit (lib) mkEnableOption mkIf mkForce strings attrsets;
   inherit (attrsets) optionalAttrs;
   cfg = config.modules.graphical.polybar;
   i3 = config.modules.graphical.i3.enable;
   laptop = osConfig.modules.laptop;
+  colors = myLib.colors;
 in {
   options.modules.graphical.polybar.enable = mkEnableOption "polybar";
 

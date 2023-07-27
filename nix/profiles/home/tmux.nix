@@ -5,7 +5,11 @@
 #
 # tmux configuration
 
-{ config, lib, colors, hostColor, ... }: {
+{ config, lib, myLib, osConfig, ... }:
+let
+  colors = myLib.colors;
+  hostColor = myLib.hostNameToColor osConfig.networking.hostName;
+in {
   programs.tmux = {
     enable = true;
     clock24 = true;

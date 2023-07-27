@@ -5,7 +5,7 @@
 #
 # Kerberos config
 
-{ inputs, pkgs, lib, ... }: {
+{ pkgs, lib, ... }: {
   krb5 = {
     enable = true;
     libdefaults = {

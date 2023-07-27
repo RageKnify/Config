@@ -1,4 +1,4 @@
-{ inputs, pkgs, lib, config, hostSecretsDir, ... }: {
+{ pkgs, lib, config, hostSecretsDir, ... }: {
   age.secrets.mailJoaoHashedPassword.file =
     "${hostSecretsDir}/mailJoaoHashedPassword.age";
   age.secrets.mailWarHashedPassword.file =

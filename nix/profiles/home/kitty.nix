@@ -5,7 +5,7 @@
 #
 # kitty configuration
 
-{ lib, config, colors, ... }:
+{ pkgs, lib, config, ... }:
 let inherit (lib) mkDefault;
 in {
   programs.kitty = {

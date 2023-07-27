@@ -5,11 +5,7 @@
 #
 # System config common across all hosts
 
-{ inputs, pkgs, lib, ... }:
-let
-  inherit (builtins) toString;
-  inherit (lib.my) mapModules;
-in {
+{ inputs, pkgs, lib, ... }: {
   nix = {
     extraOptions = ''
       experimental-features = nix-command flakes

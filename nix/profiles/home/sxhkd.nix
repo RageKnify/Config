@@ -5,12 +5,13 @@
 #
 # sxhkd configuration
 
-{ pkgs, config, lib, colors, osConfig, ... }:
+{ pkgs, config, lib, osConfig, myLib, ... }:
 let
   inherit (lib) mkEnableOption mkIf attrsets;
   inherit (attrsets) optionalAttrs;
   laptop = osConfig.modules.laptop;
   light = osConfig.programs.light;
+  colors = myLib.colors;
   sxhkdMod = "mod4";
 in {
   xsession.windowManager.i3.config.startup = [{

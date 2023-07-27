@@ -1,4 +1,4 @@
-{ inputs, pkgs, lib, hostSecretsDir, ... }: {
+{ pkgs, lib, hostSecretsDir, ... }: {
   security.acme = {
     acceptTerms = true;
     defaults.email = "letsencrypt@jborges.eu";

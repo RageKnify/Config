@@ -23,7 +23,7 @@
         extraConfig = ''
           set logind-check-graphical=true
         '';
-        greeters.gtk = {
+        greeters.slick = {
           enable = true;
           theme = {
             package = pkgs.solarc-gtk-theme;

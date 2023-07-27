@@ -78,7 +78,6 @@ let
               useUserPackages = true;
               extraSpecialArgs = {
                 inherit colors;
-                hostName = name;
                 hostColor = hostNameToColor name;
               };
               sharedModules = homeModules;

@@ -10,6 +10,7 @@
     common
     graphical.full
     kerberos
+    vpn.tailscale
     zfs.common
     zfs.email
     ./hardware.nix
@@ -108,11 +109,6 @@
 
   networking.hostId = "48a4b691";
   networking.networkmanager = { enable = true; };
-  services.resolved = {
-    enable = true;
-    fallbackDns =
-      [ "1.1.1.1" "1.0.0.1" "2606:4700:4700::1111" "2606:4700:4700::1001" ];
-  };
   networking.firewall.checkReversePath = "loose";
   systemd.network = let
     rnlFwmark = 765;

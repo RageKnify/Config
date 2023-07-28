@@ -19,6 +19,8 @@
     nginx.jborges-eu
     nginx.r-jplborges-pt
     # rickbot
+    vpn.headscale
+    vpn.tailscale
     wallabag
     zfs.common
     zfs.email

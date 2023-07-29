@@ -80,12 +80,6 @@
   boot.kernelParams = [ "nohibernate" ];
   boot.zfs.devNodes = "/dev";
 
-  services.zfs = {
-    trim.enable = true;
-    autoScrub.enable = true;
-    autoScrub.pools = [ "rpool" ];
-  };
-
   services.openssh = {
     hostKeys = [{
       path = "/etc/ssh/ssh_host_ed25519_key";

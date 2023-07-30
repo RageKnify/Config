@@ -10,7 +10,5 @@
   environment.persistence."/persist".directories =
     [ "/var/www/r.jplborges.pt/" ];
 
-  modules.services.backups.paths = [
-    "/persist/var/www/r.jplborges.pt/"
-  ];
+  modules.services.backups.paths = [ "/persist/var/www/r.jplborges.pt/" ];
 }

@@ -6,8 +6,7 @@
 # personal home configuration, activates if system module is active
 
 { pkgs, lib, osConfig, ... }:
-let
-  personal = osConfig.modules.personal;
+let personal = osConfig.modules.personal;
 in lib.attrsets.optionalAttrs personal.enable {
   home.packages = with pkgs; [
     # agenix

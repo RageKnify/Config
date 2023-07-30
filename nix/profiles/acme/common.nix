@@ -6,7 +6,5 @@
 
   environment.persistence."/persist".directories = [ "/var/lib/acme" ];
 
-  modules.services.backups.paths = [
-    "/persist/var/lib/acme/"
-  ];
+  modules.services.backups.paths = [ "/persist/var/lib/acme/" ];
 }

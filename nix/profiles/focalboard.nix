@@ -1,4 +1,4 @@
-{ config, lib, pkgs, ... }:
+{ pkgs, lib, config, ... }:
 let
   domain = "focalboard.jplborges.pt";
   port = "2301";
@@ -42,7 +42,5 @@ in {
 
   environment.persistence."/persist".directories = [ "/var/lib/focalboard" ];
 
-  modules.services.backups.paths = [
-    "/persist/var/lib/focalboard/"
-  ];
+  modules.services.backups.paths = [ "/persist/var/lib/focalboard/" ];
 }

@@ -51,7 +51,7 @@ let
       value = lib.nixosSystem {
         inherit system pkgs;
         specialArgs = {
-          inherit inputs user sshKeys profiles myLib;
+          inherit inputs user sshKeys profiles myLib nixosConfigurations;
           hostSecretsDir = "${secretsDir}/${name}";
         };
         modules = [
@@ -62,9 +62,7 @@ let
             home-manager = {
               useGlobalPkgs = true;
               useUserPackages = true;
-              extraSpecialArgs = {
-                inherit myLib;
-              };
+              extraSpecialArgs = { inherit myLib; };
               sharedModules = homeModules;
             };
           }
@@ -75,4 +73,6 @@ let
         ] ++ systemModules;
       };
     }) (attrNames (readDir dir)));
-in { nixosConfigurations = mkHosts ./hosts; }
+
+  nixosConfigurations = mkHosts ./hosts;
+in { inherit nixosConfigurations; }

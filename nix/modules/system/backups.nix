@@ -86,6 +86,12 @@ in {
 
       environmentFile = cfg.environmentFile;
 
+      timerConfig = {
+        # I might be up at 00:00, should be AFK at 05:00
+        OnCalendar = "05:00";
+        Persistent = true;
+      };
+
       paths = cfg.paths;
 
       dynamicFilesFrom = cfg.dynamicFilesFrom;

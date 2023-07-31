@@ -66,7 +66,6 @@
     procps
     # backups
     restic
-    rclone
   ];
 
   # dedup equal pages

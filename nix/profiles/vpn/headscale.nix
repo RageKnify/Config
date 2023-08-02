@@ -29,7 +29,11 @@ in {
 
   environment.systemPackages = [ config.services.headscale.package ];
 
-  environment.persistence."/persist".directories = [ "/var/lib/headscale" ];
+  environment.persistence."/persist".directories = [{
+    directory = "/var/lib/headscale";
+    user = "headscale";
+    group = "headscale";
+  }];
 
   modules.services.backups.paths = [ "/persist/var/lib/headscale/" ];
 }

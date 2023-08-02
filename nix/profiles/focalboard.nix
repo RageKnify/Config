@@ -40,7 +40,11 @@ in {
     user = "1000:100";
   };
 
-  environment.persistence."/persist".directories = [ "/var/lib/focalboard" ];
+  environment.persistence."/persist".directories = [{
+    directory = "/var/lib/focalboard";
+    user = "1000";
+    group = "100";
+  }];
 
   modules.services.backups.paths = [ "/persist/var/lib/focalboard/" ];
 }

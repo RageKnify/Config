@@ -22,7 +22,11 @@ in {
     };
   };
 
-  environment.persistence."/persist".directories = [ "/var/lib/wallabag" ];
+  environment.persistence."/persist".directories = [{
+    directory = "/var/lib/wallabag";
+    user = "nobody";
+    group = "nogroup";
+  }];
 
   modules.services.backups.paths = [ "/persist/var/lib/wallabag/" ];
 }

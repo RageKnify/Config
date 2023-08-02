@@ -297,13 +297,6 @@
       };
       git = {
         enable = true;
-        aliases = {
-          st = "status -sv";
-          sts = "status";
-          ll = "log --oneline --graph --max-count=30";
-          llw = "log --oneline --graph --max-count=30 --since 'last week'";
-          lll = "log --oneline --graph";
-        };
         includes = [
           {
             condition = "gitdir:~/dev/github/";

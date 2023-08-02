@@ -16,8 +16,6 @@ in {
   options.modules.git = {
     enable = mkEnableOption "git";
 
-    aliases = options.programs.git.aliases;
-
     includes = options.programs.git.includes;
   };
 
@@ -42,7 +40,13 @@ in {
         gpg.ssh.allowedSignersFile = signers;
         user.signingKey = "~/.ssh/id_ed25519";
       };
-      aliases = cfg.aliases;
+      aliases = {
+        st = "status -sv";
+        sts = "status";
+        ll = "log --oneline --graph --max-count=30";
+        llw = "log --oneline --graph --max-count=30 --since 'last week'";
+        lll = "log --oneline --graph";
+      };
       includes = cfg.includes;
     };
   };

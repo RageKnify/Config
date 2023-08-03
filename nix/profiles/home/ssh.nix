@@ -32,6 +32,10 @@ in {
         port = 2222;
         inherit setEnv;
       };
+      isaac = {
+        hostname = "isaac.bible.jborges.eu";
+        inherit setEnv;
+      };
       "research*" = {
         user = "fmarques";
         hostname = "mustard.stt.rnl.tecnico.ulisboa.pt";

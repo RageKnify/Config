@@ -2,7 +2,13 @@
   boot.supportedFilesystems = [ "zfs" ];
 
   services.zfs = {
-    trim.enable = true;
-    autoScrub.enable = true;
+    autoScrub = {
+      enable = true;
+      interval = "Sunday, 02:00";
+    };
+    trim = {
+      enable = true;
+      interval = "Sunday, 03:00";
+    };
   };
 }

@@ -117,10 +117,8 @@ in {
       serviceConfig = {
         Type = "oneshot";
         ExecStart = pkgs.writeShellScript "backup-failed-mail.sh" ''
-          /run/wrappers/bin/sendmail -t \
-          -f '"${hostName}" <${hostName}@jborges.eu>' << MESSAGE_END
-          From: "${hostName}" <${hostName}@jborges.eu>
-          To: "robots" <robots@jborges.eu>
+          ${pkgs.system-sendmail}/bin/sendmail -t << MESSAGE_END
+          To: "robots" <me+robots@jborges.eu>
           Subject: Backup Failed for ${hostName}
           MESSAGE_END
         '';

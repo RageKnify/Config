@@ -46,6 +46,8 @@ in {
   config = mkIf cfg.enable {
     # laptop implies personal machine
     modules.personal.enable = true;
+    # laptop implies physical machine
+    modules.physical.enable = true;
 
     services.xserver.libinput = {
       enable = true;

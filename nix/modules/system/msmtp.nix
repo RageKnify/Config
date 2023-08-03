@@ -20,10 +20,20 @@ in {
       };
       accounts.default = {
         auth = true;
+        aliases = "/etc/aliases";
         user = "${hostName}@jborges.eu";
+        from = "${hostName} <${hostName}@jborges.eu>";
         host = "mail.jborges.eu";
-        passwordeval = "cat ${config.age.secrets.hostMailPassword.path}";
+        passwordeval =
+          "${pkgs.coreutils}/bin/cat ${config.age.secrets.hostMailPassword.path}";
       };
+      setSendmail = true;
     };
+
+    #Aliases to receive root mail
+    environment.etc."aliases".text = ''
+      root: me+robots@jborges.eu
+      jp: me+robots@jborges.eu
+    '';
   };
 }

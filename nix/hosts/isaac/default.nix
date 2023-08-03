@@ -5,24 +5,19 @@
 #
 # System configuration.
 
-{ pkgs, lib, sshKeys, config, hostSecretsDir, profiles, ... }: {
+{ pkgs, lib, config, hostSecretsDir, profiles, ... }: {
   imports = with profiles; [
     common
     docker
-    focalboard
     server.full
     acme.common
-    acme.dns-jborges-eu
-    acme.dns-jplborges-pt
-    mail
-    nginx.common
-    nginx.jborges-eu
-    nginx.r-jplborges-pt
-    vpn.headscale
+    # TODO: maybe? acme.dns-jborges-eu
+    # nextcloud
+    # nginx.common
+    rickbot
     vpn.tailscale
-    wallabag
     zfs.common
-    zfs.email
+    # zfs.email
     ./hardware.nix
   ];
 
@@ -34,6 +29,7 @@
 
       environmentFile = config.age.secrets.backupEnvFile.path;
     };
+    physical.enable = true;
   };
 
   age.secrets = {
@@ -44,7 +40,7 @@
   users = {
     users.root = {
       hashedPassword =
-        "$6$alrahBvGoXcPCyLt$7uDj.6W7Ca436Z9o/TrIJhitplMix.7EcFz3uDcuDD75z7CPpeQOeobjRcNnPJOAEJ.CyhoL.2AHivHFSXJsf.";
+        "$6$97MgEve.PfCq/8gb$kX0aZAQyFbmye7mhw8YlMwKwnyft543GRD.O1mOnJIGsdn6/FXcVIleslO/2lrOhs8LEX/Nwlhz46vYn.zDDt0";
     };
     mutableUsers = false;
   };
@@ -54,43 +50,14 @@
 
     modules = { git.enable = true; };
 
-    home.stateVersion = "21.11";
+    home.stateVersion = "23.05";
   };
 
   networking = {
-    networkmanager.enable = false;
-    useDHCP = false;
+    useDHCP = true;
 
-    nameservers = [ "1.1.1.1" ];
-
-    interfaces.ens3 = {
-      useDHCP = false;
-
-      ipv4.addresses = [{
-        address = "185.162.250.236";
-        prefixLength = 22;
-      }];
-
-      ipv6.addresses = [
-        {
-          address = "2a03:4000:1a:1d4::1";
-          prefixLength = 64;
-        }
-        {
-          # mail.jborges.eu
-          address = "2a03:4000:1a:1d4::236";
-          prefixLength = 64;
-        }
-      ];
-
-    };
-
-    defaultGateway = "185.162.248.1";
-
-    defaultGateway6 = {
-      address = "fe80::1";
-      interface = "ens3";
-    };
+    nameservers =
+      [ "1.1.1.1" "1.0.0.1" "2606:4700:4700::1111" "2606:4700:4700::1001" ];
   };
 
   services.openssh = {

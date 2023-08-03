@@ -4,6 +4,8 @@ let
       "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIIq8BgoZjQqFP0/QDJJ7TIT3r2k89uj2XcKBm4v3G2f0";
     azazel =
       "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAII8oSR9FbFzjFYimyEw7qNA8pbnYHIiMt6/mZAKo3GBN";
+    isaac =
+      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIGdLF/miwKkDhgRDieE4zMsr4i2G/rCBu1JjrpAsx7GB";
   };
   users = {
     jp_war =
@@ -21,8 +23,12 @@ in {
   "azazel/ovh.age".publicKeys = [ hosts.azazel users.jp_war ];
   "azazel/resticPassword.age".publicKeys = [ hosts.azazel users.jp_war ];
   "azazel/backupEnvFile.age".publicKeys = [ hosts.azazel users.jp_war ];
-  "azazel/registryPassword.age".publicKeys = [ hosts.azazel users.jp_war ];
-  "azazel/discordTokenEnv.age".publicKeys = [ hosts.azazel users.jp_war ];
+
+  "isaac/registryPassword.age".publicKeys = [ hosts.isaac users.jp_war ];
+  "isaac/discordTokenEnv.age".publicKeys = [ hosts.isaac users.jp_war ];
+  "isaac/resticPassword.age".publicKeys = [ hosts.isaac users.jp_war ];
+  "isaac/backupEnvFile.age".publicKeys = [ hosts.isaac users.jp_war ];
+  "isaac/isaacMailPassword.age".publicKeys = [ hosts.isaac users.jp_war ];
 
   "war/wireguard-privkey.age".publicKeys = [ hosts.war ];
   "war/resticPassword.age".publicKeys = [ hosts.war users.jp_war ];

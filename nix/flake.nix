@@ -46,6 +46,10 @@
       inputs.nixpkgs.follows = "nixpkgs-unstable";
       inputs.utils.follows = "flake-utils";
     };
+    disko = {
+      url = "github:nix-community/disko";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs = args: import ./outputs.nix args;

@@ -70,6 +70,7 @@ let
           inputs.agenix.nixosModules.age
           inputs.lanzaboote.nixosModules.lanzaboote
           inputs.simple-nixos-mailserver.nixosModule
+          inputs.disko.nixosModules.disko
         ] ++ systemModules;
       };
     }) (attrNames (readDir dir)));

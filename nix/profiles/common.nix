@@ -5,7 +5,8 @@
 #
 # System config common across all hosts
 
-{ inputs, pkgs, lib, ... }: {
+{ inputs, pkgs, lib, profiles, ... }: {
+  imports = with profiles; [ locale ];
   nix = {
     extraOptions = ''
       experimental-features = nix-command flakes

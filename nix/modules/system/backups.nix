@@ -67,16 +67,30 @@ in {
         A script that must run after finishing the backup process.
       '';
     };
+
+    backupName = mkOption {
+      type = types.str;
+      default = "backblazeBackup";
+      readOnly = true;
+      description = lib.mdDoc ''
+        The name of the backup we create.
+      '';
+    };
+
+    systemdServiceName = mkOption {
+      type = types.str;
+      default = "restic-backups-${cfg.backupName}";
+      readOnly = true;
+      description = lib.mdDoc ''
+        The name of the systemd service that runs the backup we create.
+      '';
+    };
   };
 
   config = mkIf cfg.enable (let
-    resticName = "systemBackup";
-    # must match the restic module config
-    # https://github.com/NixOS/nixpkgs/blob/660e7737851506374da39c0fa550c202c824a17c/nixos/modules/services/backup/restic.nix#L294
-    systemdServiceName = "restic-backups-${resticName}";
-    systemdFailServiceName = "${systemdServiceName}-fail";
+    systemdFailServiceName = "${cfg.systemdServiceName}-fail";
   in {
-    services.restic.backups.${resticName} = {
+    services.restic.backups.${cfg.backupName} = {
       repository = "b2:restic-jborges:${hostName}";
 
       passwordFile = cfg.passwordFile;
@@ -108,7 +122,7 @@ in {
     modules.msmtp.enable = true;
 
     # email for failures
-    systemd.services.${systemdServiceName} = {
+    systemd.services.${cfg.systemdServiceName} = {
       onFailure = [ "${systemdFailServiceName}.service" ];
     };
     systemd.services.${systemdFailServiceName} = {

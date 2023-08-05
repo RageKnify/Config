@@ -76,9 +76,6 @@ in {
     systemdServiceName = "restic-backups-${resticName}";
     systemdFailServiceName = "${systemdServiceName}-fail";
   in {
-    # ensure all hosts have a working sendmail
-    modules.msmtp.enable = !config.mailserver.enable;
-
     services.restic.backups.${resticName} = {
       repository = "b2:restic-jborges:${hostName}";
 
@@ -107,6 +104,8 @@ in {
       backupPrepareCommand = cfg.backupPrepareCommand;
       backupCleanupCommand = cfg.backupCleanupCommand;
     };
+
+    modules.msmtp.enable = true;
 
     # email for failures
     systemd.services.${systemdServiceName} = {

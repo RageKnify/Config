@@ -4,7 +4,7 @@ let
   cfg = config.modules.msmtp;
   hostName = config.networking.hostName;
 in {
-  options.modules.msmtp = { enable = mkEnableOption "backups"; };
+  options.modules.msmtp = { enable = mkEnableOption "msmtp"; };
   config = mkIf cfg.enable {
 
     age.secrets.hostMailPassword = {

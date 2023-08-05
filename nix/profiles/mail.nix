@@ -1,10 +1,12 @@
 { pkgs, lib, config, hostSecretsDir, ... }: {
   age.secrets.mailJoaoHashedPassword.file =
     "${hostSecretsDir}/mailJoaoHashedPassword.age";
-  age.secrets.mailWarHashedPassword.file =
-    "${hostSecretsDir}/mailWarHashedPassword.age";
   age.secrets.mailAzazelHashedPassword.file =
     "${hostSecretsDir}/mailAzazelHashedPassword.age";
+  age.secrets.mailIsaacHashedPassword.file =
+    "${hostSecretsDir}/mailIsaacHashedPassword.age";
+  age.secrets.mailWarHashedPassword.file =
+    "${hostSecretsDir}/mailWarHashedPassword.age";
 
   imports = [ ];
 
@@ -22,6 +24,10 @@
       };
       "azazel@jborges.eu" = {
         hashedPasswordFile = config.age.secrets.mailAzazelHashedPassword.path;
+        sendOnly = true;
+      };
+      "isaac@jborges.eu" = {
+        hashedPasswordFile = config.age.secrets.mailIsaacHashedPassword.path;
         sendOnly = true;
       };
       "war@jborges.eu" = {
@@ -55,6 +61,9 @@
 
     certificateScheme = "acme";
   };
+
+  # we want to use msmtp instead
+  services.postfix.setSendmail = false;
 
   security.acme.certs."mail.jborges.eu" = {
     dnsProvider = "ovh";

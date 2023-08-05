@@ -14,10 +14,10 @@
     # TODO: maybe? acme.dns-jborges-eu
     # nextcloud
     # nginx.common
-    rickbot
+    # rickbot # docker image doesn't work
     vpn.tailscale
     zfs.common
-    # zfs.email
+    zfs.email
     ./hardware.nix
   ];
 

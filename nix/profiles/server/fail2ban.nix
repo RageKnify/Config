@@ -8,4 +8,7 @@
       maxtime = "24h";
     };
   };
+
+  environment.persistence."/persist".directories =
+    [{ directory = "/var/lib/fail2ban"; }];
 }

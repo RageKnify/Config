@@ -71,7 +71,6 @@
     options = [ "X-mount.mkdir" ];
   };
 
-  swapDevices = [{ device = "/dev/nvme0n1p2"; }];
   zramSwap.enable = true;
 
   powerManagement.cpuFreqGovernor = lib.mkDefault "powersave";

@@ -26,16 +26,6 @@
       url = "github:ryantm/agenix/main";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    digga = {
-      url = "github:divnix/digga";
-      inputs = {
-        nixpkgs.follows = "nixpkgs";
-        nixpkgs-unstable.follows = "nixpkgs-unstable";
-        nixlib.follows = "nixpkgs";
-        home-manager.follows = "home";
-        flake-utils.follows = "flake-utils";
-      };
-    };
     lanzaboote = {
       url = "github:nix-community/lanzaboote";
       inputs.nixpkgs.follows = "nixpkgs";

@@ -6,7 +6,10 @@
 # System config common across all hosts
 
 { inputs, pkgs, lib, profiles, ... }: {
-  imports = with profiles; [ locale ];
+  imports = with profiles; [
+    locale
+    inputs.flake-programs-sqlite.nixosModules.programs-sqlite
+  ];
   nix = {
     extraOptions = ''
       experimental-features = nix-command flakes

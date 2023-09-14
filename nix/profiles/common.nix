@@ -46,6 +46,7 @@
       createHome = true;
       shell = pkgs.fish;
       extraGroups = [ "wheel" ];
+      description = "João Borges";
     };
   };
 

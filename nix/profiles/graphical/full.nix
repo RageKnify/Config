@@ -5,7 +5,11 @@
 #
 # Login manager and graphical configuration.
 
-{ pkgs, config, lib, user, ... }: {
+{ pkgs, config, lib, profiles, ... }:
+let hostName = config.networking.hostName;
+in {
+  imports = with profiles.graphical; [ firefox ];
+
   services.xserver = {
     enable = true;
     layout = "pt";
@@ -88,8 +92,6 @@
     xorg.xkbcomp
     zathura
   ];
-
-  programs.firefox.enable = true;
 
   services.gnome.gnome-keyring.enable = true;
 }

@@ -72,6 +72,11 @@ in {
         extraOptions = kerberosExtraOptions;
         inherit setEnv;
       };
+      re2 = {
+        user = "root";
+        hostname = "10.11.99.1";
+        inherit setEnv;
+      };
     };
   };
 }

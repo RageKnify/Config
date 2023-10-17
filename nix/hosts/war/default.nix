@@ -35,8 +35,10 @@
 
       environmentFile = config.age.secrets.backupEnvFile.path;
 
-      dynamicFilesFrom =
-        "${pkgs.fd}/bin/fd -d 1 . -E '{music,dnd}' /home/jp/documents/ ; ${pkgs.fd}/bin/fd -d 1 . -E books /home/jp/documents/dnd/";
+      paths = [
+        "/home/jp/documents"
+        "/var/lib/libvirt"
+      ];
     };
   };
 
@@ -241,6 +243,10 @@
         builtins.map
         (octet: "~" + (builtins.toString octet) + ".16.10.in-addr.arpa")
         (lib.range 64 127));
+
+      extraConfig = ''
+        [Network]
+      '';
     };
     networks."50-stt" = {
       name = "stt";
@@ -332,6 +338,8 @@
     riff
     # virtualization
     virt-manager
+
+    # gebaar
 
     jellyfin-media-player
     # For debugging and troubleshooting Secure Boot.

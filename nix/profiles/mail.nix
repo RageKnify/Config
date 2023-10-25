@@ -16,6 +16,8 @@
 
     domains = [ "jborges.eu" "jplborges.pt" ];
 
+    enableManageSieve = true;
+
     loginAccounts = {
       "me@jborges.eu" = {
         hashedPasswordFile = config.age.secrets.mailJoaoHashedPassword.path;
@@ -83,8 +85,17 @@
       user = "opendkim";
       group = "opendkim";
     }
+    {
+      directory = "/var/sieve";
+      user = "virtualMail";
+      group = "virtualMail";
+    }
   ];
 
-  modules.services.backups.paths =
-    [ "/persist/var/lib/rspamd/" "/persist/var/vmail/" "/persist/var/dkim/" ];
+  modules.services.backups.paths = [
+    "/persist/var/lib/rspamd/"
+    "/persist/var/vmail/"
+    "/persist/var/dkim/"
+    "/persist/var/sieve"
+  ];
 }

@@ -58,17 +58,20 @@
   # Essential packages.
   environment.systemPackages = with pkgs; [
     cached-nix-shell
-    neovim
-    tmux
-    zip
-    unzip
-    htop
-    neofetch
-    man-pages
-    fzf
-    ripgrep
+    dog
     fd
+    file
+    fzf
+    htop
+    man-pages
+    neofetch
+    neovim
     procps
+    ripgrep
+    tmux
+    unzip
+    whois
+    zip
     # backups
     restic
   ];

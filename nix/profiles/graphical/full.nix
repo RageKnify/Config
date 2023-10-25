@@ -78,6 +78,7 @@ in {
       nss = nss_latest; # hyperlinks can't open in Firefox without this
       withOpenASAR = true; # it's supposed to be better
     })
+    dolphin
     feh
     gimp
     libreoffice

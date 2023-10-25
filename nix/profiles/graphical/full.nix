@@ -82,7 +82,6 @@ in {
     feh
     gimp
     libreoffice
-    obsidian
     pavucontrol
     thunderbird
     unstable.ghidra-bin

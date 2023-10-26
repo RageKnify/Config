@@ -58,7 +58,7 @@
   # Essential packages.
   environment.systemPackages = with pkgs; [
     cached-nix-shell
-    dog
+    dogdns
     fd
     file
     fzf

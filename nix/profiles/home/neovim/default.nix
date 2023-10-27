@@ -132,6 +132,27 @@ let
 
         -- fuzzy find Vim commands (like Ctrl-Shift-P in Sublime/Atom/VSC)
         set('n', '<leader>c', fzf_lua.commands)
+
+        local notes_dir = "~/documents/notes/"
+        local notes = function()
+          fzf_lua.files({cwd = notes_dir})
+        end
+        -- fuzzy find files in the notes directory
+        set('n', '<leader>no', notes)
+
+        local new_note = function()
+          local callback = function(input)
+            if (input ~= nil and input ~= "") then
+              vim.cmd.edit(notes_dir .. input)
+            end
+          end
+          vim.ui.input({
+              prompt = "Enter path for new note: ",
+              completion = "file",
+            },
+            callback)
+        end
+        set('n', '<leader>nn', new_note)
       '';
     }
 
@@ -230,22 +251,6 @@ let
           let g:presence_workspace_text    = "Working on %s"
           let g:presence_neovim_image_text = "vim but better"
           let g:presence_main_image        = "neovim"
-        '';
-      }
-
-      {
-        plugin = obsidian-nvim;
-        type = "lua";
-        config = ''
-          require('obsidian').setup({
-            disable_frontmatter = true,
-            dir = "~/documents/obsidian/",
-            completion = {
-              nvim_cmp = true,
-            },
-          })
-          local set = vim.keymap.set
-          set('n', '<leader>o', vim.cmd.ObsidianQuickSwitch)
         '';
       }
 

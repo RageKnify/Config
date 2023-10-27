@@ -22,13 +22,13 @@ local on_attach = function(client, bufnr)
   require 'illuminate'.on_attach(client)
 
 
-  set('n', '<leader>n', function () vim.diagnostic.goto_next { wrap = false } end, {silent = true})
-  set('n', '<leader>p', function () vim.diagnostic.goto_prev { wrap = false } end, {silent = true})
-  set('n', '<leader>d', vim.lsp.buf.definition, {silent = true})
-  set('n', '<leader>gr', vim.lsp.buf.references, {silent = true})
-  set('n', '<leader>rn', vim.lsp.buf.rename, {silent = true})
-  set('n', '<leader>a', vim.lsp.buf.code_action, {silent = true})
-  set('n', '<leader>tt', function () vim.lsp.buf.format({ async = false }) end, {})
+  set('n', '<leader>ln', function () vim.diagnostic.goto_next { wrap = false } end, {silent = true})
+  set('n', '<leader>lp', function () vim.diagnostic.goto_prev { wrap = false } end, {silent = true})
+  set('n', '<leader>ld', vim.lsp.buf.definition, {silent = true})
+  set('n', '<leader>lr', vim.lsp.buf.references, {silent = true})
+  set('n', '<leader>ln', vim.lsp.buf.rename, {silent = true})
+  set('n', '<leader>la', vim.lsp.buf.code_action, {silent = true})
+  set('n', '<leader>lf', function () vim.lsp.buf.format({ async = false }) end, {})
   set('n', '<leader><cr>', vim.diagnostic.open_float, {silent = true})
 
   -- Use LSP omni-completion in LSP enabled files.

@@ -410,23 +410,6 @@
         "type": "github"
       }
     },
-    "obsidian-nvim": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1696264693,
-        "narHash": "sha256-GmfstS3XisMh2/Wzo4zvFz4OYDDPh1QKi9Ap3Y3EuOo=",
-        "owner": "epwalsh",
-        "repo": "obsidian.nvim",
-        "rev": "25f57d541361548f8b5873809e0907d646c5f3f4",
-        "type": "github"
-      },
-      "original": {
-        "owner": "epwalsh",
-        "ref": "main",
-        "repo": "obsidian.nvim",
-        "type": "github"
-      }
-    },
     "pre-commit-hooks-nix": {
       "inputs": {
         "flake-compat": [
@@ -470,7 +453,6 @@
         "nixpkgs": "nixpkgs",
         "nixpkgs-latest": "nixpkgs-latest",
         "nixpkgs-unstable": "nixpkgs-unstable",
-        "obsidian-nvim": "obsidian-nvim",
         "simple-nixos-mailserver": "simple-nixos-mailserver"
       }
     },

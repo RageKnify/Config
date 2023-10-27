@@ -18,10 +18,6 @@
       url = "github:nix-community/home-manager/release-23.05";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    obsidian-nvim = {
-      url = "github:epwalsh/obsidian.nvim/main";
-      flake = false;
-    };
     agenix = {
       url = "github:ryantm/agenix/main";
       inputs.nixpkgs.follows = "nixpkgs";

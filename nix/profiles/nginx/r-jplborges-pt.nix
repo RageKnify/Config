@@ -1,8 +1,17 @@
-{ config, lib, pkgs, ... }: {
+{ config, lib, pkgs, hostSecretsDir, ... }: {
+  age.secrets = {
+    ritaAuthFile = {
+      file = "${hostSecretsDir}/ritaAuthFile.age";
+      owner = "nginx";
+      group = "nginx";
+    };
+  };
+
   services.nginx.virtualHosts."r.jplborges.pt" = {
     forceSSL = true;
     useACMEHost = "jplborges.pt";
     root = "/var/www/r.jplborges.pt/";
+    basicAuthFile = config.age.secrets.ritaAuthFile.path;
   };
 
   networking.firewall.allowedTCPPorts = [ 80 443 ];

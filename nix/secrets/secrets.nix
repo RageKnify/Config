@@ -20,6 +20,7 @@ in {
     [ hosts.azazel users.jp_war ];
   "azazel/mailWarHashedPassword.age".publicKeys = [ hosts.azazel users.jp_war ];
   "azazel/azazelMailPassword.age".publicKeys = [ hosts.azazel users.jp_war ];
+  "azazel/ritaAuthFile.age".publicKeys = [ hosts.azazel users.jp_war ];
   "azazel/ovh.age".publicKeys = [ hosts.azazel users.jp_war ];
   "azazel/resticPassword.age".publicKeys = [ hosts.azazel users.jp_war ];
   "azazel/backupEnvFile.age".publicKeys = [ hosts.azazel users.jp_war ];

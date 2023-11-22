@@ -334,7 +334,7 @@ in {
       enable = true;
       enableXinerama = true;
       display = "fill";
-      imageDirectory = "%h/documents/pictures/Wallpapers/${hostName}";
+      imageDirectory = "${./../../../profiles/graphical/wallpapers}/${hostName}";
       interval = "10m";
     };
   };

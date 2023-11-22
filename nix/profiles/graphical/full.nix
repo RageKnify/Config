@@ -37,6 +37,9 @@ in {
             package = pkgs.papirus-icon-theme;
             name = "Papirus-Dark";
           };
+          extraConfig = ''
+            background=${./wallpapers}/${hostName}/1.png
+          '';
         };
       };
     };

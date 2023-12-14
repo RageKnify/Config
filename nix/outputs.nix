@@ -11,7 +11,6 @@ let
   ];
 
   system = "x86_64-linux";
-  user = "jp";
 
   pkg-sets = final: prev:
     let
@@ -51,7 +50,7 @@ let
       value = lib.nixosSystem {
         inherit system pkgs;
         specialArgs = {
-          inherit inputs user sshKeys profiles myLib nixosConfigurations;
+          inherit inputs sshKeys profiles myLib nixosConfigurations;
           hostSecretsDir = "${secretsDir}/${name}";
         };
         modules = [

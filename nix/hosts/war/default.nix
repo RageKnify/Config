@@ -27,7 +27,10 @@
       enable = true;
       normal_device = "/dev/input/by-path/platform-i8042-serio-0-event-kbd";
     };
-    syncthing.enable = true;
+    syncthing = {
+      enable = true;
+      user = "jp";
+    };
     services.backups = {
       enable = true;
 

@@ -5,23 +5,34 @@
 #
 # syncthing configuration
 
-{ pkgs, config, lib, utils, user, ... }:
+{ pkgs, lib, options, config, ... }:
 let
   inherit (lib) mkEnableOption mkOption types mkIf;
   cfg = config.modules.syncthing;
 in {
-  options.modules.syncthing.enable = mkEnableOption "syncthing";
+  options.modules.syncthing = {
+    enable = mkEnableOption "syncthing";
+    user = options.services.syncthing.user;
+  };
 
-  config = mkIf cfg.enable {
+  config = let
+    serviceUser = cfg.user == "syncthing";
+    dataDir = if serviceUser then
+      options.services.syncthing.dataDir.default
+    else
+      "/home/${cfg.user}/.syncthing";
+  in mkIf cfg.enable {
     services.syncthing = {
-      inherit user;
       enable = true;
+      user = cfg.user;
       systemService = true;
-      dataDir = "/home/${user}/.syncthing";
+      inherit dataDir;
       overrideFolders = false;
       overrideDevices = false;
       extraOptions = { gui = { theme = "dark"; }; };
     };
+    environment.persistence."/persist".directories =
+      mkIf serviceUser [ "${config.services.syncthing.dataDir}" ];
   };
 }
 

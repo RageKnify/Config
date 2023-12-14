@@ -34,6 +34,9 @@
 
       environmentFile = config.age.secrets.backupEnvFile.path;
     };
+    syncthing = {
+      enable = true;
+    };
   };
 
   age.secrets = {

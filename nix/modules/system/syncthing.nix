@@ -9,6 +9,7 @@
 let
   inherit (lib) mkEnableOption mkOption types mkIf;
   cfg = config.modules.syncthing;
+  serviceCfg = config.services.syncthing;
 in {
   options.modules.syncthing = {
     enable = mkEnableOption "syncthing";
@@ -31,8 +32,11 @@ in {
       overrideDevices = false;
       extraOptions = { gui = { theme = "dark"; }; };
     };
-    environment.persistence."/persist".directories =
-      mkIf serviceUser [ "${config.services.syncthing.dataDir}" ];
+    environment.persistence."/persist".directories = mkIf serviceUser [{
+      directory = "${config.services.syncthing.dataDir}";
+      user = serviceCfg.user;
+      group = serviceCfg.group;
+    }];
   };
 }
 

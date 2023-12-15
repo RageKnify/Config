@@ -143,7 +143,7 @@ in {
           };
 
           assigns = {
-            "1" = [{ class = "firefox"; }];
+            "1" = [{ class = "(?i)firefox"; }];
             "10" = [{ class = "discord"; }];
           };
 

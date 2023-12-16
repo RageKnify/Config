@@ -56,7 +56,7 @@ in {
   # Required for gtk. (copied from RiscadoA)
   services.dbus.packages = [ pkgs.dconf ];
 
-  fonts.fonts = with pkgs; [
+  fonts.packages = with pkgs; [
     noto-fonts
     noto-fonts-cjk
     noto-fonts-emoji

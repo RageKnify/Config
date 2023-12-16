@@ -30,7 +30,7 @@ in {
       inherit dataDir;
       overrideFolders = false;
       overrideDevices = false;
-      extraOptions = { gui = { theme = "dark"; }; };
+      settings = { gui = { theme = "dark"; }; };
     };
     environment.persistence."/persist".directories = mkIf serviceUser [{
       directory = "${config.services.syncthing.dataDir}";

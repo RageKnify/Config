@@ -5,21 +5,13 @@
 #
 # Firefox configuration.
 
-{ pkgs, config, lib, ... }:
-let
-  custom-firefox = pkgs.firefox.override {
-    # See nixpkgs' firefox/wrapper.nix to check which options you can use
-    cfg = {
-      # Gnome shell native connector
-      enableGnomeExtensions = true;
-      enableTridactylNative = true;
-    };
-  };
-
-in {
+{ pkgs, config, lib, ... }: {
   programs.firefox = {
     enable = true;
-    package = custom-firefox;
+    nativeMessagingHosts.packages = with pkgs; [
+      tridactyl-native
+      gnome-browser-connector
+    ];
     policies = {
       DisableFirefoxScreenshots = true;
       DisableFirefoxStudies = true;

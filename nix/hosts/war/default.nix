@@ -38,10 +38,7 @@
 
       environmentFile = config.age.secrets.backupEnvFile.path;
 
-      paths = [
-        "/home/jp/documents"
-        "/var/lib/libvirt"
-      ];
+      paths = [ "/home/jp/documents" "/var/lib/libvirt" ];
     };
   };
 

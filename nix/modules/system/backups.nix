@@ -87,56 +87,56 @@ in {
     };
   };
 
-  config = mkIf cfg.enable (let
-    systemdFailServiceName = "${cfg.systemdServiceName}-fail";
-  in {
-    services.restic.backups.${cfg.backupName} = {
-      repository = "b2:restic-jborges:${hostName}";
+  config = mkIf cfg.enable
+    (let systemdFailServiceName = "${cfg.systemdServiceName}-fail";
+    in {
+      services.restic.backups.${cfg.backupName} = {
+        repository = "b2:restic-jborges:${hostName}";
 
-      passwordFile = cfg.passwordFile;
+        passwordFile = cfg.passwordFile;
 
-      environmentFile = cfg.environmentFile;
+        environmentFile = cfg.environmentFile;
 
-      timerConfig = {
-        # I might be up at 00:00, should be AFK at 05:00
-        OnCalendar = "05:00";
-        Persistent = true;
+        timerConfig = {
+          # I might be up at 00:00, should be AFK at 05:00
+          OnCalendar = "05:00";
+          Persistent = true;
+        };
+
+        paths = cfg.paths;
+
+        dynamicFilesFrom = cfg.dynamicFilesFrom;
+
+        pruneOpts = [
+          "--keep-last 20"
+          "--keep-daily 7"
+          "--keep-weekly 4"
+          "--keep-monthly 6"
+          "--keep-yearly 3"
+        ];
+
+        backupPrepareCommand = cfg.backupPrepareCommand;
+        backupCleanupCommand = cfg.backupCleanupCommand;
       };
 
-      paths = cfg.paths;
+      modules.msmtp.enable = true;
 
-      dynamicFilesFrom = cfg.dynamicFilesFrom;
-
-      pruneOpts = [
-        "--keep-last 20"
-        "--keep-daily 7"
-        "--keep-weekly 4"
-        "--keep-monthly 6"
-        "--keep-yearly 3"
-      ];
-
-      backupPrepareCommand = cfg.backupPrepareCommand;
-      backupCleanupCommand = cfg.backupCleanupCommand;
-    };
-
-    modules.msmtp.enable = true;
-
-    # email for failures
-    systemd.services.${cfg.systemdServiceName} = {
-      onFailure = [ "${systemdFailServiceName}.service" ];
-    };
-    systemd.services.${systemdFailServiceName} = {
-      restartIfChanged = false;
-      serviceConfig = {
-        Type = "oneshot";
-        ExecStart = pkgs.writeShellScript "backup-failed-mail.sh" ''
-          ${pkgs.system-sendmail}/bin/sendmail -t << MESSAGE_END
-          To: "robots" <me+robots@jborges.eu>
-          Subject: Backup Failed for ${hostName}
-          MESSAGE_END
-        '';
+      # email for failures
+      systemd.services.${cfg.systemdServiceName} = {
+        onFailure = [ "${systemdFailServiceName}.service" ];
       };
-    };
+      systemd.services.${systemdFailServiceName} = {
+        restartIfChanged = false;
+        serviceConfig = {
+          Type = "oneshot";
+          ExecStart = pkgs.writeShellScript "backup-failed-mail.sh" ''
+            ${pkgs.system-sendmail}/bin/sendmail -t << MESSAGE_END
+            To: "robots" <me+robots@jborges.eu>
+            Subject: Backup Failed for ${hostName}
+            MESSAGE_END
+          '';
+        };
+      };
 
-  });
+    });
 }

@@ -5,11 +5,10 @@
 #
 # fusuma configuration
 
-{ pkgs, config, lib, ... }:
-let inherit (lib) mkEnableOption mkIf mkForce;
-in {
+{ pkgs, config, lib, ... }: {
   services.fusuma = {
     enable = true;
+    package = pkgs.latest.fusuma;
     extraPackages = with pkgs; [ xdotool i3 coreutils ];
     settings = {
       threshold = {

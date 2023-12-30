@@ -3,8 +3,8 @@
     "${hostSecretsDir}/mailJoaoHashedPassword.age";
   age.secrets.mailAzazelHashedPassword.file =
     "${hostSecretsDir}/mailAzazelHashedPassword.age";
-  age.secrets.mailIsaacHashedPassword.file =
-    "${hostSecretsDir}/mailIsaacHashedPassword.age";
+  age.secrets.mailConquestHashedPassword.file =
+    "${hostSecretsDir}/mailConquestHashedPassword.age";
   age.secrets.mailWarHashedPassword.file =
     "${hostSecretsDir}/mailWarHashedPassword.age";
 
@@ -28,8 +28,8 @@
         hashedPasswordFile = config.age.secrets.mailAzazelHashedPassword.path;
         sendOnly = true;
       };
-      "isaac@jborges.eu" = {
-        hashedPasswordFile = config.age.secrets.mailIsaacHashedPassword.path;
+      "conquest@jborges.eu" = {
+        hashedPasswordFile = config.age.secrets.mailConquestHashedPassword.path;
         sendOnly = true;
       };
       "war@jborges.eu" = {

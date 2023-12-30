@@ -32,8 +32,8 @@ in {
         port = 2222;
         inherit setEnv;
       };
-      isaac = {
-        hostname = "isaac.bible.jborges.eu";
+      conquest = {
+        hostname = "conquest.bible.jborges.eu";
         inherit setEnv;
       };
       "research*" = {

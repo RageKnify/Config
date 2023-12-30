@@ -1,9 +1,9 @@
-# hosts/lazarus/system.nix
+# hosts/conquest/default.nix
 #
 # Author: João Borges <RageKnify@gmail.com>
 # URL:    https://github.com/RageKnify/Config
 #
-# System configuration.
+# system configuration.
 
 { pkgs, lib, config, hostSecretsDir, profiles, ... }: {
   imports = with profiles; [
@@ -50,7 +50,7 @@
 
     modules = { git.enable = true; };
 
-    home.stateVersion = "23.05";
+    home.stateVersion = "23.11";
   };
 
   networking = {
@@ -67,5 +67,5 @@
     }];
   };
 
-  system.stateVersion = "23.05";
+  system.stateVersion = "23.11";
 }

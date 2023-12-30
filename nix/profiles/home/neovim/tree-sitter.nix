@@ -18,6 +18,7 @@ let
       tree-sitter-ocaml
       tree-sitter-ocaml-interface
       tree-sitter-rust
+      tree-sitter-scheme
       tree-sitter-toml
       tree-sitter-typescript
       tree-sitter-vim

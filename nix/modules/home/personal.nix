@@ -26,6 +26,8 @@ in lib.attrsets.optionalAttrs personal.enable {
     gnumake
     # Python
     my_python
+    # Scheme
+    chez
     # nixfmt
     nixfmt
   ];

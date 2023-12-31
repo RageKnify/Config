@@ -53,6 +53,13 @@ in {
     };
   };
 
+  location = {
+    provider = "manual";
+    # Lisboa, Portugal
+    latitude = 38.43;
+    longitude = -9.8;
+  };
+
   # Required for gtk. (copied from RiscadoA)
   services.dbus.packages = [ pkgs.dconf ];
 

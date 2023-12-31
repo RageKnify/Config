@@ -44,13 +44,6 @@
 
   console.useXkbConfig = true;
 
-  location = {
-    provider = "manual";
-    # Lisboa, Portugal
-    latitude = 38.43;
-    longitude = -9.8;
-  };
-
   services.tlp = {
     enable = true;
     settings = {

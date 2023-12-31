@@ -13,8 +13,6 @@ in {
 
   environment.persistence."/persist".directories = [{
     directory = "/var/lib/tailscale";
-    user = "tailscale";
-    group = "tailscale";
   }];
 
   modules.services.backups.paths = [ "/persist/var/lib/tailscale/" ];

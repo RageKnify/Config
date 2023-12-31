@@ -8,6 +8,7 @@
 { pkgs, lib, config, hostSecretsDir, profiles, ... }: {
   imports = with profiles; [
     common
+    graphical.full
     docker
     server.full
     acme.common
@@ -20,6 +21,8 @@
     zfs.email
     ./hardware.nix
   ];
+
+  services.xserver.videoDrivers = [ "nvidia" ];
 
   modules = {
     services.backups = {

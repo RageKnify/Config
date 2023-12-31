@@ -65,6 +65,13 @@
     options = [ "zfsutil" "X-mount.mkdir" ];
   };
 
+  fileSystems."/persist" = {
+    device = "rpool/safe/persist";
+    fsType = "zfs";
+    options = [ "zfsutil" "X-mount.mkdir" ];
+    neededForBoot = true;
+  };
+
   fileSystems."/boot" = {
     device = "/dev/disk/by-uuid/FAC4-7ABD";
     fsType = "vfat";

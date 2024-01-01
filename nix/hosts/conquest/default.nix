@@ -25,6 +25,7 @@
   services.xserver.videoDrivers = [ "nvidia" ];
 
   modules = {
+    personal.enable = true;
     services.backups = {
       enable = true;
 
@@ -49,9 +50,50 @@
   };
 
   home-manager.users.jp = {
-    imports = with profiles.home; [ fish neovim tmux ];
+    imports = with profiles.home; [
+      fish
+      neovim
+      tmux
+      kitty
+      gtk
+      ssh
+      sxhkd
+      fusuma
+    ];
 
-    modules = { git.enable = true; };
+    modules = {
+      xdg.enable = true;
+      graphical = {
+        i3.enable = true;
+        polybar = { enable = true; };
+      };
+      git = {
+        enable = true;
+        includes = [
+          {
+            condition = "gitdir:~/dev/github/";
+            contents.user = {
+              name = "RageKnify";
+              email = "RageKnify@gmail.com";
+            };
+          }
+          {
+            condition = "gitdir:~/dev/gitlab.rnl/";
+            contents.user = {
+              name = "João Borges";
+              email = "joao.p.l.borges@tecnico.ulisboa.pt";
+            };
+          }
+          {
+            condition = "gitdir:~/dev/ark/";
+            contents.user = {
+              name = "João Borges";
+              email = "joao.borges@rnl.tecnico.ulisboa.pt";
+            };
+          }
+        ];
+      };
+    };
 
     home.stateVersion = "23.11";
   };

@@ -30,6 +30,7 @@ in {
   "conquest/resticPassword.age".publicKeys = [ hosts.conquest users.jp_war ];
   "conquest/backupEnvFile.age".publicKeys = [ hosts.conquest users.jp_war ];
   "conquest/conquestMailPassword.age".publicKeys = [ hosts.conquest users.jp_war ];
+  "conquest/nextcloud-admin-pass.age".publicKeys = [ hosts.conquest users.jp_war ];
 
   "war/wireguard-privkey.age".publicKeys = [ hosts.war ];
   "war/resticPassword.age".publicKeys = [ hosts.war users.jp_war ];

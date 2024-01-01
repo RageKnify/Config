@@ -13,8 +13,8 @@
     server.full
     acme.common
     # TODO: maybe? acme.dns-jborges-eu
-    # nextcloud
-    # nginx.common
+    nextcloud
+    nginx.common
     # rickbot # docker image doesn't work
     vpn.tailscale
     zfs.common

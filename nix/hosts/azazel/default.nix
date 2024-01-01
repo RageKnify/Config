@@ -18,6 +18,7 @@
     nginx.common
     nginx.jborges-eu
     nginx.r-jplborges-pt
+    proxy
     vpn.headscale
     vpn.tailscale
     wallabag

@@ -14,6 +14,7 @@
   networking.hostId = "bdfd03f3";
 
   environment.persistence."/persist".files = [ "/etc/machine-id" ];
+  environment.persistence."/persist".directories = [ "/var/lib/nixos" ];
 
   boot = {
     kernelParams =

@@ -140,6 +140,7 @@ in {
   fileSystems."/persist".neededForBoot = true;
 
   environment.persistence."/persist".files = [ "/etc/machine-id" ];
+  environment.persistence."/persist".directories = [ "/var/lib/nixos" ];
   networking.hostId = "3a5b81c2";
 
   zramSwap = {

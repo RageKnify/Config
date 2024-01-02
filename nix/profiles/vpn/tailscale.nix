@@ -11,9 +11,7 @@ in {
     allowedUDPPorts = [ config.services.tailscale.port ];
   };
 
-  environment.persistence."/persist".directories = [{
-    directory = "/var/lib/tailscale";
-  }];
+  environment.persistence."/persist".directories = [ "/var/lib/tailscale" ];
 
   modules.services.backups.paths = [ "/persist/var/lib/tailscale/" ];
 }

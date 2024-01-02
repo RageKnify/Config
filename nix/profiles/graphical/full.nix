@@ -62,6 +62,7 @@ in {
 
   # Required for gtk. (copied from RiscadoA)
   services.dbus.packages = [ pkgs.dconf ];
+  programs.dconf.enable = true;
 
   fonts.packages = with pkgs; [
     noto-fonts

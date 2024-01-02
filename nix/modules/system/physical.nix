@@ -14,7 +14,7 @@ in {
   options.modules.physical = { enable = mkEnableOption "physical"; };
   config = mkIf cfg.enable {
     #Enable SMARTd
-    services.my-smartd = {
+    services.smartd = {
       enable = true;
       autodetect = true;
       notifications = {

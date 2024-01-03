@@ -1,0 +1,18 @@
+diff --git a/bootstrap/app.php b/bootstrap/app.php
+index f17a7fe02..e21553b41 100644
+--- a/bootstrap/app.php
++++ b/bootstrap/app.php
+@@ -68,6 +68,13 @@ function stringIsEqual(string $left, string $right): bool
+ $app = new Illuminate\Foundation\Application(
+     (string)realpath(__DIR__ . '/../')
+ );
++if (isset($_SERVER['LARAVEL_STORAGE_PATH'])) {
++    $app->useStoragePath($_SERVER['LARAVEL_STORAGE_PATH']);
++} else if (isset($_ENV['LARAVEL_STORAGE_PATH'])) {
++    $app->useStoragePath($_ENV['LARAVEL_STORAGE_PATH']);
++} else {
++    throw new ErrorException("Must set LARAVEL_STORAGE_PATH to a writable directory. Cannot write storage to nix store.");
++}
+ 
+ /*
+ |--------------------------------------------------------------------------

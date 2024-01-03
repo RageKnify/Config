@@ -12,7 +12,8 @@
     docker
     server.full
     acme.common
-    # TODO: maybe? acme.dns-jborges-eu
+    acme.dns-jborges-eu
+    firefly
     nextcloud
     nginx.common
     # rickbot # docker image doesn't work

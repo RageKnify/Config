@@ -1,0 +1,18 @@
+diff --git a/bootstrap/app.php b/bootstrap/app.php
+index 9ae3232..384822b 100644
+--- a/bootstrap/app.php
++++ b/bootstrap/app.php
+@@ -56,6 +56,13 @@ if (!function_exists('envNonEmpty')) {
+ $app = new Illuminate\Foundation\Application(
+     $_ENV['APP_BASE_PATH'] ?? dirname(__DIR__)
+ );
++if (isset($_SERVER['LARAVEL_STORAGE_PATH'])) {
++    $app->useStoragePath($_SERVER['LARAVEL_STORAGE_PATH']);
++} else if (isset($_ENV['LARAVEL_STORAGE_PATH'])) {
++    $app->useStoragePath($_ENV['LARAVEL_STORAGE_PATH']);
++} else {
++    throw new ErrorException("Must set LARAVEL_STORAGE_PATH to a writable directory. Cannot write storage to nix store.");
++}
+ 
+ /*
+ |--------------------------------------------------------------------------

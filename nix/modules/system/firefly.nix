@@ -39,6 +39,7 @@ let
   fireflyEnv = laravelEnv // {
     APP_ENV = "production";
     SITE_OWNER = "${cfg.adminAddr}";
+    MAIL_SENDMAIL_COMMAND = "\"/run/wrappers/bin/sendmail -t\"";
     DEFAULT_LOCALE = (builtins.substring 0 5 config.i18n.defaultLocale);
     TZ = config.time.timeZone;
 
@@ -119,7 +120,7 @@ in {
       type = types.nullOr types.lines;
       default = null;
       description = lib.mdDoc ''
-        Options for Nextcloud's PHP pool. See the documentation on `php-fpm.conf` for details on configuration directives.
+        Options for Firefly III's PHP pool. See the documentation on `php-fpm.conf` for details on configuration directives.
       '';
     };
 
@@ -303,7 +304,7 @@ in {
           after = [
             "nginx.service"
             "phpfpm-firefly-iii.service"
-            "postgresql.service"
+            "postgresql.service" # TODO: this should depend on chosen database
           ];
           serviceConfig.Type = "oneshot";
           serviceConfig.User = "firefly-iii";
@@ -333,6 +334,7 @@ in {
         phpPackage = cfg.phpPackage;
         phpEnv = fireflyEnv // {
           APP_KEY = "$APP_KEY"; # load from phpfpm service env
+          MAIL_MAILER = "$MAIL_MAILER";
         };
         settings = mapAttrs (name: mkDefault) {
           "listen.owner" = config.services.nginx.user;

@@ -1,0 +1,13 @@
+diff --git a/config/mail.php b/config/mail.php
+index 84b70cd..bc45a7f 100644
+--- a/config/mail.php
++++ b/config/mail.php
+@@ -81,7 +81,7 @@ return [
+ 
+         'sendmail' => [
+             'transport' => 'sendmail',
+-            'path'      => '/usr/sbin/sendmail -bs',
++            'path'      => envNonEmpty('MAIL_SENDMAIL_COMMAND', '/usr/sbin/sendmail -bs'),
+         ],
+ 
+         'log' => [

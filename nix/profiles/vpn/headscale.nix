@@ -13,6 +13,11 @@ in {
           magic_dns = true;
           name_servers = [ "1.1.1.1" ];
           override_local_dns = true;
+          extra_records = [{
+            name = "ff3.jborges.eu";
+            type = "A";
+            value = "100.64.0.2";
+          }];
         };
       };
     };

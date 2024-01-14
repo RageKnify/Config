@@ -25,13 +25,18 @@ in {
       extraAppsEnable = true;
       extraApps = with config.services.nextcloud.package.packages.apps; {
         inherit calendar contacts tasks;
-        # TODO: wait for a nextcloud28 compatible release
-        # cookbook = pkgs.fetchNextcloudApp rec {
-        #   url =
-        #     "https://github.com/nextcloud/cookbook/releases/download/v0.10.2/Cookbook-0.10.2.tar.gz";
-        #   sha256 = "sha256-XgBwUr26qW6wvqhrnhhhhcN4wkI+eXDHnNSm1HDbP6M=";
-        #   license = "agpl3";
-        # };
+        cookbook = pkgs.fetchNextcloudApp rec {
+          url =
+            "https://github.com/christianlupus-nextcloud/cookbook-releases/releases/download/v0.11.0/cookbook-0.11.0.tar.gz";
+          sha256 = "sha256-19LN1nYJJ0RMWj6DrYPvHzocTyhMfYdpdhBFch3fpHE=";
+          license = "agpl3";
+        };
+        cospend = pkgs.fetchNextcloudApp {
+          url =
+            "https://github.com/julien-nc/cospend-nc/releases/download/v1.5.14/cospend-1.5.14.tar.gz";
+          sha256 = "sha256-ehMQSVkrQC9MAkjMBVTHaNR9V0s8Y561FawvNbrU8Xk=";
+          license = "agpl3";
+        };
       };
 
       config = {

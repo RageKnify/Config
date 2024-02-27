@@ -96,7 +96,7 @@ in {
     pavucontrol
     thunderbird
     unstable.ghidra-bin
-    unstable.signal-desktop
+    latest.signal-desktop
     vlc
     xcape
     xclip

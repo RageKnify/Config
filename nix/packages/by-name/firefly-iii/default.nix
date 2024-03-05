@@ -1,5 +1,5 @@
 { pkgs, fetchFromGitHub, phpPackage ? pkgs.php83, ... }:
-let version = "6.1.9";
+let version = "6.1.10";
 in phpPackage.buildComposerProject (finalAttrs: {
   inherit version;
   pname = "firefly-iii";
@@ -8,9 +8,9 @@ in phpPackage.buildComposerProject (finalAttrs: {
     owner = "firefly-iii";
     repo = "firefly-iii";
     rev = "v${version}";
-    hash = "sha256-2KgQcatheAbFbs72PHjPpnBMWMzXxTtGatZQ9zIAuGw=";
+    hash = "sha256-RPkSX9o/5XGh1dZhyyFYsPedl6/SHOGXOAY2/x7aiaM=";
   };
-  vendorHash = "sha256-vbc9QCwniCY4gvSXy/avIGAVD9dMXh4Ou23i7hgob6Y=";
+  vendorHash = "sha256-BQThhJwMdjs2d1iQpKU+19qU2NFmzMTW8d28KCAxKqc=";
 
   patches = [ ./firefly-storage-path.patch ];
 })

@@ -1,4 +1,4 @@
-{ config, lib, pkgs, ... }:
+{ config, options, lib, pkgs, ... }:
 with lib;
 let
   cfg = config.services.firefly-iii-data-importer;
@@ -18,7 +18,7 @@ let
         (builtins.mapAttrs (name: value: "export ${name}=${value}")
           fireflyEnv))}
 
-      exec ${pkgs.firefly-iii-data-importer}/share/php/firefly-iii-data-importer/artisan "$@"
+      exec ${cfg.package}/share/php/firefly-iii-data-importer/artisan "$@"
     '';
 
   laravelEnv = {
@@ -41,7 +41,7 @@ let
     APP_ENV = "production";
     ENABLE_MAIL_REPORT = "true";
     MAIL_DESTINATION = cfg.reportsAddr;
-    MAIL_SENDMAIL_COMMAND = "\"/run/wrappers/bin/sendmail -t\"";
+    MAIL_SENDMAIL_COMMAND = ''"/run/wrappers/bin/sendmail -t"'';
     DEFAULT_LOCALE = (builtins.substring 0 5 config.i18n.defaultLocale);
     TZ = config.time.timeZone;
 
@@ -54,7 +54,8 @@ in {
 
     hostName = mkOption {
       type = types.str;
-      description = lib.mdDoc "FQDN for the Firefly III data importer instance.";
+      description =
+        lib.mdDoc "FQDN for the Firefly III data importer instance.";
     };
     home = mkOption {
       type = types.str;
@@ -72,7 +73,8 @@ in {
     };
     importConfigDir = mkOption {
       type = types.str;
-      default = config.services.firefly-iii-data-importer.home + "/import-configs";
+      default = config.services.firefly-iii-data-importer.home
+        + "/import-configs";
       description = lib.mdDoc ''
         Firefly III data importer's config storage path.
       '';
@@ -83,12 +85,12 @@ in {
       default = false;
       description = lib.mdDoc "Use HTTPS for generated links.";
     };
-    package = mkOption {
-      type = types.package;
-      default = pkgs.firefly-iii-data-importer;
-      description =
-        lib.mdDoc "Which package to use for the Firefly III data importer instance.";
-    };
+    # package = mkOption {
+    #   type = types.package;
+    #   default = pkgs.firefly-iii-data-importer;
+    #   description = lib.mdDoc
+    #     "Which package to use for the Firefly III data importer instance.";
+    # };
     phpPackage = mkOption {
       type = types.package;
       default = pkgs.php83;
@@ -166,13 +168,6 @@ in {
 
   config = mkIf cfg.enable (mkMerge [
     {
-      services.firefly-iii-data-importer.package =
-        pkgs.firefly-iii-data-importer.override {
-          phpPackage = cfg.phpPackage;
-        };
-    }
-
-    {
       systemd.timers.firefly-iii-data-importer-cron = {
         unitConfig.Description = "Firefly III data importer cron";
         timerConfig.OnCalendar = "23:58";
@@ -199,7 +194,7 @@ in {
               umask 0007
 
               # ensure storage dir matches Laravel's expectations and is writable
-              ${pkgs.rsync}/bin/rsync --ignore-existing -r ${pkgs.firefly-iii-data-importer}/share/php/firefly-iii-data-importer/storage ${datadir}/
+              ${pkgs.rsync}/bin/rsync --ignore-existing -r ${cfg.package}/share/php/firefly-iii-data-importer/storage ${datadir}/
               chmod -R u+w ${datadir}/storage
 
               # ensure bootstrap/cache-equivalent directory exists (will be writable)
@@ -214,12 +209,11 @@ in {
         };
         firefly-iii-data-importer-cron = {
           description = "Firefly III data importer cron";
-          requires = [ "nginx.service" "phpfpm-firefly-iii-data-importer.service" ];
+          requires =
+            [ "nginx.service" "phpfpm-firefly-iii-data-importer.service" ];
           wantedBy = [ "phpfpm-firefly-iii-data-importer.service" ];
-          after = [
-            "nginx.service"
-            "phpfpm-firefly-iii-data-importer.service"
-          ];
+          after =
+            [ "nginx.service" "phpfpm-firefly-iii-data-importer.service" ];
           serviceConfig.Type = "oneshot";
           serviceConfig.User = "firefly-iii-data-importer";
           serviceConfig.Group = "firefly-iii-data-importer";

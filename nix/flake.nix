@@ -18,6 +18,7 @@
       url = "github:nix-community/home-manager/release-23.11";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    flake-parts.url = "github:hercules-ci/flake-parts";
     agenix = {
       url = "github:ryantm/agenix/main";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -26,6 +27,7 @@
       url = "github:nix-community/lanzaboote";
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.flake-utils.follows = "flake-utils";
+      inputs.flake-parts.follows = "flake-parts";
     };
     simple-nixos-mailserver = {
       url = "gitlab:simple-nixos-mailserver/nixos-mailserver/nixos-23.05";
@@ -44,5 +46,14 @@
     };
   };
 
-  outputs = args: import ./outputs.nix args;
+  outputs = inputs@{ flake-parts, ... }:
+    flake-parts.lib.mkFlake { inherit inputs; }
+    ({ moduleWithSystem, flake-parts-lib, ... }: {
+      flake = import ./outputs.nix
+        (inputs // { inherit moduleWithSystem flake-parts-lib; });
+      systems = [ "x86_64-linux" ];
+      perSystem = { pkgs, lib, ... }: {
+        packages = import ./packages { inherit pkgs lib; };
+      };
+    });
 }

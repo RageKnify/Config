@@ -1,4 +1,4 @@
-{ config, lib, pkgs, ... }:
+{ config, options, lib, pkgs, ... }:
 with lib;
 let
   cfg = config.services.firefly-iii;
@@ -23,7 +23,7 @@ let
     source '${appKeyEnvPath}'
     export APP_KEY
 
-    exec ${pkgs.firefly-iii}/share/php/firefly-iii/artisan "$@"
+    exec ${cfg.package}/share/php/firefly-iii/artisan "$@"
   '';
 
   laravelEnv = {
@@ -80,12 +80,12 @@ in {
       default = false;
       description = lib.mdDoc "Use HTTPS for generated links.";
     };
-    package = mkOption {
-      type = types.package;
-      default = pkgs.firefly-iii;
-      description =
-        lib.mdDoc "Which package to use for the Firefly III instance.";
-    };
+    # package = mkOption {
+    #   type = types.package;
+    #   default = pkgs.firefly-iii;
+    #   description =
+    #     lib.mdDoc "Which package to use for the Firefly III instance.";
+    # };
     phpPackage = mkOption {
       type = types.package;
       default = pkgs.php83;
@@ -215,11 +215,6 @@ in {
 
   config = mkIf cfg.enable (mkMerge [
     {
-      services.firefly-iii.package =
-        pkgs.firefly-iii.override { phpPackage = cfg.phpPackage; };
-    }
-
-    {
       assertions = [{
         assertion = cfg.database.createLocally -> cfg.config.dbpassFile == null;
         message = ''
@@ -265,7 +260,7 @@ in {
               umask 0007
 
               # ensure storage dir matches Laravel's expectations and is writable
-              ${pkgs.rsync}/bin/rsync --ignore-existing -r ${pkgs.firefly-iii}/share/php/firefly-iii/storage ${datadir}/
+              ${pkgs.rsync}/bin/rsync --ignore-existing -r ${cfg.package}/share/php/firefly-iii/storage ${datadir}/
               chmod -R u+w ${datadir}/storage
 
               # ensure bootstrap/cache-equivalent directory exists (will be writable)

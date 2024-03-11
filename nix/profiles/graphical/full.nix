@@ -12,7 +12,10 @@ in {
 
   services.xserver = {
     enable = true;
-    layout = "pt";
+    xkb = {
+      layout = "us";
+      variant = "intl";
+    };
     displayManager = {
       defaultSession = "user-xsession";
       session = [{

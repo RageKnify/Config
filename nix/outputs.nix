@@ -83,4 +83,10 @@ let
 in {
   inherit nixosConfigurations nixosModules;
   overlays = myOverlays;
+  homeConfigurations."jborges" = inputs.home.lib.homeManagerConfiguration {
+    pkgs = inputs.nixpkgs.legacyPackages."x86_64-linux";
+    modules = [
+      ./death-home.nix
+    ];
+  };
 }

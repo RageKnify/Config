@@ -21,7 +21,6 @@ in {
   boot.kernelModules = [ "kvm-intel" ];
   boot.extraModulePackages = [ ];
   boot.supportedFilesystems = [ "zfs" ];
-  boot.kernelPackages = config.boot.zfs.package.latestCompatibleLinuxPackages;
 
   boot.zfs.devNodes = "/dev/disk/by-id";
 

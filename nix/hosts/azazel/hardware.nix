@@ -10,7 +10,6 @@
   boot.extraModulePackages = [ ];
 
   boot.supportedFilesystems = [ "zfs" ];
-  boot.kernelPackages = config.boot.zfs.package.latestCompatibleLinuxPackages;
   networking.hostId = "bdfd03f3";
 
   environment.persistence."/persist".files = [ "/etc/machine-id" ];

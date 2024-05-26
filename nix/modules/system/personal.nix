@@ -16,6 +16,7 @@ in {
     # YubiKey stuf
     services.pcscd.enable = true;
     environment.systemPackages = with pkgs; [
+      nextcloud-client
       yubikey-manager
       # qmk stuf
       qmk

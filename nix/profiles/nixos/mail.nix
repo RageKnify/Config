@@ -18,6 +18,8 @@
 
     enableManageSieve = true;
 
+    localDnsResolver = false;
+
     loginAccounts = {
       "me@jborges.eu" = {
         hashedPasswordFile = config.age.secrets.mailJoaoHashedPassword.path;

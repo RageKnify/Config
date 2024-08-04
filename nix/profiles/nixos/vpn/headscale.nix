@@ -11,8 +11,8 @@ in {
         dns_config = {
           base_domain = "jborges.eu";
           magic_dns = true;
-          name_servers = [ "1.1.1.1" ];
-          override_local_dns = true;
+          nameservers = [ ];
+          override_local_dns = false;
           extra_records = [{
             name = "ff3.jborges.eu";
             type = "A";

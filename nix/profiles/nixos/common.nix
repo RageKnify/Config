@@ -8,6 +8,7 @@
 { inputs, pkgs, lib, profiles, ... }: {
   imports = with profiles.nixos; [
     locale
+    dnscrypt
     inputs.flake-programs-sqlite.nixosModules.programs-sqlite
   ];
   nix = {
@@ -82,13 +83,6 @@
     sleep = null;
   };
 
-  services.resolved = {
-    enable = true;
-    fallbackDns =
-      [ "1.1.1.1" "1.0.0.1" "2606:4700:4700::1111" "2606:4700:4700::1001" ];
-  };
-
-  networking.search = [ "rnl.tecnico.ulisboa.pt" ];
   security.pki.certificateFiles = [
     (builtins.fetchurl {
       url = "https://rnl.tecnico.ulisboa.pt/ca/cacert/cacert.pem";

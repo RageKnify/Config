@@ -65,8 +65,6 @@
     networkmanager.enable = false;
     useDHCP = false;
 
-    nameservers = [ "1.1.1.1" ];
-
     interfaces.ens3 = {
       useDHCP = false;
 

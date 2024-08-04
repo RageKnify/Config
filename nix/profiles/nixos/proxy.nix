@@ -3,7 +3,7 @@
     "cloud.jborges.eu" = {
       forceSSL = true;
       useACMEHost = "jborges.eu";
-      locations."/".proxyPass = "http://conquest.bible.jborges.eu:80";
+      locations."/".proxyPass = "http://100.64.0.2:80"; # conquest.bible
     };
   };
 }

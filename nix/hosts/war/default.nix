@@ -205,10 +205,6 @@
 
         # private range (Labs AMT)
         "~154.168.192.in-addr.arpa"
-
-        # resolve any other domain by default
-        "~."
-
       ] ++ (
         # private ranges (DSI-assigned)
         builtins.map

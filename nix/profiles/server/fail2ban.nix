@@ -1,4 +1,5 @@
 { config, lib, pkgs, ... }: {
+  # TODO: consider https://github.com/carjorvaz/nixos/blob/master/profiles/nixos/fail2ban.nix
   services.fail2ban = {
     enable = true;
     maxretry = 5;

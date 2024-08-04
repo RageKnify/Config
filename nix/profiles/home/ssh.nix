@@ -8,10 +8,6 @@
 { config, lib, ... }:
 let
   setEnv = { TERM = "xterm-256color"; };
-  kerberosExtraOptions = {
-    GSSAPIAuthentication = "yes";
-    GSSAPIDelegateCredentials = "yes";
-  };
 in {
   programs.ssh = {
     enable = true;
@@ -36,40 +32,19 @@ in {
         hostname = "conquest.bible.jborges.eu";
         inherit setEnv;
       };
-      "research*" = {
-        user = "fmarques";
-        hostname = "mustard.stt.rnl.tecnico.ulisboa.pt";
-        inherit setEnv;
-      };
-      "research12" = { port = 2222; };
-      "research20" = { port = 2230; };
-      ctf = {
-        user = "stt";
-        hostname = "mustard.stt.rnl.tecnico.ulisboa.pt";
-        port = 2204;
-        inherit setEnv;
-      };
-      garlic = {
-        user = "stt";
-        hostname = "pest.stt.rnl.tecnico.ulisboa.pt";
-        inherit setEnv;
-      };
       sig = {
         hostname = "sigma03.tecnico.ulisboa.pt";
         user = "ist189482";
-        extraOptions = kerberosExtraOptions;
         inherit setEnv;
       };
       nex = {
         hostname = "nexus1.rnl.tecnico.ulisboa.pt";
         user = "ist189482";
-        extraOptions = kerberosExtraOptions;
         inherit setEnv;
       };
       clu = {
         hostname = "cluster.rnl.tecnico.ulisboa.pt";
         user = "ist189482";
-        extraOptions = kerberosExtraOptions;
         inherit setEnv;
       };
       re2 = {

@@ -159,9 +159,10 @@ let
     vim-commentary
 
     {
-      plugin = nvim-base16;
+      plugin = base16-nvim;
       config = ''
         " colorscheme settings
+        set termguicolors
         set background=light
         colorscheme base16-solarized-light
       '';
@@ -325,7 +326,7 @@ let
     "${config.xdg.configHome}/nvim/lua/generic_lsp.lua".source =
       ./generic_lsp.lua;
     "${config.xdg.configHome}/nvim/after/ftplugin/nix.vim".text = ''
-      nnoremap <silent> <leader>tt :silent !${pkgs.nixfmt}/bin/nixfmt %<CR>
+      nnoremap <silent> <leader>tt :silent !${pkgs.nixfmt-rfc-style}/bin/nixfmt %<CR>
     '' + twoSpaceIndentConfig;
   } //
     # languages that should use 2 space indent

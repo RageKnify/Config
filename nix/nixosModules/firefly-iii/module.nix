@@ -1,8 +1,8 @@
 { config, options, lib, pkgs, ... }:
 with lib;
 let
-  cfg = config.services.firefly-iii;
-  fpm = config.services.phpfpm.pools.firefly-iii;
+  cfg = config.services.myfirefly-iii;
+  fpm = config.services.phpfpm.pools.myfirefly-iii;
 
   inherit (cfg) datadir;
   inherit (strings) optionalString;
@@ -23,7 +23,7 @@ let
     source '${appKeyEnvPath}'
     export APP_KEY
 
-    exec ${cfg.package}/share/php/firefly-iii/artisan "$@"
+    exec ${cfg.package}/share/php/myfirefly-iii/artisan "$@"
   '';
 
   laravelEnv = {
@@ -54,7 +54,7 @@ let
 
   appKeyEnvPath = "${datadir}/app_key.env";
 in {
-  options.services.firefly-iii = {
+  options.services.myfirefly-iii = {
     enable = mkEnableOption (lib.mdDoc "Firefly III");
 
     hostName = mkOption {
@@ -68,7 +68,7 @@ in {
     };
     datadir = mkOption {
       type = types.str;
-      default = config.services.firefly-iii.home;
+      default = config.services.myfirefly-iii.home;
       defaultText = literalExpression "config.services.firefly.home";
       description = lib.mdDoc ''
         Firefly III's data storage path.  Will be [](#opt-services.firefly.home) by default.
@@ -170,8 +170,8 @@ in {
         defaultText = "localhost";
         description = lib.mdDoc ''
           Database host or socket path.
-          If [](#opt-services.firefly-iii.database.createLocally) is true and
-          [](#opt-services.firefly-iii.config.dbtype) is either `pgsql` or `mysql`,
+          If [](#opt-services.myfirefly-iii.database.createLocally) is true and
+          [](#opt-services.myfirefly-iii.config.dbtype) is either `pgsql` or `mysql`,
           defaults to the correct Unix socket instead.
         '';
       };
@@ -218,17 +218,17 @@ in {
       assertions = [{
         assertion = cfg.database.createLocally -> cfg.config.dbpassFile == null;
         message = ''
-          Using `services.firefly-iii.database.createLocally` with database
+          Using `services.myfirefly-iii.database.createLocally` with database
           password authentication is no longer supported.
 
           If you use an external database (or want to use password auth for any
-          other reason), set `services.firefly-iii.database.createLocally` to
+          other reason), set `services.myfirefly-iii.database.createLocally` to
           `false`. The database won't be managed for you (use `services.mysql`
           if you want to set it up).
 
           If you want this module to manage your Firefly III database for you,
-          unset `services.firefly-iii.config.dbpassFile` and
-          `services.firefly-iii.config.dbhost` to use socket authentication
+          unset `services.myfirefly-iii.config.dbpassFile` and
+          `services.myfirefly-iii.config.dbhost` to use socket authentication
           instead of password.
         '';
       }];
@@ -260,7 +260,7 @@ in {
               umask 0007
 
               # ensure storage dir matches Laravel's expectations and is writable
-              ${pkgs.rsync}/bin/rsync --ignore-existing -r ${cfg.package}/share/php/firefly-iii/storage ${datadir}/
+              ${pkgs.rsync}/bin/rsync --ignore-existing -r ${cfg.package}/share/php/myfirefly-iii/storage ${datadir}/
               chmod -R u+w ${datadir}/storage
 
               # ensure bootstrap/cache-equivalent directory exists (will be writable)
@@ -310,7 +310,7 @@ in {
             ${wrappedArtisan}/bin/artisan-firefly-iii firefly-iii:cron
           '';
         };
-        phpfpm-firefly-iii = {
+        phpfpm-myfirefly-iii = {
           requires = [
             "laravelsetup-firefly-iii.service"
             # require DB for PHP, to avoid weird cascading errors
@@ -323,7 +323,7 @@ in {
         };
       };
 
-      services.phpfpm.pools.firefly-iii = {
+      services.phpfpm.pools.myfirefly-iii = {
         user = "firefly-iii";
         group = "firefly-iii";
         phpPackage = cfg.phpPackage;
@@ -369,7 +369,7 @@ in {
       services.nginx.enable = mkDefault true;
 
       services.nginx.virtualHosts.${cfg.hostName} = {
-        root = "${cfg.package}/share/php/firefly-iii/public";
+        root = "${cfg.package}/share/php/myfirefly-iii/public";
         locations = {
           "/".tryFiles = "$uri @rewriteapp";
           "@rewriteapp".extraConfig = ''

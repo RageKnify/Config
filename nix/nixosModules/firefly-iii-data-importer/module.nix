@@ -224,8 +224,8 @@ in {
           '';
         };
         phpfpm-firefly-iii-data-importer = {
-          requires = [ "phpfpm-firefly-iii.service" ];
-          after = [ "phpfpm-firefly-iii.service" ];
+          requires = [ "phpfpm-myfirefly-iii.service" ];
+          after = [ "phpfpm-myfirefly-iii.service" ];
           serviceConfig.EnvironmentFile = cfg.environmentFile;
           restartTriggers = [
             config.systemd.services."laravelsetup-firefly-iii-data-importer".script

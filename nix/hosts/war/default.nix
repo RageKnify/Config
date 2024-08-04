@@ -9,7 +9,6 @@
   imports = with profiles; [
     common
     graphical.full
-    kerberos
     vpn.tailscale
     zfs.common
     zfs.email

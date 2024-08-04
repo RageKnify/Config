@@ -8,7 +8,7 @@
 { pkgs, config, lib, profiles, ... }:
 let hostName = config.networking.hostName;
 in {
-  imports = with profiles.graphical; [ firefox ];
+  imports = with profiles.nixos.graphical; [ firefox ];
 
   services.xserver = {
     enable = true;

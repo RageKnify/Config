@@ -6,7 +6,7 @@
 # full server config
 
 { profiles, ... }: {
-  imports = with profiles.server; [
+  imports = with profiles.nixos.server; [
     sshd
     nix-gc
     fail2ban

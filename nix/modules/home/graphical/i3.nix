@@ -335,7 +335,7 @@ in {
       enableXinerama = true;
       display = "fill";
       imageDirectory =
-        "${./../../../profiles/graphical/wallpapers}/${hostName}";
+        "${./../../../profiles/nixos/graphical/wallpapers}/${hostName}";
       interval = "10m";
     };
   };

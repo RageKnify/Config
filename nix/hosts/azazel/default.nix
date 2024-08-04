@@ -6,7 +6,7 @@
 # System configuration.
 
 { pkgs, lib, sshKeys, config, hostSecretsDir, profiles, ... }: {
-  imports = with profiles; [
+  imports = with profiles.nixos; [
     common
     docker
     focalboard

@@ -148,27 +148,6 @@
         };
       }];
     };
-    netdevs."20-stt" = {
-      enable = true;
-      netdevConfig = {
-        Kind = "wireguard";
-        MTUBytes = "1300";
-        Name = "stt";
-      };
-      wireguardConfig = {
-        PrivateKeyFile = config.age.secrets.wireguard-privkey.path;
-        FirewallMark = sttFwmark;
-        RouteTable = "stt";
-      };
-      wireguardPeers = [{
-        wireguardPeerConfig = {
-          PublicKey = "u0DdfahuhX8GsVaQ4P2kBcHoF9kw9HZL9uqPcu2UMw8=";
-          Endpoint = "pest.stt.rnl.tecnico.ulisboa.pt:34266";
-          AllowedIPs = [ "10.0.0.0/8" "fd00::/8" ];
-          PersistentKeepalive = 25;
-        };
-      }];
-    };
     networks."40-rnl" = {
       name = "rnl";
 
@@ -235,35 +214,6 @@
         builtins.map
         (octet: "~" + (builtins.toString octet) + ".16.10.in-addr.arpa")
         (lib.range 64 127));
-
-      extraConfig = ''
-        [Network]
-      '';
-    };
-    networks."50-stt" = {
-      name = "stt";
-
-      addresses = [
-        { addressConfig.Address = "10.6.77.100/8"; }
-        { addressConfig.Address = "fd00:677::100/8"; }
-      ];
-
-      networkConfig = {
-        LinkLocalAddressing = "no";
-        IPv6AcceptRA = false;
-        #MulticastDNS = true;
-      };
-
-      routingPolicyRules = [{
-        routingPolicyRuleConfig = {
-          InvertRule = true;
-          FirewallMark = sttFwmark;
-          Table = "stt";
-        };
-      }];
-
-      dns = [ "10.6.77.1" ];
-      domains = [ "~stt.pt" ];
 
       extraConfig = ''
         [Network]

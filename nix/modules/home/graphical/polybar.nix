@@ -59,8 +59,6 @@ in {
             "Font Awesome 6 Free:style=solid;4"
             "Font Awesome 6 Brands,Font Awesome 6 Brands Regular:style=Regular;4"
           ];
-          tray-position = "right";
-          tray-padding = 1;
           padding = 0;
           bottom = false;
           monitor = "\${env:MONITOR:eDP-1}";
@@ -68,7 +66,7 @@ in {
             + "xkeyboard pulseaudio";
           # modules-right = filesystem0 filesystem1 cpu temperature memory wlan battery date
           modules-right = "cpu temperature memory"
-            + (strings.optionalString laptop.enable " wlan battery") + " date";
+            + (strings.optionalString laptop.enable " wlan battery") + " date tray";
         };
         "module/i3" = optionalAttrs i3 {
           type = "internal/i3";
@@ -192,7 +190,7 @@ in {
           format-discharging-overline = "\${self.format-charging-overline}";
 
           low-at = 10;
-          format-low = "<animation-low> <ramp-capacity> <label-discharging>";
+          format-low = "<animation-low> <ramp-capacity> %percentage%%";
           format-low-overline = "\${self.format-charging-overline}";
 
           animation-low-0 = ".";
@@ -241,6 +239,9 @@ in {
           ramp-signal-3 = "3";
           ramp-signal-4 = "4";
           ramp-signal-foreground = "\${colors.foreground-alt}";
+        };
+        "module/tray" = {
+          type = "internal/tray";
         };
       };
     };

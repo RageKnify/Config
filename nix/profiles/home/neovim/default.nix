@@ -8,7 +8,6 @@
 { pkgs, lib, config, osConfig, ... }:
 let
   inherit (lib) mkEnableOption mkIf lists strings;
-  cfg = config.modules.neovim;
   personal = osConfig.modules.personal.enable;
   git = config.modules.git.enable;
   commonPlugins = with pkgs.vimPlugins; [

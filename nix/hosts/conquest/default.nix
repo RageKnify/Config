@@ -6,7 +6,7 @@
 # system configuration.
 
 { pkgs, lib, config, hostSecretsDir, profiles, ... }: {
-  imports = with profiles; [
+  imports = with profiles.nixos; [
     common
     graphical.full
     docker

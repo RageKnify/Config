@@ -6,7 +6,7 @@
 # System config common across all hosts
 
 { inputs, pkgs, lib, profiles, ... }: {
-  imports = with profiles; [
+  imports = with profiles.nixos; [
     locale
     inputs.flake-programs-sqlite.nixosModules.programs-sqlite
   ];

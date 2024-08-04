@@ -29,26 +29,28 @@ in {
           url =
             "https://github.com/christianlupus-nextcloud/cookbook-releases/releases/download/v0.11.0/cookbook-0.11.0.tar.gz";
           sha256 = "sha256-19LN1nYJJ0RMWj6DrYPvHzocTyhMfYdpdhBFch3fpHE=";
-          license = "agpl3";
+          license = "agpl3Only";
         };
         cospend = pkgs.fetchNextcloudApp {
           url =
             "https://github.com/julien-nc/cospend-nc/releases/download/v1.5.14/cospend-1.5.14.tar.gz";
           sha256 = "sha256-ehMQSVkrQC9MAkjMBVTHaNR9V0s8Y561FawvNbrU8Xk=";
-          license = "agpl3";
+          license = "agpl3Only";
         };
       };
 
       config = {
-        overwriteProtocol = "https";
-        defaultPhoneRegion = "PT";
-
-        trustedProxies = [ "100.64.0.1" ]; # azazel.bible.jborges.eu
-
         dbtype = "pgsql";
 
         adminuser = "admin";
         adminpassFile = config.age.secrets.nextcloud-admin-pass.path;
+      };
+
+      settings = {
+        overwriteProtocol = "https";
+        defaultPhoneRegion = "PT";
+
+        trustedProxies = [ "100.64.0.1" ]; # azazel.bible.jborges.eu
       };
 
       database.createLocally = true;

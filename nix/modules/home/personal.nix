@@ -26,6 +26,6 @@ in lib.attrsets.optionalAttrs personal.enable {
     # Scheme
     chez
     # nixfmt
-    nixfmt
+    nixfmt-rfc-style
   ];
 }

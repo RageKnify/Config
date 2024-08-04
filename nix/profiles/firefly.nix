@@ -5,7 +5,7 @@
     group = "firefly-iii";
   };
 
-  services.firefly-iii = {
+  services.myfirefly-iii = {
     enable = true;
 
     hostName = "ff3.jborges.eu";
@@ -22,18 +22,18 @@
   };
 
   services.nginx.virtualHosts = {
-    "${config.services.firefly-iii.hostName}" = {
+    "${config.services.myfirefly-iii.hostName}" = {
       forceSSL = true;
       useACMEHost = "jborges.eu";
     };
   };
 
   environment.persistence."/persist".directories = [{
-    directory = config.services.firefly-iii.home;
+    directory = config.services.myfirefly-iii.home;
     user = "firefly-iii";
     group = "firefly-iii";
   }];
 
   modules.services.backups.paths =
-    [ "/persist/${config.services.firefly-iii.home}/" ];
+    [ "/persist/${config.services.myfirefly-iii.home}/" ];
 }

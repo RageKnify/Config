@@ -49,7 +49,7 @@ in {
     # laptop implies physical machine
     modules.physical.enable = true;
 
-    services.xserver.libinput = {
+    services.libinput = {
       enable = true;
       touchpad.naturalScrolling = true;
     };

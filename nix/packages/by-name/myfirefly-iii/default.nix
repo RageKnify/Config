@@ -2,7 +2,7 @@
 let version = "6.1.10";
 in phpPackage.buildComposerProject (finalAttrs: {
   inherit version;
-  pname = "firefly-iii";
+  pname = "myfirefly-iii";
 
   src = fetchFromGitHub {
     owner = "firefly-iii";

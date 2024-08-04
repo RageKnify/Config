@@ -13,11 +13,10 @@ in {
   services.xserver = {
     enable = true;
     xkb = {
-      layout = "us";
-      variant = "intl";
+      layout = "us,us";
+      variant = ",intl";
     };
     displayManager = {
-      defaultSession = "user-xsession";
       session = [{
         name = "user-xsession";
         manage = "desktop";
@@ -47,6 +46,7 @@ in {
       };
     };
   };
+  services.displayManager.defaultSession = "user-xsession";
 
   services.redshift = {
     enable = true;

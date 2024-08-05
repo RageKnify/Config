@@ -6,6 +6,7 @@
 # tmux configuration
 
 {
+  pkgs,
   config,
   lib,
   myLib,
@@ -49,5 +50,6 @@ in
     historyLimit = 50000;
     keyMode = "vi";
     terminal = "tmux-256color";
+    shell = "${pkgs.fish}/bin/fish";
   };
 }

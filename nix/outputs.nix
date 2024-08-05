@@ -109,4 +109,22 @@ in
 {
   inherit nixosConfigurations nixosModules;
   overlays = myOverlays;
+  homeConfigurations."jborges" = inputs.home.lib.homeManagerConfiguration {
+    pkgs = inputs.nixpkgs.legacyPackages."x86_64-linux";
+    modules = [
+      ./death-home.nix
+      {
+      	nixpkgs.overlays = attrValues myOverlays;
+      }
+    ];
+    extraSpecialArgs = {
+      inherit myLib;
+      osConfig = {
+        modules.personal.enable = true;
+        modules.laptop.enable = false;
+        programs.light.enable = false;
+        networking.hostName = "death";
+      };
+    };
+  };
 }

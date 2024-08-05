@@ -6,6 +6,7 @@
 # tmux configuration
 
 {
+  pkgs,
   config,
   lib,
   myLib,
@@ -25,6 +26,7 @@ in
     extraConfig = ''
       set -sa terminal-overrides ',gnome*:RGB'
       set -sa terminal-overrides ',xterm-256color:RGB'
+      set -as terminal-features ",*:hyperlinks"
       # Set status bar color
       set -g status-style fg='${colors.light.base07}',bg='${hostColor}'
 
@@ -49,5 +51,6 @@ in
     historyLimit = 50000;
     keyMode = "vi";
     terminal = "tmux-256color";
+    shell = "${pkgs.fish}/bin/fish";
   };
 }

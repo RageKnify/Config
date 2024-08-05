@@ -66,6 +66,9 @@ in
         ll = "log --oneline --graph --max-count=30";
         llw = "log --oneline --graph --max-count=30 --since 'last week'";
         lll = "log --oneline --graph";
+        wl = "worktree list";
+        wa = "worktree add";
+        wr = "worktree remove";
       };
       includes = cfg.includes;
     };

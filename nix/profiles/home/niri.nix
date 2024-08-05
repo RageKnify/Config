@@ -308,4 +308,8 @@ in
       };
     };
   };
+
+  systemd.user.services.wpaperd = lib.mkIf (!nixos) {
+    Service.ExecStart = lib.mkForce "/usr/local/bin/wpaperd";
+  };
 }

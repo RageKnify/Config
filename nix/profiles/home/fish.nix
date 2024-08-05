@@ -99,6 +99,7 @@
     source (fzf-share)/key-bindings.fish
     fzf_key_bindings
     any-nix-shell fish --info-right | source
+    set -x TERM xterm-256color
   '';
 
   # starship

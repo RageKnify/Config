@@ -17,9 +17,12 @@ in
 {
   programs.kitty = {
     enable = true;
+    settings = {
+      shell = "${pkgs.fish}/bin/fish";
+    };
     font = {
       name = "JetBrains Mono Nerd Font";
-      size = 16;
+      size = 14;
     };
     keybindings = {
       "alt+c" = "copy_to_clipboard";

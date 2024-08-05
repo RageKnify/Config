@@ -7,6 +7,8 @@ set noexpandtab
 " delete trailing whitespace
 autocmd FileType c,cpp,java,lua,nix,ocaml,vim,wast autocmd BufWritePre <buffer> %s/\s\+$//e
 
+autocmd BufNewFile,BufRead *.yaml.jinja   set filetype=jinja2.yaml
+
 " Easy bind to leave terminal mode
 tnoremap <Esc> <C-\><C-n>
 

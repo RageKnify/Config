@@ -98,6 +98,7 @@ let
         vim.g.Illuminate_delay = 100
         local set = vim.keymap.set
         local illuminate = require"illuminate"
+        illuminate.configure({})
         set('n', '<leader>gn', illuminate.goto_next_reference, {silent=true})
         set('n', '<leader>gp', illuminate.goto_prev_reference, {silent=true})
       '';
@@ -335,6 +336,7 @@ let
           "yacc"
           "lex"
           "cpp"
+          "terraform"
           "tex"
           "scheme"
         ]

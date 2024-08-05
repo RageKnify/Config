@@ -44,7 +44,8 @@ let
     inputs.agenix.overlays.default
     inputs.niri.overlays.niri
     pkg-sets
-  ] ++ attrValues myOverlays;
+  ]
+  ++ attrValues myOverlays;
 
   systemModules = myLib.listModulesRecursive ./modules/system;
   homeModules = myLib.listModulesRecursive ./modules/home;
@@ -68,36 +69,35 @@ let
               ;
             hostSecretsDir = "${secretsDir}/${name}";
           };
-          modules =
-            [
-              { networking.hostName = name; }
-              (dir + "/${name}")
-              {
-                nixpkgs = {
-                  inherit overlays;
-                  config = {
-                    allowUnfree = true;
-                  };
+          modules = [
+            { networking.hostName = name; }
+            (dir + "/${name}")
+            {
+              nixpkgs = {
+                inherit overlays;
+                config = {
+                  allowUnfree = true;
                 };
-              }
-              inputs.home.nixosModules.home-manager
-              {
-                home-manager = {
-                  useGlobalPkgs = true;
-                  useUserPackages = true;
-                  extraSpecialArgs = { inherit myLib; };
-                  sharedModules = homeModules;
-                };
-              }
-              inputs.impermanence.nixosModules.impermanence
-              inputs.agenix.nixosModules.age
-              inputs.lanzaboote.nixosModules.lanzaboote
-              inputs.simple-nixos-mailserver.nixosModule
-              inputs.niri.nixosModules.niri
-              inputs.disko.nixosModules.disko
-            ]
-            ++ systemModules
-            ++ (attrValues nixosModules);
+              };
+            }
+            inputs.home.nixosModules.home-manager
+            {
+              home-manager = {
+                useGlobalPkgs = true;
+                useUserPackages = true;
+                extraSpecialArgs = { inherit myLib; };
+                sharedModules = homeModules;
+              };
+            }
+            inputs.impermanence.nixosModules.impermanence
+            inputs.agenix.nixosModules.age
+            inputs.lanzaboote.nixosModules.lanzaboote
+            inputs.simple-nixos-mailserver.nixosModule
+            inputs.niri.nixosModules.niri
+            inputs.disko.nixosModules.disko
+          ]
+          ++ systemModules
+          ++ (attrValues nixosModules);
         };
       }) (attrNames (readDir dir))
     );
@@ -111,4 +111,42 @@ in
 {
   inherit nixosConfigurations nixosModules;
   overlays = myOverlays;
+  homeConfigurations."jborges" = inputs.home.lib.homeManagerConfiguration {
+    pkgs = inputs.nixpkgs.legacyPackages."x86_64-linux";
+    modules = homeModules ++ [
+      ./death-home.nix
+      inputs.niri.homeModules.niri
+      {
+        nix = {
+          package = inputs.nixpkgs.legacyPackages."x86_64-linux".nix;
+          settings = {
+            substituters = [
+              "https://cache.nixos.org/"
+              "https://niri.cachix.org"
+            ];
+            trusted-public-keys = [
+              "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
+              "niri.cachix.org-1:Wv0OmO7PsuocRKzfDoJ3mulSl7Z6oezYhGhR+3W2964="
+            ];
+          };
+        };
+
+        nixpkgs = {
+          inherit overlays;
+          config = {
+            allowUnfree = true;
+          };
+        };
+      }
+    ];
+    extraSpecialArgs = {
+      inherit myLib profiles;
+      osConfig = {
+        modules.personal.enable = true;
+        modules.laptop.enable = false;
+        programs.light.enable = false;
+        networking.hostName = "death";
+      };
+    };
+  };
 }

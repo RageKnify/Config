@@ -19,6 +19,7 @@ local on_attach = function(client, bufnr)
   set('n', '<leader>lrn', vim.lsp.buf.rename, {silent = true})
   set('n', '<leader>la', vim.lsp.buf.code_action, {silent = true})
   set('n', '<leader>lf', vim.lsp.buf.format, {silent = true})
+  set('n', '<leader><cr>', vim.diagnostic.open_float, {silent = true})
 
   if client.supports_method('textDocument/inlayHint') then
     set('n', '<leader>i', function()

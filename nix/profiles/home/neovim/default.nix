@@ -332,7 +332,7 @@ let
     builtins.listToAttrs (builtins.map (filetype: {
       name = "${config.xdg.configHome}/nvim/after/ftplugin/${filetype}.vim";
       value = { text = twoSpaceIndentConfig; };
-    }) [ "markdown" "ocaml" "wast" "yaml" "yacc" "lex" "cpp" "tex" "scheme" ]);
+    }) [ "markdown" "ocaml" "wast" "yaml" "jinja.yaml" "yacc" "lex" "cpp" "tex" "scheme" ]);
 in {
   programs.neovim = {
     package = pkgs.neovim-unwrapped;

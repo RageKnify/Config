@@ -5,7 +5,7 @@
 #
 # tmux configuration
 
-{ config, lib, myLib, osConfig, ... }:
+{ config, pkgs, lib, myLib, osConfig, ... }:
 let
   colors = myLib.colors;
   hostColor = myLib.hostNameToColor osConfig.networking.hostName;
@@ -42,5 +42,6 @@ in {
     historyLimit = 50000;
     keyMode = "vi";
     terminal = "tmux-256color";
+    shell = "${pkgs.fish}/bin/fish";
   };
 }

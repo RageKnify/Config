@@ -4,6 +4,9 @@ set softtabstop=4
 set tabstop=4
 set noexpandtab
 
+" salt files are jinja.yaml
+au BufNewFile,BufRead *.sls set filetype=jinja.yaml
+
 " delete trailing whitespace
 autocmd FileType c,cpp,java,lua,nix,ocaml,vim,wast autocmd BufWritePre <buffer> %s/\s\+$//e
 

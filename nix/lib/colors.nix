@@ -47,6 +47,7 @@ in {
         war = "base08";
         azazel = "base0E";
         conquest = "base0F";
+	death = "base09";
       };
       base = mapping."${hostName}";
     in colors.light."${base}";

@@ -41,8 +41,12 @@ in {
         user.signingKey = "~/.ssh/id_ed25519";
       };
       aliases = {
+        ca = "commit --amend";
         st = "status -sv";
         sts = "status";
+        p = "push";
+        pu = "push -u origin @";
+        pf = "push --force-with-lease";
         ll = "log --oneline --graph --max-count=30";
         llw = "log --oneline --graph --max-count=30 --since 'last week'";
         lll = "log --oneline --graph";

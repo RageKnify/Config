@@ -1,8 +1,8 @@
 { config, options, lib, pkgs, ... }:
 with lib;
 let
-  cfg = config.services.firefly-iii-data-importer;
-  fpm = config.services.phpfpm.pools.firefly-iii-data-importer;
+  cfg = config.services.my-firefly-iii-data-importer;
+  fpm = config.services.phpfpm.pools.my-firefly-iii-data-importer;
 
   inherit (cfg) datadir;
   inherit (strings) optionalString;
@@ -18,7 +18,7 @@ let
         (builtins.mapAttrs (name: value: "export ${name}=${value}")
           fireflyEnv))}
 
-      exec ${cfg.package}/share/php/firefly-iii-data-importer/artisan "$@"
+      exec ${cfg.package}/share/php/my-firefly-iii-data-importer/artisan "$@"
     '';
 
   laravelEnv = {
@@ -49,7 +49,7 @@ let
     APP_URL = "http${(optionalString cfg.https "s")}://${cfg.hostName}";
   };
 in {
-  options.services.firefly-iii-data-importer = {
+  options.services.my-firefly-iii-data-importer = {
     enable = mkEnableOption (lib.mdDoc "Firefly III data importer");
 
     hostName = mkOption {
@@ -64,8 +64,8 @@ in {
     };
     datadir = mkOption {
       type = types.str;
-      default = config.services.firefly-iii-data-importer.home;
-      defaultText = literalExpression "config.services.firefly.home";
+      default = config.services.my-firefly-iii-data-importer.home;
+      defaultText = literalExpression "config.services.my-firefly.home";
       description = lib.mdDoc ''
         Firefly III data importer's data storage path.  Will be [](#opt-services.firefly.home) by default.
       '';
@@ -73,7 +73,7 @@ in {
     };
     importConfigDir = mkOption {
       type = types.str;
-      default = config.services.firefly-iii-data-importer.home
+      default = config.services.my-firefly-iii-data-importer.home
         + "/import-configs";
       description = lib.mdDoc ''
         Firefly III data importer's config storage path.
@@ -209,11 +209,15 @@ in {
         };
         firefly-iii-data-importer-cron = {
           description = "Firefly III data importer cron";
-          requires =
-            [ "nginx.service" "phpfpm-firefly-iii-data-importer.service" ];
-          wantedBy = [ "phpfpm-firefly-iii-data-importer.service" ];
-          after =
-            [ "nginx.service" "phpfpm-firefly-iii-data-importer.service" ];
+          requires = [
+            "nginx.service"
+            "phpfpm-myfirefly-iii-data-importer.service"
+          ];
+          wantedBy = [ "phpfpm-myfirefly-iii-data-importer.service" ];
+          after = [
+            "nginx.service"
+            "phpfpm-myfirefly-iii-data-importer.service"
+          ];
           serviceConfig.Type = "oneshot";
           serviceConfig.User = "firefly-iii-data-importer";
           serviceConfig.Group = "firefly-iii-data-importer";
@@ -223,7 +227,7 @@ in {
             ${wrappedArtisan}/bin/artisan-firefly-iii-data-importer importer:auto-import ${cfg.importConfigDir}
           '';
         };
-        phpfpm-firefly-iii-data-importer = {
+        phpfpm-my-firefly-iii-data-importer = {
           requires = [ "phpfpm-myfirefly-iii.service" ];
           after = [ "phpfpm-myfirefly-iii.service" ];
           serviceConfig.EnvironmentFile = cfg.environmentFile;
@@ -233,7 +237,7 @@ in {
         };
       };
 
-      services.phpfpm.pools.firefly-iii-data-importer = {
+      services.phpfpm.pools.my-firefly-iii-data-importer = {
         user = "firefly-iii-data-importer";
         group = "firefly-iii-data-importer";
         phpPackage = cfg.phpPackage;

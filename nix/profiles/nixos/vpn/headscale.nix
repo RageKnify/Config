@@ -8,10 +8,9 @@ in {
       settings = {
         server_url = "https://${domain}";
         ip_prefixes = [ "100.64.0.0/10" "fd7a:115c:a1e0::/48" ];
-        dns_config = {
-          base_domain = "jborges.eu";
+        dns = {
+          base_domain = "bible.jborges.eu";
           magic_dns = true;
-          nameservers = [ ];
           override_local_dns = false;
           extra_records = [{
             name = "ff3.jborges.eu";

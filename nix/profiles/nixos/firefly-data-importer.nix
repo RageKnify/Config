@@ -5,7 +5,7 @@
     group = "firefly-iii-data-importer";
   };
 
-  services.firefly-iii-data-importer = {
+  services.my-firefly-iii-data-importer = {
     enable = true;
 
     hostName = "ff3di.jborges.eu";
@@ -20,18 +20,18 @@
   };
 
   services.nginx.virtualHosts = {
-    "${config.services.firefly-iii-data-importer.hostName}" = {
+    "${config.services.my-firefly-iii-data-importer.hostName}" = {
       forceSSL = true;
       useACMEHost = "jborges.eu";
     };
   };
 
   environment.persistence."/persist".directories = [{
-    directory = config.services.firefly-iii-data-importer.home;
+    directory = config.services.my-firefly-iii-data-importer.home;
     user = "firefly-iii-data-importer";
     group = "firefly-iii-data-importer";
   }];
 
   modules.services.backups.paths =
-    [ "/persist/${config.services.firefly-iii-data-importer.home}/" ];
+    [ "/persist/${config.services.my-firefly-iii-data-importer.home}/" ];
 }

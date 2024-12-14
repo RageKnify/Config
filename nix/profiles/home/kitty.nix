@@ -21,7 +21,7 @@ in {
       "ctrl+minus" = "change_font_size all -2.0";
       "ctrl+home" = "change_font_size all 0";
     };
-    theme = "Solarized Light";
+    themeFile = "Solarized_Light";
   };
   xsession.windowManager.i3.config.terminal = mkDefault "kitty";
   home.sessionVariables.TERMINAL = mkDefault "kitty";

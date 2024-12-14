@@ -27,14 +27,14 @@ in {
         inherit calendar contacts tasks;
         cookbook = pkgs.fetchNextcloudApp rec {
           url =
-            "https://github.com/christianlupus-nextcloud/cookbook-releases/releases/download/v0.11.0/cookbook-0.11.0.tar.gz";
-          sha256 = "sha256-19LN1nYJJ0RMWj6DrYPvHzocTyhMfYdpdhBFch3fpHE=";
+            "https://github.com/christianlupus-nextcloud/cookbook-releases/releases/download/v0.11.2/cookbook-0.11.2.tar.gz";
+          sha256 = "sha256-upbTdzu17BH6tehgCUcTxBvTVOO31Kri/33vGd4Unyw=";
           license = "agpl3Only";
         };
         cospend = pkgs.fetchNextcloudApp {
           url =
             "https://github.com/julien-nc/cospend-nc/releases/download/v1.5.14/cospend-1.5.14.tar.gz";
-          sha256 = "sha256-ehMQSVkrQC9MAkjMBVTHaNR9V0s8Y561FawvNbrU8Xk=";
+          sha256 = "sha256-vmPfFgmmgWthZPQzRwweCb6MK1Tg5rH3pX090K2vG10=";
           license = "agpl3Only";
         };
       };

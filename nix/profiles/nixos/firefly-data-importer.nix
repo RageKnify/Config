@@ -1,11 +1,18 @@
-{ pkgs, lib, config, hostSecretsDir, ... }: {
+{
+  pkgs,
+  lib,
+  config,
+  hostSecretsDir,
+  ...
+}:
+{
   age.secrets.firefly-data-importer-secrets = {
     file = "${hostSecretsDir}/firefly-data-importer-secrets.age";
     owner = "firefly-iii-data-importer";
     group = "firefly-iii-data-importer";
   };
 
-  services.firefly-iii-data-importer = {
+  services.myfirefly-iii-data-importer = {
     enable = true;
 
     hostName = "ff3di.jborges.eu";
@@ -20,18 +27,21 @@
   };
 
   services.nginx.virtualHosts = {
-    "${config.services.firefly-iii-data-importer.hostName}" = {
+    "${config.services.myfirefly-iii-data-importer.hostName}" = {
       forceSSL = true;
       useACMEHost = "jborges.eu";
     };
   };
 
-  environment.persistence."/persist".directories = [{
-    directory = config.services.firefly-iii-data-importer.home;
-    user = "firefly-iii-data-importer";
-    group = "firefly-iii-data-importer";
-  }];
+  environment.persistence."/persist".directories = [
+    {
+      directory = config.services.myfirefly-iii-data-importer.home;
+      user = "firefly-iii-data-importer";
+      group = "firefly-iii-data-importer";
+    }
+  ];
 
-  modules.services.backups.paths =
-    [ "/persist/${config.services.firefly-iii-data-importer.home}/" ];
+  modules.services.backups.paths = [
+    "/persist/${config.services.myfirefly-iii-data-importer.home}/"
+  ];
 }

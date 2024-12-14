@@ -1,4 +1,10 @@
-{ config, options, lib, pkgs, ... }:
+{
+  config,
+  options,
+  lib,
+  pkgs,
+  ...
+}:
 with lib;
 let
   cfg = config.services.myfirefly-iii;
@@ -16,8 +22,9 @@ let
       exec ${pkgs.util-linux}/bin/runuser -u "firefly-iii" -- "$0" "$@"
     fi
 
-    ${builtins.concatStringsSep "\n" (builtins.attrValues
-      (builtins.mapAttrs (name: value: "export ${name}=${value}") fireflyEnv))}
+    ${builtins.concatStringsSep "\n" (
+      builtins.attrValues (builtins.mapAttrs (name: value: "export ${name}=${value}") fireflyEnv)
+    )}
 
     # load app key
     source '${appKeyEnvPath}'
@@ -36,24 +43,28 @@ let
     APP_EVENTS_CACHE = "${datadir}/cache/events.php";
   };
 
-  fireflyEnv = laravelEnv // {
-    APP_ENV = "production";
-    SITE_OWNER = "${cfg.adminAddr}";
-    MAIL_SENDMAIL_COMMAND = "\"/run/wrappers/bin/sendmail -t\"";
-    DEFAULT_LOCALE = (builtins.substring 0 5 config.i18n.defaultLocale);
-    TZ = config.time.timeZone;
+  fireflyEnv =
+    laravelEnv
+    // {
+      APP_ENV = "production";
+      SITE_OWNER = "${cfg.adminAddr}";
+      MAIL_SENDMAIL_COMMAND = "\"/run/wrappers/bin/sendmail -t\"";
+      DEFAULT_LOCALE = (builtins.substring 0 5 config.i18n.defaultLocale);
+      TZ = config.time.timeZone;
 
-    DB_CONNECTION = "${cfg.config.dbtype}";
-    DB_DATABASE = "${cfg.config.dbname}";
-    DB_USERNAME = "${cfg.config.dbuser}";
-    DB_HOST = "${cfg.config.dbhost}";
-    APP_URL = "http${(optionalString cfg.https "s")}://${cfg.hostName}";
-  } // lib.attrsets.optionalAttrs (cfg.config.dbport != null) {
-    DB_PORT = "${toString cfg.config.dbport}";
-  };
+      DB_CONNECTION = "${cfg.config.dbtype}";
+      DB_DATABASE = "${cfg.config.dbname}";
+      DB_USERNAME = "${cfg.config.dbuser}";
+      DB_HOST = "${cfg.config.dbhost}";
+      APP_URL = "http${(optionalString cfg.https "s")}://${cfg.hostName}";
+    }
+    // lib.attrsets.optionalAttrs (cfg.config.dbport != null) {
+      DB_PORT = "${toString cfg.config.dbport}";
+    };
 
   appKeyEnvPath = "${datadir}/app_key.env";
-in {
+in
+{
   options.services.myfirefly-iii = {
     enable = mkEnableOption (lib.mdDoc "Firefly III");
 
@@ -102,7 +113,13 @@ in {
     };
 
     poolSettings = mkOption {
-      type = with types; attrsOf (oneOf [ str int bool ]);
+      type =
+        with types;
+        attrsOf (oneOf [
+          str
+          int
+          bool
+        ]);
       default = {
         "pm" = "dynamic";
         "pm.max_children" = "32";
@@ -138,7 +155,11 @@ in {
 
     config = {
       dbtype = mkOption {
-        type = types.enum [ "sqlite" "pgsql" "mysql" ];
+        type = types.enum [
+          "sqlite"
+          "pgsql"
+          "mysql"
+        ];
         default = "sqlite";
         description = lib.mdDoc "Database type.";
       };
@@ -161,12 +182,13 @@ in {
       };
       dbhost = mkOption {
         type = types.nullOr types.str;
-        default = if pgsqlLocal then
-          "/run/postgresql"
-        else if mysqlLocal then
-          "localhost:/run/mysqld/mysqld.sock"
-        else
-          "localhost";
+        default =
+          if pgsqlLocal then
+            "/run/postgresql"
+          else if mysqlLocal then
+            "localhost:/run/mysqld/mysqld.sock"
+          else
+            "localhost";
         defaultText = "localhost";
         description = lib.mdDoc ''
           Database host or socket path.
@@ -178,7 +200,12 @@ in {
       dbport = mkOption {
         type = with types; nullOr (either int str);
         default =
-          if pgsqlLocal then 5432 else if mysqlLocal then 3306 else null;
+          if pgsqlLocal then
+            5432
+          else if mysqlLocal then
+            3306
+          else
+            null;
         description = lib.mdDoc "Database port.";
       };
     };
@@ -196,8 +223,7 @@ in {
       recommendedHttpHeaders = mkOption {
         type = types.bool;
         default = true;
-        description =
-          lib.mdDoc "Enable additional recommended HTTP response headers";
+        description = lib.mdDoc "Enable additional recommended HTTP response headers";
       };
       hstsMaxAge = mkOption {
         type = types.ints.positive;
@@ -215,23 +241,25 @@ in {
 
   config = mkIf cfg.enable (mkMerge [
     {
-      assertions = [{
-        assertion = cfg.database.createLocally -> cfg.config.dbpassFile == null;
-        message = ''
-          Using `services.myfirefly-iii.database.createLocally` with database
-          password authentication is no longer supported.
+      assertions = [
+        {
+          assertion = cfg.database.createLocally -> cfg.config.dbpassFile == null;
+          message = ''
+            Using `services.myfirefly-iii.database.createLocally` with database
+            password authentication is no longer supported.
 
-          If you use an external database (or want to use password auth for any
-          other reason), set `services.myfirefly-iii.database.createLocally` to
-          `false`. The database won't be managed for you (use `services.mysql`
-          if you want to set it up).
+            If you use an external database (or want to use password auth for any
+            other reason), set `services.myfirefly-iii.database.createLocally` to
+            `false`. The database won't be managed for you (use `services.mysql`
+            if you want to set it up).
 
-          If you want this module to manage your Firefly III database for you,
-          unset `services.myfirefly-iii.config.dbpassFile` and
-          `services.myfirefly-iii.config.dbhost` to use socket authentication
-          instead of password.
-        '';
-      }];
+            If you want this module to manage your Firefly III database for you,
+            unset `services.myfirefly-iii.config.dbpassFile` and
+            `services.myfirefly-iii.config.dbhost` to use socket authentication
+            instead of password.
+          '';
+        }
+      ];
     }
 
     {
@@ -243,8 +271,7 @@ in {
 
       systemd.services = {
         laravelsetup-firefly-iii = {
-          description =
-            "Setup storage directories for a Laravel-based web application";
+          description = "Setup storage directories for a Laravel-based web application";
           # Only run when datadir does not yet contain the mount target
           unitConfig.ConditionPathExists = "!${appKeyEnvPath}";
           serviceConfig = {
@@ -252,26 +279,28 @@ in {
             User = "firefly-iii";
             Group = "firefly-iii";
           };
-          script = let
-            setupScript = pkgs.writeShellScript "setup-laravel.sh" ''
-              set -e
+          script =
+            let
+              setupScript = pkgs.writeShellScript "setup-laravel.sh" ''
+                set -e
 
-              # keep data private (including the app key which will be generated here)
-              umask 0007
+                # keep data private (including the app key which will be generated here)
+                umask 0007
 
-              # ensure storage dir matches Laravel's expectations and is writable
-              ${pkgs.rsync}/bin/rsync --ignore-existing -r ${cfg.package}/share/php/myfirefly-iii/storage ${datadir}/
-              chmod -R u+w ${datadir}/storage
+                # ensure storage dir matches Laravel's expectations and is writable
+                ${pkgs.rsync}/bin/rsync --ignore-existing -r ${cfg.package}/share/php/myfirefly-iii/storage ${datadir}/
+                chmod -R u+w ${datadir}/storage
 
-              # ensure bootstrap/cache-equivalent directory exists (will be writable)
-              mkdir -p ${datadir}/cache
+                # ensure bootstrap/cache-equivalent directory exists (will be writable)
+                mkdir -p ${datadir}/cache
 
-              # generate a new app key (but must set a dummy one, as Laravel demands one to exist for artisan to function)
-              echo "APP_KEY=$(APP_KEY=aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa '${wrappedArtisan}/bin/artisan-firefly-iii' --no-ansi key:generate --show)" > '${appKeyEnvPath}'
+                # generate a new app key (but must set a dummy one, as Laravel demands one to exist for artisan to function)
+                echo "APP_KEY=$(APP_KEY=aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa '${wrappedArtisan}/bin/artisan-firefly-iii' --no-ansi key:generate --show)" > '${appKeyEnvPath}'
+              '';
+            in
+            ''
+              ${setupScript} || { rm '${appKeyEnvPath}'; exit 1; }
             '';
-          in ''
-            ${setupScript} || { rm '${appKeyEnvPath}'; exit 1; }
-          '';
         };
         firefly-iii-setup = {
           description = "Setup Firefly III's database";
@@ -285,20 +314,23 @@ in {
             Group = "firefly-iii";
           };
           script = ''
-          # They appear to be idempotent operations
-          ${wrappedArtisan}/bin/artisan-firefly-iii firefly-iii:upgrade-database
-          ${wrappedArtisan}/bin/artisan-firefly-iii firefly-iii:correct-database
-          ${wrappedArtisan}/bin/artisan-firefly-iii firefly-iii:report-integrity
-          ${wrappedArtisan}/bin/artisan-firefly-iii passport:install
+            # They appear to be idempotent operations
+            ${wrappedArtisan}/bin/artisan-firefly-iii firefly-iii:upgrade-database
+            ${wrappedArtisan}/bin/artisan-firefly-iii firefly-iii:correct-database
+            ${wrappedArtisan}/bin/artisan-firefly-iii firefly-iii:report-integrity
+            ${wrappedArtisan}/bin/artisan-firefly-iii passport:install
           '';
         };
         firefly-iii-cron = {
           description = "Firefly III cron";
-          requires = [ "nginx.service" "phpfpm-firefly-iii.service" ];
-          wantedBy = [ "phpfpm-firefly-iii.service" ];
+          requires = [
+            "nginx.service"
+            "phpfpm-myfirefly-iii.service"
+          ];
+          wantedBy = [ "phpfpm-myfirefly-iii.service" ];
           after = [
             "nginx.service"
-            "phpfpm-firefly-iii.service"
+            "phpfpm-myfirefly-iii.service"
             "postgresql.service" # TODO: this should depend on chosen database
           ];
           serviceConfig.Type = "oneshot";
@@ -317,9 +349,11 @@ in {
             "postgresql.service"
           ];
           after = [ "laravelsetup-firefly-iii.service" ];
-          serviceConfig.EnvironmentFile = [ appKeyEnvPath cfg.environmentFile ];
-          restartTriggers =
-            [ config.systemd.services."laravelsetup-firefly-iii".script ];
+          serviceConfig.EnvironmentFile = [
+            appKeyEnvPath
+            cfg.environmentFile
+          ];
+          restartTriggers = [ config.systemd.services."laravelsetup-firefly-iii".script ];
         };
       };
 
@@ -331,10 +365,12 @@ in {
           APP_KEY = "$APP_KEY"; # load from phpfpm service env
           MAIL_MAILER = "$MAIL_MAILER";
         };
-        settings = mapAttrs (name: mkDefault) {
-          "listen.owner" = config.services.nginx.user;
-          "listen.group" = config.services.nginx.group;
-        } // cfg.poolSettings;
+        settings =
+          mapAttrs (name: mkDefault) {
+            "listen.owner" = config.services.nginx.user;
+            "listen.group" = config.services.nginx.group;
+          }
+          // cfg.poolSettings;
         extraConfig = cfg.poolConfig;
       };
 
@@ -344,26 +380,34 @@ in {
         isSystemUser = true;
         packages = [ wrappedArtisan ];
       };
-      users.groups.firefly-iii.members =
-        [ "firefly-iii" config.services.nginx.user ];
+      users.groups.firefly-iii.members = [
+        "firefly-iii"
+        config.services.nginx.user
+      ];
 
       services.mysql = lib.mkIf mysqlLocal {
         enable = true;
         package = lib.mkDefault pkgs.mariadb;
         ensureDatabases = [ cfg.config.dbname ];
-        ensureUsers = [{
-          name = cfg.config.dbuser;
-          ensurePermissions = { "${cfg.config.dbname}.*" = "ALL PRIVILEGES"; };
-        }];
+        ensureUsers = [
+          {
+            name = cfg.config.dbuser;
+            ensurePermissions = {
+              "${cfg.config.dbname}.*" = "ALL PRIVILEGES";
+            };
+          }
+        ];
       };
 
       services.postgresql = mkIf pgsqlLocal {
         enable = true;
         ensureDatabases = [ cfg.config.dbname ];
-        ensureUsers = [{
-          name = cfg.config.dbuser;
-          ensureDBOwnership = true;
-        }];
+        ensureUsers = [
+          {
+            name = cfg.config.dbuser;
+            ensureDBOwnership = true;
+          }
+        ];
       };
 
       services.nginx.enable = mkDefault true;
@@ -399,9 +443,7 @@ in {
             add_header Referrer-Policy no-referrer;
           ''}
           ${optionalString (cfg.https) ''
-            add_header Strict-Transport-Security "max-age=${
-              toString cfg.nginx.hstsMaxAge
-            }; includeSubDomains" always;
+            add_header Strict-Transport-Security "max-age=${toString cfg.nginx.hstsMaxAge}; includeSubDomains" always;
           ''}
           fastcgi_buffers 64 4K;
           fastcgi_hide_header X-Powered-By;

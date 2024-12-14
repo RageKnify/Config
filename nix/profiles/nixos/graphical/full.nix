@@ -69,13 +69,12 @@ in {
 
   fonts.packages = with pkgs; [
     noto-fonts
-    noto-fonts-cjk
+    noto-fonts-cjk-sans
     noto-fonts-emoji
     font-awesome
     (nerdfonts.override { fonts = [ "JetBrainsMono" ]; })
   ];
 
-  sound.enable = true;
   services.pipewire = {
     enable = true;
     alsa.enable = true;

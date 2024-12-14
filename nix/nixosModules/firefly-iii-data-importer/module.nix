@@ -1,25 +1,30 @@
-{ config, options, lib, pkgs, ... }:
+{
+  config,
+  options,
+  lib,
+  pkgs,
+  ...
+}:
 with lib;
 let
-  cfg = config.services.firefly-iii-data-importer;
-  fpm = config.services.phpfpm.pools.firefly-iii-data-importer;
+  cfg = config.services.myfirefly-iii-data-importer;
+  fpm = config.services.phpfpm.pools.myfirefly-iii-data-importer;
 
   inherit (cfg) datadir;
   inherit (strings) optionalString;
 
-  wrappedArtisan =
-    pkgs.writeShellScriptBin "artisan-firefly-iii-data-importer" ''
+  wrappedArtisan = pkgs.writeShellScriptBin "artisan-firefly-iii-data-importer" ''
       #!/bin/sh
       if [ "$UID" == "0" ]; then
         exec ${pkgs.util-linux}/bin/runuser -u "firefly-iii-data-importer" -- "$0" "$@"
       fi
 
-      ${builtins.concatStringsSep "\n" (builtins.attrValues
-        (builtins.mapAttrs (name: value: "export ${name}=${value}")
-          fireflyEnv))}
+      ${builtins.concatStringsSep "\n" (
+        builtins.attrValues (builtins.mapAttrs (name: value: "export ${name}=${value}") fireflyEnv)
+      )}
 
-      exec ${cfg.package}/share/php/firefly-iii-data-importer/artisan "$@"
-    '';
+    exec ${cfg.package}/share/php/firefly-iii-data-importer/artisan "$@"
+  '';
 
   laravelEnv = {
     # https://github.com/laravel/framework/blob/38fa79eaa22b95446b92db222d89ec04a7ef10c7/src/Illuminate/Foundation/Application.php look for env vars ($_ENV and normalizeCachePath)
@@ -48,14 +53,14 @@ let
     EXPECT_SECURE_URL = "true";
     APP_URL = "http${(optionalString cfg.https "s")}://${cfg.hostName}";
   };
-in {
-  options.services.firefly-iii-data-importer = {
+in
+{
+  options.services.myfirefly-iii-data-importer = {
     enable = mkEnableOption (lib.mdDoc "Firefly III data importer");
 
     hostName = mkOption {
       type = types.str;
-      description =
-        lib.mdDoc "FQDN for the Firefly III data importer instance.";
+      description = lib.mdDoc "FQDN for the Firefly III data importer instance.";
     };
     home = mkOption {
       type = types.str;
@@ -64,8 +69,8 @@ in {
     };
     datadir = mkOption {
       type = types.str;
-      default = config.services.firefly-iii-data-importer.home;
-      defaultText = literalExpression "config.services.firefly.home";
+      default = config.services.myfirefly-iii-data-importer.home;
+      defaultText = literalExpression "config.services.myfirefly.home";
       description = lib.mdDoc ''
         Firefly III data importer's data storage path.  Will be [](#opt-services.firefly.home) by default.
       '';
@@ -73,8 +78,7 @@ in {
     };
     importConfigDir = mkOption {
       type = types.str;
-      default = config.services.firefly-iii-data-importer.home
-        + "/import-configs";
+      default = config.services.myfirefly-iii-data-importer.home + "/import-configs";
       description = lib.mdDoc ''
         Firefly III data importer's config storage path.
       '';
@@ -114,7 +118,13 @@ in {
     };
 
     poolSettings = mkOption {
-      type = with types; attrsOf (oneOf [ str int bool ]);
+      type =
+        with types;
+        attrsOf (oneOf [
+          str
+          int
+          bool
+        ]);
       default = {
         "pm" = "dynamic";
         "pm.max_children" = "32";
@@ -149,8 +159,7 @@ in {
       recommendedHttpHeaders = mkOption {
         type = types.bool;
         default = true;
-        description =
-          lib.mdDoc "Enable additional recommended HTTP response headers";
+        description = lib.mdDoc "Enable additional recommended HTTP response headers";
       };
       hstsMaxAge = mkOption {
         type = types.ints.positive;
@@ -176,8 +185,7 @@ in {
 
       systemd.services = {
         laravelsetup-firefly-iii-data-importer = {
-          description =
-            "Setup storage directories for a Laravel-based web application";
+          description = "Setup storage directories for a Laravel-based web application";
           # Only run when datadir does not yet contain the cache dir
           unitConfig.ConditionPathExists = "!${datadir}/cache";
           serviceConfig = {
@@ -186,34 +194,40 @@ in {
             Group = "firefly-iii-data-importer";
             EnvironmentFile = cfg.environmentFile;
           };
-          script = let
-            setupScript = pkgs.writeShellScript "setup-laravel.sh" ''
-              set -e
+          script =
+            let
+              setupScript = pkgs.writeShellScript "setup-laravel.sh" ''
+                set -e
 
-              # keep data private (including the app key which will be generated here)
-              umask 0007
+                # keep data private (including the app key which will be generated here)
+                umask 0007
 
-              # ensure storage dir matches Laravel's expectations and is writable
-              ${pkgs.rsync}/bin/rsync --ignore-existing -r ${cfg.package}/share/php/firefly-iii-data-importer/storage ${datadir}/
-              chmod -R u+w ${datadir}/storage
+                # ensure storage dir matches Laravel's expectations and is writable
+                ${pkgs.rsync}/bin/rsync --ignore-existing -r ${cfg.package}/share/php/firefly-iii-data-importer/storage ${datadir}/
+                chmod -R u+w ${datadir}/storage
 
-              # ensure bootstrap/cache-equivalent directory exists (will be writable)
-              mkdir -p ${datadir}/cache
+                # ensure bootstrap/cache-equivalent directory exists (will be writable)
+                mkdir -p ${datadir}/cache
 
-              # ensure importConfigDir exists
-              mkdir -p ${cfg.importConfigDir}
+                # ensure importConfigDir exists
+                mkdir -p ${cfg.importConfigDir}
+              '';
+            in
+            ''
+              ${setupScript}
             '';
-          in ''
-            ${setupScript}
-          '';
         };
         firefly-iii-data-importer-cron = {
           description = "Firefly III data importer cron";
-          requires =
-            [ "nginx.service" "phpfpm-firefly-iii-data-importer.service" ];
-          wantedBy = [ "phpfpm-firefly-iii-data-importer.service" ];
-          after =
-            [ "nginx.service" "phpfpm-firefly-iii-data-importer.service" ];
+          requires = [
+            "nginx.service"
+            "phpfpm-myfirefly-iii-data-importer.service"
+          ];
+          wantedBy = [ "phpfpm-myfirefly-iii-data-importer.service" ];
+          after = [
+            "nginx.service"
+            "phpfpm-myfirefly-iii-data-importer.service"
+          ];
           serviceConfig.Type = "oneshot";
           serviceConfig.User = "firefly-iii-data-importer";
           serviceConfig.Group = "firefly-iii-data-importer";
@@ -223,7 +237,7 @@ in {
             ${wrappedArtisan}/bin/artisan-firefly-iii-data-importer importer:auto-import ${cfg.importConfigDir}
           '';
         };
-        phpfpm-firefly-iii-data-importer = {
+        phpfpm-myfirefly-iii-data-importer = {
           requires = [ "phpfpm-myfirefly-iii.service" ];
           after = [ "phpfpm-myfirefly-iii.service" ];
           serviceConfig.EnvironmentFile = cfg.environmentFile;
@@ -233,7 +247,7 @@ in {
         };
       };
 
-      services.phpfpm.pools.firefly-iii-data-importer = {
+      services.phpfpm.pools.myfirefly-iii-data-importer = {
         user = "firefly-iii-data-importer";
         group = "firefly-iii-data-importer";
         phpPackage = cfg.phpPackage;
@@ -242,10 +256,12 @@ in {
           NORDIGEN_ID = "$NORDIGEN_ID";
           NORDIGEN_KEY = "$NORDIGEN_KEY";
         };
-        settings = mapAttrs (name: mkDefault) {
-          "listen.owner" = config.services.nginx.user;
-          "listen.group" = config.services.nginx.group;
-        } // cfg.poolSettings;
+        settings =
+          mapAttrs (name: mkDefault) {
+            "listen.owner" = config.services.nginx.user;
+            "listen.group" = config.services.nginx.group;
+          }
+          // cfg.poolSettings;
         extraConfig = cfg.poolConfig;
       };
 
@@ -255,8 +271,10 @@ in {
         isSystemUser = true;
         packages = [ wrappedArtisan ];
       };
-      users.groups.firefly-iii-data-importer.members =
-        [ "firefly-iii-data-importer" config.services.nginx.user ];
+      users.groups.firefly-iii-data-importer.members = [
+        "firefly-iii-data-importer"
+        config.services.nginx.user
+      ];
 
       services.nginx.enable = mkDefault true;
 
@@ -291,9 +309,7 @@ in {
             add_header Referrer-Policy no-referrer;
           ''}
           ${optionalString (cfg.https) ''
-            add_header Strict-Transport-Security "max-age=${
-              toString cfg.nginx.hstsMaxAge
-            }; includeSubDomains" always;
+            add_header Strict-Transport-Security "max-age=${toString cfg.nginx.hstsMaxAge}; includeSubDomains" always;
           ''}
           fastcgi_buffers 64 4K;
           fastcgi_hide_header X-Powered-By;

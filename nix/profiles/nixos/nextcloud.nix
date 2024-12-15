@@ -19,7 +19,7 @@ in
   services = {
     nextcloud = {
       enable = true;
-      package = pkgs.nextcloud29; # Need to manually increment with every update
+      package = pkgs.nextcloud30; # Need to manually increment with every update
       hostName = "cloud.jborges.eu";
 
       https = true;
@@ -37,8 +37,8 @@ in
           license = "agpl3Only";
         };
         cospend = pkgs.fetchNextcloudApp {
-          url = "https://github.com/julien-nc/cospend-nc/releases/download/v1.5.14/cospend-1.5.14.tar.gz";
-          sha256 = "sha256-vmPfFgmmgWthZPQzRwweCb6MK1Tg5rH3pX090K2vG10=";
+          url = "https://github.com/julien-nc/cospend-nc/releases/download/v2.0.0/cospend-2.0.0.tar.gz";
+          sha256 = "sha256-N2Vj5LTJpXEedKZljJGJfPSikh6qNBh8OKN7Ne3gt3o=";
           license = "agpl3Only";
         };
       };

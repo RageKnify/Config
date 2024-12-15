@@ -103,6 +103,7 @@ let
 
     (import ./tree-sitter.nix {
       inherit personal lists;
+      tree-sitter-jinja2 = pkgs.mypkgs.tree-sitter-jinja2;
       nvim-treesitter = pkgs.vimPlugins.nvim-treesitter;
     })
 
@@ -340,6 +341,13 @@ in
     vimdiffAlias = true;
     extraConfig = builtins.readFile ./base.vim;
     extraLuaConfig = ''
+
+      vim.filetype.add({
+        extension = {
+          sls = "jinja2.yaml",
+        },
+      })
+
       vim.keymap.set('n', '<leader>y', '"+y')
       vim.keymap.set('x', '<leader>y', '"+y')
     '';

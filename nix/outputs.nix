@@ -29,6 +29,7 @@ let
     {
       unstable = import inputs.nixpkgs-unstable args;
       latest = import inputs.nixpkgs-latest args;
+      mypkgs = inputs.self.outputs.packages.${final.system};
     };
 
   secretsDir = ./secrets;

@@ -5,7 +5,8 @@
 #
 # gtk configuration
 
-{ pkgs, ... }: {
+{ pkgs, ... }:
+{
   gtk = {
     enable = true;
     font = {

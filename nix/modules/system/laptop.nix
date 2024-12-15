@@ -5,11 +5,23 @@
 #
 # laptop configurations
 
-{ pkgs, config, lib, profiles, ... }:
+{
+  pkgs,
+  config,
+  lib,
+  profiles,
+  ...
+}:
 let
-  inherit (lib) mkEnableOption mkOption types mkIf;
+  inherit (lib)
+    mkEnableOption
+    mkOption
+    types
+    mkIf
+    ;
   cfg = config.modules.laptop;
-in {
+in
+{
   options.modules.laptop = {
     enable = mkEnableOption "laptop";
 

@@ -1,4 +1,10 @@
-{ config, lib, pkgs, ... }: {
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
+{
   virtualisation = {
     docker = {
       enable = true;
@@ -9,6 +15,5 @@
     oci-containers.backend = "docker";
   };
 
-  environment.persistence."/persist".directories =
-    [{ directory = "/var/lib/docker"; }];
+  environment.persistence."/persist".directories = [ { directory = "/var/lib/docker"; } ];
 }

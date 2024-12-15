@@ -5,7 +5,8 @@
 #
 # full server config
 
-{ profiles, ... }: {
+{ profiles, ... }:
+{
   imports = with profiles.nixos.server; [
     sshd
     nix-gc

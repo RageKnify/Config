@@ -5,7 +5,16 @@
 #
 # System configuration.
 
-{ pkgs, lib, sshKeys, config, hostSecretsDir, profiles, ... }: {
+{
+  pkgs,
+  lib,
+  sshKeys,
+  config,
+  hostSecretsDir,
+  profiles,
+  ...
+}:
+{
   imports = with profiles.nixos; [
     common
     docker
@@ -47,16 +56,21 @@
 
   users = {
     users.root = {
-      hashedPassword =
-        "$6$alrahBvGoXcPCyLt$7uDj.6W7Ca436Z9o/TrIJhitplMix.7EcFz3uDcuDD75z7CPpeQOeobjRcNnPJOAEJ.CyhoL.2AHivHFSXJsf.";
+      hashedPassword = "$6$alrahBvGoXcPCyLt$7uDj.6W7Ca436Z9o/TrIJhitplMix.7EcFz3uDcuDD75z7CPpeQOeobjRcNnPJOAEJ.CyhoL.2AHivHFSXJsf.";
     };
     mutableUsers = false;
   };
 
   home-manager.users.jp = {
-    imports = with profiles.home; [ fish neovim tmux ];
+    imports = with profiles.home; [
+      fish
+      neovim
+      tmux
+    ];
 
-    modules = { git.enable = true; };
+    modules = {
+      git.enable = true;
+    };
 
     home.stateVersion = "21.11";
   };
@@ -68,10 +82,12 @@
     interfaces.ens3 = {
       useDHCP = false;
 
-      ipv4.addresses = [{
-        address = "185.162.250.236";
-        prefixLength = 22;
-      }];
+      ipv4.addresses = [
+        {
+          address = "185.162.250.236";
+          prefixLength = 22;
+        }
+      ];
 
       ipv6.addresses = [
         {
@@ -96,10 +112,12 @@
   };
 
   services.openssh = {
-    hostKeys = [{
-      path = "/persist/etc/ssh/ssh_host_ed25519_key";
-      type = "ed25519";
-    }];
+    hostKeys = [
+      {
+        path = "/persist/etc/ssh/ssh_host_ed25519_key";
+        type = "ed25519";
+      }
+    ];
   };
 
   system.stateVersion = "23.05";

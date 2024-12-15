@@ -5,7 +5,13 @@
 #
 # Fish configuration
 
-{ pkgs, config, lib, ... }: {
+{
+  pkgs,
+  config,
+  lib,
+  ...
+}:
+{
   programs.fish = {
     enable = true;
     shellAbbrs = {

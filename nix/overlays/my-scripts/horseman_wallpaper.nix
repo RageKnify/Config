@@ -8,7 +8,8 @@ let
        patchShebangs $out'';
   });
   my-buildInputs = with final; [ imagemagick ];
-in prev.symlinkJoin {
+in
+prev.symlinkJoin {
   name = name;
   paths = [ script ] ++ my-buildInputs;
   buildInputs = [ prev.makeWrapper ];

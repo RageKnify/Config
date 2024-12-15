@@ -5,15 +5,28 @@
 #
 # i3 configuration.
 
-{ pkgs, lib, config, osConfig, myLib, ... }:
+{
+  pkgs,
+  lib,
+  config,
+  osConfig,
+  myLib,
+  ...
+}:
 let
-  inherit (lib) lists mkEnableOption mkIf mkForce;
+  inherit (lib)
+    lists
+    mkEnableOption
+    mkIf
+    mkForce
+    ;
   cfg = config.modules.graphical.i3;
   laptop = osConfig.modules.laptop;
   hostName = osConfig.networking.hostName;
   colors = myLib.colors;
   i3Mod = "Mod4";
-in {
+in
+{
   options.modules.graphical.i3.enable = mkEnableOption "i3";
 
   config = mkIf cfg.enable {
@@ -134,7 +147,9 @@ in {
           };
 
           menu = "${pkgs.rofi}/bin/rofi -matching normal -modi drun -show drun";
-          window = { hideEdgeBorders = "both"; };
+          window = {
+            hideEdgeBorders = "both";
+          };
 
           gaps = {
             inner = 0;
@@ -143,20 +158,25 @@ in {
           };
 
           assigns = {
-            "1" = [{ class = "(?i)firefox"; }];
-            "10" = [{ class = "discord"; }];
+            "1" = [ { class = "(?i)firefox"; } ];
+            "10" = [ { class = "discord"; } ];
           };
 
           bars = [ ];
 
-          startup = [{
-            command =
-              "${pkgs.systemd}/bin/systemctl --user start graphical-session-i3.target";
-            notification = false;
-          }] ++ lists.optionals laptop.enable [{
-            command = "nm-applet";
-            notification = false;
-          }];
+          startup =
+            [
+              {
+                command = "${pkgs.systemd}/bin/systemctl --user start graphical-session-i3.target";
+                notification = false;
+              }
+            ]
+            ++ lists.optionals laptop.enable [
+              {
+                command = "nm-applet";
+                notification = false;
+              }
+            ];
           workspaceAutoBackAndForth = true;
         };
       };
@@ -184,107 +204,116 @@ in {
         disable-history = false;
         sidebar-mode = false;
       };
-      theme = let inherit (config.lib.formats.rasi) mkLiteral;
-      in {
-        # this is taken from adi1090x/rofi
-        # 1080p/launchers/colorful/style_1.rasi
-        "*" = with colors.dark; {
-          al = mkLiteral "#00000000";
-          bg = mkLiteral "${base00}ff";
-          fg = mkLiteral "${base05}ff";
-          se = mkLiteral "${base02}ff";
-          ac = mkLiteral "${base09}ff";
+      theme =
+        let
+          inherit (config.lib.formats.rasi) mkLiteral;
+        in
+        {
+          # this is taken from adi1090x/rofi
+          # 1080p/launchers/colorful/style_1.rasi
+          "*" = with colors.dark; {
+            al = mkLiteral "#00000000";
+            bg = mkLiteral "${base00}ff";
+            fg = mkLiteral "${base05}ff";
+            se = mkLiteral "${base02}ff";
+            ac = mkLiteral "${base09}ff";
+          };
+          window = {
+            transparency = "real";
+            background-color = mkLiteral "@bg";
+            text-color = mkLiteral "@fg";
+            border = mkLiteral "0px";
+            border-color = mkLiteral "@ac";
+            border-radius = mkLiteral "12px";
+            width = mkLiteral "50%";
+            location = mkLiteral "center";
+            x-offset = 0;
+            y-offset = 0;
+          };
+          prompt = {
+            enabled = true;
+            padding = mkLiteral "0.30% 1% 0% -0.5%";
+            background-color = mkLiteral "@al";
+            text-color = mkLiteral "@bg";
+            font = "JetBrainsMono Nerd Font Bold 12";
+          };
+          entry = {
+            background-color = mkLiteral "@al";
+            text-color = mkLiteral "@bg";
+            placeholder-color = mkLiteral "@bg";
+            expand = true;
+            horizontal-align = 0;
+            placeholder = "Search";
+            padding = mkLiteral "0.10% 0% 0% 0%";
+            blink = true;
+          };
+          inputbar = {
+            children = map mkLiteral [
+              "prompt"
+              "entry"
+            ];
+            background-color = mkLiteral "@ac";
+            text-color = mkLiteral "@bg";
+            expand = false;
+            border = mkLiteral "0% 0% 0% 0%";
+            border-radius = mkLiteral "0px";
+            border-color = mkLiteral "@ac";
+            margin = mkLiteral "0% 0% 0% 0%";
+            padding = mkLiteral "1.5%";
+          };
+          listview = {
+            background-color = mkLiteral "@al";
+            padding = mkLiteral "10px";
+            columns = 4;
+            lines = 4;
+            spacing = mkLiteral "0%";
+            cycle = false;
+            dynamic = true;
+            layout = mkLiteral "vertical";
+          };
+          mainbox = {
+            background-color = mkLiteral "@al";
+            border = mkLiteral "0% 0% 0% 0%";
+            border-radius = mkLiteral "0% 0% 0% 0%";
+            border-color = mkLiteral "@ac";
+            children = map mkLiteral [
+              "inputbar"
+              "listview"
+            ];
+            spacing = mkLiteral "0%";
+            padding = mkLiteral "0%";
+          };
+          element = {
+            background-color = mkLiteral "@al";
+            text-color = mkLiteral "@fg";
+            orientation = mkLiteral "vertical";
+            border-radius = mkLiteral "0%";
+            padding = mkLiteral "2% 0% 2% 0%";
+          };
+          element-icon = {
+            background-color = mkLiteral "inherit";
+            text-color = mkLiteral "inherit";
+            horizontal-align = mkLiteral "0.5";
+            vertical-align = mkLiteral "0.5";
+            size = mkLiteral "64px";
+            border = mkLiteral "0px";
+          };
+          element-text = {
+            background-color = mkLiteral "@al";
+            text-color = mkLiteral "inherit";
+            expand = mkLiteral "true";
+            horizontal-align = mkLiteral "0.5";
+            vertical-align = mkLiteral "0.5";
+            margin = mkLiteral "0.5% 0.5% -0.5% 0.5%";
+          };
+          "element selected" = {
+            background-color = mkLiteral "@se";
+            text-color = mkLiteral "@fg";
+            border = mkLiteral "0% 0% 0% 0%";
+            border-radius = mkLiteral "12px";
+            border-color = mkLiteral "@bg";
+          };
         };
-        window = {
-          transparency = "real";
-          background-color = mkLiteral "@bg";
-          text-color = mkLiteral "@fg";
-          border = mkLiteral "0px";
-          border-color = mkLiteral "@ac";
-          border-radius = mkLiteral "12px";
-          width = mkLiteral "50%";
-          location = mkLiteral "center";
-          x-offset = 0;
-          y-offset = 0;
-        };
-        prompt = {
-          enabled = true;
-          padding = mkLiteral "0.30% 1% 0% -0.5%";
-          background-color = mkLiteral "@al";
-          text-color = mkLiteral "@bg";
-          font = "JetBrainsMono Nerd Font Bold 12";
-        };
-        entry = {
-          background-color = mkLiteral "@al";
-          text-color = mkLiteral "@bg";
-          placeholder-color = mkLiteral "@bg";
-          expand = true;
-          horizontal-align = 0;
-          placeholder = "Search";
-          padding = mkLiteral "0.10% 0% 0% 0%";
-          blink = true;
-        };
-        inputbar = {
-          children = map mkLiteral [ "prompt" "entry" ];
-          background-color = mkLiteral "@ac";
-          text-color = mkLiteral "@bg";
-          expand = false;
-          border = mkLiteral "0% 0% 0% 0%";
-          border-radius = mkLiteral "0px";
-          border-color = mkLiteral "@ac";
-          margin = mkLiteral "0% 0% 0% 0%";
-          padding = mkLiteral "1.5%";
-        };
-        listview = {
-          background-color = mkLiteral "@al";
-          padding = mkLiteral "10px";
-          columns = 4;
-          lines = 4;
-          spacing = mkLiteral "0%";
-          cycle = false;
-          dynamic = true;
-          layout = mkLiteral "vertical";
-        };
-        mainbox = {
-          background-color = mkLiteral "@al";
-          border = mkLiteral "0% 0% 0% 0%";
-          border-radius = mkLiteral "0% 0% 0% 0%";
-          border-color = mkLiteral "@ac";
-          children = map mkLiteral [ "inputbar" "listview" ];
-          spacing = mkLiteral "0%";
-          padding = mkLiteral "0%";
-        };
-        element = {
-          background-color = mkLiteral "@al";
-          text-color = mkLiteral "@fg";
-          orientation = mkLiteral "vertical";
-          border-radius = mkLiteral "0%";
-          padding = mkLiteral "2% 0% 2% 0%";
-        };
-        element-icon = {
-          background-color = mkLiteral "inherit";
-          text-color = mkLiteral "inherit";
-          horizontal-align = mkLiteral "0.5";
-          vertical-align = mkLiteral "0.5";
-          size = mkLiteral "64px";
-          border = mkLiteral "0px";
-        };
-        element-text = {
-          background-color = mkLiteral "@al";
-          text-color = mkLiteral "inherit";
-          expand = mkLiteral "true";
-          horizontal-align = mkLiteral "0.5";
-          vertical-align = mkLiteral "0.5";
-          margin = mkLiteral "0.5% 0.5% -0.5% 0.5%";
-        };
-        "element selected" = {
-          background-color = mkLiteral "@se";
-          text-color = mkLiteral "@fg";
-          border = mkLiteral "0% 0% 0% 0%";
-          border-radius = mkLiteral "12px";
-          border-color = mkLiteral "@bg";
-        };
-      };
     };
     services.picom = {
       enable = true;
@@ -334,8 +363,7 @@ in {
       enable = true;
       enableXinerama = true;
       display = "fill";
-      imageDirectory =
-        "${./../../../profiles/nixos/graphical/wallpapers}/${hostName}";
+      imageDirectory = "${./../../../profiles/nixos/graphical/wallpapers}/${hostName}";
       interval = "10m";
     };
   };

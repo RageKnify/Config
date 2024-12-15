@@ -1,22 +1,34 @@
-{ pkgs, lib, config, ... }:
-let domain = "headscale.jborges.eu";
-in {
+{
+  pkgs,
+  lib,
+  config,
+  ...
+}:
+let
+  domain = "headscale.jborges.eu";
+in
+{
   services = {
     headscale = {
       enable = true;
       address = "[::1]";
       settings = {
         server_url = "https://${domain}";
-        ip_prefixes = [ "100.64.0.0/10" "fd7a:115c:a1e0::/48" ];
+        ip_prefixes = [
+          "100.64.0.0/10"
+          "fd7a:115c:a1e0::/48"
+        ];
         dns = {
           base_domain = "bible.jborges.eu";
           magic_dns = true;
           override_local_dns = false;
-          extra_records = [{
-            name = "ff3.jborges.eu";
-            type = "A";
-            value = "100.64.0.2";
-          }];
+          extra_records = [
+            {
+              name = "ff3.jborges.eu";
+              type = "A";
+              value = "100.64.0.2";
+            }
+          ];
         };
       };
     };
@@ -33,11 +45,13 @@ in {
 
   environment.systemPackages = [ config.services.headscale.package ];
 
-  environment.persistence."/persist".directories = [{
-    directory = "/var/lib/headscale";
-    user = "headscale";
-    group = "headscale";
-  }];
+  environment.persistence."/persist".directories = [
+    {
+      directory = "/var/lib/headscale";
+      user = "headscale";
+      group = "headscale";
+    }
+  ];
 
   modules.services.backups.paths = [ "/persist/var/lib/headscale/" ];
 }

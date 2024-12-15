@@ -1,4 +1,11 @@
-{ config, lib, pkgs, hostSecretsDir, ... }: {
+{
+  config,
+  lib,
+  pkgs,
+  hostSecretsDir,
+  ...
+}:
+{
   age.secrets.ovh = {
     file = "${hostSecretsDir}/ovh.age";
     owner = "acme";

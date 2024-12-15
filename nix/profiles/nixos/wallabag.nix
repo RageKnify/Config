@@ -1,8 +1,14 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 let
   domain = "wallabag.jplborges.pt";
   port = "2300";
-in {
+in
+{
   services.nginx.virtualHosts.${domain} = {
     forceSSL = true;
     useACMEHost = "jplborges.pt";
@@ -22,11 +28,13 @@ in {
     };
   };
 
-  environment.persistence."/persist".directories = [{
-    directory = "/var/lib/wallabag";
-    user = "nobody";
-    group = "nogroup";
-  }];
+  environment.persistence."/persist".directories = [
+    {
+      directory = "/var/lib/wallabag";
+      user = "nobody";
+      group = "nogroup";
+    }
+  ];
 
   modules.services.backups.paths = [ "/persist/var/lib/wallabag/" ];
 }

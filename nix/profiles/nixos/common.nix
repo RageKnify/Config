@@ -5,7 +5,14 @@
 #
 # System config common across all hosts
 
-{ inputs, pkgs, lib, profiles, ... }: {
+{
+  inputs,
+  pkgs,
+  lib,
+  profiles,
+  ...
+}:
+{
   imports = with profiles.nixos; [
     locale
     dnscrypt
@@ -16,7 +23,10 @@
       experimental-features = nix-command flakes
     '';
     registry.nixpkgs.flake = inputs.nixpkgs;
-    settings.trusted-users = [ "root" "@wheel" ];
+    settings.trusted-users = [
+      "root"
+      "@wheel"
+    ];
   };
 
   system.activationScripts.diff = {
@@ -41,8 +51,7 @@
   users = {
     users.jp = {
       isNormalUser = true;
-      hashedPassword =
-        "$6$ISAN7cArW1aVhCSd$p3a.cLXkyl13EUKC2tSjhFRW0Wy2gTyzmdkvVVvtU1QaS14BAzS7acXOZ6xb2Baog8ur6q88FY639bKci.1Gh/";
+      hashedPassword = "$6$ISAN7cArW1aVhCSd$p3a.cLXkyl13EUKC2tSjhFRW0Wy2gTyzmdkvVVvtU1QaS14BAzS7acXOZ6xb2Baog8ur6q88FY639bKci.1Gh/";
       createHome = true;
       shell = pkgs.fish;
       extraGroups = [ "wheel" ];
@@ -89,10 +98,12 @@
     })
   ];
 
-  environment.etc."ssl/certs/tecnico-ca.pem".source = (builtins.fetchurl {
-    url = "https://si.tecnico.ulisboa.pt/configuracoes/cacert.crt";
-    sha256 = "1yj2liyccwg6srxjzxfbk67wmkqdwxcx78khfi64ds8rgvs3n6hp";
-  });
+  environment.etc."ssl/certs/tecnico-ca.pem".source = (
+    builtins.fetchurl {
+      url = "https://si.tecnico.ulisboa.pt/configuracoes/cacert.crt";
+      sha256 = "1yj2liyccwg6srxjzxfbk67wmkqdwxcx78khfi64ds8rgvs3n6hp";
+    }
+  );
 
   boot.tmp.cleanOnBoot = true;
 

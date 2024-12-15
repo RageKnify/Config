@@ -8,6 +8,13 @@
 { ... }:
 final: prev: rec {
   my_python =
-    let usefull_modules = p: [ p.pandas p.pwntools p.requests p.numpy ];
-    in prev.python3.withPackages usefull_modules;
+    let
+      usefull_modules = p: [
+        p.pandas
+        p.pwntools
+        p.requests
+        p.numpy
+      ];
+    in
+    prev.python3.withPackages usefull_modules;
 }

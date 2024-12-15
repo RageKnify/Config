@@ -7,8 +7,11 @@
 
 { config, lib, ... }:
 let
-  setEnv = { TERM = "xterm-256color"; };
-in {
+  setEnv = {
+    TERM = "xterm-256color";
+  };
+in
+{
   programs.ssh = {
     enable = true;
 

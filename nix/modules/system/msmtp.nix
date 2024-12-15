@@ -1,10 +1,24 @@
-{ config, lib, pkgs, hostSecretsDir, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  hostSecretsDir,
+  ...
+}:
 let
-  inherit (lib) mkEnableOption mkOption types mkIf;
+  inherit (lib)
+    mkEnableOption
+    mkOption
+    types
+    mkIf
+    ;
   cfg = config.modules.msmtp;
   hostName = config.networking.hostName;
-in {
-  options.modules.msmtp = { enable = mkEnableOption "msmtp"; };
+in
+{
+  options.modules.msmtp = {
+    enable = mkEnableOption "msmtp";
+  };
   config = mkIf cfg.enable {
 
     age.secrets.hostMailPassword = {
@@ -24,8 +38,7 @@ in {
         user = "${hostName}@jborges.eu";
         from = "${hostName} <${hostName}@jborges.eu>";
         host = "mail.jborges.eu";
-        passwordeval =
-          "${pkgs.coreutils}/bin/cat ${config.age.secrets.hostMailPassword.path}";
+        passwordeval = "${pkgs.coreutils}/bin/cat ${config.age.secrets.hostMailPassword.path}";
       };
       setSendmail = true;
     };

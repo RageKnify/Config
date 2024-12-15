@@ -4,11 +4,22 @@
 # URL:    https://github.com/RageKnify/Config
 #
 # Enable kanata to have Colemak-dh
-{ pkgs, config, lib, ... }:
+{
+  pkgs,
+  config,
+  lib,
+  ...
+}:
 let
-  inherit (lib) mkEnableOption mkOption types mkIf;
+  inherit (lib)
+    mkEnableOption
+    mkOption
+    types
+    mkIf
+    ;
   cfg = config.modules.kanata;
-in {
+in
+{
   options.modules.kanata = {
     enable = mkEnableOption "kanata";
     normal_device = mkOption { type = types.str; };

@@ -5,7 +5,15 @@
 #
 # system configuration.
 
-{ pkgs, lib, config, hostSecretsDir, profiles, ... }: {
+{
+  pkgs,
+  lib,
+  config,
+  hostSecretsDir,
+  profiles,
+  ...
+}:
+{
   imports = with profiles.nixos; [
     common
     graphical.full
@@ -72,8 +80,7 @@
 
   users = {
     users.root = {
-      hashedPassword =
-        "$6$97MgEve.PfCq/8gb$kX0aZAQyFbmye7mhw8YlMwKwnyft543GRD.O1mOnJIGsdn6/FXcVIleslO/2lrOhs8LEX/Nwlhz46vYn.zDDt0";
+      hashedPassword = "$6$97MgEve.PfCq/8gb$kX0aZAQyFbmye7mhw8YlMwKwnyft543GRD.O1mOnJIGsdn6/FXcVIleslO/2lrOhs8LEX/Nwlhz46vYn.zDDt0";
     };
     mutableUsers = false;
   };
@@ -94,7 +101,9 @@
       xdg.enable = true;
       graphical = {
         i3.enable = true;
-        polybar = { enable = true; };
+        polybar = {
+          enable = true;
+        };
       };
       git = {
         enable = true;
@@ -132,10 +141,12 @@
   };
 
   services.openssh = {
-    hostKeys = [{
-      path = "/persist/etc/ssh/ssh_host_ed25519_key";
-      type = "ed25519";
-    }];
+    hostKeys = [
+      {
+        path = "/persist/etc/ssh/ssh_host_ed25519_key";
+        type = "ed25519";
+      }
+    ];
   };
 
   system.stateVersion = "23.11";

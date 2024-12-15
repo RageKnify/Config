@@ -1,13 +1,19 @@
-{ personal, nvim-treesitter, lists }:
+{
+  personal,
+  nvim-treesitter,
+  lists,
+}:
 let
-  grammars = with nvim-treesitter.builtGrammars;
+  grammars =
+    with nvim-treesitter.builtGrammars;
     [
       tree-sitter-bash
       tree-sitter-comment
       tree-sitter-html
       tree-sitter-markdown
       tree-sitter-python
-    ] ++ (lists.optionals personal [
+    ]
+    ++ (lists.optionals personal [
       tree-sitter-nix
       tree-sitter-c
       tree-sitter-cpp
@@ -24,7 +30,8 @@ let
       tree-sitter-vim
       tree-sitter-yaml
     ]);
-in {
+in
+{
   plugin = (nvim-treesitter.withPlugins (plugins: grammars));
   type = "lua";
   config = ''

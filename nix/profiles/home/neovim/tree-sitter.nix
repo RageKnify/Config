@@ -2,6 +2,7 @@
   personal,
   nvim-treesitter,
   lists,
+  tree-sitter-jinja2,
 }:
 let
   grammars =
@@ -19,6 +20,7 @@ let
       tree-sitter-cpp
       tree-sitter-java
       tree-sitter-javascript
+      tree-sitter-jinja2
       tree-sitter-latex
       tree-sitter-lua
       tree-sitter-ocaml
@@ -34,6 +36,18 @@ in
 {
   plugin = (nvim-treesitter.withPlugins (plugins: grammars));
   type = "lua";
+  # TODO: use injections for salt
+  #  https://www.reddit.com/r/neovim/comments/v9e85n/what_do_you_use_treesitter_for_other_than/ibwbro1/?context=10000
+  #  require('vim.treesitter.query').set(
+  #  'yaml',
+  #  'injections',
+  #  [[
+  #  ((
+  #    (raw_string_literal) @constant
+  #    (#match? @constant "(\{\{|\{%).*")
+  #  ) @injection.content (#set! injection.language "jinja2"))
+  #  ]]
+  #  )
   config = ''
     -- enable highlighting
     require'nvim-treesitter.configs'.setup { highlight = { enable = true } }

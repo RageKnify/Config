@@ -176,7 +176,13 @@ let
       '';
     }
 
-    vim-commentary
+    {
+      plugin = comment-nvim;
+      type = "lua";
+      config = ''
+        require('Comment').setup()
+      '';
+    }
 
     {
       plugin = base16-nvim;

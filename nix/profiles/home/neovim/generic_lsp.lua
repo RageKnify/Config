@@ -12,8 +12,6 @@ local on_attach = function(client, bufnr)
   local set = vim.keymap.set
   -- illuminate stuff
   local illuminate = require"illuminate"
-  set('n', '<leader>gn', illuminate.next_reference, {silent=true})
-  set('n', '<leader>gp', function () illuminate.next_reference{reverse=true} end, {silent=true})
   require 'illuminate'.on_attach(client)
 
 

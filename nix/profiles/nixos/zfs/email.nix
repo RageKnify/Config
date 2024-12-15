@@ -1,4 +1,10 @@
-{ config, lib, pkgs, ... }: {
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
+{
   services.zfs.zed = {
     settings = {
       ZFS_DEBUG_LOG = "/tmp/zed.debug.log";

@@ -45,14 +45,18 @@
     };
   };
 
-  outputs = inputs@{ flake-parts, ... }:
-    flake-parts.lib.mkFlake { inherit inputs; }
-    ({ moduleWithSystem, flake-parts-lib, ... }: {
-      flake = import ./outputs.nix
-        (inputs // { inherit moduleWithSystem flake-parts-lib; });
-      systems = [ "x86_64-linux" ];
-      perSystem = { pkgs, lib, ... }: {
-        packages = import ./packages { inherit pkgs lib; };
-      };
-    });
+  outputs =
+    inputs@{ flake-parts, ... }:
+    flake-parts.lib.mkFlake { inherit inputs; } (
+      { moduleWithSystem, flake-parts-lib, ... }:
+      {
+        flake = import ./outputs.nix (inputs // { inherit moduleWithSystem flake-parts-lib; });
+        systems = [ "x86_64-linux" ];
+        perSystem =
+          { pkgs, lib, ... }:
+          {
+            packages = import ./packages { inherit pkgs lib; };
+          };
+      }
+    );
 }

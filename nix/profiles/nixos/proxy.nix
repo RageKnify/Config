@@ -1,4 +1,10 @@
-{ pkgs, lib, config, ... }: {
+{
+  pkgs,
+  lib,
+  config,
+  ...
+}:
+{
   services.nginx.virtualHosts = {
     "cloud.jborges.eu" = {
       forceSSL = true;

@@ -5,14 +5,28 @@
 #
 # Git configuration. (Based on RiscadoA's)
 
-{ pkgs, lib, options, config, ... }:
+{
+  pkgs,
+  lib,
+  options,
+  config,
+  ...
+}:
 let
-  inherit (lib) mkDefault mkOption mkEnableOption mkIf types generators;
+  inherit (lib)
+    mkDefault
+    mkOption
+    mkEnableOption
+    mkIf
+    types
+    generators
+    ;
   cfg = config.modules.git;
   signers = builtins.toFile "signers" ''
     RageKnify@gmail.com,joao.p.l.borges@tecnico.ulisboa.pt,joao.borges@rnl.tecnico.ulisboa.pt ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIC2sdJFvvnEIYztPcznXvKpY4vOWedZ1qzDaAgRxrczS jp@war
   '';
-in {
+in
+{
   options.modules.git = {
     enable = mkEnableOption "git";
 
@@ -24,7 +38,9 @@ in {
       enable = true;
       delta = {
         enable = true;
-        options = { light = true; };
+        options = {
+          light = true;
+        };
       };
       extraConfig = {
         diff.tool = "vimdiff";

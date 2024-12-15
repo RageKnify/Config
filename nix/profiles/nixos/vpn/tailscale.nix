@@ -1,6 +1,13 @@
-{ pkgs, lib, config, ... }:
-let interfaceName = "bible";
-in {
+{
+  pkgs,
+  lib,
+  config,
+  ...
+}:
+let
+  interfaceName = "bible";
+in
+{
   services.tailscale = {
     inherit interfaceName;
     enable = true;

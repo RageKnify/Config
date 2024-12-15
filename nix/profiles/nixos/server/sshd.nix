@@ -5,7 +5,8 @@
 #
 # sshd config
 
-{ lib, sshKeys, ... }: {
+{ lib, sshKeys, ... }:
+{
   services.openssh = {
     enable = true;
     settings = {

@@ -5,11 +5,21 @@
 #
 # fusuma configuration
 
-{ pkgs, config, lib, ... }: {
+{
+  pkgs,
+  config,
+  lib,
+  ...
+}:
+{
   services.fusuma = {
     enable = true;
     package = pkgs.latest.fusuma;
-    extraPackages = with pkgs; [ xdotool i3 coreutils ];
+    extraPackages = with pkgs; [
+      xdotool
+      i3
+      coreutils
+    ];
     settings = {
       threshold = {
         swipe = 0.25;
@@ -21,16 +31,32 @@
       };
       swipe = {
         "3" = {
-          left = { command = "exec i3-msg focus right"; };
-          right = { command = "exec i3-msg focus left"; };
-          up = { command = "exec i3-msg focus down"; };
-          down = { command = "exec i3-msg focus up"; };
+          left = {
+            command = "exec i3-msg focus right";
+          };
+          right = {
+            command = "exec i3-msg focus left";
+          };
+          up = {
+            command = "exec i3-msg focus down";
+          };
+          down = {
+            command = "exec i3-msg focus up";
+          };
         };
         "4" = {
-          left = { command = "exec i3-msg workspace next"; };
-          right = { command = "exec i3-msg workspace prev"; };
-          up = { command = "exec i3-msg fullscreen toggle"; };
-          down = { command = "exec i3-msg floating toggle"; };
+          left = {
+            command = "exec i3-msg workspace next";
+          };
+          right = {
+            command = "exec i3-msg workspace prev";
+          };
+          up = {
+            command = "exec i3-msg fullscreen toggle";
+          };
+          down = {
+            command = "exec i3-msg floating toggle";
+          };
         };
       };
     };

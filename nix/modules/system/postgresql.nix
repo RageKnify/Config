@@ -5,14 +5,26 @@
 #
 # postgresql configuration.
 
-{ pkgs, config, lib, profiles, ... }:
+{
+  pkgs,
+  config,
+  lib,
+  profiles,
+  ...
+}:
 let
-  inherit (lib) mkEnableOption mkOption types mkIf;
+  inherit (lib)
+    mkEnableOption
+    mkOption
+    types
+    mkIf
+    ;
   inherit (config.networking) hostName;
   cfg = config.services.postgresql;
   backupFailServiceName = "postgresqlBackupFail";
   resticBackupServiceName = config.modules.services.backups.systemdServiceName;
-in {
+in
+{
   config = mkIf (cfg.ensureDatabases != [ ]) {
     services.postgresql = {
       enable = true;
@@ -49,14 +61,20 @@ in {
     };
 
     # backup the database dump
-    modules.services.backups = let
-      dumpPath = "${config.services.postgresqlBackup.location}/all.sql.zstd";
-    in { paths = [ dumpPath ]; };
+    modules.services.backups =
+      let
+        dumpPath = "${config.services.postgresqlBackup.location}/all.sql.zstd";
+      in
+      {
+        paths = [ dumpPath ];
+      };
 
-    environment.persistence."/persist".directories = [{
-      directory = "/var/lib/postgresql";
-      user = "postgresql";
-      group = "postgresql";
-    }];
+    environment.persistence."/persist".directories = [
+      {
+        directory = "/var/lib/postgresql";
+        user = "postgresql";
+        group = "postgresql";
+      }
+    ];
   };
 }

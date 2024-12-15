@@ -1,6 +1,13 @@
-{ pkgs, fetchFromGitHub, phpPackage ? pkgs.php83, ... }:
-let version = "1.4.4";
-in phpPackage.buildComposerProject (finalAttrs: {
+{
+  pkgs,
+  fetchFromGitHub,
+  phpPackage ? pkgs.php83,
+  ...
+}:
+let
+  version = "1.4.4";
+in
+phpPackage.buildComposerProject (finalAttrs: {
   inherit version;
   pname = "firefly-iii-data-importer";
 
@@ -15,5 +22,8 @@ in phpPackage.buildComposerProject (finalAttrs: {
   # they have some version constraints that are frowned upon apparently
   composerStrictValidation = false;
 
-  patches = [ ./firefly-storage-path.patch ./firefly-sendmail-path.patch ];
+  patches = [
+    ./firefly-storage-path.patch
+    ./firefly-sendmail-path.patch
+  ];
 })

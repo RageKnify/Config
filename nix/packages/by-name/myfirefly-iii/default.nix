@@ -1,6 +1,13 @@
-{ pkgs, fetchFromGitHub, phpPackage ? pkgs.php83, ... }:
-let version = "6.1.10";
-in phpPackage.buildComposerProject (finalAttrs: {
+{
+  pkgs,
+  fetchFromGitHub,
+  phpPackage ? pkgs.php83,
+  ...
+}:
+let
+  version = "6.1.10";
+in
+phpPackage.buildComposerProject (finalAttrs: {
   inherit version;
   pname = "myfirefly-iii";
 

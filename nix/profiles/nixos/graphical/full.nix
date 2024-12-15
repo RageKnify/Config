@@ -5,9 +5,17 @@
 #
 # Login manager and graphical configuration.
 
-{ pkgs, config, lib, profiles, ... }:
-let hostName = config.networking.hostName;
-in {
+{
+  pkgs,
+  config,
+  lib,
+  profiles,
+  ...
+}:
+let
+  hostName = config.networking.hostName;
+in
+{
   imports = with profiles.nixos.graphical; [ firefox ];
 
   services.xserver = {
@@ -17,13 +25,15 @@ in {
       variant = ",intl";
     };
     displayManager = {
-      session = [{
-        name = "user-xsession";
-        manage = "desktop";
-        start = ''
-          exec $HOME/.xsession
-        '';
-      }];
+      session = [
+        {
+          name = "user-xsession";
+          manage = "desktop";
+          start = ''
+            exec $HOME/.xsession
+          '';
+        }
+      ];
       lightdm = {
         enable = true;
         extraConfig = ''

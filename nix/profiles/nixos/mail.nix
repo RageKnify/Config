@@ -1,12 +1,15 @@
-{ pkgs, lib, config, hostSecretsDir, ... }: {
-  age.secrets.mailJoaoHashedPassword.file =
-    "${hostSecretsDir}/mailJoaoHashedPassword.age";
-  age.secrets.mailAzazelHashedPassword.file =
-    "${hostSecretsDir}/mailAzazelHashedPassword.age";
-  age.secrets.mailConquestHashedPassword.file =
-    "${hostSecretsDir}/mailConquestHashedPassword.age";
-  age.secrets.mailWarHashedPassword.file =
-    "${hostSecretsDir}/mailWarHashedPassword.age";
+{
+  pkgs,
+  lib,
+  config,
+  hostSecretsDir,
+  ...
+}:
+{
+  age.secrets.mailJoaoHashedPassword.file = "${hostSecretsDir}/mailJoaoHashedPassword.age";
+  age.secrets.mailAzazelHashedPassword.file = "${hostSecretsDir}/mailAzazelHashedPassword.age";
+  age.secrets.mailConquestHashedPassword.file = "${hostSecretsDir}/mailConquestHashedPassword.age";
+  age.secrets.mailWarHashedPassword.file = "${hostSecretsDir}/mailWarHashedPassword.age";
 
   imports = [ ];
 
@@ -14,7 +17,10 @@
     enable = true;
     fqdn = "mail.jborges.eu";
 
-    domains = [ "jborges.eu" "jplborges.pt" ];
+    domains = [
+      "jborges.eu"
+      "jplborges.pt"
+    ];
 
     enableManageSieve = true;
 

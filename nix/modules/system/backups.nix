@@ -5,12 +5,24 @@
 #
 # restic backups configuration with email on failure.
 
-{ pkgs, config, lib, profiles, ... }:
+{
+  pkgs,
+  config,
+  lib,
+  profiles,
+  ...
+}:
 let
-  inherit (lib) mkEnableOption mkOption types mkIf;
+  inherit (lib)
+    mkEnableOption
+    mkOption
+    types
+    mkIf
+    ;
   cfg = config.modules.services.backups;
   hostName = config.networking.hostName;
-in {
+in
+{
   options.modules.services.backups = {
     enable = mkEnableOption "backups";
 
@@ -38,7 +50,10 @@ in {
         backup command will be run. This can be used to create a
         prune-only job.
       '';
-      example = [ "/var/lib/postgresql" "/home/user/backup" ];
+      example = [
+        "/var/lib/postgresql"
+        "/home/user/backup"
+      ];
     };
 
     dynamicFilesFrom = mkOption {
@@ -87,9 +102,11 @@ in {
     };
   };
 
-  config = mkIf cfg.enable
-    (let systemdFailServiceName = "${cfg.systemdServiceName}-fail";
-    in {
+  config = mkIf cfg.enable (
+    let
+      systemdFailServiceName = "${cfg.systemdServiceName}-fail";
+    in
+    {
       services.restic.backups.${cfg.backupName} = {
         repository = "b2:restic-jborges:${hostName}";
 
@@ -138,5 +155,6 @@ in {
         };
       };
 
-    });
+    }
+  );
 }

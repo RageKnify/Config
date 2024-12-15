@@ -38,10 +38,12 @@ let
       "base0F" = "#d33682";
     };
   };
-in {
+in
+{
   inherit colors;
 
-  hostNameToColor = hostName:
+  hostNameToColor =
+    hostName:
     let
       mapping = {
         war = "base08";
@@ -49,5 +51,6 @@ in {
         conquest = "base0F";
       };
       base = mapping."${hostName}";
-    in colors.light."${base}";
+    in
+    colors.light."${base}";
 }

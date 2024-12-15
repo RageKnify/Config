@@ -1,4 +1,11 @@
-{ config, lib, pkgs, hostSecretsDir, ... }: {
+{
+  config,
+  lib,
+  pkgs,
+  hostSecretsDir,
+  ...
+}:
+{
   age.secrets = {
     registryPassword.file = "${hostSecretsDir}/registryPassword.age";
     discordTokenEnv.file = "${hostSecretsDir}/discordTokenEnv.age";

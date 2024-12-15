@@ -1,9 +1,15 @@
-{ pkgs, lib, config, hostSecretsDir, ... }:
+{
+  pkgs,
+  lib,
+  config,
+  hostSecretsDir,
+  ...
+}:
 let
-  resticBackupServiceName =
-    "${config.modules.services.backups.systemdServiceName}.service";
+  resticBackupServiceName = "${config.modules.services.backups.systemdServiceName}.service";
   postgresBackupServiceName = "postgresqlBackup.service";
-in {
+in
+{
   age.secrets.nextcloud-admin-pass = {
     file = "${hostSecretsDir}/nextcloud-admin-pass.age";
     owner = "nextcloud";
@@ -26,14 +32,12 @@ in {
       extraApps = with config.services.nextcloud.package.packages.apps; {
         inherit calendar contacts tasks;
         cookbook = pkgs.fetchNextcloudApp rec {
-          url =
-            "https://github.com/christianlupus-nextcloud/cookbook-releases/releases/download/v0.11.2/cookbook-0.11.2.tar.gz";
+          url = "https://github.com/christianlupus-nextcloud/cookbook-releases/releases/download/v0.11.2/cookbook-0.11.2.tar.gz";
           sha256 = "sha256-upbTdzu17BH6tehgCUcTxBvTVOO31Kri/33vGd4Unyw=";
           license = "agpl3Only";
         };
         cospend = pkgs.fetchNextcloudApp {
-          url =
-            "https://github.com/julien-nc/cospend-nc/releases/download/v1.5.14/cospend-1.5.14.tar.gz";
+          url = "https://github.com/julien-nc/cospend-nc/releases/download/v1.5.14/cospend-1.5.14.tar.gz";
           sha256 = "sha256-vmPfFgmmgWthZPQzRwweCb6MK1Tg5rH3pX090K2vG10=";
           license = "agpl3Only";
         };
@@ -59,11 +63,13 @@ in {
     };
   };
 
-  environment.persistence."/persist".directories = [{
-    directory = config.services.nextcloud.home;
-    user = "nextcloud";
-    group = "nextcloud";
-  }];
+  environment.persistence."/persist".directories = [
+    {
+      directory = config.services.nextcloud.home;
+      user = "nextcloud";
+      group = "nextcloud";
+    }
+  ];
 
   # Backup notes:
   # - https://docs.nextcloud.com/server/latest/admin_manual/maintenance/backup.html
@@ -100,6 +106,5 @@ in {
     restartIfChanged = false;
   };
 
-  modules.services.backups.paths =
-    [ "/persist/${config.services.nextcloud.home}/" ];
+  modules.services.backups.paths = [ "/persist/${config.services.nextcloud.home}/" ];
 }

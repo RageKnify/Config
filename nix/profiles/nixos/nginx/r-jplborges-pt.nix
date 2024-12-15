@@ -1,4 +1,11 @@
-{ config, lib, pkgs, hostSecretsDir, ... }: {
+{
+  config,
+  lib,
+  pkgs,
+  hostSecretsDir,
+  ...
+}:
+{
   age.secrets = {
     ritaAuthFile = {
       file = "${hostSecretsDir}/ritaAuthFile.age";
@@ -14,10 +21,12 @@
     basicAuthFile = config.age.secrets.ritaAuthFile.path;
   };
 
-  networking.firewall.allowedTCPPorts = [ 80 443 ];
+  networking.firewall.allowedTCPPorts = [
+    80
+    443
+  ];
 
-  environment.persistence."/persist".directories =
-    [ "/var/www/r.jplborges.pt/" ];
+  environment.persistence."/persist".directories = [ "/var/www/r.jplborges.pt/" ];
 
   modules.services.backups.paths = [ "/persist/var/www/r.jplborges.pt/" ];
 }

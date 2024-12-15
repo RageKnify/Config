@@ -5,15 +5,30 @@
 #
 # polybar configuration.
 
-{ pkgs, config, lib, hostName, osConfig, myLib, ... }:
+{
+  pkgs,
+  config,
+  lib,
+  hostName,
+  osConfig,
+  myLib,
+  ...
+}:
 let
-  inherit (lib) mkEnableOption mkIf mkForce strings attrsets;
+  inherit (lib)
+    mkEnableOption
+    mkIf
+    mkForce
+    strings
+    attrsets
+    ;
   inherit (attrsets) optionalAttrs;
   cfg = config.modules.graphical.polybar;
   i3 = config.modules.graphical.i3.enable;
   laptop = osConfig.modules.laptop;
   colors = myLib.colors;
-in {
+in
+{
   options.modules.graphical.polybar.enable = mkEnableOption "polybar";
 
   config = mkIf cfg.enable {
@@ -24,10 +39,12 @@ in {
           MONITOR=$m polybar --reload bar&
         done
       '';
-      package = (pkgs.polybar.override {
-        i3Support = i3;
-        pulseSupport = true;
-      });
+      package = (
+        pkgs.polybar.override {
+          i3Support = i3;
+          pulseSupport = true;
+        }
+      );
       settings = with colors.dark; {
         colors = {
           background = "${base00}";
@@ -62,11 +79,10 @@ in {
           padding = 0;
           bottom = false;
           monitor = "\${env:MONITOR:eDP-1}";
-          modules-left = (strings.optionalString i3 "i3 ")
-            + "xkeyboard pulseaudio";
+          modules-left = (strings.optionalString i3 "i3 ") + "xkeyboard pulseaudio";
           # modules-right = filesystem0 filesystem1 cpu temperature memory wlan battery date
-          modules-right = "cpu temperature memory"
-            + (strings.optionalString laptop.enable " wlan battery") + " date tray";
+          modules-right =
+            "cpu temperature memory" + (strings.optionalString laptop.enable " wlan battery") + " date tray";
         };
         "module/i3" = optionalAttrs i3 {
           type = "internal/i3";

@@ -5,12 +5,25 @@
 #
 # Config for personal machines
 
-{ pkgs, config, lib, ... }:
+{
+  pkgs,
+  config,
+  lib,
+  ...
+}:
 let
-  inherit (lib) mkEnableOption mkOption types mkIf;
+  inherit (lib)
+    mkEnableOption
+    mkOption
+    types
+    mkIf
+    ;
   cfg = config.modules.personal;
-in {
-  options.modules.personal = { enable = mkEnableOption "personal"; };
+in
+{
+  options.modules.personal = {
+    enable = mkEnableOption "personal";
+  };
 
   config = mkIf cfg.enable {
     # YubiKey stuf
@@ -25,7 +38,10 @@ in {
 
     # Printer stuf
     services.printing.enable = true;
-    services.printing.drivers = with pkgs; [ gutenprint gutenprintBin ];
+    services.printing.drivers = with pkgs; [
+      gutenprint
+      gutenprintBin
+    ];
 
     # SSH stuf
     programs.ssh = {

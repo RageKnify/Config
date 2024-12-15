@@ -5,9 +5,16 @@
 #
 # kitty configuration
 
-{ pkgs, lib, config, ... }:
-let inherit (lib) mkDefault;
-in {
+{
+  pkgs,
+  lib,
+  config,
+  ...
+}:
+let
+  inherit (lib) mkDefault;
+in
+{
   programs.kitty = {
     enable = true;
     font = {

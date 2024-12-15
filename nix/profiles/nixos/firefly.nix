@@ -1,4 +1,11 @@
-{ pkgs, lib, config, hostSecretsDir, ... }: {
+{
+  pkgs,
+  lib,
+  config,
+  hostSecretsDir,
+  ...
+}:
+{
   age.secrets.firefly-secrets = {
     file = "${hostSecretsDir}/firefly-secrets.age";
     owner = "firefly-iii";
@@ -28,12 +35,13 @@
     };
   };
 
-  environment.persistence."/persist".directories = [{
-    directory = config.services.myfirefly-iii.home;
-    user = "firefly-iii";
-    group = "firefly-iii";
-  }];
+  environment.persistence."/persist".directories = [
+    {
+      directory = config.services.myfirefly-iii.home;
+      user = "firefly-iii";
+      group = "firefly-iii";
+    }
+  ];
 
-  modules.services.backups.paths =
-    [ "/persist/${config.services.myfirefly-iii.home}/" ];
+  modules.services.backups.paths = [ "/persist/${config.services.myfirefly-iii.home}/" ];
 }

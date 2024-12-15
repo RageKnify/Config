@@ -5,7 +5,12 @@
 #
 # XDG home configuration. (Based on RiscadoA's)
 
-{ pkgs, lib, config, ... }:
+{
+  pkgs,
+  lib,
+  config,
+  ...
+}:
 let
   inherit (lib) mkEnableOption mkIf;
   jp-downloads-script = pkgs.writeShellScript "jp-downloads-script.sh" ''
@@ -13,7 +18,8 @@ let
     ${pkgs.coreutils}/bin/ln -s /dev/shm/jp-downloads -fT /home/jp/downloads
   '';
   cfg = config.modules.xdg;
-in {
+in
+{
   options.modules.xdg.enable = mkEnableOption "xdg";
 
   config = mkIf cfg.enable {
@@ -33,12 +39,16 @@ in {
     };
     systemd.user.services = {
       home-jp-downloads = {
-        Install = { WantedBy = [ "graphical-session.target" ]; };
+        Install = {
+          WantedBy = [ "graphical-session.target" ];
+        };
         Unit = {
           PartOf = [ "graphical-session.target" ];
           Description = "Link /home/jp/downloads to a directory in tmpfs";
         };
-        Service = { ExecStart = "${jp-downloads-script}"; };
+        Service = {
+          ExecStart = "${jp-downloads-script}";
+        };
       };
     };
   };

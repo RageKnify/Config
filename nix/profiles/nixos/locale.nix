@@ -1,4 +1,10 @@
-{ pkgs, lib, config, ... }: {
+{
+  pkgs,
+  lib,
+  config,
+  ...
+}:
+{
   i18n = {
     defaultLocale = "en_US.utf8";
     extraLocaleSettings = {

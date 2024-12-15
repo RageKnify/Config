@@ -93,11 +93,13 @@ let
 
     {
       plugin = vim-illuminate;
+      type = "lua";
       config = ''
-        let g:Illuminate_delay = 100
-        hi def link LspReferenceText CursorLine
-        hi def link LspReferenceRead CursorLine
-        hi def link LspReferenceWrite CursorLine
+        vim.g.Illuminate_delay = 100
+        local set = vim.keymap.set
+        local illuminate = require"illuminate"
+        set('n', '<leader>gn', illuminate.goto_next_reference, {silent=true})
+        set('n', '<leader>gp', illuminate.goto_prev_reference, {silent=true})
       '';
     }
 

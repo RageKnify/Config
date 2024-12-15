@@ -7,10 +7,6 @@ set noexpandtab
 " delete trailing whitespace
 autocmd FileType c,cpp,java,lua,nix,ocaml,vim,wast autocmd BufWritePre <buffer> %s/\s\+$//e
 
-" makes n=Next and N=Previous for find (? / /)
-nnoremap <expr> n  'Nn'[v:searchforward]
-nnoremap <expr> N  'nN'[v:searchforward]
-
 " Easy bind to leave terminal mode
 tnoremap <Esc> <C-\><C-n>
 

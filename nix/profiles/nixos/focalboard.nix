@@ -29,25 +29,6 @@ let
   );
 in
 {
-  services.nginx.virtualHosts.${domain} = {
-    forceSSL = true;
-    useACMEHost = "jplborges.pt";
-    locations."/" = {
-      proxyWebsockets = true;
-      proxyPass = "http://127.0.0.1:${port}";
-    };
-  };
-
-  virtualisation.oci-containers.containers.focalboard = {
-    image = "mattermost/focalboard:7.10.4";
-    ports = [ "127.0.0.1:${port}:8000" ];
-    volumes = [
-      "${server_config}:/opt/focalboard/config.json:ro,Z"
-      "/var/lib/focalboard/:/data/"
-    ];
-    user = "1000:100";
-  };
-
   environment.persistence."/persist".directories = [
     {
       directory = "/var/lib/focalboard";

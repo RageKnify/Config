@@ -22,6 +22,9 @@ lib.attrsets.optionalAttrs personal.enable {
     libqalculate
     # wallpaper script
     horseman_wallpaper
+    # LaTeX
+    texlive.combined.scheme-full
+    texlab
     # Rust
     rustup
     # GCC

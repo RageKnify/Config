@@ -6,8 +6,8 @@
   ...
 }:
 {
-  age.secrets.ovh = {
-    file = "${hostSecretsDir}/ovh.age";
+  age.secrets.cloudflare = {
+    file = "${hostSecretsDir}/cloudflare.age";
     owner = "acme";
     group = "acme";
   };
@@ -17,9 +17,9 @@
   security.acme.certs."jborges.eu" = {
     domain = "jborges.eu";
     extraDomainNames = [ "*.jborges.eu" ];
-    dnsProvider = "ovh";
+    dnsProvider = "cloudflare";
     dnsPropagationCheck = true;
-    credentialsFile = config.age.secrets.ovh.path;
+    credentialsFile = config.age.secrets.cloudflare.path;
   };
 
   users.users.nginx.extraGroups = [ "acme" ];

@@ -33,6 +33,10 @@ in
     hosts.azazel
     users.jp_war
   ];
+  "azazel/cloudflare.age".publicKeys = [
+    hosts.azazel
+    users.jp_war
+  ];
   "azazel/ovh.age".publicKeys = [
     hosts.azazel
     users.jp_war
@@ -71,6 +75,10 @@ in
     users.jp_war
   ];
   "conquest/firefly-secrets.age".publicKeys = [
+    hosts.conquest
+    users.jp_war
+  ];
+  "conquest/cloudflare.age".publicKeys = [
     hosts.conquest
     users.jp_war
   ];

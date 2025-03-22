@@ -29,6 +29,7 @@ let
       tree-sitter-scheme
       tree-sitter-toml
       tree-sitter-typescript
+      tree-sitter-typst
       tree-sitter-vim
       tree-sitter-yaml
     ]);

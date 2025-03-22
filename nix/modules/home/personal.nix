@@ -35,6 +35,9 @@ lib.attrsets.optionalAttrs personal.enable {
     my_python
     # Scheme
     chez
+    # typst
+    typst
+    typstfmt
     # nixfmt
     nixfmt-rfc-style
   ];

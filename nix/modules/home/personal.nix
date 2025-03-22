@@ -40,5 +40,7 @@ lib.attrsets.optionalAttrs personal.enable {
     typstfmt
     # nixfmt
     nixfmt-rfc-style
+    # node
+    nodejs_23
   ];
 }

@@ -223,6 +223,9 @@ let
           -- ocaml lsp setup
           lsp_config.ocamllsp.setup(lsp_setup)
 
+          -- typescript lsp setup
+          lsp_config.ts_ls.setup(lsp_setup)
+
           -- Rust lsp setup
           lsp_config.rust_analyzer.setup({
             capabilities = lsp_setup.capabilities,

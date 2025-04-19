@@ -42,5 +42,6 @@ lib.attrsets.optionalAttrs personal.enable {
     nixfmt-rfc-style
     # node
     nodejs_23
+    typescript-language-server
   ];
 }

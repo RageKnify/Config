@@ -76,9 +76,9 @@
   services.postfix.setSendmail = false;
 
   security.acme.certs."mail.jborges.eu" = {
-    dnsProvider = "ovh";
+    dnsProvider = "cloudflare";
     dnsPropagationCheck = true;
-    credentialsFile = config.age.secrets.ovh.path;
+    credentialsFile = config.age.secrets.cloudflare.path;
   };
 
   environment.persistence."/persist".directories = [

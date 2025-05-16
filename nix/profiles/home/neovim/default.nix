@@ -354,7 +354,6 @@ in
     extraLuaConfig = ''
 
       vim.o.list = true
-      vim.o.listchars = "tab:,trail:~,nbsp:+"
 
       vim.filetype.add({
         extension = {

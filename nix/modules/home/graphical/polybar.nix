@@ -206,7 +206,7 @@ in
           format-discharging-overline = "\${self.format-charging-overline}";
 
           low-at = 10;
-          format-low = "<animation-low> <ramp-capacity> <label-discharging>";
+          format-low = "<animation-low> <ramp-capacity> %percentage%%";
           format-low-overline = "\${self.format-charging-overline}";
 
           animation-low-0 = ".";

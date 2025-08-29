@@ -238,9 +238,6 @@ let
               },
             },
           })
-
-          -- tex lsp setup
-          lsp_config.texlab.setup(lsp_setup)
         '';
       }
 

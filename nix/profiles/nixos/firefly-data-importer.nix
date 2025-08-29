@@ -35,7 +35,7 @@
 
   environment.persistence."/persist".directories = [
     {
-      directory = config.services.my-firefly-iii-data-importer.home;
+      directory = config.services.myfirefly-iii-data-importer.home;
       user = "firefly-iii-data-importer";
       group = "firefly-iii-data-importer";
     }

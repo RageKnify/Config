@@ -21,8 +21,6 @@
     server.full
     acme.common
     acme.dns-jborges-eu
-    firefly
-    firefly-data-importer
     nextcloud
     nginx.common
     # rickbot # docker image doesn't work

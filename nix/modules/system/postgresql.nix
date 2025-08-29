@@ -28,6 +28,7 @@ in
   config = mkIf (cfg.ensureDatabases != [ ]) {
     services.postgresql = {
       enable = true;
+      # need https://github.com/NixOS/nixpkgs/pull/438371 to be backported to 25.05
       package = pkgs.postgresql_16;
     };
 
@@ -35,6 +36,7 @@ in
     services.postgresqlBackup = {
       enable = true;
       compression = "zstd";
+      pgdumpOptions = "";
     };
 
     systemd.services.postgresqlBackup = {

@@ -82,7 +82,7 @@ in
     noto-fonts-cjk-sans
     noto-fonts-emoji
     font-awesome
-    (nerdfonts.override { fonts = [ "JetBrainsMono" ]; })
+    nerd-fonts.jetbrains-mono
   ];
 
   services.pipewire = {
@@ -95,13 +95,15 @@ in
   # rtkit is optional but recommended
   security.rtkit.enable = true;
 
+  security.pam.services.xscreensaver.enable = true;
+
   environment.systemPackages = with pkgs; [
     arandr
     (discord.override {
       nss = nss_latest; # hyperlinks can't open in Firefox without this
       withOpenASAR = true; # it's supposed to be better
     })
-    dolphin
+    kdePackages.dolphin
     feh
     gimp
     libreoffice

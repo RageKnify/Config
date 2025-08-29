@@ -19,7 +19,7 @@ in
   services = {
     nextcloud = {
       enable = true;
-      package = pkgs.nextcloud30; # Need to manually increment with every update
+      package = pkgs.nextcloud31; # Need to manually increment with every update
       hostName = "cloud.jborges.eu";
 
       https = true;
@@ -32,13 +32,13 @@ in
       extraApps = with config.services.nextcloud.package.packages.apps; {
         inherit calendar contacts tasks;
         cookbook = pkgs.fetchNextcloudApp rec {
-          url = "https://github.com/christianlupus-nextcloud/cookbook-releases/releases/download/v0.11.2/cookbook-0.11.2.tar.gz";
-          sha256 = "sha256-upbTdzu17BH6tehgCUcTxBvTVOO31Kri/33vGd4Unyw=";
+          url = "https://github.com/christianlupus-nextcloud/cookbook-releases/releases/download/v0.11.3/cookbook-0.11.3.tar.gz";
+          sha256 = "sha256-EWLBypv588IkO1wx0vFv26NSk5GKx1pqSWTlAcW2mwE=";
           license = "agpl3Only";
         };
         cospend = pkgs.fetchNextcloudApp {
-          url = "https://github.com/julien-nc/cospend-nc/releases/download/v2.0.0/cospend-2.0.0.tar.gz";
-          sha256 = "sha256-N2Vj5LTJpXEedKZljJGJfPSikh6qNBh8OKN7Ne3gt3o=";
+          url = "https://github.com/julien-nc/cospend-nc/releases/download/v3.0.11/cospend-3.0.11.tar.gz";
+          sha256 = "sha256-rfbmlxiZ0sQxidFZ68/icFzHmLoYxLAmH20Nejj1Hv8=";
           license = "agpl3Only";
         };
       };

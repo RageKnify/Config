@@ -246,6 +246,8 @@
       dunst
       fish
       neovim
+      niri
+      waybar
       tmux
       kitty
       gtk

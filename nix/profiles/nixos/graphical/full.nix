@@ -18,6 +18,8 @@ in
 {
   imports = with profiles.nixos.graphical; [ firefox ];
 
+  programs.niri.enable = true;
+
   services.xserver = {
     enable = true;
     xkb = {
@@ -34,8 +36,9 @@ in
           '';
         }
       ];
+      gdm.enable = true;
       lightdm = {
-        enable = true;
+        enable = false;
         extraConfig = ''
           set logind-check-graphical=true
         '';

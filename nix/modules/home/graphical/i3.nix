@@ -193,7 +193,7 @@ in
       Install.WantedBy = mkForce [ "graphical-session-i3.target" ];
     };
     services.picom = {
-      enable = true;
+      enable = false;
       vSync = true;
     };
     services.xscreensaver = {

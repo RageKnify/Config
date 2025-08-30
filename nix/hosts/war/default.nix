@@ -246,6 +246,8 @@
       dunst
       fish
       neovim
+      niri
+      waybar
       tmux
       kitty
       gtk
@@ -257,7 +259,6 @@
     modules = {
       xdg.enable = true;
       graphical = {
-        i3.enable = true;
         polybar = {
           enable = true;
         };

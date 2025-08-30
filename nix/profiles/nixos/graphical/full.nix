@@ -18,6 +18,8 @@ in
 {
   imports = with profiles.nixos.graphical; [ firefox ];
 
+  programs.niri.enable = true;
+
   services.xserver = {
     enable = true;
     xkb = {
@@ -25,38 +27,9 @@ in
       variant = ",intl";
     };
     displayManager = {
-      session = [
-        {
-          name = "user-xsession";
-          manage = "desktop";
-          start = ''
-            exec $HOME/.xsession
-          '';
-        }
-      ];
-      lightdm = {
-        enable = true;
-        extraConfig = ''
-          set logind-check-graphical=true
-        '';
-        greeters.slick = {
-          enable = true;
-          theme = {
-            package = pkgs.solarc-gtk-theme;
-            name = "SolArc";
-          };
-          iconTheme = {
-            package = pkgs.papirus-icon-theme;
-            name = "Papirus-Dark";
-          };
-          extraConfig = ''
-            background=${./wallpapers}/${hostName}/1.png
-          '';
-        };
-      };
+      gdm.enable = true;
     };
   };
-  services.displayManager.defaultSession = "user-xsession";
 
   services.redshift = {
     enable = true;

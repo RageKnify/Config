@@ -42,6 +42,7 @@ let
 
   overlays = [
     inputs.agenix.overlays.default
+    inputs.niri.overlays.niri
     pkg-sets
   ] ++ attrValues myOverlays;
 
@@ -92,6 +93,7 @@ let
               inputs.agenix.nixosModules.age
               inputs.lanzaboote.nixosModules.lanzaboote
               inputs.simple-nixos-mailserver.nixosModule
+              inputs.niri.nixosModules.niri
               inputs.disko.nixosModules.disko
             ]
             ++ systemModules

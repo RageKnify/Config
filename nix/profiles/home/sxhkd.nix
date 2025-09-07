@@ -10,6 +10,7 @@
   config,
   lib,
   osConfig,
+  profiles,
   myLib,
   ...
 }:

@@ -85,12 +85,14 @@
 
   home-manager.users.jp = {
     imports = with profiles.home; [
+      dunst
       fish
       neovim
       tmux
       kitty
       gtk
       ssh
+      rofi
       sxhkd
       fusuma
     ];

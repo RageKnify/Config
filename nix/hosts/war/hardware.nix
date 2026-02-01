@@ -26,6 +26,9 @@
   fileSystems."/" = {
     device = "none";
     fsType = "tmpfs";
+    options = [
+      "X-mount.mode=0755"
+    ];
   };
 
   fileSystems."/nix" = {

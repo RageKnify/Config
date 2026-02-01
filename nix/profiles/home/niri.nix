@@ -115,7 +115,7 @@ in
           "Mod+Shift+E".action = quit;
           "Mod+D" = {
             action = spawn [
-              "${pkgs.rofi-wayland}/bin/rofi"
+              "${pkgs.rofi}/bin/rofi"
               "-matching"
               "normal"
               "-modi"
@@ -155,7 +155,7 @@ in
           "Mod+Shift+Minus".action = set-window-height "-10%";
           "Mod+Shift+Equal".action = set-window-height "+10%";
 
-          "Mod+Print".action = screenshot;
+          "Mod+Print".action.screenshot-screen = {};
 
           # Brightness - logarithmic scale
           "XF86MonBrightnessDown".action.spawn-sh = "${pkgs.light}/bin/light -T 0.618";

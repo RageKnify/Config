@@ -34,15 +34,15 @@ in
   };
 
   config = mkIf cfg.enable {
-    programs.git = {
-      enable = true;
-      delta = {
+    programs.delta = {
         enable = true;
         options = {
           light = true;
         };
-      };
-      extraConfig = {
+    };
+    programs.git = {
+      enable = true;
+      settings = {
         diff.tool = "vimdiff";
         init.defaultBranch = "main";
         pull.rebase = true;
@@ -55,17 +55,17 @@ in
         gpg.format = "ssh";
         gpg.ssh.allowedSignersFile = signers;
         user.signingKey = "~/.ssh/id_ed25519";
-      };
-      aliases = {
-        ca = "commit --amend";
-        st = "status -sv";
-        sts = "status";
-        p = "push";
-        pu = "push -u origin @";
-        pf = "push --force-with-lease";
-        ll = "log --oneline --graph --max-count=30";
-        llw = "log --oneline --graph --max-count=30 --since 'last week'";
-        lll = "log --oneline --graph";
+        aliases = {
+          ca = "commit --amend";
+          st = "status -sv";
+          sts = "status";
+          p = "push";
+          pu = "push -u origin @";
+          pf = "push --force-with-lease";
+          ll = "log --oneline --graph --max-count=30";
+          llw = "log --oneline --graph --max-count=30 --since 'last week'";
+          lll = "log --oneline --graph";
+        };
       };
       includes = cfg.includes;
     };

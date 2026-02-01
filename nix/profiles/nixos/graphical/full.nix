@@ -26,9 +26,10 @@ in
       layout = "us,us";
       variant = ",intl";
     };
-    displayManager = {
-      gdm.enable = true;
-    };
+  };
+
+  services.displayManager = {
+    gdm.enable = true;
   };
 
   services.redshift = {
@@ -53,7 +54,7 @@ in
   fonts.packages = with pkgs; [
     noto-fonts
     noto-fonts-cjk-sans
-    noto-fonts-emoji
+    noto-fonts-color-emoji
     font-awesome
     nerd-fonts.jetbrains-mono
   ];
@@ -79,6 +80,7 @@ in
     kdePackages.dolphin
     feh
     gimp
+    libdisplay-info
     libreoffice
     pavucontrol
     thunderbird

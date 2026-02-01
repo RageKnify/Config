@@ -45,7 +45,7 @@ in
 
     # SSH stuf
     programs.ssh = {
-      startAgent = true;
+      startAgent = false;
       agentTimeout = "30m";
     };
 

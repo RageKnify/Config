@@ -16,7 +16,6 @@
   imports = with profiles.nixos; [
     locale
     dnscrypt
-    inputs.flake-programs-sqlite.nixosModules.programs-sqlite
   ];
   nix = {
     extraOptions = ''

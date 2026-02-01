@@ -19,7 +19,7 @@ in
   services = {
     nextcloud = {
       enable = true;
-      package = pkgs.nextcloud31; # Need to manually increment with every update
+      package = pkgs.nextcloud32; # Need to manually increment with every update
       hostName = "cloud.jborges.eu";
 
       https = true;

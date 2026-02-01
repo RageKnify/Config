@@ -34,7 +34,7 @@ lib.attrsets.optionalAttrs personal.enable {
     chez
     # typst
     typst
-    typstfmt
+    typstyle
     # nixfmt
     nixfmt-rfc-style
     # node

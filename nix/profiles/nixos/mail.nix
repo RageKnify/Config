@@ -70,6 +70,8 @@
     };
 
     certificateScheme = "acme";
+
+    stateVersion = 3;
   };
 
   # we want to use msmtp instead

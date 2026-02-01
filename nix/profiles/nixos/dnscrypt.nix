@@ -20,7 +20,7 @@
       "2606:4700:4700::1003#family.cloudflare-dns.com"
     ];
   };
-  services.dnscrypt-proxy2 = {
+  services.dnscrypt-proxy = {
     enable = true;
     settings = {
       listen_addresses = [ "127.0.0.2:53" ];
@@ -39,7 +39,7 @@
     };
   };
 
-  systemd.services.dnscrypt-proxy2.serviceConfig = {
+  systemd.services.dnscrypt-proxy.serviceConfig = {
     StateDirectory = "dnscrypt-proxy";
   };
 }

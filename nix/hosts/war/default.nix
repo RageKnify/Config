@@ -299,7 +299,7 @@
     git
     riff
     # virtualization
-    virt-manager
+    # virt-manager
 
     # gebaar
 
@@ -311,7 +311,7 @@
   # virtualization
   programs.dconf.enable = true;
   virtualisation = {
-    libvirtd.enable = true;
+    # libvirtd.enable = true;
   };
 
   virtualisation.docker = {

@@ -217,17 +217,19 @@ let
         type = "lua";
         config = ''
           -- common lsp setup
-          local lsp_config = require'lspconfig'
+          local lsp = vim.lsp
           local lsp_setup = require'generic_lsp'
 
           -- ocaml lsp setup
-          lsp_config.ocamllsp.setup(lsp_setup)
+          lsp.config('ocamllsp', lsp_setup)
+          lsp.enable('ocamllsp')
 
           -- typescript lsp setup
-          lsp_config.ts_ls.setup(lsp_setup)
+          lsp.config('ts_ls', lsp_setup)
+          lsp.enable('ts_ls')
 
           -- Rust lsp setup
-          lsp_config.rust_analyzer.setup({
+          lsp.config('rust_analyzer', {
             capabilities = lsp_setup.capabilities,
             on_attach = lsp_setup.on_attach,
             settings = {
@@ -238,6 +240,7 @@ let
               },
             },
           })
+          lsp.enable('rust_analyzer')
         '';
       }
 

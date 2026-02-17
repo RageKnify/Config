@@ -22,6 +22,7 @@
     acme.common
     acme.dns-jborges-eu
     nextcloud
+    navidrome
     nginx.common
     # rickbot # docker image doesn't work
     vpn.tailscale

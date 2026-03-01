@@ -22,5 +22,15 @@
     credentialsFile = config.age.secrets.cloudflare.path;
   };
 
+  # Use services.nginx.virtualHosts."example.bible.jborges.eu".useACMEHost = "bible.jborges.eu";
+  # to use the wildcard certificate on subdomains.
+  security.acme.certs."bible.jborges.eu" = {
+    domain = "bible.jborges.eu";
+    extraDomainNames = [ "*.bible.jborges.eu" ];
+    dnsProvider = "cloudflare";
+    dnsPropagationCheck = true;
+    credentialsFile = config.age.secrets.cloudflare.path;
+  };
+
   users.users.nginx.extraGroups = [ "acme" ];
 }

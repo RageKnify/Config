@@ -21,10 +21,12 @@
     server.full
     acme.common
     acme.dns-jborges-eu
+    lidarr
     nextcloud
     navidrome
     nginx.common
-    # rickbot # docker image doesn't work
+    prowlarr
+    transmission
     vpn.tailscale
     zfs.common
     zfs.email

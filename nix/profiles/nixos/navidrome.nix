@@ -14,8 +14,14 @@ in
 
     settings = {
       Address = socketPath;
-      MusicFolder = "/var/lib/nextcloud/data/jp/files/music";
+      MusicFolder = "/media/music";
     };
+  };
+
+  users.users = {
+    ${config.services.navidrome.user}.extraGroups = [
+      "media"
+    ];
   };
 
   services.nginx.virtualHosts = {

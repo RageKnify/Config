@@ -14,10 +14,10 @@
     enable = true;
     domains = [ "~." ];
     fallbackDns = [
-      "1.1.1.3#family.cloudflare-dns.com"
-      "1.0.0.3#family.cloudflare-dns.com"
-      "2606:4700:4700::1113#family.cloudflare-dns.com"
-      "2606:4700:4700::1003#family.cloudflare-dns.com"
+      "1.1.1.1#cloudflare-dns.com"
+      "1.0.0.1#cloudflare-dns.com"
+      "2606:4700:4700::1113#cloudflare-dns.com"
+      "2606:4700:4700::1003#cloudflare-dns.com"
     ];
   };
   services.dnscrypt-proxy = {
@@ -33,8 +33,8 @@
         "1.0.0.3:53"
       ];
       server_names = [
-        "cloudflare-family"
-        "cloudflare-family-ipv6"
+        "cloudflare"
+        "cloudflare-ipv6"
       ];
     };
   };

@@ -6,6 +6,11 @@
 }:
 let
   domain = "headscale.jborges.eu";
+  serviceOnConquest = service: {
+    name = "${service}.bible.jborges.eu";
+    type = "A";
+    value = "100.64.0.2";
+  };
 in
 {
   services = {
@@ -22,12 +27,10 @@ in
           base_domain = "bible.jborges.eu";
           magic_dns = true;
           override_local_dns = false;
-          extra_records = [
-            {
-              name = "ff3.jborges.eu";
-              type = "A";
-              value = "100.64.0.2";
-            }
+          extra_records = map serviceOnConquest [
+            "lidarr"
+            "prowlarr"
+            "transmission"
           ];
         };
       };

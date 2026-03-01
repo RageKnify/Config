@@ -1,9 +1,9 @@
-# overlays/zfs.nix
+# overlays/navidrome.nix
 #
 # Author: João Borges <RageKnify@gmail.com>
 # URL:    https://github.com/RageKnify/Config
 #
-# Enable email support
+# Navidrome music server
 
 { ... }:
 final: prev: rec {

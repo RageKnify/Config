@@ -30,7 +30,7 @@ in
 
       extraAppsEnable = true;
       extraApps = with config.services.nextcloud.package.packages.apps; {
-        inherit calendar contacts tasks;
+        inherit calendar contacts notes tasks;
         cookbook = pkgs.fetchNextcloudApp rec {
           url = "https://github.com/christianlupus-nextcloud/cookbook-releases/releases/download/v0.11.3/cookbook-0.11.3.tar.gz";
           sha256 = "sha256-EWLBypv588IkO1wx0vFv26NSk5GKx1pqSWTlAcW2mwE=";

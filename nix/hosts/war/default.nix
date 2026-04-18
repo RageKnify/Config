@@ -321,6 +321,8 @@
 
   services.fwupd.enable = true;
 
+  services.blueman.enable = true;
+
   boot.plymouth.enable = true;
   boot.initrd.systemd.enable = true;
 

@@ -10,3 +10,7 @@ Usefull nix links:
 [packages]: https://search.nixos.org/packages
 [home-manager]: https://mipmip.github.io/home-manager-option-search/
 [functions]: https://teu5us.github.io/nix-lib.html
+
+## Mail Server
+
+Sieve filters are located in `/var/sieve`

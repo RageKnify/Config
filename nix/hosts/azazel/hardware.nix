@@ -89,6 +89,15 @@
     options = [ "zfsutil" ];
   };
 
+  fileSystems."/var/log" = {
+    device = "rpool/local/var/log";
+    fsType = "zfs";
+    options = [
+      "zfsutil"
+      "X-mount.mkdir"
+    ];
+  };
+
   fileSystems."/persist" = {
     device = "rpool/safe/persist";
     fsType = "zfs";

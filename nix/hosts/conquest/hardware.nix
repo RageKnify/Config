@@ -128,6 +128,11 @@ in
               mountpoint = "/nix";
               mountOptions = [ "zfsutil" ];
             };
+            "local/var/log" = {
+              type = "zfs_fs";
+              mountpoint = "/var/log";
+              mountOptions = [ "zfsutil" "X-mount.mkdir" ];
+            };
           };
         };
         dpool = {
